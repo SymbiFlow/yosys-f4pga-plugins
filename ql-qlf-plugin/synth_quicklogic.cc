@@ -217,9 +217,9 @@ struct SynthQuickLogicPass : public ScriptPass {
         if (family != "pp3" && family != "qlf_k4n8" && family != "qlf_k6n10" && family != "qlf_k6n10f")
             log_cmd_error("Invalid family specified: '%s'\n", family.c_str());
 
-        if (family != "pp3") {
-            abc9 = false;
-        }
+        //if (family != "pp3") {
+           // abc9 = false;
+        //}
 
         if (family == "qlf_k4n8") {
             nosdff = true;
@@ -493,7 +493,15 @@ struct SynthQuickLogicPass : public ScriptPass {
         if (check_label("map_luts")) {
             if (abcOpt) {
                 if (family == "qlf_k6n10" || family == "qlf_k6n10f") {
-                    run("abc -lut 6 ");
+                    if (abc9) {
+                        run("read_verilog -lib -specify -icells +/quicklogic/pp3/abc9_model.v");
+                        run("techmap -map +/quicklogic/pp3/abc9_map.v");
+                        //run("abc9 -maxlut 6 -dff");
+                        run("abc9 -maxlut 6");
+                        run("techmap -map +/quicklogic/pp3/abc9_unmap.v");
+                    } else {
+                        run("abc -lut 6 ");
+		    }
                 } else if (family == "qlf_k4n8") {
                     run("abc -lut 4 ");
                 } else if (family == "pp3") {
