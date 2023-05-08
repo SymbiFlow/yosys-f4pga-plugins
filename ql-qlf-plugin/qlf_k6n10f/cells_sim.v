@@ -18,7 +18,7 @@
 
 `default_nettype none
 
-(* abc9_lut=1, lib_whitebox *)
+(* lib_whitebox *)
 module frac_lut6(
     input [0:5] in,
     output [0:3] lut4_out,
@@ -65,6 +65,25 @@ module frac_lut6(
 
     assign lut6_out = li[5] ? s5[0] : s5[1];
 
+    specify
+      (in[0] => lut6_out) = 116;
+      (in[1] => lut6_out) = 116;
+      (in[2] => lut6_out) = 116;
+      (in[3] => lut6_out) = 116;
+      (in[4] => lut6_out) = 116;
+      (in[5] => lut6_out) = 116;
+      (in[0] => lut5_out[0]) = 116;
+      (in[1] => lut5_out[0]) = 116;
+      (in[2] => lut5_out[0]) = 116;
+      (in[3] => lut5_out[0]) = 116;
+      (in[4] => lut5_out[0]) = 116;
+      (in[0] => lut4_out[0]) = 116;
+      (in[1] => lut4_out[0]) = 116;
+      (in[2] => lut4_out[0]) = 116;
+      (in[3] => lut4_out[0]) = 116;
+    endspecify
+
+
 endmodule
 
 
@@ -75,7 +94,7 @@ module LUT1(output O, input I0);
   parameter [1:0] INIT = 0;
   assign O = I0 ? INIT[1] : INIT[0];
   specify
-    (I0 => O) = 127;
+    (I0 => O) = 74;
   endspecify
 endmodule
 
@@ -85,8 +104,8 @@ module LUT2(output O, input I0, I1);
   wire [ 1: 0] s1 = I1 ? INIT[ 3: 2] : INIT[ 1: 0];
   assign O = I0 ? s1[1] : s1[0];
   specify
-    (I0 => O) = 238;
-    (I1 => O) = 127;
+    (I0 => O) = 116;
+    (I1 => O) = 74;
   endspecify
 endmodule
 
@@ -97,9 +116,9 @@ module LUT3(output O, input I0, I1, I2);
   wire [ 1: 0] s1 = I1 ?   s2[ 3: 2] :   s2[ 1: 0];
   assign O = I0 ? s1[1] : s1[0];
   specify
-    (I0 => O) = 407;
-    (I1 => O) = 238;
-    (I2 => O) = 127;
+    (I0 => O) = 162;
+    (I1 => O) = 116;
+    (I2 => O) = 174;
   endspecify
 endmodule
 
@@ -111,10 +130,10 @@ module LUT4(output O, input I0, I1, I2, I3);
   wire [ 1: 0] s1 = I1 ?   s2[ 3: 2] :   s2[ 1: 0];
   assign O = I0 ? s1[1] : s1[0];
   specify
-    (I0 => O) = 472;
-    (I1 => O) = 407;
-    (I2 => O) = 238;
-    (I3 => O) = 127;
+    (I0 => O) = 201;
+    (I1 => O) = 162;
+    (I2 => O) = 116;
+    (I3 => O) = 74;
   endspecify
 endmodule
 
@@ -127,11 +146,11 @@ module LUT5(output O, input I0, I1, I2, I3, I4);
   wire [ 1: 0] s1 = I1 ?   s2[ 3: 2] :   s2[ 1: 0];
   assign O = I0 ? s1[1] : s1[0];
   specify
-    (I0 => O) = 631;
-    (I1 => O) = 472;
-    (I2 => O) = 407;
-    (I3 => O) = 238;
-    (I4 => O) = 127;
+    (I0 => O) = 228;
+    (I1 => O) = 189;
+    (I2 => O) = 143;
+    (I3 => O) = 100;
+    (I4 => O) = 55;
   endspecify
 endmodule
 
@@ -145,12 +164,12 @@ module LUT6(output O, input I0, I1, I2, I3, I4, I5);
   wire [ 1: 0] s1 = I1 ?   s2[ 3: 2] :   s2[ 1: 0];
   assign O = I0 ? s1[1] : s1[0];
   specify
-    (I0 => O) = 642;
-    (I1 => O) = 631;
-    (I2 => O) = 472;
-    (I3 => O) = 407;
-    (I4 => O) = 238;
-    (I5 => O) = 127;
+    (I0 => O) = 251;
+    (I1 => O) = 212;
+    (I2 => O) = 166;
+    (I3 => O) = 123;
+    (I4 => O) = 77;
+    (I5 => O) = 43;
   endspecify
 endmodule
 
@@ -185,12 +204,12 @@ module adder_carry(
     assign cout = p ? cin : g;
 	
     specify
-        (p => sumout) = 0;
-        (g => sumout) = 0;
-        (cin => sumout) = 0;
-        (p => cout) = 0;
-        (g => cout) = 0;
-        (cin => cout) = 0;
+        (p => sumout) = 35;
+        (g => sumout) = 35;
+        (cin => sumout) = 40;
+        (p => cout) = 67;
+        (g => cout) = 65;
+        (cin => cout) = 69;
     endspecify
 
 endmodule
@@ -208,8 +227,8 @@ module dff(
       Q <= D;
 
     specify
-	    (posedge C=>(Q+:D)) = 0;
-	    $setuphold(posedge C, D, 0, 0);
+	    (posedge C=>(Q+:D)) = 285;
+	    $setuphold(posedge C, D, 56, 0);
     endspecify
 
 endmodule
@@ -227,8 +246,8 @@ module dffn(
       Q <= D;
 	  
     specify
-	    (negedge C=>(Q+:D)) = 0;
-	    $setuphold(negedge C, D, 0, 0);
+	    (negedge C=>(Q+:D)) = 285;
+	    $setuphold(negedge C, D, 56, 0);
     endspecify
 
 endmodule
@@ -254,11 +273,11 @@ module dffsre(
         Q <= D;
 
     specify
-      (posedge C => (Q +: D)) = 0;
+      (posedge C => (Q +: D)) = 280;
       (R => Q) = 0;
       (S => Q) = 0;
-      $setuphold(posedge C, D, 0, 0);
-      $setuphold(posedge C, E, 0, 0);
+      $setuphold(posedge C, D, 56, 0);
+      $setuphold(posedge C, E, 32, 0);
       $setuphold(posedge C, R, 0, 0);
       $setuphold(posedge C, S, 0, 0);
       $recrem(posedge R, posedge C, 0, 0);
@@ -288,11 +307,11 @@ module dffnsre(
         Q <= D;
 		
     specify
-      (negedge C => (Q +: D)) = 0;
+      (negedge C => (Q +: D)) = 280;
       (R => Q) = 0;
       (S => Q) = 0;
-      $setuphold(negedge C, D, 0, 0);
-      $setuphold(negedge C, E, 0, 0);
+      $setuphold(negedge C, D, 56, 0);
+      $setuphold(negedge C, E, 32, 0);
       $setuphold(negedge C, R, 0, 0);
       $setuphold(negedge C, S, 0, 0);
       $recrem(posedge R, negedge C, 0, 0);
@@ -322,9 +341,9 @@ module sdffsre(
         Q <= D;
 		
     specify
-        (posedge C => (Q +: D)) = 0;
-        $setuphold(posedge C, D, 0, 0);
-        $setuphold(posedge C, R, 0, 0);
+        (posedge C => (Q +: D)) = 280;
+        $setuphold(posedge C, D, 56, 0);
+        $setuphold(posedge C, R, 32, 0);
         $setuphold(posedge C, S, 0, 0);
         $setuphold(posedge C, E, 0, 0);
     endspecify
@@ -352,9 +371,9 @@ module sdffnsre(
         Q <= D;
 		
     specify
-        (negedge C => (Q +: D)) = 0;
-        $setuphold(negedge C, D, 0, 0);
-        $setuphold(negedge C, R, 0, 0);
+        (negedge C => (Q +: D)) = 280;
+        $setuphold(negedge C, D, 56, 0);
+        $setuphold(negedge C, R, 32, 0);
         $setuphold(negedge C, S, 0, 0);
         $setuphold(negedge C, E, 0, 0);
     endspecify
