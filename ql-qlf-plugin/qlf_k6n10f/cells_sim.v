@@ -192,7 +192,7 @@ module sh_dff(
 
 endmodule
 
-(* abc9_box, lib_whitebox *)
+(* abc9_box, lib_blackbox *)
 module adder_carry(
     output wire sumout,
     output wire cout,
