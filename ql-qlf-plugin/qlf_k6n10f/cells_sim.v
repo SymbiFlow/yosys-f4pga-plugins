@@ -192,12 +192,14 @@ module sh_dff(
 
 endmodule
 
-(* abc9_box, lib_blackbox *)
+(* abc9_box, lib_whitebox *)
 module adder_carry(
     output wire sumout,
+    (* abc9_carry *)
     output wire cout,
     input wire p,
     input wire g,
+    (* abc9_carry *)
     input wire cin
 );
     assign sumout = p ^ cin;
