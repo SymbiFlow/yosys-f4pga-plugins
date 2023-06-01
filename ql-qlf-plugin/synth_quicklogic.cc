@@ -495,10 +495,10 @@ struct SynthQuickLogicPass : public ScriptPass {
                 if (family == "qlf_k6n10" || family == "qlf_k6n10f") {
                     if (abc9) {
                         run("read_verilog -lib -specify -icells +/quicklogic/pp3/abc9_model.v");
-                        run("techmap -map +/quicklogic/pp3/abc9_map.v");
+                        //run("techmap -map +/quicklogic/pp3/abc9_map.v");
                         //run("abc9 -maxlut 6 -dff");
                         run("abc9 -maxlut 6");
-                        run("techmap -map +/quicklogic/pp3/abc9_unmap.v");
+                        //run("techmap -map +/quicklogic/pp3/abc9_unmap.v");
                     } else {
                         run("abc -lut 6 ");
 		    }
