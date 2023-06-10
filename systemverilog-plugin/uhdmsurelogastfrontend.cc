@@ -33,14 +33,12 @@
 
 #include <list>
 
-#include "Surelog/ErrorReporting/Report.h"
-#include "Surelog/surelog.h"
-
-namespace UHDM
-{
-extern void visit_object(vpiHandle obj_h, int indent, const char *relation, std::set<const BaseClass *> *visited, std::ostream &out,
-                         bool shallowVisit = false);
-}
+#include "Surelog/API/Surelog.h"
+#include "Surelog/CommandLine/CommandLineParser.h"
+#include "Surelog/ErrorReporting/ErrorContainer.h"
+#include "Surelog/SourceCompile/SymbolTable.h"
+#include "uhdm/uhdm-version.h" // UHDM_VERSION define
+#include "uhdm/vpi_visitor.h"  // visit_object
 
 namespace systemverilog_plugin
 {
@@ -118,6 +116,7 @@ class Compiler
 struct UhdmSurelogAstFrontend : public UhdmCommonFrontend {
     UhdmSurelogAstFrontend(std::string name, std::string short_help) : UhdmCommonFrontend(name, short_help) {}
     UhdmSurelogAstFrontend() : UhdmCommonFrontend("verilog_with_uhdm", "generate/read UHDM file") {}
+
     void help() override
     {
         //   |---v---|---v---|---v---|---v---|---v---|---v---|---v---|---v---|---v---|---v---|
@@ -128,6 +127,7 @@ struct UhdmSurelogAstFrontend : public UhdmCommonFrontend {
         log("\n");
         this->print_read_options();
     }
+
     AST::AstNode *parse(std::string filename) override
     {
         std::vector<const char *> cstrings;
@@ -172,6 +172,7 @@ struct UhdmSurelogAstFrontend : public UhdmCommonFrontend {
         clp->setParse(true);
         clp->fullSVMode(true);
         clp->setCacheAllowed(true);
+        clp->setReportNonSynthesizable(true);
         if (this->shared.defer) {
             clp->setCompile(false);
             clp->setElaborate(false);
@@ -190,7 +191,11 @@ struct UhdmSurelogAstFrontend : public UhdmCommonFrontend {
         if (this->shared.debug_flag || !this->report_directory.empty()) {
             for (auto design : uhdm_designs) {
                 std::ofstream null_stream;
+#if UHDM_VERSION > 1057
+                UHDM::visit_object(design, this->shared.debug_flag ? std::cout : null_stream);
+#else
                 UHDM::visit_object(design, 1, "", &this->shared.report.unhandled, this->shared.debug_flag ? std::cout : null_stream);
+#endif
             }
         }
 

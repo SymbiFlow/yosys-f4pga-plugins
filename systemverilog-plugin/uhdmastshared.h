@@ -1,6 +1,8 @@
 #ifndef _UHDM_AST_SHARED_H_
 #define _UHDM_AST_SHARED_H_ 1
 
+#include "frontends/ast/ast.h"
+
 #include "uhdmastreport.h"
 #include <string>
 #include <unordered_map>
@@ -20,7 +22,20 @@ class UhdmAstShared
     // Used for generating loop names
     unsigned loop_count = 0;
 
+    // Used for generating unique names for anonymous types used as parameters.
+    unsigned anonymous_type_count = 0;
+
+    // Used to generate unique names for anonymous enum typedefs
+    unsigned anonymous_enum_typedef_count = 0;
+
   public:
+    ~UhdmAstShared()
+    {
+        for (const auto &param : param_types)
+            delete param.second;
+        param_types.clear();
+    }
+
     // Generate the next enum ID (starting with 0)
     unsigned next_enum_id() { return enum_count++; }
 
@@ -29,6 +44,12 @@ class UhdmAstShared
 
     // Generate the next loop ID (starting with 0)
     unsigned next_loop_id() { return loop_count++; }
+
+    // Generate the next anonymous type ID (starting with 0).
+    unsigned next_anonymous_type_id() { return anonymous_type_count++; }
+
+    // Generate the next anonymous enum typedef ID (starting with 0).
+    unsigned next_anonymous_enum_typedef_id() { return anonymous_enum_typedef_count++; }
 
     // Flag that determines whether debug info should be printed
     bool debug_flag = false;
@@ -66,8 +87,12 @@ class UhdmAstShared
     std::unordered_map<std::string, ::Yosys::AST::AstNode *> param_types;
 
     ::Yosys::AST::AstNode *current_top_node = nullptr;
+
     // Set of non-synthesizable objects to skip in current design;
     std::set<const UHDM::BaseClass *> nonSynthesizableObjects;
+
+    // Map of anonymous enum types to generated typedefs
+    std::unordered_map<const UHDM::enum_typespec *, std::string> anonymous_enums;
 };
 
 } // namespace systemverilog_plugin
