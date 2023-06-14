@@ -25,6 +25,7 @@ SOURCES = synth_quicklogic.cc \
           ql-dsp-simd.cc \
           ql-dsp-macc.cc \
           ql-bram-split.cc \
+          ql-bram-merge.cc \
           ql-dsp-io-regs.cc \
           ql-bram-asymmetric.cc
 
@@ -57,12 +58,15 @@ VERILOG_MODULES = $(COMMON)/cells_sim.v         \
                   $(QLF_K6N10F_DIR)/dsp_sim.v \
                   $(QLF_K6N10F_DIR)/primitives_sim.v \
                   $(QLF_K6N10F_DIR)/brams_sim.v \
+                  $(QLF_K6N10F_DIR)/bram_types_sim.v \
                   $(QLF_K6N10F_DIR)/sram1024x18.v \
                   $(QLF_K6N10F_DIR)/TDP18K_FIFO.v \
                   $(QLF_K6N10F_DIR)/ufifo_ctl.v \
                   $(QLF_K6N10F_DIR)/ffs_map.v   \
                   $(QLF_K6N10F_DIR)/dsp_map.v   \
                   $(QLF_K6N10F_DIR)/dsp_final_map.v \
+				  $(QLF_K6N10F_DIR)/libmap_brams_map.v \
+				  $(QLF_K6N10F_DIR)/libmap_brams.txt \
                   $(PP3_DIR)/abc9_map.v    \
                   $(PP3_DIR)/abc9_model.v  \
                   $(PP3_DIR)/abc9_unmap.v  \
@@ -88,8 +92,8 @@ $(PMGEN_OUT_DIR):
 
 DEPS := $(PMGEN_OUT_DIR)/ql-dsp-pm.h \
         $(PMGEN_OUT_DIR)/ql-dsp-macc.h \
-        $(PMGEN_OUT_DIR)/ql-bram-asymmetric-wider-write.h \
-        $(PMGEN_OUT_DIR)/ql-bram-asymmetric-wider-read.h
+		$(PMGEN_OUT_DIR)/ql-bram-asymmetric-wider-write.h \
+		$(PMGEN_OUT_DIR)/ql-bram-asymmetric-wider-read.h
 
 $(DEPS): $(PMGEN_PY) | $(PMGEN_OUT_DIR)
 
@@ -106,6 +110,9 @@ $(PMGEN_OUT_DIR)/ql-bram-asymmetric-wider-write.h: ql-bram-asymmetric-wider-writ
 
 $(PMGEN_OUT_DIR)/ql-bram-asymmetric-wider-read.h: ql-bram-asymmetric-wider-read.pmg
 	python3 $(PMGEN_PY) -o $@ -p ql_bram_asymmetric_wider_read ql-bram-asymmetric-wider-read.pmg
+
+$(QLF_K6N10F_DIR)/bram_types_sim.v: $(QLF_K6N10F_DIR)/generate_bram_types_sim.py
+	python3 $^ $@
 
 install_modules: $(VERILOG_MODULES)
 	$(foreach f,$^,install -D $(f) $(YOSYS_DATA_DIR)/quicklogic/$(f);)

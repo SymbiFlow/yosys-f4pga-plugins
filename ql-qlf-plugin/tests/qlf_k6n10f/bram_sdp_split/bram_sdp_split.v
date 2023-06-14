@@ -25,7 +25,7 @@ parameter DWIDTH = 32)(
 	input      [AWIDTH-1:0] wa;
 	input      [DWIDTH-1:0] wd;
 
-	reg        [DWIDTH-1:0] memory[0:(1<<AWIDTH)-1];
+	(* no_rw_check = 1 *) reg [DWIDTH-1:0] memory[0:(1<<AWIDTH)-1];
 
 	always @(posedge clk) begin
 		if (rce)
@@ -33,13 +33,6 @@ parameter DWIDTH = 32)(
 
 		if (wce)
 			memory[wa] <= wd;
-	end
-
-	integer i;
-	initial
-	begin
-		for(i = 0; i < (1<<AWIDTH)-1; i = i + 1)
-			memory[i] = 0;
 	end
 
 endmodule

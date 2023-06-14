@@ -17,111 +17,6 @@
 
 `default_nettype none
 
-module TDP_BRAM18 (
-    (* clkbuf_sink *)
-    input wire CLOCKA,
-    (* clkbuf_sink *)
-    input wire CLOCKB,
-    input wire READENABLEA,
-    input wire READENABLEB,
-    input wire [13:0] ADDRA,
-    input wire [13:0] ADDRB,
-    input wire [15:0] WRITEDATAA,
-    input wire [15:0] WRITEDATAB,
-    input wire [1:0] WRITEDATAAP,
-    input wire [1:0] WRITEDATABP,
-    input wire WRITEENABLEA,
-    input wire WRITEENABLEB,
-    input wire [1:0] BYTEENABLEA,
-    input wire [1:0] BYTEENABLEB,
-    //input wire [2:0] WRITEDATAWIDTHA,
-    //input wire [2:0] WRITEDATAWIDTHB,
-    //input wire [2:0] READDATAWIDTHA,
-    //input wire [2:0] READDATAWIDTHB,
-    output wire [15:0] READDATAA,
-    output wire [15:0] READDATAB,
-    output wire [1:0] READDATAAP,
-    output wire [1:0] READDATABP
-);
-    parameter INITP_00 = 256'h0000000000000000000000000000000000000000000000000000000000000000;
-    parameter INITP_01 = 256'h0000000000000000000000000000000000000000000000000000000000000000;
-    parameter INITP_02 = 256'h0000000000000000000000000000000000000000000000000000000000000000;
-    parameter INITP_03 = 256'h0000000000000000000000000000000000000000000000000000000000000000;
-    parameter INITP_04 = 256'h0000000000000000000000000000000000000000000000000000000000000000;
-    parameter INITP_05 = 256'h0000000000000000000000000000000000000000000000000000000000000000;
-    parameter INITP_06 = 256'h0000000000000000000000000000000000000000000000000000000000000000;
-    parameter INITP_07 = 256'h0000000000000000000000000000000000000000000000000000000000000000;
-    parameter INIT_00 = 256'h0000000000000000000000000000000000000000000000000000000000000000;
-    parameter INIT_01 = 256'h0000000000000000000000000000000000000000000000000000000000000000;
-    parameter INIT_02 = 256'h0000000000000000000000000000000000000000000000000000000000000000;
-    parameter INIT_03 = 256'h0000000000000000000000000000000000000000000000000000000000000000;
-    parameter INIT_04 = 256'h0000000000000000000000000000000000000000000000000000000000000000;
-    parameter INIT_05 = 256'h0000000000000000000000000000000000000000000000000000000000000000;
-    parameter INIT_06 = 256'h0000000000000000000000000000000000000000000000000000000000000000;
-    parameter INIT_07 = 256'h0000000000000000000000000000000000000000000000000000000000000000;
-    parameter INIT_08 = 256'h0000000000000000000000000000000000000000000000000000000000000000;
-    parameter INIT_09 = 256'h0000000000000000000000000000000000000000000000000000000000000000;
-    parameter INIT_0A = 256'h0000000000000000000000000000000000000000000000000000000000000000;
-    parameter INIT_0B = 256'h0000000000000000000000000000000000000000000000000000000000000000;
-    parameter INIT_0C = 256'h0000000000000000000000000000000000000000000000000000000000000000;
-    parameter INIT_0D = 256'h0000000000000000000000000000000000000000000000000000000000000000;
-    parameter INIT_0E = 256'h0000000000000000000000000000000000000000000000000000000000000000;
-    parameter INIT_0F = 256'h0000000000000000000000000000000000000000000000000000000000000000;
-    parameter INIT_10 = 256'h0000000000000000000000000000000000000000000000000000000000000000;
-    parameter INIT_11 = 256'h0000000000000000000000000000000000000000000000000000000000000000;
-    parameter INIT_12 = 256'h0000000000000000000000000000000000000000000000000000000000000000;
-    parameter INIT_13 = 256'h0000000000000000000000000000000000000000000000000000000000000000;
-    parameter INIT_14 = 256'h0000000000000000000000000000000000000000000000000000000000000000;
-    parameter INIT_15 = 256'h0000000000000000000000000000000000000000000000000000000000000000;
-    parameter INIT_16 = 256'h0000000000000000000000000000000000000000000000000000000000000000;
-    parameter INIT_17 = 256'h0000000000000000000000000000000000000000000000000000000000000000;
-    parameter INIT_18 = 256'h0000000000000000000000000000000000000000000000000000000000000000;
-    parameter INIT_19 = 256'h0000000000000000000000000000000000000000000000000000000000000000;
-    parameter INIT_1A = 256'h0000000000000000000000000000000000000000000000000000000000000000;
-    parameter INIT_1B = 256'h0000000000000000000000000000000000000000000000000000000000000000;
-    parameter INIT_1C = 256'h0000000000000000000000000000000000000000000000000000000000000000;
-    parameter INIT_1D = 256'h0000000000000000000000000000000000000000000000000000000000000000;
-    parameter INIT_1E = 256'h0000000000000000000000000000000000000000000000000000000000000000;
-    parameter INIT_1F = 256'h0000000000000000000000000000000000000000000000000000000000000000;
-    parameter INIT_20 = 256'h0000000000000000000000000000000000000000000000000000000000000000;
-    parameter INIT_21 = 256'h0000000000000000000000000000000000000000000000000000000000000000;
-    parameter INIT_22 = 256'h0000000000000000000000000000000000000000000000000000000000000000;
-    parameter INIT_23 = 256'h0000000000000000000000000000000000000000000000000000000000000000;
-    parameter INIT_24 = 256'h0000000000000000000000000000000000000000000000000000000000000000;
-    parameter INIT_25 = 256'h0000000000000000000000000000000000000000000000000000000000000000;
-    parameter INIT_26 = 256'h0000000000000000000000000000000000000000000000000000000000000000;
-    parameter INIT_27 = 256'h0000000000000000000000000000000000000000000000000000000000000000;
-    parameter INIT_28 = 256'h0000000000000000000000000000000000000000000000000000000000000000;
-    parameter INIT_29 = 256'h0000000000000000000000000000000000000000000000000000000000000000;
-    parameter INIT_2A = 256'h0000000000000000000000000000000000000000000000000000000000000000;
-    parameter INIT_2B = 256'h0000000000000000000000000000000000000000000000000000000000000000;
-    parameter INIT_2C = 256'h0000000000000000000000000000000000000000000000000000000000000000;
-    parameter INIT_2D = 256'h0000000000000000000000000000000000000000000000000000000000000000;
-    parameter INIT_2E = 256'h0000000000000000000000000000000000000000000000000000000000000000;
-    parameter INIT_2F = 256'h0000000000000000000000000000000000000000000000000000000000000000;
-    parameter INIT_30 = 256'h0000000000000000000000000000000000000000000000000000000000000000;
-    parameter INIT_31 = 256'h0000000000000000000000000000000000000000000000000000000000000000;
-    parameter INIT_32 = 256'h0000000000000000000000000000000000000000000000000000000000000000;
-    parameter INIT_33 = 256'h0000000000000000000000000000000000000000000000000000000000000000;
-    parameter INIT_34 = 256'h0000000000000000000000000000000000000000000000000000000000000000;
-    parameter INIT_35 = 256'h0000000000000000000000000000000000000000000000000000000000000000;
-    parameter INIT_36 = 256'h0000000000000000000000000000000000000000000000000000000000000000;
-    parameter INIT_37 = 256'h0000000000000000000000000000000000000000000000000000000000000000;
-    parameter INIT_38 = 256'h0000000000000000000000000000000000000000000000000000000000000000;
-    parameter INIT_39 = 256'h0000000000000000000000000000000000000000000000000000000000000000;
-    parameter INIT_3A = 256'h0000000000000000000000000000000000000000000000000000000000000000;
-    parameter INIT_3B = 256'h0000000000000000000000000000000000000000000000000000000000000000;
-    parameter INIT_3C = 256'h0000000000000000000000000000000000000000000000000000000000000000;
-    parameter INIT_3D = 256'h0000000000000000000000000000000000000000000000000000000000000000;
-    parameter INIT_3E = 256'h0000000000000000000000000000000000000000000000000000000000000000;
-    parameter INIT_3F = 256'h0000000000000000000000000000000000000000000000000000000000000000;
-    parameter integer READ_WIDTH_A = 0;
-    parameter integer READ_WIDTH_B = 0;
-    parameter integer WRITE_WIDTH_A = 0;
-    parameter integer WRITE_WIDTH_B = 0;
-
-endmodule
-
 module TDP36K (
     RESET_ni,
     WEN_A1_i,
@@ -780,644 +675,416 @@ module TDP36K (
     );
 endmodule
 
-module BRAM2x18_TDP (A1ADDR, A1DATA, A1EN, B1ADDR, B1DATA, B1EN, C1ADDR, C1DATA, C1EN, CLK1, CLK2, CLK3, CLK4, D1ADDR, D1DATA, D1EN, E1ADDR, E1DATA, E1EN, F1ADDR, F1DATA, F1EN, G1ADDR, G1DATA, G1EN, H1ADDR, H1DATA, H1EN);
-    parameter CFG_ABITS = 11;
-    parameter CFG_DBITS = 18;
-    parameter CFG_ENABLE_B = 4;
-    parameter CFG_ENABLE_D = 4;
-    parameter CFG_ENABLE_F = 4;
-    parameter CFG_ENABLE_H = 4;
-
-    parameter CLKPOL2 = 1;
-    parameter CLKPOL3 = 1;
-    parameter [18431:0] INIT0 = 18432'bx;
-    parameter [18431:0] INIT1 = 18432'bx;
-
-    localparam MODE_36 = 3'b011; // 36- or 32-bit
-    localparam MODE_18 = 3'b010; // 18- or 16-bit
-    localparam MODE_9 = 3'b001; // 9- or 8-bit
-    localparam MODE_4 = 3'b100; // 4-bit
-    localparam MODE_2 = 3'b110; // 2-bit
-    localparam MODE_1 = 3'b101; // 1-bit
-
-    input wire CLK1;
-    input wire CLK2;
-    input wire CLK3;
-    input wire CLK4;
-
-    input  wire [CFG_ABITS-1:0] A1ADDR;
-    output wire [CFG_DBITS-1:0] A1DATA;
-    input  wire A1EN;
-
-    input  wire [CFG_ABITS-1:0] B1ADDR;
-    input  wire [CFG_DBITS-1:0] B1DATA;
-    input  wire [CFG_ENABLE_B-1:0] B1EN;
-
-    input  wire [CFG_ABITS-1:0] C1ADDR;
-    output wire [CFG_DBITS-1:0] C1DATA;
-    input  wire C1EN;
-
-    input  wire [CFG_ABITS-1:0] D1ADDR;
-    input  wire [CFG_DBITS-1:0] D1DATA;
-    input  wire [CFG_ENABLE_D-1:0] D1EN;
-
-    input  wire [CFG_ABITS-1:0] E1ADDR;
-    output wire [CFG_DBITS-1:0] E1DATA;
-    input  wire E1EN;
-
-    input  wire [CFG_ABITS-1:0] F1ADDR;
-    input  wire [CFG_DBITS-1:0] F1DATA;
-    input  wire [CFG_ENABLE_F-1:0] F1EN;
-
-    input  wire [CFG_ABITS-1:0] G1ADDR;
-    output wire [CFG_DBITS-1:0] G1DATA;
-    input  wire G1EN;
-
-    input  wire [CFG_ABITS-1:0] H1ADDR;
-    input  wire [CFG_DBITS-1:0] H1DATA;
-    input  wire [CFG_ENABLE_H-1:0] H1EN;
-
-    wire FLUSH1;
-    wire FLUSH2;
-    wire SPLIT;
-
-    wire [13:CFG_ABITS] A1ADDR_CMPL = {14-CFG_ABITS{1'b0}};
-    wire [13:CFG_ABITS] B1ADDR_CMPL = {14-CFG_ABITS{1'b0}};
-    wire [13:CFG_ABITS] C1ADDR_CMPL = {14-CFG_ABITS{1'b0}};
-    wire [13:CFG_ABITS] D1ADDR_CMPL = {14-CFG_ABITS{1'b0}};
-    wire [13:CFG_ABITS] E1ADDR_CMPL = {14-CFG_ABITS{1'b0}};
-    wire [13:CFG_ABITS] F1ADDR_CMPL = {14-CFG_ABITS{1'b0}};
-    wire [13:CFG_ABITS] G1ADDR_CMPL = {14-CFG_ABITS{1'b0}};
-    wire [13:CFG_ABITS] H1ADDR_CMPL = {14-CFG_ABITS{1'b0}};
-
-    wire [13:0] A1ADDR_TOTAL = {A1ADDR_CMPL, A1ADDR};
-    wire [13:0] B1ADDR_TOTAL = {B1ADDR_CMPL, B1ADDR};
-    wire [13:0] C1ADDR_TOTAL = {C1ADDR_CMPL, C1ADDR};
-    wire [13:0] D1ADDR_TOTAL = {D1ADDR_CMPL, D1ADDR};
-    wire [13:0] E1ADDR_TOTAL = {E1ADDR_CMPL, E1ADDR};
-    wire [13:0] F1ADDR_TOTAL = {F1ADDR_CMPL, F1ADDR};
-    wire [13:0] G1ADDR_TOTAL = {G1ADDR_CMPL, G1ADDR};
-    wire [13:0] H1ADDR_TOTAL = {H1ADDR_CMPL, H1ADDR};
-
-    wire [17:CFG_DBITS] A1_RDATA_CMPL;
-    wire [17:CFG_DBITS] C1_RDATA_CMPL;
-    wire [17:CFG_DBITS] E1_RDATA_CMPL;
-    wire [17:CFG_DBITS] G1_RDATA_CMPL;
-
-    wire [17:CFG_DBITS] B1_WDATA_CMPL;
-    wire [17:CFG_DBITS] D1_WDATA_CMPL;
-    wire [17:CFG_DBITS] F1_WDATA_CMPL;
-    wire [17:CFG_DBITS] H1_WDATA_CMPL;
-
-    wire [13:0] PORT_A1_ADDR;
-    wire [13:0] PORT_A2_ADDR;
-    wire [13:0] PORT_B1_ADDR;
-    wire [13:0] PORT_B2_ADDR;
-
-    case (CFG_DBITS)
-        1: begin
-            assign PORT_A1_ADDR = A1EN ? A1ADDR_TOTAL : (B1EN ? B1ADDR_TOTAL : 14'd0);
-            assign PORT_B1_ADDR = C1EN ? C1ADDR_TOTAL : (D1EN ? D1ADDR_TOTAL : 14'd0);
-            assign PORT_A2_ADDR = E1EN ? E1ADDR_TOTAL : (F1EN ? F1ADDR_TOTAL : 14'd0);
-            assign PORT_B2_ADDR = G1EN ? G1ADDR_TOTAL : (H1EN ? H1ADDR_TOTAL : 14'd0);
-            defparam bram_2x18k.MODE_BITS = { 1'b1,
-                11'd10, 11'd10, 4'd0, MODE_1, MODE_1, MODE_1, MODE_1, 1'd0,
-                12'd10, 12'd10, 4'd0, MODE_1, MODE_1, MODE_1, MODE_1, 1'd0
-            };
-        end
-
-        2: begin
-            assign PORT_A1_ADDR = A1EN ? (A1ADDR_TOTAL << 1) : (B1EN ? (B1ADDR_TOTAL << 1) : 14'd0);
-            assign PORT_B1_ADDR = C1EN ? (C1ADDR_TOTAL << 1) : (D1EN ? (D1ADDR_TOTAL << 1) : 14'd0);
-            assign PORT_A2_ADDR = E1EN ? (E1ADDR_TOTAL << 1) : (F1EN ? (F1ADDR_TOTAL << 1) : 14'd0);
-            assign PORT_B2_ADDR = G1EN ? (G1ADDR_TOTAL << 1) : (H1EN ? (H1ADDR_TOTAL << 1) : 14'd0);
-            defparam bram_2x18k.MODE_BITS = { 1'b1,
-                11'd10, 11'd10, 4'd0, MODE_2, MODE_2, MODE_2, MODE_2, 1'd0,
-                12'd10, 12'd10, 4'd0, MODE_2, MODE_2, MODE_2, MODE_2, 1'd0
-            };
-        end
-
-        4: begin
-            assign PORT_A1_ADDR = A1EN ? (A1ADDR_TOTAL << 2) : (B1EN ? (B1ADDR_TOTAL << 2) : 14'd0);
-            assign PORT_B1_ADDR = C1EN ? (C1ADDR_TOTAL << 2) : (D1EN ? (D1ADDR_TOTAL << 2) : 14'd0);
-            assign PORT_A2_ADDR = E1EN ? (E1ADDR_TOTAL << 2) : (F1EN ? (F1ADDR_TOTAL << 2) : 14'd0);
-            assign PORT_B2_ADDR = G1EN ? (G1ADDR_TOTAL << 2) : (H1EN ? (H1ADDR_TOTAL << 2) : 14'd0);
-            defparam bram_2x18k.MODE_BITS = { 1'b1,
-                11'd10, 11'd10, 4'd0, MODE_4, MODE_4, MODE_4, MODE_4, 1'd0,
-                12'd10, 12'd10, 4'd0, MODE_4, MODE_4, MODE_4, MODE_4, 1'd0
-            };
-        end
-
-        8, 9: begin
-            assign PORT_A1_ADDR = A1EN ? (A1ADDR_TOTAL << 3) : (B1EN ? (B1ADDR_TOTAL << 3) : 14'd0);
-            assign PORT_B1_ADDR = C1EN ? (C1ADDR_TOTAL << 3) : (D1EN ? (D1ADDR_TOTAL << 3) : 14'd0);
-            assign PORT_A2_ADDR = E1EN ? (E1ADDR_TOTAL << 3) : (F1EN ? (F1ADDR_TOTAL << 3) : 14'd0);
-            assign PORT_B2_ADDR = G1EN ? (G1ADDR_TOTAL << 3) : (H1EN ? (H1ADDR_TOTAL << 3) : 14'd0);
-            defparam bram_2x18k.MODE_BITS = { 1'b1,
-                11'd10, 11'd10, 4'd0, MODE_9, MODE_9, MODE_9, MODE_9, 1'd0,
-                12'd10, 12'd10, 4'd0, MODE_9, MODE_9, MODE_9, MODE_9, 1'd0
-            };
-        end
-
-        16, 18: begin
-            assign PORT_A1_ADDR = A1EN ? (A1ADDR_TOTAL << 4) : (B1EN ? (B1ADDR_TOTAL << 4) : 14'd0);
-            assign PORT_B1_ADDR = C1EN ? (C1ADDR_TOTAL << 4) : (D1EN ? (D1ADDR_TOTAL << 4) : 14'd0);
-            assign PORT_A2_ADDR = E1EN ? (E1ADDR_TOTAL << 4) : (F1EN ? (F1ADDR_TOTAL << 4) : 14'd0);
-            assign PORT_B2_ADDR = G1EN ? (G1ADDR_TOTAL << 4) : (H1EN ? (H1ADDR_TOTAL << 4) : 14'd0);
-            defparam bram_2x18k.MODE_BITS = { 1'b1,
-                11'd10, 11'd10, 4'd0, MODE_18, MODE_18, MODE_18, MODE_18, 1'd0,
-                12'd10, 12'd10, 4'd0, MODE_18, MODE_18, MODE_18, MODE_18, 1'd0
-            };
-        end
-
-        default: begin
-            assign PORT_A1_ADDR = A1EN ? A1ADDR_TOTAL : (B1EN ? B1ADDR_TOTAL : 14'd0);
-            assign PORT_B1_ADDR = C1EN ? C1ADDR_TOTAL : (D1EN ? D1ADDR_TOTAL : 14'd0);
-            assign PORT_A2_ADDR = E1EN ? E1ADDR_TOTAL : (F1EN ? F1ADDR_TOTAL : 14'd0);
-            assign PORT_B2_ADDR = G1EN ? G1ADDR_TOTAL : (H1EN ? H1ADDR_TOTAL : 14'd0);
-            defparam bram_2x18k.MODE_BITS = { 1'b1,
-                11'd10, 11'd10, 4'd0, MODE_36, MODE_36, MODE_36, MODE_36, 1'd0,
-                12'd10, 12'd10, 4'd0, MODE_36, MODE_36, MODE_36, MODE_36, 1'd0
-            };
-        end
-    endcase
-
-    assign FLUSH1 = 1'b0;
-    assign FLUSH2 = 1'b0;
-
-    wire [17:0] PORT_A1_RDATA = {A1_RDATA_CMPL, A1DATA};
-    wire [17:0] PORT_B1_RDATA = {C1_RDATA_CMPL, C1DATA};
-    wire [17:0] PORT_A2_RDATA = {E1_RDATA_CMPL, E1DATA};
-    wire [17:0] PORT_B2_RDATA = {G1_RDATA_CMPL, G1DATA};
-
-    wire [17:0] PORT_A1_WDATA = {B1_WDATA_CMPL, B1DATA};
-    wire [17:0] PORT_B1_WDATA = {D1_WDATA_CMPL, D1DATA};
-    wire [17:0] PORT_A2_WDATA = {F1_WDATA_CMPL, F1DATA};
-    wire [17:0] PORT_B2_WDATA = {H1_WDATA_CMPL, H1DATA};
-
-    wire PORT_A1_CLK = CLK1;
-    wire PORT_A2_CLK = CLK3;
-    wire PORT_B1_CLK = CLK2;
-    wire PORT_B2_CLK = CLK4;
-
-    wire PORT_A1_REN = A1EN;
-    wire PORT_A1_WEN = B1EN[0];
-    wire [CFG_ENABLE_B-1:0] PORT_A1_BE = {B1EN[1],B1EN[0]};
-
-    wire PORT_A2_REN = E1EN;
-    wire PORT_A2_WEN = F1EN[0];
-    wire [CFG_ENABLE_F-1:0] PORT_A2_BE = {F1EN[1],F1EN[0]};
-
-    wire PORT_B1_REN = C1EN;
-    wire PORT_B1_WEN = D1EN[0];
-    wire [CFG_ENABLE_D-1:0] PORT_B1_BE = {D1EN[1],D1EN[0]};
-
-    wire PORT_B2_REN = G1EN;
-    wire PORT_B2_WEN = H1EN[0];
-    wire [CFG_ENABLE_H-1:0] PORT_B2_BE = {H1EN[1],H1EN[0]};
-
-    TDP36K bram_2x18k (
-        .WDATA_A1_i(PORT_A1_WDATA),
-        .RDATA_A1_o(PORT_A1_RDATA),
-        .ADDR_A1_i(PORT_A1_ADDR),
-        .CLK_A1_i(PORT_A1_CLK),
-        .REN_A1_i(PORT_A1_REN),
-        .WEN_A1_i(PORT_A1_WEN),
-        .BE_A1_i(PORT_A1_BE),
-
-        .WDATA_A2_i(PORT_A2_WDATA),
-        .RDATA_A2_o(PORT_A2_RDATA),
-        .ADDR_A2_i(PORT_A2_ADDR),
-        .CLK_A2_i(PORT_A2_CLK),
-        .REN_A2_i(PORT_A2_REN),
-        .WEN_A2_i(PORT_A2_WEN),
-        .BE_A2_i(PORT_A2_BE),
-
-        .WDATA_B1_i(PORT_B1_WDATA),
-        .RDATA_B1_o(PORT_B1_RDATA),
-        .ADDR_B1_i(PORT_B1_ADDR),
-        .CLK_B1_i(PORT_B1_CLK),
-        .REN_B1_i(PORT_B1_REN),
-        .WEN_B1_i(PORT_B1_WEN),
-        .BE_B1_i(PORT_B1_BE),
-
-        .WDATA_B2_i(PORT_B2_WDATA),
-        .RDATA_B2_o(PORT_B2_RDATA),
-        .ADDR_B2_i(PORT_B2_ADDR),
-        .CLK_B2_i(PORT_B2_CLK),
-        .REN_B2_i(PORT_B2_REN),
-        .WEN_B2_i(PORT_B2_WEN),
-        .BE_B2_i(PORT_B2_BE),
-
-        .FLUSH1_i(FLUSH1),
-        .FLUSH2_i(FLUSH2)
-    );
-endmodule
-
-module BRAM2x18_SDP (A1ADDR, A1DATA, A1EN, B1ADDR, B1DATA, B1EN, C1ADDR, C1DATA, C1EN, CLK1, CLK2, D1ADDR, D1DATA, D1EN);
-    parameter CFG_ABITS = 11;
-    parameter CFG_DBITS = 18;
-    parameter CFG_ENABLE_B = 4;
-    parameter CFG_ENABLE_D = 4;
-
-    parameter CLKPOL2 = 1;
-    parameter CLKPOL3 = 1;
-    parameter [18431:0] INIT0 = 18432'bx;
-    parameter [18431:0] INIT1 = 18432'bx;
-
-    localparam MODE_36 = 3'b011; // 36- or 32-bit
-    localparam MODE_18 = 3'b010; // 18- or 16-bit
-    localparam MODE_9 = 3'b001; // 9- or 8-bit
-    localparam MODE_4 = 3'b100; // 4-bit
-    localparam MODE_2 = 3'b110; // 2-bit
-    localparam MODE_1 = 3'b101; // 1-bit
-
-    input  wire CLK1;
-    input  wire CLK2;
-
-    input  wire [CFG_ABITS-1:0] A1ADDR;
-    output wire [CFG_DBITS-1:0] A1DATA;
-    input  wire A1EN;
-
-    input  wire [CFG_ABITS-1:0] B1ADDR;
-    input  wire [CFG_DBITS-1:0] B1DATA;
-    input  wire [CFG_ENABLE_B-1:0] B1EN;
-
-    input  wire [CFG_ABITS-1:0] C1ADDR;
-    output wire [CFG_DBITS-1:0] C1DATA;
-    input  wire C1EN;
-
-    input  wire [CFG_ABITS-1:0] D1ADDR;
-    input  wire [CFG_DBITS-1:0] D1DATA;
-    input  wire [CFG_ENABLE_D-1:0] D1EN;
-
-    wire FLUSH1;
-    wire FLUSH2;
-
-    wire [13:CFG_ABITS] A1ADDR_CMPL = {14-CFG_ABITS{1'b0}};
-    wire [13:CFG_ABITS] B1ADDR_CMPL = {14-CFG_ABITS{1'b0}};
-    wire [13:CFG_ABITS] C1ADDR_CMPL = {14-CFG_ABITS{1'b0}};
-    wire [13:CFG_ABITS] D1ADDR_CMPL = {14-CFG_ABITS{1'b0}};
-
-    wire [13:0] A1ADDR_TOTAL = {A1ADDR_CMPL, A1ADDR};
-    wire [13:0] B1ADDR_TOTAL = {B1ADDR_CMPL, B1ADDR};
-    wire [13:0] C1ADDR_TOTAL = {C1ADDR_CMPL, C1ADDR};
-    wire [13:0] D1ADDR_TOTAL = {D1ADDR_CMPL, D1ADDR};
-
-    wire [17:CFG_DBITS] A1_RDATA_CMPL;
-    wire [17:CFG_DBITS] C1_RDATA_CMPL;
-
-    wire [17:CFG_DBITS] B1_WDATA_CMPL;
-    wire [17:CFG_DBITS] D1_WDATA_CMPL;
-
-    wire [13:0] PORT_A1_ADDR;
-    wire [13:0] PORT_A2_ADDR;
-    wire [13:0] PORT_B1_ADDR;
-    wire [13:0] PORT_B2_ADDR;
-
-    case (CFG_DBITS)
-        1: begin
-            assign PORT_A1_ADDR = A1ADDR_TOTAL;
-            assign PORT_B1_ADDR = B1ADDR_TOTAL;
-            assign PORT_A2_ADDR = C1ADDR_TOTAL;
-            assign PORT_B2_ADDR = D1ADDR_TOTAL;
-            defparam bram_2x18k.MODE_BITS = { 1'b1,
-                11'd10, 11'd10, 4'd0, MODE_1, MODE_1, MODE_1, MODE_1, 1'd0,
-                12'd10, 12'd10, 4'd0, MODE_1, MODE_1, MODE_1, MODE_1, 1'd0
-            };
-        end
-
-        2: begin
-            assign PORT_A1_ADDR = A1ADDR_TOTAL << 1;
-            assign PORT_B1_ADDR = B1ADDR_TOTAL << 1;
-            assign PORT_A2_ADDR = C1ADDR_TOTAL << 1;
-            assign PORT_B2_ADDR = D1ADDR_TOTAL << 1;
-            defparam bram_2x18k.MODE_BITS = { 1'b1,
-                11'd10, 11'd10, 4'd0, MODE_2, MODE_2, MODE_2, MODE_2, 1'd0,
-                12'd10, 12'd10, 4'd0, MODE_2, MODE_2, MODE_2, MODE_2, 1'd0
-            };
-        end
-
-        4: begin
-            assign PORT_A1_ADDR = A1ADDR_TOTAL << 2;
-            assign PORT_B1_ADDR = B1ADDR_TOTAL << 2;
-            assign PORT_A2_ADDR = C1ADDR_TOTAL << 2;
-            assign PORT_B2_ADDR = D1ADDR_TOTAL << 2;
-            defparam bram_2x18k.MODE_BITS = { 1'b1,
-                11'd10, 11'd10, 4'd0, MODE_4, MODE_4, MODE_4, MODE_4, 1'd0,
-                12'd10, 12'd10, 4'd0, MODE_4, MODE_4, MODE_4, MODE_4, 1'd0
-            };
-        end
-
-        8, 9: begin
-            assign PORT_A1_ADDR = A1ADDR_TOTAL << 3;
-            assign PORT_B1_ADDR = B1ADDR_TOTAL << 3;
-            assign PORT_A2_ADDR = C1ADDR_TOTAL << 3;
-            assign PORT_B2_ADDR = D1ADDR_TOTAL << 3;
-            defparam bram_2x18k.MODE_BITS = { 1'b1,
-                11'd10, 11'd10, 4'd0, MODE_9, MODE_9, MODE_9, MODE_9, 1'd0,
-                12'd10, 12'd10, 4'd0, MODE_9, MODE_9, MODE_9, MODE_9, 1'd0
-            };
-        end
-
-        16, 18: begin
-            assign PORT_A1_ADDR = A1ADDR_TOTAL << 4;
-            assign PORT_B1_ADDR = B1ADDR_TOTAL << 4;
-            assign PORT_A2_ADDR = C1ADDR_TOTAL << 4;
-            assign PORT_B2_ADDR = D1ADDR_TOTAL << 4;
-            defparam bram_2x18k.MODE_BITS = { 1'b1,
-                11'd10, 11'd10, 4'd0, MODE_18, MODE_18, MODE_18, MODE_18, 1'd0,
-                12'd10, 12'd10, 4'd0, MODE_18, MODE_18, MODE_18, MODE_18, 1'd0
-            };
-        end
-
-        default: begin
-            assign PORT_A1_ADDR = A1ADDR_TOTAL;
-            assign PORT_B1_ADDR = B1ADDR_TOTAL;
-            assign PORT_A2_ADDR = D1ADDR_TOTAL;
-            assign PORT_B2_ADDR = C1ADDR_TOTAL;
-            defparam bram_2x18k.MODE_BITS = { 1'b1,
-                11'd10, 11'd10, 4'd0, MODE_36, MODE_36, MODE_36, MODE_36, 1'd0,
-                12'd10, 12'd10, 4'd0, MODE_36, MODE_36, MODE_36, MODE_36, 1'd0
-            };
-        end
-    endcase
-
-    assign FLUSH1 = 1'b0;
-    assign FLUSH2 = 1'b0;
-
-    wire [17:0] PORT_A1_RDATA;
-    wire [17:0] PORT_B1_RDATA;
-    wire [17:0] PORT_A2_RDATA;
-    wire [17:0] PORT_B2_RDATA;
-
-    wire [17:0] PORT_A1_WDATA;
-    wire [17:0] PORT_B1_WDATA;
-    wire [17:0] PORT_A2_WDATA;
-    wire [17:0] PORT_B2_WDATA;
-
-    // Assign read/write data - handle special case for 9bit mode
-    // parity bit for 9bit mode is placed in R/W port on bit #16
-    case (CFG_DBITS)
-        9: begin
-            assign A1DATA = {PORT_A1_RDATA[16], PORT_A1_RDATA[7:0]};
-            assign C1DATA = {PORT_A2_RDATA[16], PORT_A2_RDATA[7:0]};
-            assign PORT_A1_WDATA = {18{1'b0}};
-            assign PORT_B1_WDATA = {B1_WDATA_CMPL[17], B1DATA[8], B1_WDATA_CMPL[16:9], B1DATA[7:0]};
-            assign PORT_A2_WDATA = {18{1'b0}};
-            assign PORT_B2_WDATA = {D1_WDATA_CMPL[17], D1DATA[8], D1_WDATA_CMPL[16:9], D1DATA[7:0]};
-        end
-        default: begin
-            assign A1DATA = PORT_A1_RDATA[CFG_DBITS-1:0];
-            assign C1DATA = PORT_A2_RDATA[CFG_DBITS-1:0];
-            assign PORT_A1_WDATA = {18{1'b1}};
-            assign PORT_B1_WDATA = {B1_WDATA_CMPL, B1DATA};
-            assign PORT_A2_WDATA = {18{1'b1}};
-            assign PORT_B2_WDATA = {D1_WDATA_CMPL, D1DATA};
-
-        end
-    endcase
-
-    wire PORT_A1_CLK = CLK1;
-    wire PORT_A2_CLK = CLK2;
-    wire PORT_B1_CLK = CLK1;
-    wire PORT_B2_CLK = CLK2;
-
-    wire PORT_A1_REN = A1EN;
-    wire PORT_A1_WEN = 1'b0;
-    wire [CFG_ENABLE_B-1:0] PORT_A1_BE = {PORT_A1_WEN,PORT_A1_WEN};
-
-    wire PORT_A2_REN = C1EN;
-    wire PORT_A2_WEN = 1'b0;
-    wire [CFG_ENABLE_D-1:0] PORT_A2_BE = {PORT_A2_WEN,PORT_A2_WEN};
-
-    wire PORT_B1_REN = 1'b0;
-    wire PORT_B1_WEN = B1EN[0];
-    wire [CFG_ENABLE_B-1:0] PORT_B1_BE = {B1EN[1],B1EN[0]};
-
-    wire PORT_B2_REN = 1'b0;
-    wire PORT_B2_WEN = D1EN[0];
-    wire [CFG_ENABLE_D-1:0] PORT_B2_BE = {D1EN[1],D1EN[0]};
-
-    TDP36K  bram_2x18k (
-        .WDATA_A1_i(PORT_A1_WDATA),
-        .RDATA_A1_o(PORT_A1_RDATA),
-        .ADDR_A1_i(PORT_A1_ADDR),
-        .CLK_A1_i(PORT_A1_CLK),
-        .REN_A1_i(PORT_A1_REN),
-        .WEN_A1_i(PORT_A1_WEN),
-        .BE_A1_i(PORT_A1_BE),
-
-        .WDATA_A2_i(PORT_A2_WDATA),
-        .RDATA_A2_o(PORT_A2_RDATA),
-        .ADDR_A2_i(PORT_A2_ADDR),
-        .CLK_A2_i(PORT_A2_CLK),
-        .REN_A2_i(PORT_A2_REN),
-        .WEN_A2_i(PORT_A2_WEN),
-        .BE_A2_i(PORT_A2_BE),
-
-        .WDATA_B1_i(PORT_B1_WDATA),
-        .RDATA_B1_o(PORT_B1_RDATA),
-        .ADDR_B1_i(PORT_B1_ADDR),
-        .CLK_B1_i(PORT_B1_CLK),
-        .REN_B1_i(PORT_B1_REN),
-        .WEN_B1_i(PORT_B1_WEN),
-        .BE_B1_i(PORT_B1_BE),
-
-        .WDATA_B2_i(PORT_B2_WDATA),
-        .RDATA_B2_o(PORT_B2_RDATA),
-        .ADDR_B2_i(PORT_B2_ADDR),
-        .CLK_B2_i(PORT_B2_CLK),
-        .REN_B2_i(PORT_B2_REN),
-        .WEN_B2_i(PORT_B2_WEN),
-        .BE_B2_i(PORT_B2_BE),
-
-        .FLUSH1_i(FLUSH1),
-        .FLUSH2_i(FLUSH2)
-    );
-endmodule
-
-module \_$_mem_v2_asymmetric (RD_ADDR, RD_ARST, RD_CLK, RD_DATA, RD_EN, RD_SRST, WR_ADDR, WR_CLK, WR_DATA, WR_EN);
-    localparam CFG_ABITS = 10;
-    localparam CFG_DBITS = 36;
-    localparam CFG_ENABLE_B = 4;
-
-    localparam CLKPOL2 = 1;
-    localparam CLKPOL3 = 1;
-
-    parameter READ_ADDR_WIDTH = 11;
-    parameter READ_DATA_WIDTH = 16;
-    parameter WRITE_ADDR_WIDTH = 10;
-    parameter WRITE_DATA_WIDTH = 32;
-    parameter ABITS = 0;
-    parameter MEMID = 0;
-    parameter [36863:0] INIT = 36864'bx;
-    parameter OFFSET = 0;
-    parameter RD_ARST_VALUE = 0;
-    parameter RD_CE_OVER_SRST = 0;
-    parameter RD_CLK_ENABLE = 0;
-    parameter RD_CLK_POLARITY = 0;
-    parameter RD_COLLISION_X_MASK = 0;
-    parameter RD_INIT_VALUE = 0;
-    parameter RD_PORTS = 0;
-    parameter RD_SRST_VALUE = 0;
-    parameter RD_TRANSPARENCY_MASK = 0;
-    parameter RD_WIDE_CONTINUATION = 0;
-    parameter SIZE = 0;
-    parameter WIDTH = 0;
-    parameter WR_CLK_ENABLE = 0;
-    parameter WR_CLK_POLARITY = 0;
-    parameter WR_PORTS = 0;
-    parameter WR_PRIORITY_MASK = 0;
-    parameter WR_WIDE_CONTINUATION = 0;
-
-    localparam MODE_36 = 3'b011; // 36- or 32-bit
-    localparam MODE_18 = 3'b010; // 18- or 16-bit
-    localparam MODE_9 = 3'b001; // 9- or 8-bit
-    localparam MODE_4 = 3'b100; // 4-bit
-    localparam MODE_2 = 3'b110; // 2-bit
-    localparam MODE_1 = 3'b101; // 1-bit
-
-    input  wire RD_CLK;
-    input  wire WR_CLK;
-    input  wire RD_ARST;
-    input  wire RD_SRST;
-
-    input  wire [CFG_ABITS-1:0] RD_ADDR;
-    output wire [CFG_DBITS-1:0] RD_DATA;
-    input  wire RD_EN;
-
-    input  wire [CFG_ABITS-1:0] WR_ADDR;
-    input  wire [CFG_DBITS-1:0] WR_DATA;
-    input  wire [CFG_ENABLE_B-1:0] WR_EN;
-
-    wire [14:0] RD_ADDR_15;
-    wire [14:0] WR_ADDR_15;
-
-    wire [35:0] DOBDO;
-
-    wire [14:CFG_ABITS] RD_ADDR_CMPL;
-    wire [14:CFG_ABITS] WR_ADDR_CMPL;
-    wire [35:CFG_DBITS] RD_DATA_CMPL;
-    wire [35:CFG_DBITS] WR_DATA_CMPL;
-
-    wire [14:0] RD_ADDR_TOTAL;
-    wire [14:0] WR_ADDR_TOTAL;
-    wire [35:0] RD_DATA_TOTAL;
-    wire [35:0] WR_DATA_TOTAL;
-
-    wire FLUSH1;
-    wire FLUSH2;
-
-    assign RD_ADDR_CMPL = {15-CFG_ABITS{1'b0}};
-    assign WR_ADDR_CMPL = {15-CFG_ABITS{1'b0}};
-
-    assign RD_ADDR_TOTAL = {RD_ADDR_CMPL, RD_ADDR};
-    assign WR_ADDR_TOTAL = {WR_ADDR_CMPL, WR_ADDR};
-
-    assign RD_DATA_TOTAL = {RD_DATA_CMPL, RD_DATA};
-    assign WR_DATA_TOTAL = {WR_DATA_CMPL, WR_DATA};
-
-    case (CFG_DBITS)
-        1: begin
-            assign RD_ADDR_15 = RD_ADDR_TOTAL;
-            assign WR_ADDR_15 = WR_ADDR_TOTAL;
-            defparam bram_asymmetric.MODE_BITS = { 1'b0,
-                11'd10, 11'd10, 4'd0, MODE_1, MODE_1, MODE_1, MODE_1, 1'd0,
-                12'd10, 12'd10, 4'd0, MODE_1, MODE_1, MODE_1, MODE_1, 1'd0
-            };
-        end
-
-        2: begin
-            assign RD_ADDR_15 = RD_ADDR_TOTAL << 1;
-            assign WR_ADDR_15 = WR_ADDR_TOTAL << 1;
-            defparam bram_asymmetric.MODE_BITS = { 1'b0,
-                11'd10, 11'd10, 4'd0, MODE_2, MODE_2, MODE_2, MODE_2, 1'd0,
-                12'd10, 12'd10, 4'd0, MODE_2, MODE_2, MODE_2, MODE_2, 1'd0
-            };
-        end
-
-        4: begin
-            assign RD_ADDR_15 = RD_ADDR_TOTAL << 2;
-            assign WR_ADDR_15 = WR_ADDR_TOTAL << 2;
-            defparam bram_asymmetric.MODE_BITS = { 1'b0,
-                11'd10, 11'd10, 4'd0, MODE_4, MODE_4, MODE_4, MODE_4, 1'd0,
-                12'd10, 12'd10, 4'd0, MODE_4, MODE_4, MODE_4, MODE_4, 1'd0
-            };
-        end
-        8, 9: begin
-            assign RD_ADDR_15 = RD_ADDR_TOTAL << 3;
-            assign WR_ADDR_15 = WR_ADDR_TOTAL << 3;
-            defparam bram_asymmetric.MODE_BITS = { 1'b0,
-                11'd10, 11'd10, 4'd0, MODE_9, MODE_9, MODE_9, MODE_9, 1'd0,
-                12'd10, 12'd10, 4'd0, MODE_9, MODE_9, MODE_9, MODE_9, 1'd0
-            };
-        end
-
-        16, 18: begin
-            assign RD_ADDR_15 = RD_ADDR_TOTAL << 4;
-            assign WR_ADDR_15 = WR_ADDR_TOTAL << 4;
-            defparam bram_asymmetric.MODE_BITS = { 1'b0,
-                11'd10, 11'd10, 4'd0, MODE_18, MODE_18, MODE_18, MODE_18, 1'd0,
-                12'd10, 12'd10, 4'd0, MODE_18, MODE_18, MODE_18, MODE_18, 1'd0
-            };
-        end
-        32, 36: begin
-            assign RD_ADDR_15 = RD_ADDR_TOTAL << 5;
-            assign WR_ADDR_15 = WR_ADDR_TOTAL << 5;
-            defparam bram_asymmetric.MODE_BITS = { 1'b0,
-                11'd10, 11'd10, 4'd0, MODE_36, MODE_36, MODE_36, MODE_36, 1'd0,
-                12'd10, 12'd10, 4'd0, MODE_36, MODE_36, MODE_36, MODE_36, 1'd0
-            };
-        end
-        default: begin
-            assign RD_ADDR_15 = RD_ADDR_TOTAL;
-            assign WR_ADDR_15 = WR_ADDR_TOTAL;
-            defparam bram_asymmetric.MODE_BITS = { 1'b0,
-                11'd10, 11'd10, 4'd0, MODE_36, MODE_36, MODE_36, MODE_36, 1'd0,
-                12'd10, 12'd10, 4'd0, MODE_36, MODE_36, MODE_36, MODE_36, 1'd0
-            };
-        end
-    endcase
-
-    assign FLUSH1 = 1'b0;
-    assign FLUSH2 = 1'b0;
-
-    TDP36K bram_asymmetric (
-        .RESET_ni(1'b1),
-        .WDATA_A1_i(18'h3FFFF),
-        .WDATA_A2_i(18'h3FFFF),
-        .RDATA_A1_o(RD_DATA_TOTAL[17:0]),
-        .RDATA_A2_o(RD_DATA_TOTAL[35:18]),
-        .ADDR_A1_i(RD_ADDR_15),
-        .ADDR_A2_i(RD_ADDR_15),
-        .CLK_A1_i(RD_CLK),
-        .CLK_A2_i(RD_CLK),
-        .REN_A1_i(RD_EN),
-        .REN_A2_i(RD_EN),
-        .WEN_A1_i(1'b0),
-        .WEN_A2_i(1'b0),
-        .BE_A1_i({RD_EN, RD_EN}),
-        .BE_A2_i({RD_EN, RD_EN}),
-
-        .WDATA_B1_i(WR_DATA[17:0]),
-        .WDATA_B2_i(WR_DATA[35:18]),
-        .RDATA_B1_o(DOBDO[17:0]),
-        .RDATA_B2_o(DOBDO[35:18]),
-        .ADDR_B1_i(WR_ADDR_15),
-        .ADDR_B2_i(WR_ADDR_15),
-        .CLK_B1_i(WR_CLK),
-        .CLK_B2_i(WR_CLK),
-        .REN_B1_i(1'b0),
-        .REN_B2_i(1'b0),
-        .WEN_B1_i(WR_EN[0]),
-        .WEN_B2_i(WR_EN[0]),
-        .BE_B1_i(WR_EN[1:0]),
-        .BE_B2_i(WR_EN[3:2]),
-
-        .FLUSH1_i(FLUSH1),
-        .FLUSH2_i(FLUSH2)
-    );
+module RAM_18K_X2_BLK (
+    RESET_ni,
+    
+    WEN1_i,
+    REN1_i,
+    WR1_CLK_i,
+    RD1_CLK_i,
+    WR1_BE_i,
+    WR1_ADDR_i,
+    RD1_ADDR_i,
+    WDATA1_i,
+    RDATA1_o,
+    
+    WEN2_i,
+    REN2_i,
+    WR2_CLK_i,
+    RD2_CLK_i,
+    WR2_BE_i,
+    WR2_ADDR_i,
+    RD2_ADDR_i,
+    WDATA2_i,
+    RDATA2_o
+);
+
+parameter WR1_ADDR_WIDTH = 10;
+parameter RD1_ADDR_WIDTH = 10;
+parameter WR1_DATA_WIDTH = 18;
+parameter RD1_DATA_WIDTH = 18;
+parameter BE1_WIDTH = 2;
+
+parameter WR2_ADDR_WIDTH = 10;
+parameter RD2_ADDR_WIDTH = 10;
+parameter WR2_DATA_WIDTH = 18;
+parameter RD2_DATA_WIDTH = 18;
+parameter BE2_WIDTH = 2;
+
+input wire RESET_ni;
+
+input wire WEN1_i;
+input wire REN1_i;
+input wire WR1_CLK_i;
+input wire RD1_CLK_i;
+input wire [BE1_WIDTH-1:0] WR1_BE_i;
+input wire [WR1_ADDR_WIDTH-1 :0] WR1_ADDR_i;
+input wire [RD1_ADDR_WIDTH-1 :0] RD1_ADDR_i;
+input wire [WR1_DATA_WIDTH-1 :0] WDATA1_i;
+output wire [RD1_DATA_WIDTH-1 :0] RDATA1_o;
+
+input wire WEN2_i;
+input wire REN2_i;
+input wire WR2_CLK_i;
+input wire RD2_CLK_i;
+input wire [BE2_WIDTH-1:0] WR2_BE_i;
+input wire [WR2_ADDR_WIDTH-1 :0] WR2_ADDR_i;
+input wire [RD2_ADDR_WIDTH-1 :0] RD2_ADDR_i;
+input wire [WR2_DATA_WIDTH-1 :0] WDATA2_i;
+output wire [RD2_DATA_WIDTH-1 :0] RDATA2_o;
+
+// Fixed mode settings
+localparam [ 0:0] SYNC_FIFO1_i  = 1'd0;
+localparam [ 0:0] FMODE1_i      = 1'd0;
+localparam [ 0:0] POWERDN1_i    = 1'd0;
+localparam [ 0:0] SLEEP1_i      = 1'd0;
+localparam [ 0:0] PROTECT1_i    = 1'd0;
+localparam [11:0] UPAE1_i       = 12'd10;
+localparam [11:0] UPAF1_i       = 12'd10;
+
+localparam [ 0:0] SYNC_FIFO2_i  = 1'd0;
+localparam [ 0:0] FMODE2_i      = 1'd0;
+localparam [ 0:0] POWERDN2_i    = 1'd0;
+localparam [ 0:0] SLEEP2_i      = 1'd0;
+localparam [ 0:0] PROTECT2_i    = 1'd0;
+localparam [10:0] UPAE2_i       = 11'd10;
+localparam [10:0] UPAF2_i       = 11'd10;
+
+// Width mode function
+function [2:0] mode;
+input integer width;
+case (width)
+1: mode = 3'b101;
+2: mode = 3'b110;
+4: mode = 3'b100;
+8,9: mode = 3'b001;
+16, 18: mode = 3'b010;
+32, 36: mode = 3'b011;
+default: mode = 3'b000;
+endcase
+endfunction
+
+wire REN_A1_i;
+wire REN_A2_i;
+
+wire REN_B1_i;
+wire REN_B2_i;
+
+wire WEN_A1_i;
+wire WEN_A2_i;
+
+wire WEN_B1_i;
+wire WEN_B2_i;
+
+wire [1:0] BE_A1_i;
+wire [1:0] BE_A2_i;
+
+wire [1:0] BE_B1_i;
+wire [1:0] BE_B2_i;
+
+wire [14:0] ADDR_A1_i;
+wire [13:0] ADDR_A2_i;
+
+wire [14:0] ADDR_B1_i;
+wire [13:0] ADDR_B2_i;
+
+wire [17:0] WDATA_A1_i;
+wire [17:0] WDATA_A2_i;
+
+wire [17:0] WDATA_B1_i;
+wire [17:0] WDATA_B2_i;
+
+wire [17:0] RDATA_A1_o;
+wire [17:0] RDATA_A2_o;
+
+wire [17:0] RDATA_B1_o;
+wire [17:0] RDATA_B2_o;
+
+wire [1:0] WR1_BE;
+wire [1:0] WR2_BE;
+
+wire [17:0] PORT_B1_RDATA;
+wire [17:0] PORT_A1_WDATA;
+
+wire [17:0] PORT_B2_RDATA;
+wire [17:0] PORT_A2_WDATA;
+
+wire [13:0] WR1_ADDR_INT;
+wire [13:0] RD1_ADDR_INT; 
+
+wire [13:0] WR2_ADDR_INT;
+wire [13:0] RD2_ADDR_INT; 
+
+wire [13:0] PORT_A1_ADDR;
+wire [13:0] PORT_B1_ADDR;
+
+wire [13:0] PORT_A2_ADDR;
+wire [13:0] PORT_B2_ADDR;
+
+
+// Set port width mode (In non-split mode A2/B2 is not active. Set same values anyway to match previous behavior.)
+localparam [ 2:0] RMODE_A1_i    = mode(WR1_DATA_WIDTH);
+localparam [ 2:0] WMODE_A1_i    = mode(WR1_DATA_WIDTH);
+localparam [ 2:0] RMODE_A2_i    = mode(WR2_DATA_WIDTH);
+localparam [ 2:0] WMODE_A2_i    = mode(WR2_DATA_WIDTH);
+
+localparam [ 2:0] RMODE_B1_i    = mode(RD1_DATA_WIDTH);
+localparam [ 2:0] WMODE_B1_i    = mode(RD1_DATA_WIDTH);
+localparam [ 2:0] RMODE_B2_i    = mode(RD2_DATA_WIDTH);
+localparam [ 2:0] WMODE_B2_i    = mode(RD2_DATA_WIDTH);
+
+generate
+  if (WR1_ADDR_WIDTH == 14) begin
+    assign WR1_ADDR_INT = WR1_ADDR_i;
+  end else begin
+    assign WR1_ADDR_INT[13:WR1_ADDR_WIDTH] = 0;
+    assign WR1_ADDR_INT[WR1_ADDR_WIDTH-1:0] = WR1_ADDR_i;
+  end
+endgenerate
+
+case (WR1_DATA_WIDTH)
+	1: begin
+		assign PORT_A1_ADDR = WR1_ADDR_INT;
+	end
+	2: begin
+		assign PORT_A1_ADDR = WR1_ADDR_INT << 1;
+	end
+	4: begin
+		assign PORT_A1_ADDR = WR1_ADDR_INT << 2;
+	end
+	8, 9: begin
+		assign PORT_A1_ADDR = WR1_ADDR_INT << 3;
+	end
+	16, 18: begin
+		assign PORT_A1_ADDR = WR1_ADDR_INT << 4;
+	end
+	default: begin
+		assign PORT_A1_ADDR = WR1_ADDR_INT;
+	end
+endcase
+
+generate
+  if (RD1_ADDR_WIDTH == 14) begin
+    assign RD1_ADDR_INT = RD1_ADDR_i;
+  end else begin
+    assign RD1_ADDR_INT[13:RD1_ADDR_WIDTH] = 0;
+    assign RD1_ADDR_INT[RD1_ADDR_WIDTH-1:0] = RD1_ADDR_i;
+  end
+endgenerate
+
+case (RD1_DATA_WIDTH)
+	1: begin
+		assign PORT_B1_ADDR = RD1_ADDR_INT;
+	end
+	2: begin
+		assign PORT_B1_ADDR = RD1_ADDR_INT << 1;
+	end
+	4: begin
+		assign PORT_B1_ADDR = RD1_ADDR_INT << 2;
+	end
+	8, 9: begin
+		assign PORT_B1_ADDR = RD1_ADDR_INT << 3;
+	end
+	16, 18: begin
+		assign PORT_B1_ADDR = RD1_ADDR_INT << 4;
+	end
+	default: begin
+		assign PORT_B1_ADDR = RD1_ADDR_INT;
+	end
+endcase
+
+generate
+  if (WR2_ADDR_WIDTH == 14) begin
+    assign WR2_ADDR_INT = WR2_ADDR_i;
+  end else begin
+    assign WR2_ADDR_INT[13:WR2_ADDR_WIDTH] = 0;
+    assign WR2_ADDR_INT[WR2_ADDR_WIDTH-1:0] = WR2_ADDR_i;
+  end
+endgenerate
+
+case (WR2_DATA_WIDTH)
+	1: begin
+		assign PORT_A2_ADDR = WR2_ADDR_INT;
+	end
+	2: begin
+		assign PORT_A2_ADDR = WR2_ADDR_INT << 1;
+	end
+	4: begin
+		assign PORT_A2_ADDR = WR2_ADDR_INT << 2;
+	end
+	8, 9: begin
+		assign PORT_A2_ADDR = WR2_ADDR_INT << 3;
+	end
+	16, 18: begin
+		assign PORT_A2_ADDR = WR2_ADDR_INT << 4;
+	end
+	default: begin
+		assign PORT_A2_ADDR = WR2_ADDR_INT;
+	end
+endcase
+
+generate
+  if (RD2_ADDR_WIDTH == 14) begin
+    assign RD2_ADDR_INT = RD2_ADDR_i;
+  end else begin
+    assign RD2_ADDR_INT[13:RD2_ADDR_WIDTH] = 0;
+    assign RD2_ADDR_INT[RD2_ADDR_WIDTH-1:0] = RD2_ADDR_i;
+  end
+endgenerate
+
+case (RD2_DATA_WIDTH)
+	1: begin
+		assign PORT_B2_ADDR = RD2_ADDR_INT;
+	end
+	2: begin
+		assign PORT_B2_ADDR = RD2_ADDR_INT << 1;
+	end
+	4: begin
+		assign PORT_B2_ADDR = RD2_ADDR_INT << 2;
+	end
+	8, 9: begin
+		assign PORT_B2_ADDR = RD2_ADDR_INT << 3;
+	end
+	16, 18: begin
+		assign PORT_B2_ADDR = RD2_ADDR_INT << 4;
+	end
+	default: begin
+		assign PORT_B2_ADDR = RD2_ADDR_INT;
+	end
+endcase
+
+case (BE1_WIDTH)
+	2: begin
+		assign WR1_BE = WR1_BE_i[BE1_WIDTH-1 :0];
+	end
+	default: begin
+		assign WR1_BE[1:BE1_WIDTH] = 0;
+		assign WR1_BE[BE1_WIDTH-1 :0] = WR1_BE_i[BE1_WIDTH-1 :0];
+	end
+endcase
+
+case (BE2_WIDTH)
+	2: begin
+		assign WR2_BE = WR2_BE_i[BE2_WIDTH-1 :0];
+	end
+	default: begin
+		assign WR2_BE[1:BE2_WIDTH] = 0;
+		assign WR2_BE[BE2_WIDTH-1 :0] = WR2_BE_i[BE2_WIDTH-1 :0];
+	end
+endcase
+
+assign REN_A1_i = 1'b0;
+assign WEN_A1_i = WEN1_i;
+assign BE_A1_i = WR1_BE;
+assign REN_A2_i = 1'b0;
+assign WEN_A2_i = WEN2_i;
+assign BE_A2_i = WR2_BE;
+
+assign REN_B1_i = REN1_i;
+assign WEN_B1_i = 1'b0;
+assign BE_B1_i = 4'h0;
+assign REN_B2_i = REN2_i;
+assign WEN_B2_i = 1'b0;
+assign BE_B2_i = 4'h0;
+
+generate
+  if (WR1_DATA_WIDTH == 18) begin
+    assign PORT_A1_WDATA[WR1_DATA_WIDTH-1:0] = WDATA1_i[WR1_DATA_WIDTH-1:0];
+  end else if (WR1_DATA_WIDTH == 9) begin
+    assign PORT_A1_WDATA = {1'b0, WDATA1_i[8], 8'h0, WDATA1_i[7:0]};
+  end else begin
+    assign PORT_A1_WDATA[17:WR1_DATA_WIDTH] = 0;
+    assign PORT_A1_WDATA[WR1_DATA_WIDTH-1:0] = WDATA1_i[WR1_DATA_WIDTH-1:0];
+  end
+endgenerate
+
+assign WDATA_A1_i = PORT_A1_WDATA[17:0];
+assign WDATA_B1_i = 18'h0;
+
+generate
+  if (RD1_DATA_WIDTH == 9) begin
+    assign PORT_B1_RDATA = { 9'h0, RDATA_B1_o[16], RDATA_B1_o[7:0]};
+  end else begin
+    assign PORT_B1_RDATA = RDATA_B1_o;
+  end
+endgenerate
+
+assign RDATA1_o = PORT_B1_RDATA[RD1_DATA_WIDTH-1:0];
+
+generate
+  if (WR2_DATA_WIDTH == 18) begin
+    assign PORT_A2_WDATA[WR2_DATA_WIDTH-1:0] = WDATA2_i[WR2_DATA_WIDTH-1:0];
+  end else if (WR2_DATA_WIDTH == 9) begin
+    assign PORT_A2_WDATA = {1'b0, WDATA2_i[8], 8'h0, WDATA2_i[7:0]};
+  end else begin
+    assign PORT_A2_WDATA[17:WR2_DATA_WIDTH] = 0;
+    assign PORT_A2_WDATA[WR2_DATA_WIDTH-1:0] = WDATA2_i[WR2_DATA_WIDTH-1:0];
+  end
+endgenerate
+
+assign WDATA_A2_i = PORT_A2_WDATA[17:0];
+assign WDATA_B2_i = 18'h0;
+
+generate
+  if (RD2_DATA_WIDTH == 9) begin
+    assign PORT_B2_RDATA = { 9'h0, RDATA_B2_o[16], RDATA_B2_o[7:0]};
+  end else begin
+    assign PORT_B2_RDATA = RDATA_B2_o;
+  end
+endgenerate
+
+assign RDATA2_o = PORT_B2_RDATA[RD2_DATA_WIDTH-1:0];
+
+defparam _TECHMAP_REPLACE_.MODE_BITS = { 1'b1,
+	UPAF2_i, UPAE2_i, PROTECT2_i, SLEEP2_i, POWERDN2_i, FMODE2_i, WMODE_B2_i, WMODE_A2_i, RMODE_B2_i, RMODE_A2_i, SYNC_FIFO2_i,
+	UPAF1_i, UPAE1_i, PROTECT1_i, SLEEP1_i, POWERDN1_i, FMODE1_i, WMODE_B1_i, WMODE_A1_i, RMODE_B1_i, RMODE_A1_i, SYNC_FIFO1_i
+};
+
+(* is_inferred = 0 *)
+(* is_split = 1 *)
+(* port_a1_dwidth = WR1_DATA_WIDTH *)
+(* port_a2_dwidth = WR2_DATA_WIDTH *)
+(* port_b1_dwidth = RD1_DATA_WIDTH *)
+(* port_b2_dwidth = RD2_DATA_WIDTH *)
+TDP36K _TECHMAP_REPLACE_ (
+	.RESET_ni(1'b1),
+
+	.CLK_A1_i(WR1_CLK_i),
+	.ADDR_A1_i({1'b0,PORT_A1_ADDR}),
+	.WEN_A1_i(WEN_A1_i),
+	.BE_A1_i(BE_A1_i),
+	.WDATA_A1_i(WDATA_A1_i),
+	.REN_A1_i(REN_A1_i),
+	.RDATA_A1_o(RDATA_A1_o),
+
+	.CLK_A2_i(WR2_CLK_i),
+	.ADDR_A2_i(PORT_A2_ADDR),
+	.WEN_A2_i(WEN_A2_i),
+	.BE_A2_i(BE_A2_i),
+	.WDATA_A2_i(WDATA_A2_i),
+	.REN_A2_i(REN_A2_i),
+	.RDATA_A2_o(RDATA_A2_o),
+
+	.CLK_B1_i(RD1_CLK_i),
+	.ADDR_B1_i({1'b0,PORT_B1_ADDR}),
+	.WEN_B1_i(WEN_B1_i),
+	.BE_B1_i(BE_B1_i),
+	.WDATA_B1_i(WDATA_B1_i),
+	.REN_B1_i(REN_B1_i),
+	.RDATA_B1_o(RDATA_B1_o),
+
+	.CLK_B2_i(RD2_CLK_i),
+	.ADDR_B2_i(PORT_B2_ADDR),
+	.WEN_B2_i(WEN_B2_i),
+	.BE_B2_i(BE_B2_i),
+	.WDATA_B2_i(WDATA_B2_i),
+	.REN_B2_i(REN_B2_i),
+	.RDATA_B2_o(RDATA_B2_o),
+
+	.FLUSH1_i(1'b0),
+	.FLUSH2_i(1'b0)
+);
+
 endmodule
 
 module BRAM2x18_SP (
@@ -1444,19 +1111,17 @@ module BRAM2x18_SP (
     RDATA2_o
 );
 
-parameter WR_ADDR_WIDTH = 10;
-parameter RD_ADDR_WIDTH = 10;
-parameter WR_DATA_WIDTH = 18;
-parameter RD_DATA_WIDTH = 18;
+parameter WR1_ADDR_WIDTH = 10;
+parameter RD1_ADDR_WIDTH = 10;
+parameter WR1_DATA_WIDTH = 18;
+parameter RD1_DATA_WIDTH = 18;
 parameter BE1_WIDTH = 2;
-parameter BE2_WIDTH = 2;
 
-localparam MODE_36 = 3'b011; // 36- or 32-bit
-localparam MODE_18 = 3'b010; // 18- or 16-bit
-localparam MODE_9 = 3'b001; // 9- or 8-bit
-localparam MODE_4 = 3'b100; // 4-bit
-localparam MODE_2 = 3'b110; // 2-bit
-localparam MODE_1 = 3'b101; // 1-bit
+parameter WR2_ADDR_WIDTH = 10;
+parameter RD2_ADDR_WIDTH = 10;
+parameter WR2_DATA_WIDTH = 18;
+parameter RD2_DATA_WIDTH = 18;
+parameter BE2_WIDTH = 2;
 
 input wire RESET_ni;
 
@@ -1465,157 +1130,238 @@ input wire REN1_i;
 input wire WR1_CLK_i;
 input wire RD1_CLK_i;
 input wire [BE1_WIDTH-1:0] WR1_BE_i;
-input wire [WR_ADDR_WIDTH-1 :0] WR1_ADDR_i;
-input wire [RD_ADDR_WIDTH-1 :0] RD1_ADDR_i;
-input wire [WR_DATA_WIDTH-1 :0] WDATA1_i;
-output wire [RD_DATA_WIDTH-1 :0] RDATA1_o;
+input wire [WR1_ADDR_WIDTH-1 :0] WR1_ADDR_i;
+input wire [RD1_ADDR_WIDTH-1 :0] RD1_ADDR_i;
+input wire [WR1_DATA_WIDTH-1 :0] WDATA1_i;
+output wire [RD1_DATA_WIDTH-1 :0] RDATA1_o;
 
 input wire WEN2_i;
 input wire REN2_i;
 input wire WR2_CLK_i;
 input wire RD2_CLK_i;
 input wire [BE2_WIDTH-1:0] WR2_BE_i;
-input wire [WR_ADDR_WIDTH-1 :0] WR2_ADDR_i;
-input wire [RD_ADDR_WIDTH-1 :0] RD2_ADDR_i;
-input wire [WR_DATA_WIDTH-1 :0] WDATA2_i;
-output wire [RD_DATA_WIDTH-1 :0] RDATA2_o;
+input wire [WR2_ADDR_WIDTH-1 :0] WR2_ADDR_i;
+input wire [RD2_ADDR_WIDTH-1 :0] RD2_ADDR_i;
+input wire [WR2_DATA_WIDTH-1 :0] WDATA2_i;
+output wire [RD2_DATA_WIDTH-1 :0] RDATA2_o;
 
-//localparam READ_DATA_BITS_TO_SKIP = 18 - RD_DATA_WIDTH;
+// Fixed mode settings
+localparam [ 0:0] SYNC_FIFO1_i  = 1'd0;
+localparam [ 0:0] FMODE1_i      = 1'd0;
+localparam [ 0:0] POWERDN1_i    = 1'd0;
+localparam [ 0:0] SLEEP1_i      = 1'd0;
+localparam [ 0:0] PROTECT1_i    = 1'd0;
+localparam [11:0] UPAE1_i       = 12'd10;
+localparam [11:0] UPAF1_i       = 12'd10;
 
-wire [14:RD_ADDR_WIDTH] RD1_ADDR_CMPL;
-wire [14:WR_ADDR_WIDTH] WR1_ADDR_CMPL;
-wire [17:RD_DATA_WIDTH] RD1_DATA_CMPL;
-wire [17:WR_DATA_WIDTH] WR1_DATA_CMPL;
-           
-wire [14:RD_ADDR_WIDTH] RD2_ADDR_CMPL;
-wire [14:WR_ADDR_WIDTH] WR2_ADDR_CMPL;
-wire [17:RD_DATA_WIDTH] RD2_DATA_CMPL;
-wire [17:WR_DATA_WIDTH] WR2_DATA_CMPL;
+localparam [ 0:0] SYNC_FIFO2_i  = 1'd0;
+localparam [ 0:0] FMODE2_i      = 1'd0;
+localparam [ 0:0] POWERDN2_i    = 1'd0;
+localparam [ 0:0] SLEEP2_i      = 1'd0;
+localparam [ 0:0] PROTECT2_i    = 1'd0;
+localparam [10:0] UPAE2_i       = 11'd10;
+localparam [10:0] UPAF2_i       = 11'd10;
 
-wire [14:0] RD1_ADDR_TOTAL;
-wire [14:0] WR1_ADDR_TOTAL;
+// Width mode function
+function [2:0] mode;
+input integer width;
+case (width)
+1: mode = 3'b101;
+2: mode = 3'b110;
+4: mode = 3'b100;
+8,9: mode = 3'b001;
+16, 18: mode = 3'b010;
+32, 36: mode = 3'b011;
+default: mode = 3'b000;
+endcase
+endfunction
 
-wire [14:0] RD2_ADDR_TOTAL;
-wire [14:0] WR2_ADDR_TOTAL;
+wire REN_A1_i;
+wire REN_A2_i;
 
-wire [14:0] RD1_ADDR_SHIFTED;
-wire [14:0] WR1_ADDR_SHIFTED;
+wire REN_B1_i;
+wire REN_B2_i;
 
-wire [14:0] RD2_ADDR_SHIFTED;
-wire [14:0] WR2_ADDR_SHIFTED;
+wire WEN_A1_i;
+wire WEN_A2_i;
+
+wire WEN_B1_i;
+wire WEN_B2_i;
+
+wire [1:0] BE_A1_i;
+wire [1:0] BE_A2_i;
+
+wire [1:0] BE_B1_i;
+wire [1:0] BE_B2_i;
+
+wire [14:0] ADDR_A1_i;
+wire [13:0] ADDR_A2_i;
+
+wire [14:0] ADDR_B1_i;
+wire [13:0] ADDR_B2_i;
+
+wire [17:0] WDATA_A1_i;
+wire [17:0] WDATA_A2_i;
+
+wire [17:0] WDATA_B1_i;
+wire [17:0] WDATA_B2_i;
+
+wire [17:0] RDATA_A1_o;
+wire [17:0] RDATA_A2_o;
+
+wire [17:0] RDATA_B1_o;
+wire [17:0] RDATA_B2_o;
 
 wire [1:0] WR1_BE;
 wire [1:0] WR2_BE;
 
-wire FLUSH1;
-wire FLUSH2;
+wire [17:0] PORT_B1_RDATA;
+wire [17:0] PORT_A1_WDATA;
+
+wire [17:0] PORT_B2_RDATA;
+wire [17:0] PORT_A2_WDATA;
+
+wire [13:0] WR1_ADDR_INT;
+wire [13:0] RD1_ADDR_INT; 
+
+wire [13:0] WR2_ADDR_INT;
+wire [13:0] RD2_ADDR_INT; 
+
+wire [13:0] PORT_A1_ADDR;
+wire [13:0] PORT_B1_ADDR;
+
+wire [13:0] PORT_A2_ADDR;
+wire [13:0] PORT_B2_ADDR;
+
+
+// Set port width mode (In non-split mode A2/B2 is not active. Set same values anyway to match previous behavior.)
+localparam [ 2:0] RMODE_A1_i    = mode(WR1_DATA_WIDTH);
+localparam [ 2:0] WMODE_A1_i    = mode(WR1_DATA_WIDTH);
+localparam [ 2:0] RMODE_A2_i    = mode(WR2_DATA_WIDTH);
+localparam [ 2:0] WMODE_A2_i    = mode(WR2_DATA_WIDTH);
+
+localparam [ 2:0] RMODE_B1_i    = mode(RD1_DATA_WIDTH);
+localparam [ 2:0] WMODE_B1_i    = mode(RD1_DATA_WIDTH);
+localparam [ 2:0] RMODE_B2_i    = mode(RD2_DATA_WIDTH);
+localparam [ 2:0] WMODE_B2_i    = mode(RD2_DATA_WIDTH);
 
 generate
-  if (WR_ADDR_WIDTH == 15) begin
-    assign WR1_ADDR_TOTAL = WR1_ADDR_i;
-    assign WR2_ADDR_TOTAL = WR2_ADDR_i;
+  if (WR1_ADDR_WIDTH == 14) begin
+    assign WR1_ADDR_INT = WR1_ADDR_i;
   end else begin
-    assign WR1_ADDR_TOTAL[14:WR_ADDR_WIDTH] = 0;
-    assign WR1_ADDR_TOTAL[WR_ADDR_WIDTH-1:0] = WR1_ADDR_i;
-    assign WR2_ADDR_TOTAL[14:WR_ADDR_WIDTH] = 0;
-    assign WR2_ADDR_TOTAL[WR_ADDR_WIDTH-1:0] = WR2_ADDR_i;
+    assign WR1_ADDR_INT[13:WR1_ADDR_WIDTH] = 0;
+    assign WR1_ADDR_INT[WR1_ADDR_WIDTH-1:0] = WR1_ADDR_i;
   end
 endgenerate
 
+case (WR1_DATA_WIDTH)
+	1: begin
+		assign PORT_A1_ADDR = WR1_ADDR_INT;
+	end
+	2: begin
+		assign PORT_A1_ADDR = WR1_ADDR_INT << 1;
+	end
+	4: begin
+		assign PORT_A1_ADDR = WR1_ADDR_INT << 2;
+	end
+	8, 9: begin
+		assign PORT_A1_ADDR = WR1_ADDR_INT << 3;
+	end
+	16, 18: begin
+		assign PORT_A1_ADDR = WR1_ADDR_INT << 4;
+	end
+	default: begin
+		assign PORT_A1_ADDR = WR1_ADDR_INT;
+	end
+endcase
+
 generate
-  if (RD_ADDR_WIDTH == 15) begin
-    assign RD1_ADDR_TOTAL = RD1_ADDR_i;
-    assign RD2_ADDR_TOTAL = RD2_ADDR_i;
+  if (RD1_ADDR_WIDTH == 14) begin
+    assign RD1_ADDR_INT = RD1_ADDR_i;
   end else begin
-    assign RD1_ADDR_TOTAL[14:RD_ADDR_WIDTH] = 0;
-    assign RD1_ADDR_TOTAL[RD_ADDR_WIDTH-1:0] = RD1_ADDR_i;
-    assign RD2_ADDR_TOTAL[14:RD_ADDR_WIDTH] = 0;
-    assign RD2_ADDR_TOTAL[RD_ADDR_WIDTH-1:0] = RD2_ADDR_i;
+    assign RD1_ADDR_INT[13:RD1_ADDR_WIDTH] = 0;
+    assign RD1_ADDR_INT[RD1_ADDR_WIDTH-1:0] = RD1_ADDR_i;
   end
 endgenerate
 
-// Apply shift
-case (RD_DATA_WIDTH)
+case (RD1_DATA_WIDTH)
 	1: begin
-		assign RD1_ADDR_SHIFTED = RD1_ADDR_TOTAL;
+		assign PORT_B1_ADDR = RD1_ADDR_INT;
 	end
 	2: begin
-		assign RD1_ADDR_SHIFTED = RD1_ADDR_TOTAL << 1;
+		assign PORT_B1_ADDR = RD1_ADDR_INT << 1;
 	end
 	4: begin
-		assign RD1_ADDR_SHIFTED = RD1_ADDR_TOTAL << 2;
+		assign PORT_B1_ADDR = RD1_ADDR_INT << 2;
 	end
 	8, 9: begin
-		assign RD1_ADDR_SHIFTED = RD1_ADDR_TOTAL << 3;
+		assign PORT_B1_ADDR = RD1_ADDR_INT << 3;
 	end
 	16, 18: begin
-		assign RD1_ADDR_SHIFTED = RD1_ADDR_TOTAL << 4;
+		assign PORT_B1_ADDR = RD1_ADDR_INT << 4;
 	end
 	default: begin
-		assign RD1_ADDR_SHIFTED = RD1_ADDR_TOTAL;
+		assign PORT_B1_ADDR = RD1_ADDR_INT;
 	end
 endcase
 
-case (WR_DATA_WIDTH)
+generate
+  if (WR2_ADDR_WIDTH == 14) begin
+    assign WR2_ADDR_INT = WR2_ADDR_i;
+  end else begin
+    assign WR2_ADDR_INT[13:WR2_ADDR_WIDTH] = 0;
+    assign WR2_ADDR_INT[WR2_ADDR_WIDTH-1:0] = WR2_ADDR_i;
+  end
+endgenerate
+
+case (WR2_DATA_WIDTH)
 	1: begin
-		assign WR1_ADDR_SHIFTED = WR1_ADDR_TOTAL;
+		assign PORT_A2_ADDR = WR2_ADDR_INT;
 	end
 	2: begin
-		assign WR1_ADDR_SHIFTED = WR1_ADDR_TOTAL << 1;
+		assign PORT_A2_ADDR = WR2_ADDR_INT << 1;
 	end
 	4: begin
-		assign WR1_ADDR_SHIFTED = WR1_ADDR_TOTAL << 2;
+		assign PORT_A2_ADDR = WR2_ADDR_INT << 2;
 	end
 	8, 9: begin
-		assign WR1_ADDR_SHIFTED = WR1_ADDR_TOTAL << 3;
+		assign PORT_A2_ADDR = WR2_ADDR_INT << 3;
 	end
 	16, 18: begin
-		assign WR1_ADDR_SHIFTED = WR1_ADDR_TOTAL << 4;
+		assign PORT_A2_ADDR = WR2_ADDR_INT << 4;
 	end
 	default: begin
-		assign WR1_ADDR_SHIFTED = WR1_ADDR_TOTAL;
+		assign PORT_A2_ADDR = WR2_ADDR_INT;
 	end
 endcase
 
-case (RD_DATA_WIDTH)
-	1: begin
-		assign RD2_ADDR_SHIFTED = RD2_ADDR_TOTAL;
-	end
-	2: begin
-		assign RD2_ADDR_SHIFTED = RD2_ADDR_TOTAL << 1;
-	end
-	4: begin
-		assign RD2_ADDR_SHIFTED = RD2_ADDR_TOTAL << 2;
-	end
-	8, 9: begin
-		assign RD2_ADDR_SHIFTED = RD2_ADDR_TOTAL << 3;
-	end
-	16, 18: begin
-		assign RD2_ADDR_SHIFTED = RD2_ADDR_TOTAL << 4;
-	end
-	default: begin
-		assign RD2_ADDR_SHIFTED = RD2_ADDR_TOTAL;
-	end
-endcase
+generate
+  if (RD2_ADDR_WIDTH == 14) begin
+    assign RD2_ADDR_INT = RD2_ADDR_i;
+  end else begin
+    assign RD2_ADDR_INT[13:RD2_ADDR_WIDTH] = 0;
+    assign RD2_ADDR_INT[RD2_ADDR_WIDTH-1:0] = RD2_ADDR_i;
+  end
+endgenerate
 
-case (WR_DATA_WIDTH)
+case (RD2_DATA_WIDTH)
 	1: begin
-		assign WR2_ADDR_SHIFTED = WR2_ADDR_TOTAL;
+		assign PORT_B2_ADDR = RD2_ADDR_INT;
 	end
 	2: begin
-		assign WR2_ADDR_SHIFTED = WR2_ADDR_TOTAL << 1;
+		assign PORT_B2_ADDR = RD2_ADDR_INT << 1;
 	end
 	4: begin
-		assign WR2_ADDR_SHIFTED = WR2_ADDR_TOTAL << 2;
+		assign PORT_B2_ADDR = RD2_ADDR_INT << 2;
 	end
 	8, 9: begin
-		assign WR2_ADDR_SHIFTED = WR2_ADDR_TOTAL << 3;
+		assign PORT_B2_ADDR = RD2_ADDR_INT << 3;
 	end
 	16, 18: begin
-		assign WR2_ADDR_SHIFTED = WR2_ADDR_TOTAL << 4;
+		assign PORT_B2_ADDR = RD2_ADDR_INT << 4;
 	end
 	default: begin
-		assign WR2_ADDR_SHIFTED = WR2_ADDR_TOTAL;
+		assign PORT_B2_ADDR = RD2_ADDR_INT;
 	end
 endcase
 
@@ -1625,7 +1371,7 @@ case (BE1_WIDTH)
 	end
 	default: begin
 		assign WR1_BE[1:BE1_WIDTH] = 0;
-    assign WR1_BE[BE1_WIDTH-1 :0] = WR1_BE_i[BE1_WIDTH-1 :0];
+		assign WR1_BE[BE1_WIDTH-1 :0] = WR1_BE_i[BE1_WIDTH-1 :0];
 	end
 endcase
 
@@ -1635,1800 +1381,119 @@ case (BE2_WIDTH)
 	end
 	default: begin
 		assign WR2_BE[1:BE2_WIDTH] = 0;
-    assign WR2_BE[BE2_WIDTH-1 :0] = WR2_BE_i[BE2_WIDTH-1 :0];
+		assign WR2_BE[BE2_WIDTH-1 :0] = WR2_BE_i[BE2_WIDTH-1 :0];
 	end
 endcase
 
-assign FLUSH1 = 1'b0;
-assign FLUSH2 = 1'b0;
+assign REN_A1_i = 1'b0;
+assign WEN_A1_i = WEN1_i;
+assign BE_A1_i = WR1_BE;
+assign REN_A2_i = 1'b0;
+assign WEN_A2_i = WEN2_i;
+assign BE_A2_i = WR2_BE;
 
-// TODO configure per width
-wire [17:0] PORT_B1_RDATA;
-wire [17:0] PORT_B2_RDATA;
-wire [17:0] PORT_A1_WDATA;
-wire [17:0] PORT_A2_WDATA;
+assign REN_B1_i = REN1_i;
+assign WEN_B1_i = 1'b0;
+assign BE_B1_i = 4'h0;
+assign REN_B2_i = REN2_i;
+assign WEN_B2_i = 1'b0;
+assign BE_B2_i = 4'h0;
 
 generate
-  if (WR_DATA_WIDTH == 18) begin
-    assign PORT_A1_WDATA[WR_DATA_WIDTH-1:0] = WDATA1_i[WR_DATA_WIDTH-1:0];
-    assign PORT_A2_WDATA[WR_DATA_WIDTH-1:0] = WDATA2_i[WR_DATA_WIDTH-1:0];
-  end else if (WR_DATA_WIDTH == 9) begin
-    assign PORT_A1_WDATA = {19'h0, WDATA1_i[8], 8'h0, WDATA1_i[7:0]};
-    assign PORT_A2_WDATA = {19'h0, WDATA2_i[8], 8'h0, WDATA2_i[7:0]};
+  if (WR1_DATA_WIDTH == 18) begin
+    assign PORT_A1_WDATA[WR1_DATA_WIDTH-1:0] = WDATA1_i[WR1_DATA_WIDTH-1:0];
+  end else if (WR1_DATA_WIDTH == 9) begin
+    assign PORT_A1_WDATA = {1'b0, WDATA1_i[8], 8'h0, WDATA1_i[7:0]};
   end else begin
-    assign PORT_A1_WDATA[17:WR_DATA_WIDTH] = 0;
-    assign PORT_A1_WDATA[WR_DATA_WIDTH-1:0] = WDATA1_i[WR_DATA_WIDTH-1:0];
-    assign PORT_A2_WDATA[17:WR_DATA_WIDTH] = 0;
-    assign PORT_A2_WDATA[WR_DATA_WIDTH-1:0] = WDATA2_i[WR_DATA_WIDTH-1:0];
+    assign PORT_A1_WDATA[17:WR1_DATA_WIDTH] = 0;
+    assign PORT_A1_WDATA[WR1_DATA_WIDTH-1:0] = WDATA1_i[WR1_DATA_WIDTH-1:0];
   end
 endgenerate
 
-case (RD_DATA_WIDTH)
-	9: begin
-		assign RDATA1_o = {PORT_B1_RDATA[16], PORT_B1_RDATA[7:0]};
-    assign RDATA2_o = {PORT_B2_RDATA[16], PORT_B2_RDATA[7:0]};
-	end
-	default: begin
-		assign RDATA1_o = PORT_B1_RDATA[RD_DATA_WIDTH-1:0];
-    assign RDATA2_o = PORT_B2_RDATA[RD_DATA_WIDTH-1:0];
-	end
-endcase
+assign WDATA_A1_i = PORT_A1_WDATA[17:0];
+assign WDATA_B1_i = 18'h0;
 
-// Assign parameters
-case (RD_DATA_WIDTH)
-	1: begin
-		case (WR_DATA_WIDTH)
-			1: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b1,
-					11'd10, 11'd10, 4'd0, MODE_1, MODE_1, MODE_1, MODE_1, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_1, MODE_1, MODE_1, MODE_1, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* is_split = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(RESET_ni),
-        
-          .WDATA_A1_i(PORT_A1_WDATA),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR1_ADDR_SHIFTED),
-          .CLK_A1_i(WR1_CLK_i),
-          .REN_A1_i(),
-          .WEN_A1_i(WEN1_i),
-          .BE_A1_i(WR1_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA),
-          .ADDR_B1_i(RD1_ADDR_SHIFTED),
-          .CLK_B1_i(RD1_CLK_i),
-          .REN_B1_i(REN1_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN1_i,REN1_i}),
-        
-          .WDATA_A2_i(PORT_A2_WDATA),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR2_ADDR_SHIFTED),
-          .CLK_A2_i(WR2_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN2_i),
-          .BE_A2_i(WR2_BE[1:0]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA),
-          .ADDR_B2_i(RD2_ADDR_SHIFTED),
-          .CLK_B2_i(RD2_CLK_i),
-          .REN_B2_i(REN2_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN2_i,REN2_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );        
-			end
-			2: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b1,
-					11'd10, 11'd10, 4'd0, MODE_1, MODE_2, MODE_1, MODE_2, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_1, MODE_2, MODE_1, MODE_2, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* is_split = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(RESET_ni),
-        
-          .WDATA_A1_i(PORT_A1_WDATA),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR1_ADDR_SHIFTED),
-          .CLK_A1_i(WR1_CLK_i),
-          .REN_A1_i(),
-          .WEN_A1_i(WEN1_i),
-          .BE_A1_i(WR1_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA),
-          .ADDR_B1_i(RD1_ADDR_SHIFTED),
-          .CLK_B1_i(RD1_CLK_i),
-          .REN_B1_i(REN1_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN1_i,REN1_i}),
-        
-          .WDATA_A2_i(PORT_A2_WDATA),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR2_ADDR_SHIFTED),
-          .CLK_A2_i(WR2_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN2_i),
-          .BE_A2_i(WR2_BE[1:0]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA),
-          .ADDR_B2_i(RD2_ADDR_SHIFTED),
-          .CLK_B2_i(RD2_CLK_i),
-          .REN_B2_i(REN2_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN2_i,REN2_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );        
-			end
-			4: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b1,
-					11'd10, 11'd10, 4'd0, MODE_1, MODE_4, MODE_1, MODE_4, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_1, MODE_4, MODE_1, MODE_4, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* is_split = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(RESET_ni),
-        
-          .WDATA_A1_i(PORT_A1_WDATA),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR1_ADDR_SHIFTED),
-          .CLK_A1_i(WR1_CLK_i),
-          .REN_A1_i(),
-          .WEN_A1_i(WEN1_i),
-          .BE_A1_i(WR1_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA),
-          .ADDR_B1_i(RD1_ADDR_SHIFTED),
-          .CLK_B1_i(RD1_CLK_i),
-          .REN_B1_i(REN1_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN1_i,REN1_i}),
-        
-          .WDATA_A2_i(PORT_A2_WDATA),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR2_ADDR_SHIFTED),
-          .CLK_A2_i(WR2_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN2_i),
-          .BE_A2_i(WR2_BE[1:0]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA),
-          .ADDR_B2_i(RD2_ADDR_SHIFTED),
-          .CLK_B2_i(RD2_CLK_i),
-          .REN_B2_i(REN2_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN2_i,REN2_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );        
-			end
-			8, 9: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b1,
-					11'd10, 11'd10, 4'd0, MODE_1, MODE_9, MODE_1, MODE_9, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_1, MODE_9, MODE_1, MODE_9, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* is_split = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(RESET_ni),
-        
-          .WDATA_A1_i(PORT_A1_WDATA),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR1_ADDR_SHIFTED),
-          .CLK_A1_i(WR1_CLK_i),
-          .REN_A1_i(),
-          .WEN_A1_i(WEN1_i),
-          .BE_A1_i(WR1_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA),
-          .ADDR_B1_i(RD1_ADDR_SHIFTED),
-          .CLK_B1_i(RD1_CLK_i),
-          .REN_B1_i(REN1_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN1_i,REN1_i}),
-        
-          .WDATA_A2_i(PORT_A2_WDATA),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR2_ADDR_SHIFTED),
-          .CLK_A2_i(WR2_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN2_i),
-          .BE_A2_i(WR2_BE[1:0]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA),
-          .ADDR_B2_i(RD2_ADDR_SHIFTED),
-          .CLK_B2_i(RD2_CLK_i),
-          .REN_B2_i(REN2_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN2_i,REN2_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );        
-			end
-			16, 18: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b1,
-					11'd10, 11'd10, 4'd0, MODE_1, MODE_18, MODE_1, MODE_18, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_1, MODE_18, MODE_1, MODE_18, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* is_split = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(RESET_ni),
-        
-          .WDATA_A1_i(PORT_A1_WDATA),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR1_ADDR_SHIFTED),
-          .CLK_A1_i(WR1_CLK_i),
-          .REN_A1_i(),
-          .WEN_A1_i(WEN1_i),
-          .BE_A1_i(WR1_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA),
-          .ADDR_B1_i(RD1_ADDR_SHIFTED),
-          .CLK_B1_i(RD1_CLK_i),
-          .REN_B1_i(REN1_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN1_i,REN1_i}),
-        
-          .WDATA_A2_i(PORT_A2_WDATA),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR2_ADDR_SHIFTED),
-          .CLK_A2_i(WR2_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN2_i),
-          .BE_A2_i(WR2_BE[1:0]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA),
-          .ADDR_B2_i(RD2_ADDR_SHIFTED),
-          .CLK_B2_i(RD2_CLK_i),
-          .REN_B2_i(REN2_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN2_i,REN2_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );        
-			end
-			default: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b1,
-					11'd10, 11'd10, 4'd0, MODE_1, MODE_1, MODE_1, MODE_1, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_1, MODE_1, MODE_1, MODE_1, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* is_split = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(RESET_ni),
-        
-          .WDATA_A1_i(PORT_A1_WDATA),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR1_ADDR_SHIFTED),
-          .CLK_A1_i(WR1_CLK_i),
-          .REN_A1_i(),
-          .WEN_A1_i(WEN1_i),
-          .BE_A1_i(WR1_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA),
-          .ADDR_B1_i(RD1_ADDR_SHIFTED),
-          .CLK_B1_i(RD1_CLK_i),
-          .REN_B1_i(REN1_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN1_i,REN1_i}),
-        
-          .WDATA_A2_i(PORT_A2_WDATA),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR2_ADDR_SHIFTED),
-          .CLK_A2_i(WR2_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN2_i),
-          .BE_A2_i(WR2_BE[1:0]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA),
-          .ADDR_B2_i(RD2_ADDR_SHIFTED),
-          .CLK_B2_i(RD2_CLK_i),
-          .REN_B2_i(REN2_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN2_i,REN2_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );        
-			end
-		endcase
-	end
-	2: begin
-		case (WR_DATA_WIDTH)
-			1: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b1,
-					11'd10, 11'd10, 4'd0, MODE_2, MODE_1, MODE_2, MODE_1, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_2, MODE_1, MODE_2, MODE_1, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* is_split = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(RESET_ni),
-        
-          .WDATA_A1_i(PORT_A1_WDATA),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR1_ADDR_SHIFTED),
-          .CLK_A1_i(WR1_CLK_i),
-          .REN_A1_i(),
-          .WEN_A1_i(WEN1_i),
-          .BE_A1_i(WR1_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA),
-          .ADDR_B1_i(RD1_ADDR_SHIFTED),
-          .CLK_B1_i(RD1_CLK_i),
-          .REN_B1_i(REN1_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN1_i,REN1_i}),
-        
-          .WDATA_A2_i(PORT_A2_WDATA),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR2_ADDR_SHIFTED),
-          .CLK_A2_i(WR2_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN2_i),
-          .BE_A2_i(WR2_BE[1:0]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA),
-          .ADDR_B2_i(RD2_ADDR_SHIFTED),
-          .CLK_B2_i(RD2_CLK_i),
-          .REN_B2_i(REN2_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN2_i,REN2_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );        
-			end
-			2: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b1,
-					11'd10, 11'd10, 4'd0, MODE_2, MODE_2, MODE_2, MODE_2, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_2, MODE_2, MODE_2, MODE_2, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* is_split = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(RESET_ni),
-        
-          .WDATA_A1_i(PORT_A1_WDATA),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR1_ADDR_SHIFTED),
-          .CLK_A1_i(WR1_CLK_i),
-          .REN_A1_i(),
-          .WEN_A1_i(WEN1_i),
-          .BE_A1_i(WR1_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA),
-          .ADDR_B1_i(RD1_ADDR_SHIFTED),
-          .CLK_B1_i(RD1_CLK_i),
-          .REN_B1_i(REN1_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN1_i,REN1_i}),
-        
-          .WDATA_A2_i(PORT_A2_WDATA),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR2_ADDR_SHIFTED),
-          .CLK_A2_i(WR2_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN2_i),
-          .BE_A2_i(WR2_BE[1:0]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA),
-          .ADDR_B2_i(RD2_ADDR_SHIFTED),
-          .CLK_B2_i(RD2_CLK_i),
-          .REN_B2_i(REN2_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN2_i,REN2_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );        
-			end
-			4: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b1,
-					11'd10, 11'd10, 4'd0, MODE_2, MODE_4, MODE_2, MODE_4, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_2, MODE_4, MODE_2, MODE_4, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* is_split = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(RESET_ni),
-        
-          .WDATA_A1_i(PORT_A1_WDATA),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR1_ADDR_SHIFTED),
-          .CLK_A1_i(WR1_CLK_i),
-          .REN_A1_i(),
-          .WEN_A1_i(WEN1_i),
-          .BE_A1_i(WR1_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA),
-          .ADDR_B1_i(RD1_ADDR_SHIFTED),
-          .CLK_B1_i(RD1_CLK_i),
-          .REN_B1_i(REN1_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN1_i,REN1_i}),
-        
-          .WDATA_A2_i(PORT_A2_WDATA),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR2_ADDR_SHIFTED),
-          .CLK_A2_i(WR2_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN2_i),
-          .BE_A2_i(WR2_BE[1:0]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA),
-          .ADDR_B2_i(RD2_ADDR_SHIFTED),
-          .CLK_B2_i(RD2_CLK_i),
-          .REN_B2_i(REN2_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN2_i,REN2_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );        
-			end
-			8, 9: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b1,
-					11'd10, 11'd10, 4'd0, MODE_2, MODE_9, MODE_2, MODE_9, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_2, MODE_9, MODE_2, MODE_9, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* is_split = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(RESET_ni),
-        
-          .WDATA_A1_i(PORT_A1_WDATA),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR1_ADDR_SHIFTED),
-          .CLK_A1_i(WR1_CLK_i),
-          .REN_A1_i(),
-          .WEN_A1_i(WEN1_i),
-          .BE_A1_i(WR1_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA),
-          .ADDR_B1_i(RD1_ADDR_SHIFTED),
-          .CLK_B1_i(RD1_CLK_i),
-          .REN_B1_i(REN1_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN1_i,REN1_i}),
-        
-          .WDATA_A2_i(PORT_A2_WDATA),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR2_ADDR_SHIFTED),
-          .CLK_A2_i(WR2_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN2_i),
-          .BE_A2_i(WR2_BE[1:0]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA),
-          .ADDR_B2_i(RD2_ADDR_SHIFTED),
-          .CLK_B2_i(RD2_CLK_i),
-          .REN_B2_i(REN2_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN2_i,REN2_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );        
-			end
-			16, 18: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b1,
-					11'd10, 11'd10, 4'd0, MODE_2, MODE_18, MODE_2, MODE_18, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_2, MODE_18, MODE_2, MODE_18, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* is_split = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(RESET_ni),
-        
-          .WDATA_A1_i(PORT_A1_WDATA),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR1_ADDR_SHIFTED),
-          .CLK_A1_i(WR1_CLK_i),
-          .REN_A1_i(),
-          .WEN_A1_i(WEN1_i),
-          .BE_A1_i(WR1_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA),
-          .ADDR_B1_i(RD1_ADDR_SHIFTED),
-          .CLK_B1_i(RD1_CLK_i),
-          .REN_B1_i(REN1_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN1_i,REN1_i}),
-        
-          .WDATA_A2_i(PORT_A2_WDATA),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR2_ADDR_SHIFTED),
-          .CLK_A2_i(WR2_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN2_i),
-          .BE_A2_i(WR2_BE[1:0]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA),
-          .ADDR_B2_i(RD2_ADDR_SHIFTED),
-          .CLK_B2_i(RD2_CLK_i),
-          .REN_B2_i(REN2_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN2_i,REN2_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );        
-			end
-			default: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b1,
-					11'd10, 11'd10, 4'd0, MODE_2, MODE_1, MODE_2, MODE_1, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_2, MODE_1, MODE_2, MODE_1, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* is_split = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(RESET_ni),
-        
-          .WDATA_A1_i(PORT_A1_WDATA),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR1_ADDR_SHIFTED),
-          .CLK_A1_i(WR1_CLK_i),
-          .REN_A1_i(),
-          .WEN_A1_i(WEN1_i),
-          .BE_A1_i(WR1_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA),
-          .ADDR_B1_i(RD1_ADDR_SHIFTED),
-          .CLK_B1_i(RD1_CLK_i),
-          .REN_B1_i(REN1_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN1_i,REN1_i}),
-        
-          .WDATA_A2_i(PORT_A2_WDATA),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR2_ADDR_SHIFTED),
-          .CLK_A2_i(WR2_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN2_i),
-          .BE_A2_i(WR2_BE[1:0]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA),
-          .ADDR_B2_i(RD2_ADDR_SHIFTED),
-          .CLK_B2_i(RD2_CLK_i),
-          .REN_B2_i(REN2_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN2_i,REN2_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );        
-			end
-		endcase
-	end
-	4: begin
-		case (WR_DATA_WIDTH)
-			1: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b1,
-					11'd10, 11'd10, 4'd0, MODE_4, MODE_1, MODE_4, MODE_1, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_4, MODE_1, MODE_4, MODE_1, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* is_split = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(RESET_ni),
-        
-          .WDATA_A1_i(PORT_A1_WDATA),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR1_ADDR_SHIFTED),
-          .CLK_A1_i(WR1_CLK_i),
-          .REN_A1_i(),
-          .WEN_A1_i(WEN1_i),
-          .BE_A1_i(WR1_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA),
-          .ADDR_B1_i(RD1_ADDR_SHIFTED),
-          .CLK_B1_i(RD1_CLK_i),
-          .REN_B1_i(REN1_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN1_i,REN1_i}),
-        
-          .WDATA_A2_i(PORT_A2_WDATA),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR2_ADDR_SHIFTED),
-          .CLK_A2_i(WR2_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN2_i),
-          .BE_A2_i(WR2_BE[1:0]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA),
-          .ADDR_B2_i(RD2_ADDR_SHIFTED),
-          .CLK_B2_i(RD2_CLK_i),
-          .REN_B2_i(REN2_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN2_i,REN2_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );        
-			end
-			2: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b1,
-					11'd10, 11'd10, 4'd0, MODE_4, MODE_2, MODE_4, MODE_2, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_4, MODE_2, MODE_4, MODE_2, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* is_split = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(RESET_ni),
-        
-          .WDATA_A1_i(PORT_A1_WDATA),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR1_ADDR_SHIFTED),
-          .CLK_A1_i(WR1_CLK_i),
-          .REN_A1_i(),
-          .WEN_A1_i(WEN1_i),
-          .BE_A1_i(WR1_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA),
-          .ADDR_B1_i(RD1_ADDR_SHIFTED),
-          .CLK_B1_i(RD1_CLK_i),
-          .REN_B1_i(REN1_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN1_i,REN1_i}),
-        
-          .WDATA_A2_i(PORT_A2_WDATA),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR2_ADDR_SHIFTED),
-          .CLK_A2_i(WR2_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN2_i),
-          .BE_A2_i(WR2_BE[1:0]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA),
-          .ADDR_B2_i(RD2_ADDR_SHIFTED),
-          .CLK_B2_i(RD2_CLK_i),
-          .REN_B2_i(REN2_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN2_i,REN2_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );        
-			end
-			4: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b1,
-					11'd10, 11'd10, 4'd0, MODE_4, MODE_4, MODE_4, MODE_4, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_4, MODE_4, MODE_4, MODE_4, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* is_split = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(RESET_ni),
-        
-          .WDATA_A1_i(PORT_A1_WDATA),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR1_ADDR_SHIFTED),
-          .CLK_A1_i(WR1_CLK_i),
-          .REN_A1_i(),
-          .WEN_A1_i(WEN1_i),
-          .BE_A1_i(WR1_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA),
-          .ADDR_B1_i(RD1_ADDR_SHIFTED),
-          .CLK_B1_i(RD1_CLK_i),
-          .REN_B1_i(REN1_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN1_i,REN1_i}),
-        
-          .WDATA_A2_i(PORT_A2_WDATA),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR2_ADDR_SHIFTED),
-          .CLK_A2_i(WR2_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN2_i),
-          .BE_A2_i(WR2_BE[1:0]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA),
-          .ADDR_B2_i(RD2_ADDR_SHIFTED),
-          .CLK_B2_i(RD2_CLK_i),
-          .REN_B2_i(REN2_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN2_i,REN2_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );        
-			end
-			8, 9: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b1,
-					11'd10, 11'd10, 4'd0, MODE_4, MODE_9, MODE_4, MODE_9, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_4, MODE_9, MODE_4, MODE_9, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* is_split = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(RESET_ni),
-        
-          .WDATA_A1_i(PORT_A1_WDATA),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR1_ADDR_SHIFTED),
-          .CLK_A1_i(WR1_CLK_i),
-          .REN_A1_i(),
-          .WEN_A1_i(WEN1_i),
-          .BE_A1_i(WR1_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA),
-          .ADDR_B1_i(RD1_ADDR_SHIFTED),
-          .CLK_B1_i(RD1_CLK_i),
-          .REN_B1_i(REN1_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN1_i,REN1_i}),
-        
-          .WDATA_A2_i(PORT_A2_WDATA),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR2_ADDR_SHIFTED),
-          .CLK_A2_i(WR2_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN2_i),
-          .BE_A2_i(WR2_BE[1:0]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA),
-          .ADDR_B2_i(RD2_ADDR_SHIFTED),
-          .CLK_B2_i(RD2_CLK_i),
-          .REN_B2_i(REN2_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN2_i,REN2_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );       
-			end
-			16, 18: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b1,
-					11'd10, 11'd10, 4'd0, MODE_4, MODE_18, MODE_4, MODE_18, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_4, MODE_18, MODE_4, MODE_18, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* is_split = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(RESET_ni),
-        
-          .WDATA_A1_i(PORT_A1_WDATA),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR1_ADDR_SHIFTED),
-          .CLK_A1_i(WR1_CLK_i),
-          .REN_A1_i(),
-          .WEN_A1_i(WEN1_i),
-          .BE_A1_i(WR1_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA),
-          .ADDR_B1_i(RD1_ADDR_SHIFTED),
-          .CLK_B1_i(RD1_CLK_i),
-          .REN_B1_i(REN1_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN1_i,REN1_i}),
-        
-          .WDATA_A2_i(PORT_A2_WDATA),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR2_ADDR_SHIFTED),
-          .CLK_A2_i(WR2_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN2_i),
-          .BE_A2_i(WR2_BE[1:0]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA),
-          .ADDR_B2_i(RD2_ADDR_SHIFTED),
-          .CLK_B2_i(RD2_CLK_i),
-          .REN_B2_i(REN2_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN2_i,REN2_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );        
-			end
-			default: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b1,
-					11'd10, 11'd10, 4'd0, MODE_4, MODE_1, MODE_4, MODE_1, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_4, MODE_1, MODE_4, MODE_1, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* is_split = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(RESET_ni),
-        
-          .WDATA_A1_i(PORT_A1_WDATA),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR1_ADDR_SHIFTED),
-          .CLK_A1_i(WR1_CLK_i),
-          .REN_A1_i(),
-          .WEN_A1_i(WEN1_i),
-          .BE_A1_i(WR1_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA),
-          .ADDR_B1_i(RD1_ADDR_SHIFTED),
-          .CLK_B1_i(RD1_CLK_i),
-          .REN_B1_i(REN1_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN1_i,REN1_i}),
-        
-          .WDATA_A2_i(PORT_A2_WDATA),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR2_ADDR_SHIFTED),
-          .CLK_A2_i(WR2_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN2_i),
-          .BE_A2_i(WR2_BE[1:0]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA),
-          .ADDR_B2_i(RD2_ADDR_SHIFTED),
-          .CLK_B2_i(RD2_CLK_i),
-          .REN_B2_i(REN2_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN2_i,REN2_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );        
-			end
-		endcase
-	end
-	8, 9: begin
-		case (WR_DATA_WIDTH)
-			1: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b1,
-					11'd10, 11'd10, 4'd0, MODE_9, MODE_1, MODE_9, MODE_1, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_9, MODE_1, MODE_9, MODE_1, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* is_split = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(RESET_ni),
-        
-          .WDATA_A1_i(PORT_A1_WDATA),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR1_ADDR_SHIFTED),
-          .CLK_A1_i(WR1_CLK_i),
-          .REN_A1_i(),
-          .WEN_A1_i(WEN1_i),
-          .BE_A1_i(WR1_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA),
-          .ADDR_B1_i(RD1_ADDR_SHIFTED),
-          .CLK_B1_i(RD1_CLK_i),
-          .REN_B1_i(REN1_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN1_i,REN1_i}),
-        
-          .WDATA_A2_i(PORT_A2_WDATA),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR2_ADDR_SHIFTED),
-          .CLK_A2_i(WR2_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN2_i),
-          .BE_A2_i(WR2_BE[1:0]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA),
-          .ADDR_B2_i(RD2_ADDR_SHIFTED),
-          .CLK_B2_i(RD2_CLK_i),
-          .REN_B2_i(REN2_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN2_i,REN2_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );        
-			end
-			2: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b1,
-					11'd10, 11'd10, 4'd0, MODE_9, MODE_2, MODE_9, MODE_2, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_9, MODE_2, MODE_9, MODE_2, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* is_split = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(RESET_ni),
-        
-          .WDATA_A1_i(PORT_A1_WDATA),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR1_ADDR_SHIFTED),
-          .CLK_A1_i(WR1_CLK_i),
-          .REN_A1_i(),
-          .WEN_A1_i(WEN1_i),
-          .BE_A1_i(WR1_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA),
-          .ADDR_B1_i(RD1_ADDR_SHIFTED),
-          .CLK_B1_i(RD1_CLK_i),
-          .REN_B1_i(REN1_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN1_i,REN1_i}),
-        
-          .WDATA_A2_i(PORT_A2_WDATA),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR2_ADDR_SHIFTED),
-          .CLK_A2_i(WR2_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN2_i),
-          .BE_A2_i(WR2_BE[1:0]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA),
-          .ADDR_B2_i(RD2_ADDR_SHIFTED),
-          .CLK_B2_i(RD2_CLK_i),
-          .REN_B2_i(REN2_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN2_i,REN2_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );        
-			end
-			4: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b1,
-					11'd10, 11'd10, 4'd0, MODE_9, MODE_4, MODE_9, MODE_4, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_9, MODE_4, MODE_9, MODE_4, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* is_split = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(RESET_ni),
-        
-          .WDATA_A1_i(PORT_A1_WDATA),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR1_ADDR_SHIFTED),
-          .CLK_A1_i(WR1_CLK_i),
-          .REN_A1_i(),
-          .WEN_A1_i(WEN1_i),
-          .BE_A1_i(WR1_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA),
-          .ADDR_B1_i(RD1_ADDR_SHIFTED),
-          .CLK_B1_i(RD1_CLK_i),
-          .REN_B1_i(REN1_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN1_i,REN1_i}),
-        
-          .WDATA_A2_i(PORT_A2_WDATA),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR2_ADDR_SHIFTED),
-          .CLK_A2_i(WR2_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN2_i),
-          .BE_A2_i(WR2_BE[1:0]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA),
-          .ADDR_B2_i(RD2_ADDR_SHIFTED),
-          .CLK_B2_i(RD2_CLK_i),
-          .REN_B2_i(REN2_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN2_i,REN2_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );        
-			end
-			8, 9: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b1,
-					11'd10, 11'd10, 4'd0, MODE_9, MODE_9, MODE_9, MODE_9, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_9, MODE_9, MODE_9, MODE_9, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* is_split = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(RESET_ni),
-        
-          .WDATA_A1_i(PORT_A1_WDATA),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR1_ADDR_SHIFTED),
-          .CLK_A1_i(WR1_CLK_i),
-          .REN_A1_i(),
-          .WEN_A1_i(WEN1_i),
-          .BE_A1_i(WR1_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA),
-          .ADDR_B1_i(RD1_ADDR_SHIFTED),
-          .CLK_B1_i(RD1_CLK_i),
-          .REN_B1_i(REN1_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN1_i,REN1_i}),
-        
-          .WDATA_A2_i(PORT_A2_WDATA),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR2_ADDR_SHIFTED),
-          .CLK_A2_i(WR2_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN2_i),
-          .BE_A2_i(WR2_BE[1:0]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA),
-          .ADDR_B2_i(RD2_ADDR_SHIFTED),
-          .CLK_B2_i(RD2_CLK_i),
-          .REN_B2_i(REN2_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN2_i,REN2_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );        
-			end
-			16, 18: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b1,
-					11'd10, 11'd10, 4'd0, MODE_9, MODE_18, MODE_9, MODE_18, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_9, MODE_18, MODE_9, MODE_18, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* is_split = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(RESET_ni),
-        
-          .WDATA_A1_i(PORT_A1_WDATA),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR1_ADDR_SHIFTED),
-          .CLK_A1_i(WR1_CLK_i),
-          .REN_A1_i(),
-          .WEN_A1_i(WEN1_i),
-          .BE_A1_i(WR1_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA),
-          .ADDR_B1_i(RD1_ADDR_SHIFTED),
-          .CLK_B1_i(RD1_CLK_i),
-          .REN_B1_i(REN1_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN1_i,REN1_i}),
-        
-          .WDATA_A2_i(PORT_A2_WDATA),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR2_ADDR_SHIFTED),
-          .CLK_A2_i(WR2_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN2_i),
-          .BE_A2_i(WR2_BE[1:0]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA),
-          .ADDR_B2_i(RD2_ADDR_SHIFTED),
-          .CLK_B2_i(RD2_CLK_i),
-          .REN_B2_i(REN2_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN2_i,REN2_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );        
-			end
-			default: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b1,
-					11'd10, 11'd10, 4'd0, MODE_9, MODE_1, MODE_9, MODE_1, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_9, MODE_1, MODE_9, MODE_1, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* is_split = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(RESET_ni),
-        
-          .WDATA_A1_i(PORT_A1_WDATA),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR1_ADDR_SHIFTED),
-          .CLK_A1_i(WR1_CLK_i),
-          .REN_A1_i(),
-          .WEN_A1_i(WEN1_i),
-          .BE_A1_i(WR1_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA),
-          .ADDR_B1_i(RD1_ADDR_SHIFTED),
-          .CLK_B1_i(RD1_CLK_i),
-          .REN_B1_i(REN1_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN1_i,REN1_i}),
-        
-          .WDATA_A2_i(PORT_A2_WDATA),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR2_ADDR_SHIFTED),
-          .CLK_A2_i(WR2_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN2_i),
-          .BE_A2_i(WR2_BE[1:0]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA),
-          .ADDR_B2_i(RD2_ADDR_SHIFTED),
-          .CLK_B2_i(RD2_CLK_i),
-          .REN_B2_i(REN2_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN2_i,REN2_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );        
-			end
-		endcase
-	end
-	16, 18: begin
-		case (WR_DATA_WIDTH)
-			1: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b1,
-					11'd10, 11'd10, 4'd0, MODE_18, MODE_1, MODE_18, MODE_1, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_18, MODE_1, MODE_18, MODE_1, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* is_split = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(RESET_ni),
-        
-          .WDATA_A1_i(PORT_A1_WDATA),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR1_ADDR_SHIFTED),
-          .CLK_A1_i(WR1_CLK_i),
-          .REN_A1_i(),
-          .WEN_A1_i(WEN1_i),
-          .BE_A1_i(WR1_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA),
-          .ADDR_B1_i(RD1_ADDR_SHIFTED),
-          .CLK_B1_i(RD1_CLK_i),
-          .REN_B1_i(REN1_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN1_i,REN1_i}),
-        
-          .WDATA_A2_i(PORT_A2_WDATA),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR2_ADDR_SHIFTED),
-          .CLK_A2_i(WR2_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN2_i),
-          .BE_A2_i(WR2_BE[1:0]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA),
-          .ADDR_B2_i(RD2_ADDR_SHIFTED),
-          .CLK_B2_i(RD2_CLK_i),
-          .REN_B2_i(REN2_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN2_i,REN2_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );        
-			end
-			2: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b1,
-					11'd10, 11'd10, 4'd0, MODE_18, MODE_2, MODE_18, MODE_2, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_18, MODE_2, MODE_18, MODE_2, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* is_split = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(RESET_ni),
-        
-          .WDATA_A1_i(PORT_A1_WDATA),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR1_ADDR_SHIFTED),
-          .CLK_A1_i(WR1_CLK_i),
-          .REN_A1_i(),
-          .WEN_A1_i(WEN1_i),
-          .BE_A1_i(WR1_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA),
-          .ADDR_B1_i(RD1_ADDR_SHIFTED),
-          .CLK_B1_i(RD1_CLK_i),
-          .REN_B1_i(REN1_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN1_i,REN1_i}),
-        
-          .WDATA_A2_i(PORT_A2_WDATA),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR2_ADDR_SHIFTED),
-          .CLK_A2_i(WR2_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN2_i),
-          .BE_A2_i(WR2_BE[1:0]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA),
-          .ADDR_B2_i(RD2_ADDR_SHIFTED),
-          .CLK_B2_i(RD2_CLK_i),
-          .REN_B2_i(REN2_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN2_i,REN2_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );        
-			end
-			4: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b1,
-					11'd10, 11'd10, 4'd0, MODE_18, MODE_4, MODE_18, MODE_4, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_18, MODE_4, MODE_18, MODE_4, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* is_split = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(RESET_ni),
-        
-          .WDATA_A1_i(PORT_A1_WDATA),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR1_ADDR_SHIFTED),
-          .CLK_A1_i(WR1_CLK_i),
-          .REN_A1_i(),
-          .WEN_A1_i(WEN1_i),
-          .BE_A1_i(WR1_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA),
-          .ADDR_B1_i(RD1_ADDR_SHIFTED),
-          .CLK_B1_i(RD1_CLK_i),
-          .REN_B1_i(REN1_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN1_i,REN1_i}),
-        
-          .WDATA_A2_i(PORT_A2_WDATA),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR2_ADDR_SHIFTED),
-          .CLK_A2_i(WR2_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN2_i),
-          .BE_A2_i(WR2_BE[1:0]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA),
-          .ADDR_B2_i(RD2_ADDR_SHIFTED),
-          .CLK_B2_i(RD2_CLK_i),
-          .REN_B2_i(REN2_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN2_i,REN2_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );        
-			end
-			8, 9: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b1,
-					11'd10, 11'd10, 4'd0, MODE_18, MODE_9, MODE_18, MODE_9, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_18, MODE_9, MODE_18, MODE_9, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* is_split = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(RESET_ni),
-        
-          .WDATA_A1_i(PORT_A1_WDATA),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR1_ADDR_SHIFTED),
-          .CLK_A1_i(WR1_CLK_i),
-          .REN_A1_i(),
-          .WEN_A1_i(WEN1_i),
-          .BE_A1_i(WR1_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA),
-          .ADDR_B1_i(RD1_ADDR_SHIFTED),
-          .CLK_B1_i(RD1_CLK_i),
-          .REN_B1_i(REN1_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN1_i,REN1_i}),
-        
-          .WDATA_A2_i(PORT_A2_WDATA),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR2_ADDR_SHIFTED),
-          .CLK_A2_i(WR2_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN2_i),
-          .BE_A2_i(WR2_BE[1:0]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA),
-          .ADDR_B2_i(RD2_ADDR_SHIFTED),
-          .CLK_B2_i(RD2_CLK_i),
-          .REN_B2_i(REN2_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN2_i,REN2_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );        
-			end
-			16, 18: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b1,
-					11'd10, 11'd10, 4'd0, MODE_18, MODE_18, MODE_18, MODE_18, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_18, MODE_18, MODE_18, MODE_18, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* is_split = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(RESET_ni),
-        
-          .WDATA_A1_i(PORT_A1_WDATA),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR1_ADDR_SHIFTED),
-          .CLK_A1_i(WR1_CLK_i),
-          .REN_A1_i(),
-          .WEN_A1_i(WEN1_i),
-          .BE_A1_i(WR1_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA),
-          .ADDR_B1_i(RD1_ADDR_SHIFTED),
-          .CLK_B1_i(RD1_CLK_i),
-          .REN_B1_i(REN1_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN1_i,REN1_i}),
-        
-          .WDATA_A2_i(PORT_A2_WDATA),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR2_ADDR_SHIFTED),
-          .CLK_A2_i(WR2_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN2_i),
-          .BE_A2_i(WR2_BE[1:0]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA),
-          .ADDR_B2_i(RD2_ADDR_SHIFTED),
-          .CLK_B2_i(RD2_CLK_i),
-          .REN_B2_i(REN2_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN2_i,REN2_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );        
-			end
-			default: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b1,
-					11'd10, 11'd10, 4'd0, MODE_18, MODE_1, MODE_18, MODE_1, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_18, MODE_1, MODE_18, MODE_1, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* is_split = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(RESET_ni),
-        
-          .WDATA_A1_i(PORT_A1_WDATA),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR1_ADDR_SHIFTED),
-          .CLK_A1_i(WR1_CLK_i),
-          .REN_A1_i(),
-          .WEN_A1_i(WEN1_i),
-          .BE_A1_i(WR1_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA),
-          .ADDR_B1_i(RD1_ADDR_SHIFTED),
-          .CLK_B1_i(RD1_CLK_i),
-          .REN_B1_i(REN1_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN1_i,REN1_i}),
-        
-          .WDATA_A2_i(PORT_A2_WDATA),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR2_ADDR_SHIFTED),
-          .CLK_A2_i(WR2_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN2_i),
-          .BE_A2_i(WR2_BE[1:0]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA),
-          .ADDR_B2_i(RD2_ADDR_SHIFTED),
-          .CLK_B2_i(RD2_CLK_i),
-          .REN_B2_i(REN2_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN2_i,REN2_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );        
-			end
-		endcase
-	end
-	default: begin
-		case (WR_DATA_WIDTH)
-			1: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b1,
-					11'd10, 11'd10, 4'd0, MODE_1, MODE_1, MODE_1, MODE_1, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_1, MODE_1, MODE_1, MODE_1, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* is_split = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(RESET_ni),
-        
-          .WDATA_A1_i(PORT_A1_WDATA),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR1_ADDR_SHIFTED),
-          .CLK_A1_i(WR1_CLK_i),
-          .REN_A1_i(),
-          .WEN_A1_i(WEN1_i),
-          .BE_A1_i(WR1_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA),
-          .ADDR_B1_i(RD1_ADDR_SHIFTED),
-          .CLK_B1_i(RD1_CLK_i),
-          .REN_B1_i(REN1_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN1_i,REN1_i}),
-        
-          .WDATA_A2_i(PORT_A2_WDATA),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR2_ADDR_SHIFTED),
-          .CLK_A2_i(WR2_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN2_i),
-          .BE_A2_i(WR2_BE[1:0]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA),
-          .ADDR_B2_i(RD2_ADDR_SHIFTED),
-          .CLK_B2_i(RD2_CLK_i),
-          .REN_B2_i(REN2_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN2_i,REN2_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );        
-			end
-			2: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b1,
-					11'd10, 11'd10, 4'd0, MODE_1, MODE_2, MODE_1, MODE_2, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_1, MODE_2, MODE_1, MODE_2, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* is_split = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(RESET_ni),
-        
-          .WDATA_A1_i(PORT_A1_WDATA),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR1_ADDR_SHIFTED),
-          .CLK_A1_i(WR1_CLK_i),
-          .REN_A1_i(),
-          .WEN_A1_i(WEN1_i),
-          .BE_A1_i(WR1_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA),
-          .ADDR_B1_i(RD1_ADDR_SHIFTED),
-          .CLK_B1_i(RD1_CLK_i),
-          .REN_B1_i(REN1_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN1_i,REN1_i}),
-        
-          .WDATA_A2_i(PORT_A2_WDATA),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR2_ADDR_SHIFTED),
-          .CLK_A2_i(WR2_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN2_i),
-          .BE_A2_i(WR2_BE[1:0]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA),
-          .ADDR_B2_i(RD2_ADDR_SHIFTED),
-          .CLK_B2_i(RD2_CLK_i),
-          .REN_B2_i(REN2_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN2_i,REN2_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );        
-			end
-			4: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b1,
-					11'd10, 11'd10, 4'd0, MODE_1, MODE_4, MODE_1, MODE_4, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_1, MODE_4, MODE_1, MODE_4, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* is_split = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(RESET_ni),
-        
-          .WDATA_A1_i(PORT_A1_WDATA),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR1_ADDR_SHIFTED),
-          .CLK_A1_i(WR1_CLK_i),
-          .REN_A1_i(),
-          .WEN_A1_i(WEN1_i),
-          .BE_A1_i(WR1_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA),
-          .ADDR_B1_i(RD1_ADDR_SHIFTED),
-          .CLK_B1_i(RD1_CLK_i),
-          .REN_B1_i(REN1_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN1_i,REN1_i}),
-        
-          .WDATA_A2_i(PORT_A2_WDATA),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR2_ADDR_SHIFTED),
-          .CLK_A2_i(WR2_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN2_i),
-          .BE_A2_i(WR2_BE[1:0]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA),
-          .ADDR_B2_i(RD2_ADDR_SHIFTED),
-          .CLK_B2_i(RD2_CLK_i),
-          .REN_B2_i(REN2_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN2_i,REN2_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );        
-			end
-			8, 9: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b1,
-					11'd10, 11'd10, 4'd0, MODE_1, MODE_9, MODE_1, MODE_9, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_1, MODE_9, MODE_1, MODE_9, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* is_split = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(RESET_ni),
-        
-          .WDATA_A1_i(PORT_A1_WDATA),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR1_ADDR_SHIFTED),
-          .CLK_A1_i(WR1_CLK_i),
-          .REN_A1_i(),
-          .WEN_A1_i(WEN1_i),
-          .BE_A1_i(WR1_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA),
-          .ADDR_B1_i(RD1_ADDR_SHIFTED),
-          .CLK_B1_i(RD1_CLK_i),
-          .REN_B1_i(REN1_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN1_i,REN1_i}),
-        
-          .WDATA_A2_i(PORT_A2_WDATA),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR2_ADDR_SHIFTED),
-          .CLK_A2_i(WR2_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN2_i),
-          .BE_A2_i(WR2_BE[1:0]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA),
-          .ADDR_B2_i(RD2_ADDR_SHIFTED),
-          .CLK_B2_i(RD2_CLK_i),
-          .REN_B2_i(REN2_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN2_i,REN2_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );        
-			end
-			16, 18: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b1,
-					11'd10, 11'd10, 4'd0, MODE_1, MODE_18, MODE_1, MODE_18, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_1, MODE_18, MODE_1, MODE_18, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* is_split = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(RESET_ni),
-        
-          .WDATA_A1_i(PORT_A1_WDATA),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR1_ADDR_SHIFTED),
-          .CLK_A1_i(WR1_CLK_i),
-          .REN_A1_i(),
-          .WEN_A1_i(WEN1_i),
-          .BE_A1_i(WR1_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA),
-          .ADDR_B1_i(RD1_ADDR_SHIFTED),
-          .CLK_B1_i(RD1_CLK_i),
-          .REN_B1_i(REN1_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN1_i,REN1_i}),
-        
-          .WDATA_A2_i(PORT_A2_WDATA),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR2_ADDR_SHIFTED),
-          .CLK_A2_i(WR2_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN2_i),
-          .BE_A2_i(WR2_BE[1:0]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA),
-          .ADDR_B2_i(RD2_ADDR_SHIFTED),
-          .CLK_B2_i(RD2_CLK_i),
-          .REN_B2_i(REN2_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN2_i,REN2_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );        
-			end
-			default: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b1,
-					11'd10, 11'd10, 4'd0, MODE_1, MODE_1, MODE_1, MODE_1, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_1, MODE_1, MODE_1, MODE_1, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* is_split = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(RESET_ni),
-        
-          .WDATA_A1_i(PORT_A1_WDATA),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR1_ADDR_SHIFTED),
-          .CLK_A1_i(WR1_CLK_i),
-          .REN_A1_i(),
-          .WEN_A1_i(WEN1_i),
-          .BE_A1_i(WR1_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA),
-          .ADDR_B1_i(RD1_ADDR_SHIFTED),
-          .CLK_B1_i(RD1_CLK_i),
-          .REN_B1_i(REN1_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN1_i,REN1_i}),
-        
-          .WDATA_A2_i(PORT_A2_WDATA),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR2_ADDR_SHIFTED),
-          .CLK_A2_i(WR2_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN2_i),
-          .BE_A2_i(WR2_BE[1:0]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA),
-          .ADDR_B2_i(RD2_ADDR_SHIFTED),
-          .CLK_B2_i(RD2_CLK_i),
-          .REN_B2_i(REN2_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN2_i,REN2_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );        
-			end
-		endcase
-	end
-endcase
+generate
+  if (RD1_DATA_WIDTH == 9) begin
+    assign PORT_B1_RDATA = { 9'h0, RDATA_B1_o[16], RDATA_B1_o[7:0]};
+  end else begin
+    assign PORT_B1_RDATA = RDATA_B1_o;
+  end
+endgenerate
+
+assign RDATA1_o = PORT_B1_RDATA[RD1_DATA_WIDTH-1:0];
+
+generate
+  if (WR2_DATA_WIDTH == 18) begin
+    assign PORT_A2_WDATA[WR2_DATA_WIDTH-1:0] = WDATA2_i[WR2_DATA_WIDTH-1:0];
+  end else if (WR2_DATA_WIDTH == 9) begin
+    assign PORT_A2_WDATA = {1'b0, WDATA2_i[8], 8'h0, WDATA2_i[7:0]};
+  end else begin
+    assign PORT_A2_WDATA[17:WR2_DATA_WIDTH] = 0;
+    assign PORT_A2_WDATA[WR2_DATA_WIDTH-1:0] = WDATA2_i[WR2_DATA_WIDTH-1:0];
+  end
+endgenerate
+
+assign WDATA_A2_i = PORT_A2_WDATA[17:0];
+assign WDATA_B2_i = 18'h0;
+
+generate
+  if (RD2_DATA_WIDTH == 9) begin
+    assign PORT_B2_RDATA = { 9'h0, RDATA_B2_o[16], RDATA_B2_o[7:0]};
+  end else begin
+    assign PORT_B2_RDATA = RDATA_B2_o;
+  end
+endgenerate
+
+assign RDATA2_o = PORT_B2_RDATA[RD2_DATA_WIDTH-1:0];
+
+defparam _TECHMAP_REPLACE_.MODE_BITS = { 1'b1,
+	UPAF2_i, UPAE2_i, PROTECT2_i, SLEEP2_i, POWERDN2_i, FMODE2_i, WMODE_B2_i, WMODE_A2_i, RMODE_B2_i, RMODE_A2_i, SYNC_FIFO2_i,
+	UPAF1_i, UPAE1_i, PROTECT1_i, SLEEP1_i, POWERDN1_i, FMODE1_i, WMODE_B1_i, WMODE_A1_i, RMODE_B1_i, RMODE_A1_i, SYNC_FIFO1_i
+};
+
+(* is_inferred = 0 *)
+(* is_split = 0 *)
+(* port_a_dwidth = WR1_DATA_WIDTH *)
+(* port_b_dwidth = RD1_DATA_WIDTH *)
+TDP36K _TECHMAP_REPLACE_ (
+	.RESET_ni(1'b1),
+
+	.CLK_A1_i(WR1_CLK_i),
+	.ADDR_A1_i({1'b0,PORT_A1_ADDR}),
+	.WEN_A1_i(WEN_A1_i),
+	.BE_A1_i(BE_A1_i),
+	.WDATA_A1_i(WDATA_A1_i),
+	.REN_A1_i(REN_A1_i),
+	.RDATA_A1_o(RDATA_A1_o),
+
+	.CLK_A2_i(WR2_CLK_i),
+	.ADDR_A2_i(PORT_A2_ADDR),
+	.WEN_A2_i(WEN_A2_i),
+	.BE_A2_i(BE_A2_i),
+	.WDATA_A2_i(WDATA_A2_i),
+	.REN_A2_i(REN_A2_i),
+	.RDATA_A2_o(RDATA_A2_o),
+
+	.CLK_B1_i(RD1_CLK_i),
+	.ADDR_B1_i({1'b0,PORT_B1_ADDR}),
+	.WEN_B1_i(WEN_B1_i),
+	.BE_B1_i(BE_B1_i),
+	.WDATA_B1_i(WDATA_B1_i),
+	.REN_B1_i(REN_B1_i),
+	.RDATA_B1_o(RDATA_B1_o),
+
+	.CLK_B2_i(RD2_CLK_i),
+	.ADDR_B2_i(PORT_B2_ADDR),
+	.WEN_B2_i(WEN_B2_i),
+	.BE_B2_i(BE_B2_i),
+	.WDATA_B2_i(WDATA_B2_i),
+	.REN_B2_i(REN_B2_i),
+	.RDATA_B2_o(RDATA_B2_o),
+
+	.FLUSH1_i(1'b0),
+	.FLUSH2_i(1'b0)
+);
 
 endmodule
 
@@ -3460,13 +1525,19 @@ input wire [RD_ADDR_WIDTH-1 :0] RD_ADDR_i;
 input wire [WR_DATA_WIDTH-1 :0] WDATA_i;
 output wire [RD_DATA_WIDTH-1 :0] RDATA_o;
 
+  (* is_inferred = 0 *)
+  (* is_split = 0 *)
   BRAM2x18_SP  #(
-      .WR_ADDR_WIDTH(WR_ADDR_WIDTH), 
-      .RD_ADDR_WIDTH(RD_ADDR_WIDTH),
-      .WR_DATA_WIDTH(WR_DATA_WIDTH), 
-      .RD_DATA_WIDTH(RD_DATA_WIDTH),
+      .WR1_ADDR_WIDTH(WR_ADDR_WIDTH), 
+      .RD1_ADDR_WIDTH(RD_ADDR_WIDTH),
+      .WR1_DATA_WIDTH(WR_DATA_WIDTH), 
+      .RD1_DATA_WIDTH(RD_DATA_WIDTH),
       .BE1_WIDTH(BE_WIDTH),
-      .BE2_WIDTH()      
+      .WR2_ADDR_WIDTH(), 
+      .RD2_ADDR_WIDTH(),
+      .WR2_DATA_WIDTH(), 
+      .RD2_DATA_WIDTH(),
+      .BE2_WIDTH()
        ) U1
       (
       .RESET_ni(1'b1),
@@ -3481,14 +1552,14 @@ output wire [RD_DATA_WIDTH-1 :0] RDATA_o;
       .WDATA1_i(WDATA_i),
       .RDATA1_o(RDATA_o),
       
-      .WEN2_i(),
-      .REN2_i(),
-      .WR2_CLK_i(),
-      .RD2_CLK_i(),
-      .WR2_BE_i(),
-      .WR2_ADDR_i(),
-      .RD2_ADDR_i(),
-      .WDATA2_i(),
+      .WEN2_i(1'b0),
+      .REN2_i(1'b0),
+      .WR2_CLK_i(1'b0),
+      .RD2_CLK_i(1'b0),
+      .WR2_BE_i(2'b00),
+      .WR2_ADDR_i(14'h0),
+      .RD2_ADDR_i(14'h0),
+      .WDATA2_i(18'h0),
       .RDATA2_o()
       );
     
@@ -3512,12 +1583,7 @@ parameter WR_DATA_WIDTH = 36;
 parameter RD_DATA_WIDTH = 36;
 parameter BE_WIDTH = 4;
 
-localparam MODE_36 = 3'b011; // 36- or 32-bit
-localparam MODE_18 = 3'b010; // 18- or 16-bit
-localparam MODE_9 = 3'b001; // 9- or 8-bit
-localparam MODE_4 = 3'b100; // 4-bit
-localparam MODE_2 = 3'b110; // 2-bit
-localparam MODE_1 = 3'b101; // 1-bit
+parameter INIT = 0;
 
 input wire WEN_i;
 input wire REN_i;
@@ -3529,86 +1595,164 @@ input wire [RD_ADDR_WIDTH-1 :0] RD_ADDR_i;
 input wire [WR_DATA_WIDTH-1 :0] WDATA_i;
 output wire [RD_DATA_WIDTH-1 :0] RDATA_o;
 
-wire [14:RD_ADDR_WIDTH] RD_ADDR_CMPL;
-wire [14:WR_ADDR_WIDTH] WR_ADDR_CMPL;
-wire [35:0] RD_DATA_CMPL;
-wire [35:WR_DATA_WIDTH] WR_DATA_CMPL;
+// Fixed mode settings
+localparam [ 0:0] SYNC_FIFO1_i  = 1'd0;
+localparam [ 0:0] FMODE1_i      = 1'd0;
+localparam [ 0:0] POWERDN1_i    = 1'd0;
+localparam [ 0:0] SLEEP1_i      = 1'd0;
+localparam [ 0:0] PROTECT1_i    = 1'd0;
+localparam [11:0] UPAE1_i       = 12'd10;
+localparam [11:0] UPAF1_i       = 12'd10;
 
-wire [14:0] RD_ADDR_TOTAL;
-wire [14:0] WR_ADDR_TOTAL;
+localparam [ 0:0] SYNC_FIFO2_i  = 1'd0;
+localparam [ 0:0] FMODE2_i      = 1'd0;
+localparam [ 0:0] POWERDN2_i    = 1'd0;
+localparam [ 0:0] SLEEP2_i      = 1'd0;
+localparam [ 0:0] PROTECT2_i    = 1'd0;
+localparam [10:0] UPAE2_i       = 11'd10;
+localparam [10:0] UPAF2_i       = 11'd10;
 
-wire [14:0] RD_ADDR_SHIFTED;
-wire [14:0] WR_ADDR_SHIFTED;
+// Width mode function
+function [2:0] mode;
+input integer width;
+case (width)
+1: mode = 3'b101;
+2: mode = 3'b110;
+4: mode = 3'b100;
+8,9: mode = 3'b001;
+16, 18: mode = 3'b010;
+32, 36: mode = 3'b011;
+default: mode = 3'b000;
+endcase
+endfunction
+
+wire REN_A1_i;
+wire REN_A2_i;
+
+wire REN_B1_i;
+wire REN_B2_i;
+
+wire WEN_A1_i;
+wire WEN_A2_i;
+
+wire WEN_B1_i;
+wire WEN_B2_i;
+
+wire [1:0] BE_A1_i;
+wire [1:0] BE_A2_i;
+
+wire [1:0] BE_B1_i;
+wire [1:0] BE_B2_i;
+
+wire [14:0] ADDR_A1_i;
+wire [13:0] ADDR_A2_i;
+
+wire [14:0] ADDR_B1_i;
+wire [13:0] ADDR_B2_i;
+
+wire [17:0] WDATA_A1_i;
+wire [17:0] WDATA_A2_i;
+
+wire [17:0] WDATA_B1_i;
+wire [17:0] WDATA_B2_i;
+
+wire [17:0] RDATA_A1_o;
+wire [17:0] RDATA_A2_o;
+
+wire [17:0] RDATA_B1_o;
+wire [17:0] RDATA_B2_o;
 
 wire [3:0] WR_BE;
 
-wire FLUSH1;
-wire FLUSH2;
+wire [35:0] PORT_B_RDATA;
+wire [35:0] PORT_A_WDATA;
+
+wire [14:0] WR_ADDR_INT;
+wire [14:0] RD_ADDR_INT; 
+
+wire [14:0] PORT_A_ADDR;
+wire [14:0] PORT_B_ADDR;
+
+wire PORT_A_CLK;
+wire PORT_B_CLK;
+
+// Set port width mode (In non-split mode A2/B2 is not active. Set same values anyway to match previous behavior.)
+localparam [ 2:0] RMODE_A1_i    = mode(WR_DATA_WIDTH);
+localparam [ 2:0] WMODE_A1_i    = mode(WR_DATA_WIDTH);
+localparam [ 2:0] RMODE_A2_i    = mode(WR_DATA_WIDTH);
+localparam [ 2:0] WMODE_A2_i    = mode(WR_DATA_WIDTH);
+
+localparam [ 2:0] RMODE_B1_i    = mode(RD_DATA_WIDTH);
+localparam [ 2:0] WMODE_B1_i    = mode(RD_DATA_WIDTH);
+localparam [ 2:0] RMODE_B2_i    = mode(RD_DATA_WIDTH);
+localparam [ 2:0] WMODE_B2_i    = mode(RD_DATA_WIDTH);
+
+assign PORT_A_CLK = WR_CLK_i;
+assign PORT_B_CLK = RD_CLK_i;
 
 generate
   if (WR_ADDR_WIDTH == 15) begin
-    assign WR_ADDR_TOTAL = WR_ADDR_i;
+    assign WR_ADDR_INT = WR_ADDR_i;
   end else begin
-    assign WR_ADDR_TOTAL[14:WR_ADDR_WIDTH] = 0;
-    assign WR_ADDR_TOTAL[WR_ADDR_WIDTH-1:0] = WR_ADDR_i;
+    assign WR_ADDR_INT[14:WR_ADDR_WIDTH] = 0;
+    assign WR_ADDR_INT[WR_ADDR_WIDTH-1:0] = WR_ADDR_i;
   end
 endgenerate
-
-generate
-  if (RD_ADDR_WIDTH == 15) begin
-    assign RD_ADDR_TOTAL = RD_ADDR_i;
-  end else begin
-    assign RD_ADDR_TOTAL[14:RD_ADDR_WIDTH] = 0;
-    assign RD_ADDR_TOTAL[RD_ADDR_WIDTH-1:0] = RD_ADDR_i;
-  end
-endgenerate
-
-// Apply shift
-case (RD_DATA_WIDTH)
-	1: begin
-		assign RD_ADDR_SHIFTED = RD_ADDR_TOTAL;
-	end
-	2: begin
-		assign RD_ADDR_SHIFTED = RD_ADDR_TOTAL << 1;
-	end
-	4: begin
-		assign RD_ADDR_SHIFTED = RD_ADDR_TOTAL << 2;
-	end
-	8, 9: begin
-		assign RD_ADDR_SHIFTED = RD_ADDR_TOTAL << 3;
-	end
-	16, 18: begin
-		assign RD_ADDR_SHIFTED = RD_ADDR_TOTAL << 4;
-	end
-	32, 36: begin
-		assign RD_ADDR_SHIFTED = RD_ADDR_TOTAL << 5;
-	end
-	default: begin
-		assign RD_ADDR_SHIFTED = RD_ADDR_TOTAL;
-	end
-endcase
 
 case (WR_DATA_WIDTH)
 	1: begin
-		assign WR_ADDR_SHIFTED = WR_ADDR_TOTAL;
+		assign PORT_A_ADDR = WR_ADDR_INT;
 	end
 	2: begin
-		assign WR_ADDR_SHIFTED = WR_ADDR_TOTAL << 1;
+		assign PORT_A_ADDR = WR_ADDR_INT << 1;
 	end
 	4: begin
-		assign WR_ADDR_SHIFTED = WR_ADDR_TOTAL << 2;
+		assign PORT_A_ADDR = WR_ADDR_INT << 2;
 	end
 	8, 9: begin
-		assign WR_ADDR_SHIFTED = WR_ADDR_TOTAL << 3;
+		assign PORT_A_ADDR = WR_ADDR_INT << 3;
 	end
 	16, 18: begin
-		assign WR_ADDR_SHIFTED = WR_ADDR_TOTAL << 4;
+		assign PORT_A_ADDR = WR_ADDR_INT << 4;
 	end
 	32, 36: begin
-		assign WR_ADDR_SHIFTED = WR_ADDR_TOTAL << 5;
+		assign PORT_A_ADDR = WR_ADDR_INT << 5;
 	end
 	default: begin
-		assign WR_ADDR_SHIFTED = WR_ADDR_TOTAL;
+		assign PORT_A_ADDR = WR_ADDR_INT;
+	end
+endcase
+
+generate
+  if (RD_ADDR_WIDTH == 15) begin
+    assign RD_ADDR_INT = RD_ADDR_i;
+  end else begin
+    assign RD_ADDR_INT[14:RD_ADDR_WIDTH] = 0;
+    assign RD_ADDR_INT[RD_ADDR_WIDTH-1:0] = RD_ADDR_i;
+  end
+endgenerate
+
+case (RD_DATA_WIDTH)
+	1: begin
+		assign PORT_B_ADDR = RD_ADDR_INT;
+	end
+	2: begin
+		assign PORT_B_ADDR = RD_ADDR_INT << 1;
+	end
+	4: begin
+		assign PORT_B_ADDR = RD_ADDR_INT << 2;
+	end
+	8, 9: begin
+		assign PORT_B_ADDR = RD_ADDR_INT << 3;
+	end
+	16, 18: begin
+		assign PORT_B_ADDR = RD_ADDR_INT << 4;
+	end
+	32, 36: begin
+		assign PORT_B_ADDR = RD_ADDR_INT << 5;
+	end
+	default: begin
+		assign PORT_B_ADDR = RD_ADDR_INT;
 	end
 endcase
 
@@ -3618,17 +1762,17 @@ case (BE_WIDTH)
 	end
 	default: begin
 		assign WR_BE[3:BE_WIDTH] = 0;
-    assign WR_BE[BE_WIDTH-1 :0] = WR_BE_i[BE_WIDTH-1 :0];
+		assign WR_BE[BE_WIDTH-1 :0] = WR_BE_i[BE_WIDTH-1 :0];
 	end
 endcase
 
-assign FLUSH1 = 1'b0;
-assign FLUSH2 = 1'b0;
+assign REN_A1_i = 1'b0;
+assign WEN_A1_i = WEN_i;
+assign {BE_A2_i, BE_A1_i} = WR_BE;
 
-// TODO configure per width
-wire [17:0] PORT_B1_RDATA;
-wire [17:0] PORT_B2_RDATA;
-wire [35:0] PORT_A_WDATA;
+assign REN_B1_i = REN_i;
+assign WEN_B1_i = 1'b0;
+assign {BE_B2_i, BE_B1_i} = 4'h0;
 
 generate
   if (WR_DATA_WIDTH == 36) begin
@@ -3644,10182 +1788,1783 @@ generate
   end
 endgenerate
 
+assign WDATA_A1_i = PORT_A_WDATA[17:0];
+assign WDATA_A2_i = PORT_A_WDATA[35:18];
+
+assign WDATA_B1_i = 18'h0;
+assign WDATA_B2_i = 18'h0;
+
 generate
   if (RD_DATA_WIDTH == 36) begin
-    assign RD_DATA_CMPL = {PORT_B2_RDATA, PORT_B1_RDATA};
+    assign PORT_B_RDATA = {RDATA_B2_o, RDATA_B1_o};
   end else if (RD_DATA_WIDTH > 18 && RD_DATA_WIDTH < 36) begin
-    assign RD_DATA_CMPL  = {2'b00,PORT_B2_RDATA[17:0],PORT_B1_RDATA[15:0]};
+    assign PORT_B_RDATA  = {2'b00,RDATA_B2_o[17:0],RDATA_B1_o[15:0]};
   end else if (RD_DATA_WIDTH == 9) begin
-    assign RD_DATA_CMPL = { 27'h0, PORT_B1_RDATA[16], PORT_B1_RDATA[7:0]};
+    assign PORT_B_RDATA = { 27'h0, RDATA_B1_o[16], RDATA_B1_o[7:0]};
   end else begin
-    assign RD_DATA_CMPL = {18'h0, PORT_B1_RDATA};
+    assign PORT_B_RDATA = {18'h0, RDATA_B1_o};
   end
 endgenerate
 
-assign RDATA_o = RD_DATA_CMPL[RD_DATA_WIDTH-1:0];
+assign RDATA_o = PORT_B_RDATA[RD_DATA_WIDTH-1:0];
 
-// Assign parameters
-case (RD_DATA_WIDTH)
-	1: begin
-		case (WR_DATA_WIDTH)
-			1: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_1, MODE_1, MODE_1, MODE_1, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_1, MODE_1, MODE_1, MODE_1, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(1'b1),
-        
-          .WDATA_A1_i(PORT_A_WDATA[17:0]),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR_ADDR_SHIFTED),
-          .CLK_A1_i(WR_CLK_i),
-          .REN_A1_i(1'b0),
-          .WEN_A1_i(WEN_i),
-          .BE_A1_i(WR_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA[17:0]),
-          .ADDR_B1_i(RD_ADDR_SHIFTED),
-          .CLK_B1_i(RD_CLK_i),
-          .REN_B1_i(REN_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN_i,REN_i}),
-        
-          .WDATA_A2_i(PORT_A_WDATA[35:18]),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR_ADDR_SHIFTED),
-          .CLK_A2_i(WR_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN_i),
-          .BE_A2_i(WR_BE[3:2]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA[17:0]),
-          .ADDR_B2_i(RD_ADDR_SHIFTED),
-          .CLK_B2_i(RD_CLK_i),
-          .REN_B2_i(REN_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN_i,REN_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );        
-			end
-			2: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_1, MODE_2, MODE_1, MODE_2, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_1, MODE_2, MODE_1, MODE_2, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(1'b1),
-        
-          .WDATA_A1_i(PORT_A_WDATA[17:0]),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR_ADDR_SHIFTED),
-          .CLK_A1_i(WR_CLK_i),
-          .REN_A1_i(1'b0),
-          .WEN_A1_i(WEN_i),
-          .BE_A1_i(WR_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA[17:0]),
-          .ADDR_B1_i(RD_ADDR_SHIFTED),
-          .CLK_B1_i(RD_CLK_i),
-          .REN_B1_i(REN_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN_i,REN_i}),
-        
-          .WDATA_A2_i(PORT_A_WDATA[35:18]),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR_ADDR_SHIFTED),
-          .CLK_A2_i(WR_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN_i),
-          .BE_A2_i(WR_BE[3:2]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA[17:0]),
-          .ADDR_B2_i(RD_ADDR_SHIFTED),
-          .CLK_B2_i(RD_CLK_i),
-          .REN_B2_i(REN_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN_i,REN_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );       
-			end
-			4: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_1, MODE_4, MODE_1, MODE_4, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_1, MODE_4, MODE_1, MODE_4, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(1'b1),
-        
-          .WDATA_A1_i(PORT_A_WDATA[17:0]),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR_ADDR_SHIFTED),
-          .CLK_A1_i(WR_CLK_i),
-          .REN_A1_i(1'b0),
-          .WEN_A1_i(WEN_i),
-          .BE_A1_i(WR_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA[17:0]),
-          .ADDR_B1_i(RD_ADDR_SHIFTED),
-          .CLK_B1_i(RD_CLK_i),
-          .REN_B1_i(REN_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN_i,REN_i}),
-        
-          .WDATA_A2_i(PORT_A_WDATA[35:18]),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR_ADDR_SHIFTED),
-          .CLK_A2_i(WR_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN_i),
-          .BE_A2_i(WR_BE[3:2]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA[17:0]),
-          .ADDR_B2_i(RD_ADDR_SHIFTED),
-          .CLK_B2_i(RD_CLK_i),
-          .REN_B2_i(REN_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN_i,REN_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );        
-			end
-			8, 9: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_1, MODE_9, MODE_1, MODE_9, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_1, MODE_9, MODE_1, MODE_9, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(1'b1),
-        
-          .WDATA_A1_i(PORT_A_WDATA[17:0]),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR_ADDR_SHIFTED),
-          .CLK_A1_i(WR_CLK_i),
-          .REN_A1_i(1'b0),
-          .WEN_A1_i(WEN_i),
-          .BE_A1_i(WR_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA[17:0]),
-          .ADDR_B1_i(RD_ADDR_SHIFTED),
-          .CLK_B1_i(RD_CLK_i),
-          .REN_B1_i(REN_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN_i,REN_i}),
-        
-          .WDATA_A2_i(PORT_A_WDATA[35:18]),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR_ADDR_SHIFTED),
-          .CLK_A2_i(WR_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN_i),
-          .BE_A2_i(WR_BE[3:2]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA[17:0]),
-          .ADDR_B2_i(RD_ADDR_SHIFTED),
-          .CLK_B2_i(RD_CLK_i),
-          .REN_B2_i(REN_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN_i,REN_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );        
-			end
-			16, 18: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_1, MODE_18, MODE_1, MODE_18, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_1, MODE_18, MODE_1, MODE_18, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(1'b1),
-        
-          .WDATA_A1_i(PORT_A_WDATA[17:0]),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR_ADDR_SHIFTED),
-          .CLK_A1_i(WR_CLK_i),
-          .REN_A1_i(1'b0),
-          .WEN_A1_i(WEN_i),
-          .BE_A1_i(WR_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA[17:0]),
-          .ADDR_B1_i(RD_ADDR_SHIFTED),
-          .CLK_B1_i(RD_CLK_i),
-          .REN_B1_i(REN_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN_i,REN_i}),
-        
-          .WDATA_A2_i(PORT_A_WDATA[35:18]),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR_ADDR_SHIFTED),
-          .CLK_A2_i(WR_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN_i),
-          .BE_A2_i(WR_BE[3:2]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA[17:0]),
-          .ADDR_B2_i(RD_ADDR_SHIFTED),
-          .CLK_B2_i(RD_CLK_i),
-          .REN_B2_i(REN_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN_i,REN_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );        
-			end
-			32, 36: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_1, MODE_36, MODE_1, MODE_36, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_1, MODE_36, MODE_1, MODE_36, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(1'b1),
-        
-          .WDATA_A1_i(PORT_A_WDATA[17:0]),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR_ADDR_SHIFTED),
-          .CLK_A1_i(WR_CLK_i),
-          .REN_A1_i(1'b0),
-          .WEN_A1_i(WEN_i),
-          .BE_A1_i(WR_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA[17:0]),
-          .ADDR_B1_i(RD_ADDR_SHIFTED),
-          .CLK_B1_i(RD_CLK_i),
-          .REN_B1_i(REN_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN_i,REN_i}),
-        
-          .WDATA_A2_i(PORT_A_WDATA[35:18]),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR_ADDR_SHIFTED),
-          .CLK_A2_i(WR_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN_i),
-          .BE_A2_i(WR_BE[3:2]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA[17:0]),
-          .ADDR_B2_i(RD_ADDR_SHIFTED),
-          .CLK_B2_i(RD_CLK_i),
-          .REN_B2_i(REN_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN_i,REN_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );        
-			end
-			default: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_1, MODE_1, MODE_1, MODE_1, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_1, MODE_1, MODE_1, MODE_1, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(1'b1),
-        
-          .WDATA_A1_i(PORT_A_WDATA[17:0]),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR_ADDR_SHIFTED),
-          .CLK_A1_i(WR_CLK_i),
-          .REN_A1_i(1'b0),
-          .WEN_A1_i(WEN_i),
-          .BE_A1_i(WR_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA[17:0]),
-          .ADDR_B1_i(RD_ADDR_SHIFTED),
-          .CLK_B1_i(RD_CLK_i),
-          .REN_B1_i(REN_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN_i,REN_i}),
-        
-          .WDATA_A2_i(PORT_A_WDATA[35:18]),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR_ADDR_SHIFTED),
-          .CLK_A2_i(WR_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN_i),
-          .BE_A2_i(WR_BE[3:2]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA[17:0]),
-          .ADDR_B2_i(RD_ADDR_SHIFTED),
-          .CLK_B2_i(RD_CLK_i),
-          .REN_B2_i(REN_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN_i,REN_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );       
-			end
-		endcase
-	end
-	2: begin
-		case (WR_DATA_WIDTH)
-			1: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_2, MODE_1, MODE_2, MODE_1, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_2, MODE_1, MODE_2, MODE_1, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(1'b1),
-        
-          .WDATA_A1_i(PORT_A_WDATA[17:0]),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR_ADDR_SHIFTED),
-          .CLK_A1_i(WR_CLK_i),
-          .REN_A1_i(1'b0),
-          .WEN_A1_i(WEN_i),
-          .BE_A1_i(WR_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA[17:0]),
-          .ADDR_B1_i(RD_ADDR_SHIFTED),
-          .CLK_B1_i(RD_CLK_i),
-          .REN_B1_i(REN_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN_i,REN_i}),
-        
-          .WDATA_A2_i(PORT_A_WDATA[35:18]),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR_ADDR_SHIFTED),
-          .CLK_A2_i(WR_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN_i),
-          .BE_A2_i(WR_BE[3:2]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA[17:0]),
-          .ADDR_B2_i(RD_ADDR_SHIFTED),
-          .CLK_B2_i(RD_CLK_i),
-          .REN_B2_i(REN_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN_i,REN_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );        
-			end
-			2: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_2, MODE_2, MODE_2, MODE_2, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_2, MODE_2, MODE_2, MODE_2, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(1'b1),
-        
-          .WDATA_A1_i(PORT_A_WDATA[17:0]),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR_ADDR_SHIFTED),
-          .CLK_A1_i(WR_CLK_i),
-          .REN_A1_i(1'b0),
-          .WEN_A1_i(WEN_i),
-          .BE_A1_i(WR_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA[17:0]),
-          .ADDR_B1_i(RD_ADDR_SHIFTED),
-          .CLK_B1_i(RD_CLK_i),
-          .REN_B1_i(REN_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN_i,REN_i}),
-        
-          .WDATA_A2_i(PORT_A_WDATA[35:18]),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR_ADDR_SHIFTED),
-          .CLK_A2_i(WR_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN_i),
-          .BE_A2_i(WR_BE[3:2]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA[17:0]),
-          .ADDR_B2_i(RD_ADDR_SHIFTED),
-          .CLK_B2_i(RD_CLK_i),
-          .REN_B2_i(REN_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN_i,REN_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );        
-			end
-			4: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_2, MODE_4, MODE_2, MODE_4, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_2, MODE_4, MODE_2, MODE_4, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(1'b1),
-        
-          .WDATA_A1_i(PORT_A_WDATA[17:0]),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR_ADDR_SHIFTED),
-          .CLK_A1_i(WR_CLK_i),
-          .REN_A1_i(1'b0),
-          .WEN_A1_i(WEN_i),
-          .BE_A1_i(WR_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA[17:0]),
-          .ADDR_B1_i(RD_ADDR_SHIFTED),
-          .CLK_B1_i(RD_CLK_i),
-          .REN_B1_i(REN_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN_i,REN_i}),
-        
-          .WDATA_A2_i(PORT_A_WDATA[35:18]),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR_ADDR_SHIFTED),
-          .CLK_A2_i(WR_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN_i),
-          .BE_A2_i(WR_BE[3:2]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA[17:0]),
-          .ADDR_B2_i(RD_ADDR_SHIFTED),
-          .CLK_B2_i(RD_CLK_i),
-          .REN_B2_i(REN_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN_i,REN_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );        
-			end
-			8, 9: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_2, MODE_9, MODE_2, MODE_9, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_2, MODE_9, MODE_2, MODE_9, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(1'b1),
-        
-          .WDATA_A1_i(PORT_A_WDATA[17:0]),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR_ADDR_SHIFTED),
-          .CLK_A1_i(WR_CLK_i),
-          .REN_A1_i(1'b0),
-          .WEN_A1_i(WEN_i),
-          .BE_A1_i(WR_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA[17:0]),
-          .ADDR_B1_i(RD_ADDR_SHIFTED),
-          .CLK_B1_i(RD_CLK_i),
-          .REN_B1_i(REN_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN_i,REN_i}),
-        
-          .WDATA_A2_i(PORT_A_WDATA[35:18]),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR_ADDR_SHIFTED),
-          .CLK_A2_i(WR_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN_i),
-          .BE_A2_i(WR_BE[3:2]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA[17:0]),
-          .ADDR_B2_i(RD_ADDR_SHIFTED),
-          .CLK_B2_i(RD_CLK_i),
-          .REN_B2_i(REN_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN_i,REN_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );        
-			end
-			16, 18: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_2, MODE_18, MODE_2, MODE_18, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_2, MODE_18, MODE_2, MODE_18, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(1'b1),
-        
-          .WDATA_A1_i(PORT_A_WDATA[17:0]),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR_ADDR_SHIFTED),
-          .CLK_A1_i(WR_CLK_i),
-          .REN_A1_i(1'b0),
-          .WEN_A1_i(WEN_i),
-          .BE_A1_i(WR_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA[17:0]),
-          .ADDR_B1_i(RD_ADDR_SHIFTED),
-          .CLK_B1_i(RD_CLK_i),
-          .REN_B1_i(REN_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN_i,REN_i}),
-        
-          .WDATA_A2_i(PORT_A_WDATA[35:18]),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR_ADDR_SHIFTED),
-          .CLK_A2_i(WR_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN_i),
-          .BE_A2_i(WR_BE[3:2]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA[17:0]),
-          .ADDR_B2_i(RD_ADDR_SHIFTED),
-          .CLK_B2_i(RD_CLK_i),
-          .REN_B2_i(REN_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN_i,REN_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );        
-			end
-			32, 36: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_2, MODE_36, MODE_2, MODE_36, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_2, MODE_36, MODE_2, MODE_36, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(1'b1),
-        
-          .WDATA_A1_i(PORT_A_WDATA[17:0]),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR_ADDR_SHIFTED),
-          .CLK_A1_i(WR_CLK_i),
-          .REN_A1_i(1'b0),
-          .WEN_A1_i(WEN_i),
-          .BE_A1_i(WR_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA[17:0]),
-          .ADDR_B1_i(RD_ADDR_SHIFTED),
-          .CLK_B1_i(RD_CLK_i),
-          .REN_B1_i(REN_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN_i,REN_i}),
-        
-          .WDATA_A2_i(PORT_A_WDATA[35:18]),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR_ADDR_SHIFTED),
-          .CLK_A2_i(WR_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN_i),
-          .BE_A2_i(WR_BE[3:2]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA[17:0]),
-          .ADDR_B2_i(RD_ADDR_SHIFTED),
-          .CLK_B2_i(RD_CLK_i),
-          .REN_B2_i(REN_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN_i,REN_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );        
-			end
-			default: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_2, MODE_1, MODE_2, MODE_1, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_2, MODE_1, MODE_2, MODE_1, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(1'b1),
-        
-          .WDATA_A1_i(PORT_A_WDATA[17:0]),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR_ADDR_SHIFTED),
-          .CLK_A1_i(WR_CLK_i),
-          .REN_A1_i(1'b0),
-          .WEN_A1_i(WEN_i),
-          .BE_A1_i(WR_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA[17:0]),
-          .ADDR_B1_i(RD_ADDR_SHIFTED),
-          .CLK_B1_i(RD_CLK_i),
-          .REN_B1_i(REN_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN_i,REN_i}),
-        
-          .WDATA_A2_i(PORT_A_WDATA[35:18]),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR_ADDR_SHIFTED),
-          .CLK_A2_i(WR_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN_i),
-          .BE_A2_i(WR_BE[3:2]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA[17:0]),
-          .ADDR_B2_i(RD_ADDR_SHIFTED),
-          .CLK_B2_i(RD_CLK_i),
-          .REN_B2_i(REN_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN_i,REN_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );        
-			end
-		endcase
-	end
-	4: begin
-		case (WR_DATA_WIDTH)
-			1: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_4, MODE_1, MODE_4, MODE_1, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_4, MODE_1, MODE_4, MODE_1, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(1'b1),
-        
-          .WDATA_A1_i(PORT_A_WDATA[17:0]),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR_ADDR_SHIFTED),
-          .CLK_A1_i(WR_CLK_i),
-          .REN_A1_i(1'b0),
-          .WEN_A1_i(WEN_i),
-          .BE_A1_i(WR_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA[17:0]),
-          .ADDR_B1_i(RD_ADDR_SHIFTED),
-          .CLK_B1_i(RD_CLK_i),
-          .REN_B1_i(REN_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN_i,REN_i}),
-        
-          .WDATA_A2_i(PORT_A_WDATA[35:18]),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR_ADDR_SHIFTED),
-          .CLK_A2_i(WR_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN_i),
-          .BE_A2_i(WR_BE[3:2]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA[17:0]),
-          .ADDR_B2_i(RD_ADDR_SHIFTED),
-          .CLK_B2_i(RD_CLK_i),
-          .REN_B2_i(REN_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN_i,REN_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );
-			end
-			2: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_4, MODE_2, MODE_4, MODE_2, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_4, MODE_2, MODE_4, MODE_2, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(1'b1),
-        
-          .WDATA_A1_i(PORT_A_WDATA[17:0]),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR_ADDR_SHIFTED),
-          .CLK_A1_i(WR_CLK_i),
-          .REN_A1_i(1'b0),
-          .WEN_A1_i(WEN_i),
-          .BE_A1_i(WR_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA[17:0]),
-          .ADDR_B1_i(RD_ADDR_SHIFTED),
-          .CLK_B1_i(RD_CLK_i),
-          .REN_B1_i(REN_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN_i,REN_i}),
-        
-          .WDATA_A2_i(PORT_A_WDATA[35:18]),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR_ADDR_SHIFTED),
-          .CLK_A2_i(WR_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN_i),
-          .BE_A2_i(WR_BE[3:2]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA[17:0]),
-          .ADDR_B2_i(RD_ADDR_SHIFTED),
-          .CLK_B2_i(RD_CLK_i),
-          .REN_B2_i(REN_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN_i,REN_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );        
-			end
-			4: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_4, MODE_4, MODE_4, MODE_4, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_4, MODE_4, MODE_4, MODE_4, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(1'b1),
-        
-          .WDATA_A1_i(PORT_A_WDATA[17:0]),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR_ADDR_SHIFTED),
-          .CLK_A1_i(WR_CLK_i),
-          .REN_A1_i(1'b0),
-          .WEN_A1_i(WEN_i),
-          .BE_A1_i(WR_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA[17:0]),
-          .ADDR_B1_i(RD_ADDR_SHIFTED),
-          .CLK_B1_i(RD_CLK_i),
-          .REN_B1_i(REN_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN_i,REN_i}),
-        
-          .WDATA_A2_i(PORT_A_WDATA[35:18]),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR_ADDR_SHIFTED),
-          .CLK_A2_i(WR_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN_i),
-          .BE_A2_i(WR_BE[3:2]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA[17:0]),
-          .ADDR_B2_i(RD_ADDR_SHIFTED),
-          .CLK_B2_i(RD_CLK_i),
-          .REN_B2_i(REN_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN_i,REN_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );        
-			end
-			8, 9: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_4, MODE_9, MODE_4, MODE_9, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_4, MODE_9, MODE_4, MODE_9, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(1'b1),
-        
-          .WDATA_A1_i(PORT_A_WDATA[17:0]),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR_ADDR_SHIFTED),
-          .CLK_A1_i(WR_CLK_i),
-          .REN_A1_i(1'b0),
-          .WEN_A1_i(WEN_i),
-          .BE_A1_i(WR_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA[17:0]),
-          .ADDR_B1_i(RD_ADDR_SHIFTED),
-          .CLK_B1_i(RD_CLK_i),
-          .REN_B1_i(REN_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN_i,REN_i}),
-        
-          .WDATA_A2_i(PORT_A_WDATA[35:18]),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR_ADDR_SHIFTED),
-          .CLK_A2_i(WR_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN_i),
-          .BE_A2_i(WR_BE[3:2]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA[17:0]),
-          .ADDR_B2_i(RD_ADDR_SHIFTED),
-          .CLK_B2_i(RD_CLK_i),
-          .REN_B2_i(REN_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN_i,REN_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );        
-			end
-			16, 18: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_4, MODE_18, MODE_4, MODE_18, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_4, MODE_18, MODE_4, MODE_18, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(1'b1),
-        
-          .WDATA_A1_i(PORT_A_WDATA[17:0]),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR_ADDR_SHIFTED),
-          .CLK_A1_i(WR_CLK_i),
-          .REN_A1_i(1'b0),
-          .WEN_A1_i(WEN_i),
-          .BE_A1_i(WR_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA[17:0]),
-          .ADDR_B1_i(RD_ADDR_SHIFTED),
-          .CLK_B1_i(RD_CLK_i),
-          .REN_B1_i(REN_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN_i,REN_i}),
-        
-          .WDATA_A2_i(PORT_A_WDATA[35:18]),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR_ADDR_SHIFTED),
-          .CLK_A2_i(WR_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN_i),
-          .BE_A2_i(WR_BE[3:2]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA[17:0]),
-          .ADDR_B2_i(RD_ADDR_SHIFTED),
-          .CLK_B2_i(RD_CLK_i),
-          .REN_B2_i(REN_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN_i,REN_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );        
-			end
-			32, 36: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_4, MODE_36, MODE_4, MODE_36, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_4, MODE_36, MODE_4, MODE_36, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(1'b1),
-        
-          .WDATA_A1_i(PORT_A_WDATA[17:0]),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR_ADDR_SHIFTED),
-          .CLK_A1_i(WR_CLK_i),
-          .REN_A1_i(1'b0),
-          .WEN_A1_i(WEN_i),
-          .BE_A1_i(WR_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA[17:0]),
-          .ADDR_B1_i(RD_ADDR_SHIFTED),
-          .CLK_B1_i(RD_CLK_i),
-          .REN_B1_i(REN_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN_i,REN_i}),
-        
-          .WDATA_A2_i(PORT_A_WDATA[35:18]),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR_ADDR_SHIFTED),
-          .CLK_A2_i(WR_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN_i),
-          .BE_A2_i(WR_BE[3:2]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA[17:0]),
-          .ADDR_B2_i(RD_ADDR_SHIFTED),
-          .CLK_B2_i(RD_CLK_i),
-          .REN_B2_i(REN_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN_i,REN_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );        
-			end
-			default: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_4, MODE_1, MODE_4, MODE_1, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_4, MODE_1, MODE_4, MODE_1, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(1'b1),
-        
-          .WDATA_A1_i(PORT_A_WDATA[17:0]),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR_ADDR_SHIFTED),
-          .CLK_A1_i(WR_CLK_i),
-          .REN_A1_i(1'b0),
-          .WEN_A1_i(WEN_i),
-          .BE_A1_i(WR_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA[17:0]),
-          .ADDR_B1_i(RD_ADDR_SHIFTED),
-          .CLK_B1_i(RD_CLK_i),
-          .REN_B1_i(REN_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN_i,REN_i}),
-        
-          .WDATA_A2_i(PORT_A_WDATA[35:18]),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR_ADDR_SHIFTED),
-          .CLK_A2_i(WR_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN_i),
-          .BE_A2_i(WR_BE[3:2]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA[17:0]),
-          .ADDR_B2_i(RD_ADDR_SHIFTED),
-          .CLK_B2_i(RD_CLK_i),
-          .REN_B2_i(REN_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN_i,REN_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );        
-			end
-		endcase
-	end
-	8, 9: begin
-		case (WR_DATA_WIDTH)
-			1: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_9, MODE_1, MODE_9, MODE_1, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_9, MODE_1, MODE_9, MODE_1, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(1'b1),
-        
-          .WDATA_A1_i(PORT_A_WDATA[17:0]),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR_ADDR_SHIFTED),
-          .CLK_A1_i(WR_CLK_i),
-          .REN_A1_i(1'b0),
-          .WEN_A1_i(WEN_i),
-          .BE_A1_i(WR_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA[17:0]),
-          .ADDR_B1_i(RD_ADDR_SHIFTED),
-          .CLK_B1_i(RD_CLK_i),
-          .REN_B1_i(REN_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN_i,REN_i}),
-        
-          .WDATA_A2_i(PORT_A_WDATA[35:18]),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR_ADDR_SHIFTED),
-          .CLK_A2_i(WR_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN_i),
-          .BE_A2_i(WR_BE[3:2]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA[17:0]),
-          .ADDR_B2_i(RD_ADDR_SHIFTED),
-          .CLK_B2_i(RD_CLK_i),
-          .REN_B2_i(REN_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN_i,REN_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );        
-			end
-			2: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_9, MODE_2, MODE_9, MODE_2, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_9, MODE_2, MODE_9, MODE_2, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(1'b1),
-        
-          .WDATA_A1_i(PORT_A_WDATA[17:0]),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR_ADDR_SHIFTED),
-          .CLK_A1_i(WR_CLK_i),
-          .REN_A1_i(1'b0),
-          .WEN_A1_i(WEN_i),
-          .BE_A1_i(WR_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA[17:0]),
-          .ADDR_B1_i(RD_ADDR_SHIFTED),
-          .CLK_B1_i(RD_CLK_i),
-          .REN_B1_i(REN_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN_i,REN_i}),
-        
-          .WDATA_A2_i(PORT_A_WDATA[35:18]),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR_ADDR_SHIFTED),
-          .CLK_A2_i(WR_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN_i),
-          .BE_A2_i(WR_BE[3:2]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA[17:0]),
-          .ADDR_B2_i(RD_ADDR_SHIFTED),
-          .CLK_B2_i(RD_CLK_i),
-          .REN_B2_i(REN_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN_i,REN_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );        
-			end
-			4: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_9, MODE_4, MODE_9, MODE_4, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_9, MODE_4, MODE_9, MODE_4, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(1'b1),
-        
-          .WDATA_A1_i(PORT_A_WDATA[17:0]),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR_ADDR_SHIFTED),
-          .CLK_A1_i(WR_CLK_i),
-          .REN_A1_i(1'b0),
-          .WEN_A1_i(WEN_i),
-          .BE_A1_i(WR_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA[17:0]),
-          .ADDR_B1_i(RD_ADDR_SHIFTED),
-          .CLK_B1_i(RD_CLK_i),
-          .REN_B1_i(REN_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN_i,REN_i}),
-        
-          .WDATA_A2_i(PORT_A_WDATA[35:18]),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR_ADDR_SHIFTED),
-          .CLK_A2_i(WR_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN_i),
-          .BE_A2_i(WR_BE[3:2]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA[17:0]),
-          .ADDR_B2_i(RD_ADDR_SHIFTED),
-          .CLK_B2_i(RD_CLK_i),
-          .REN_B2_i(REN_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN_i,REN_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );        
-			end
-			8, 9: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_9, MODE_9, MODE_9, MODE_9, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_9, MODE_9, MODE_9, MODE_9, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(1'b1),
-        
-          .WDATA_A1_i(PORT_A_WDATA[17:0]),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR_ADDR_SHIFTED),
-          .CLK_A1_i(WR_CLK_i),
-          .REN_A1_i(1'b0),
-          .WEN_A1_i(WEN_i),
-          .BE_A1_i(WR_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA[17:0]),
-          .ADDR_B1_i(RD_ADDR_SHIFTED),
-          .CLK_B1_i(RD_CLK_i),
-          .REN_B1_i(REN_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN_i,REN_i}),
-        
-          .WDATA_A2_i(PORT_A_WDATA[35:18]),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR_ADDR_SHIFTED),
-          .CLK_A2_i(WR_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN_i),
-          .BE_A2_i(WR_BE[3:2]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA[17:0]),
-          .ADDR_B2_i(RD_ADDR_SHIFTED),
-          .CLK_B2_i(RD_CLK_i),
-          .REN_B2_i(REN_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN_i,REN_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );        
-			end
-			16, 18: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_9, MODE_18, MODE_9, MODE_18, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_9, MODE_18, MODE_9, MODE_18, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(1'b1),
-        
-          .WDATA_A1_i(PORT_A_WDATA[17:0]),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR_ADDR_SHIFTED),
-          .CLK_A1_i(WR_CLK_i),
-          .REN_A1_i(1'b0),
-          .WEN_A1_i(WEN_i),
-          .BE_A1_i(WR_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA[17:0]),
-          .ADDR_B1_i(RD_ADDR_SHIFTED),
-          .CLK_B1_i(RD_CLK_i),
-          .REN_B1_i(REN_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN_i,REN_i}),
-        
-          .WDATA_A2_i(PORT_A_WDATA[35:18]),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR_ADDR_SHIFTED),
-          .CLK_A2_i(WR_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN_i),
-          .BE_A2_i(WR_BE[3:2]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA[17:0]),
-          .ADDR_B2_i(RD_ADDR_SHIFTED),
-          .CLK_B2_i(RD_CLK_i),
-          .REN_B2_i(REN_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN_i,REN_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );        
-			end
-			32, 36: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_9, MODE_36, MODE_9, MODE_36, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_9, MODE_36, MODE_9, MODE_36, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(1'b1),
-        
-          .WDATA_A1_i(PORT_A_WDATA[17:0]),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR_ADDR_SHIFTED),
-          .CLK_A1_i(WR_CLK_i),
-          .REN_A1_i(1'b0),
-          .WEN_A1_i(WEN_i),
-          .BE_A1_i(WR_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA[17:0]),
-          .ADDR_B1_i(RD_ADDR_SHIFTED),
-          .CLK_B1_i(RD_CLK_i),
-          .REN_B1_i(REN_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN_i,REN_i}),
-        
-          .WDATA_A2_i(PORT_A_WDATA[35:18]),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR_ADDR_SHIFTED),
-          .CLK_A2_i(WR_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN_i),
-          .BE_A2_i(WR_BE[3:2]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA[17:0]),
-          .ADDR_B2_i(RD_ADDR_SHIFTED),
-          .CLK_B2_i(RD_CLK_i),
-          .REN_B2_i(REN_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN_i,REN_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );        
-			end
-			default: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_9, MODE_1, MODE_9, MODE_1, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_9, MODE_1, MODE_9, MODE_1, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(1'b1),
-        
-          .WDATA_A1_i(PORT_A_WDATA[17:0]),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR_ADDR_SHIFTED),
-          .CLK_A1_i(WR_CLK_i),
-          .REN_A1_i(1'b0),
-          .WEN_A1_i(WEN_i),
-          .BE_A1_i(WR_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA[17:0]),
-          .ADDR_B1_i(RD_ADDR_SHIFTED),
-          .CLK_B1_i(RD_CLK_i),
-          .REN_B1_i(REN_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN_i,REN_i}),
-        
-          .WDATA_A2_i(PORT_A_WDATA[35:18]),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR_ADDR_SHIFTED),
-          .CLK_A2_i(WR_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN_i),
-          .BE_A2_i(WR_BE[3:2]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA[17:0]),
-          .ADDR_B2_i(RD_ADDR_SHIFTED),
-          .CLK_B2_i(RD_CLK_i),
-          .REN_B2_i(REN_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN_i,REN_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );        
-			end
-		endcase
-	end
-	16, 18: begin
-		case (WR_DATA_WIDTH)
-			1: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_18, MODE_1, MODE_18, MODE_1, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_18, MODE_1, MODE_18, MODE_1, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(1'b1),
-        
-          .WDATA_A1_i(PORT_A_WDATA[17:0]),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR_ADDR_SHIFTED),
-          .CLK_A1_i(WR_CLK_i),
-          .REN_A1_i(1'b0),
-          .WEN_A1_i(WEN_i),
-          .BE_A1_i(WR_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA[17:0]),
-          .ADDR_B1_i(RD_ADDR_SHIFTED),
-          .CLK_B1_i(RD_CLK_i),
-          .REN_B1_i(REN_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN_i,REN_i}),
-        
-          .WDATA_A2_i(PORT_A_WDATA[35:18]),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR_ADDR_SHIFTED),
-          .CLK_A2_i(WR_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN_i),
-          .BE_A2_i(WR_BE[3:2]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA[17:0]),
-          .ADDR_B2_i(RD_ADDR_SHIFTED),
-          .CLK_B2_i(RD_CLK_i),
-          .REN_B2_i(REN_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN_i,REN_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );        
-			end
-			2: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_18, MODE_2, MODE_18, MODE_2, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_18, MODE_2, MODE_18, MODE_2, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(1'b1),
-        
-          .WDATA_A1_i(PORT_A_WDATA[17:0]),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR_ADDR_SHIFTED),
-          .CLK_A1_i(WR_CLK_i),
-          .REN_A1_i(1'b0),
-          .WEN_A1_i(WEN_i),
-          .BE_A1_i(WR_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA[17:0]),
-          .ADDR_B1_i(RD_ADDR_SHIFTED),
-          .CLK_B1_i(RD_CLK_i),
-          .REN_B1_i(REN_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN_i,REN_i}),
-        
-          .WDATA_A2_i(PORT_A_WDATA[35:18]),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR_ADDR_SHIFTED),
-          .CLK_A2_i(WR_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN_i),
-          .BE_A2_i(WR_BE[3:2]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA[17:0]),
-          .ADDR_B2_i(RD_ADDR_SHIFTED),
-          .CLK_B2_i(RD_CLK_i),
-          .REN_B2_i(REN_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN_i,REN_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );        
-			end
-			4: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_18, MODE_4, MODE_18, MODE_4, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_18, MODE_4, MODE_18, MODE_4, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(1'b1),
-        
-          .WDATA_A1_i(PORT_A_WDATA[17:0]),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR_ADDR_SHIFTED),
-          .CLK_A1_i(WR_CLK_i),
-          .REN_A1_i(1'b0),
-          .WEN_A1_i(WEN_i),
-          .BE_A1_i(WR_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA[17:0]),
-          .ADDR_B1_i(RD_ADDR_SHIFTED),
-          .CLK_B1_i(RD_CLK_i),
-          .REN_B1_i(REN_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN_i,REN_i}),
-        
-          .WDATA_A2_i(PORT_A_WDATA[35:18]),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR_ADDR_SHIFTED),
-          .CLK_A2_i(WR_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN_i),
-          .BE_A2_i(WR_BE[3:2]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA[17:0]),
-          .ADDR_B2_i(RD_ADDR_SHIFTED),
-          .CLK_B2_i(RD_CLK_i),
-          .REN_B2_i(REN_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN_i,REN_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );        
-			end
-			8, 9: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_18, MODE_9, MODE_18, MODE_9, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_18, MODE_9, MODE_18, MODE_9, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(1'b1),
-        
-          .WDATA_A1_i(PORT_A_WDATA[17:0]),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR_ADDR_SHIFTED),
-          .CLK_A1_i(WR_CLK_i),
-          .REN_A1_i(1'b0),
-          .WEN_A1_i(WEN_i),
-          .BE_A1_i(WR_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA[17:0]),
-          .ADDR_B1_i(RD_ADDR_SHIFTED),
-          .CLK_B1_i(RD_CLK_i),
-          .REN_B1_i(REN_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN_i,REN_i}),
-        
-          .WDATA_A2_i(PORT_A_WDATA[35:18]),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR_ADDR_SHIFTED),
-          .CLK_A2_i(WR_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN_i),
-          .BE_A2_i(WR_BE[3:2]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA[17:0]),
-          .ADDR_B2_i(RD_ADDR_SHIFTED),
-          .CLK_B2_i(RD_CLK_i),
-          .REN_B2_i(REN_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN_i,REN_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );        
-			end
-			16, 18: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_18, MODE_18, MODE_18, MODE_18, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_18, MODE_18, MODE_18, MODE_18, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(1'b1),
-        
-          .WDATA_A1_i(PORT_A_WDATA[17:0]),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR_ADDR_SHIFTED),
-          .CLK_A1_i(WR_CLK_i),
-          .REN_A1_i(1'b0),
-          .WEN_A1_i(WEN_i),
-          .BE_A1_i(WR_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA[17:0]),
-          .ADDR_B1_i(RD_ADDR_SHIFTED),
-          .CLK_B1_i(RD_CLK_i),
-          .REN_B1_i(REN_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN_i,REN_i}),
-        
-          .WDATA_A2_i(PORT_A_WDATA[35:18]),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR_ADDR_SHIFTED),
-          .CLK_A2_i(WR_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN_i),
-          .BE_A2_i(WR_BE[3:2]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA[17:0]),
-          .ADDR_B2_i(RD_ADDR_SHIFTED),
-          .CLK_B2_i(RD_CLK_i),
-          .REN_B2_i(REN_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN_i,REN_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );        
-			end
-			32, 36: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_18, MODE_36, MODE_18, MODE_36, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_18, MODE_36, MODE_18, MODE_36, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(1'b1),
-        
-          .WDATA_A1_i(PORT_A_WDATA[17:0]),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR_ADDR_SHIFTED),
-          .CLK_A1_i(WR_CLK_i),
-          .REN_A1_i(1'b0),
-          .WEN_A1_i(WEN_i),
-          .BE_A1_i(WR_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA[17:0]),
-          .ADDR_B1_i(RD_ADDR_SHIFTED),
-          .CLK_B1_i(RD_CLK_i),
-          .REN_B1_i(REN_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN_i,REN_i}),
-        
-          .WDATA_A2_i(PORT_A_WDATA[35:18]),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR_ADDR_SHIFTED),
-          .CLK_A2_i(WR_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN_i),
-          .BE_A2_i(WR_BE[3:2]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA[17:0]),
-          .ADDR_B2_i(RD_ADDR_SHIFTED),
-          .CLK_B2_i(RD_CLK_i),
-          .REN_B2_i(REN_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN_i,REN_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );        
-			end
-			default: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_18, MODE_1, MODE_18, MODE_1, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_18, MODE_1, MODE_18, MODE_1, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(1'b1),
-        
-          .WDATA_A1_i(PORT_A_WDATA[17:0]),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR_ADDR_SHIFTED),
-          .CLK_A1_i(WR_CLK_i),
-          .REN_A1_i(1'b0),
-          .WEN_A1_i(WEN_i),
-          .BE_A1_i(WR_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA[17:0]),
-          .ADDR_B1_i(RD_ADDR_SHIFTED),
-          .CLK_B1_i(RD_CLK_i),
-          .REN_B1_i(REN_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN_i,REN_i}),
-        
-          .WDATA_A2_i(PORT_A_WDATA[35:18]),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR_ADDR_SHIFTED),
-          .CLK_A2_i(WR_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN_i),
-          .BE_A2_i(WR_BE[3:2]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA[17:0]),
-          .ADDR_B2_i(RD_ADDR_SHIFTED),
-          .CLK_B2_i(RD_CLK_i),
-          .REN_B2_i(REN_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN_i,REN_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );        
-			end
-		endcase
-	end
-	32, 36: begin
-		case (WR_DATA_WIDTH)
-			1: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_36, MODE_1, MODE_36, MODE_1, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_36, MODE_1, MODE_36, MODE_1, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(1'b1),
-        
-          .WDATA_A1_i(PORT_A_WDATA[17:0]),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR_ADDR_SHIFTED),
-          .CLK_A1_i(WR_CLK_i),
-          .REN_A1_i(1'b0),
-          .WEN_A1_i(WEN_i),
-          .BE_A1_i(WR_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA[17:0]),
-          .ADDR_B1_i(RD_ADDR_SHIFTED),
-          .CLK_B1_i(RD_CLK_i),
-          .REN_B1_i(REN_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN_i,REN_i}),
-        
-          .WDATA_A2_i(PORT_A_WDATA[35:18]),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR_ADDR_SHIFTED),
-          .CLK_A2_i(WR_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN_i),
-          .BE_A2_i(WR_BE[3:2]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA[17:0]),
-          .ADDR_B2_i(RD_ADDR_SHIFTED),
-          .CLK_B2_i(RD_CLK_i),
-          .REN_B2_i(REN_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN_i,REN_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );        
-			end
-			2: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_36, MODE_2, MODE_36, MODE_2, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_36, MODE_2, MODE_36, MODE_2, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(1'b1),
-        
-          .WDATA_A1_i(PORT_A_WDATA[17:0]),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR_ADDR_SHIFTED),
-          .CLK_A1_i(WR_CLK_i),
-          .REN_A1_i(1'b0),
-          .WEN_A1_i(WEN_i),
-          .BE_A1_i(WR_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA[17:0]),
-          .ADDR_B1_i(RD_ADDR_SHIFTED),
-          .CLK_B1_i(RD_CLK_i),
-          .REN_B1_i(REN_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN_i,REN_i}),
-        
-          .WDATA_A2_i(PORT_A_WDATA[35:18]),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR_ADDR_SHIFTED),
-          .CLK_A2_i(WR_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN_i),
-          .BE_A2_i(WR_BE[3:2]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA[17:0]),
-          .ADDR_B2_i(RD_ADDR_SHIFTED),
-          .CLK_B2_i(RD_CLK_i),
-          .REN_B2_i(REN_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN_i,REN_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );        
-			end
-			4: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_36, MODE_4, MODE_36, MODE_4, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_36, MODE_4, MODE_36, MODE_4, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(1'b1),
-        
-          .WDATA_A1_i(PORT_A_WDATA[17:0]),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR_ADDR_SHIFTED),
-          .CLK_A1_i(WR_CLK_i),
-          .REN_A1_i(1'b0),
-          .WEN_A1_i(WEN_i),
-          .BE_A1_i(WR_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA[17:0]),
-          .ADDR_B1_i(RD_ADDR_SHIFTED),
-          .CLK_B1_i(RD_CLK_i),
-          .REN_B1_i(REN_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN_i,REN_i}),
-        
-          .WDATA_A2_i(PORT_A_WDATA[35:18]),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR_ADDR_SHIFTED),
-          .CLK_A2_i(WR_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN_i),
-          .BE_A2_i(WR_BE[3:2]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA[17:0]),
-          .ADDR_B2_i(RD_ADDR_SHIFTED),
-          .CLK_B2_i(RD_CLK_i),
-          .REN_B2_i(REN_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN_i,REN_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );        
-			end
-			8, 9: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_36, MODE_9, MODE_36, MODE_9, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_36, MODE_9, MODE_36, MODE_9, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(1'b1),
-        
-          .WDATA_A1_i(PORT_A_WDATA[17:0]),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR_ADDR_SHIFTED),
-          .CLK_A1_i(WR_CLK_i),
-          .REN_A1_i(1'b0),
-          .WEN_A1_i(WEN_i),
-          .BE_A1_i(WR_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA[17:0]),
-          .ADDR_B1_i(RD_ADDR_SHIFTED),
-          .CLK_B1_i(RD_CLK_i),
-          .REN_B1_i(REN_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN_i,REN_i}),
-        
-          .WDATA_A2_i(PORT_A_WDATA[35:18]),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR_ADDR_SHIFTED),
-          .CLK_A2_i(WR_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN_i),
-          .BE_A2_i(WR_BE[3:2]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA[17:0]),
-          .ADDR_B2_i(RD_ADDR_SHIFTED),
-          .CLK_B2_i(RD_CLK_i),
-          .REN_B2_i(REN_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN_i,REN_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );        
-			end
-			16, 18: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_36, MODE_18, MODE_36, MODE_18, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_36, MODE_18, MODE_36, MODE_18, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(1'b1),
-        
-          .WDATA_A1_i(PORT_A_WDATA[17:0]),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR_ADDR_SHIFTED),
-          .CLK_A1_i(WR_CLK_i),
-          .REN_A1_i(1'b0),
-          .WEN_A1_i(WEN_i),
-          .BE_A1_i(WR_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA[17:0]),
-          .ADDR_B1_i(RD_ADDR_SHIFTED),
-          .CLK_B1_i(RD_CLK_i),
-          .REN_B1_i(REN_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN_i,REN_i}),
-        
-          .WDATA_A2_i(PORT_A_WDATA[35:18]),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR_ADDR_SHIFTED),
-          .CLK_A2_i(WR_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN_i),
-          .BE_A2_i(WR_BE[3:2]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA[17:0]),
-          .ADDR_B2_i(RD_ADDR_SHIFTED),
-          .CLK_B2_i(RD_CLK_i),
-          .REN_B2_i(REN_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN_i,REN_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );        
-			end
-			32, 36: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_36, MODE_36, MODE_36, MODE_36, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_36, MODE_36, MODE_36, MODE_36, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(1'b1),
-        
-          .WDATA_A1_i(PORT_A_WDATA[17:0]),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR_ADDR_SHIFTED),
-          .CLK_A1_i(WR_CLK_i),
-          .REN_A1_i(1'b0),
-          .WEN_A1_i(WEN_i),
-          .BE_A1_i(WR_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA[17:0]),
-          .ADDR_B1_i(RD_ADDR_SHIFTED),
-          .CLK_B1_i(RD_CLK_i),
-          .REN_B1_i(REN_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN_i,REN_i}),
-        
-          .WDATA_A2_i(PORT_A_WDATA[35:18]),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR_ADDR_SHIFTED),
-          .CLK_A2_i(WR_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN_i),
-          .BE_A2_i(WR_BE[3:2]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA[17:0]),
-          .ADDR_B2_i(RD_ADDR_SHIFTED),
-          .CLK_B2_i(RD_CLK_i),
-          .REN_B2_i(REN_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN_i,REN_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );        
-			end
-			default: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_36, MODE_1, MODE_36, MODE_1, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_36, MODE_1, MODE_36, MODE_1, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(1'b1),
-        
-          .WDATA_A1_i(PORT_A_WDATA[17:0]),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR_ADDR_SHIFTED),
-          .CLK_A1_i(WR_CLK_i),
-          .REN_A1_i(1'b0),
-          .WEN_A1_i(WEN_i),
-          .BE_A1_i(WR_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA[17:0]),
-          .ADDR_B1_i(RD_ADDR_SHIFTED),
-          .CLK_B1_i(RD_CLK_i),
-          .REN_B1_i(REN_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN_i,REN_i}),
-        
-          .WDATA_A2_i(PORT_A_WDATA[35:18]),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR_ADDR_SHIFTED),
-          .CLK_A2_i(WR_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN_i),
-          .BE_A2_i(WR_BE[3:2]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA[17:0]),
-          .ADDR_B2_i(RD_ADDR_SHIFTED),
-          .CLK_B2_i(RD_CLK_i),
-          .REN_B2_i(REN_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN_i,REN_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );        
-			end
-		endcase
-	end
-	default: begin
-		case (WR_DATA_WIDTH)
-			1: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_1, MODE_1, MODE_1, MODE_1, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_1, MODE_1, MODE_1, MODE_1, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(1'b1),
-        
-          .WDATA_A1_i(PORT_A_WDATA[17:0]),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR_ADDR_SHIFTED),
-          .CLK_A1_i(WR_CLK_i),
-          .REN_A1_i(1'b0),
-          .WEN_A1_i(WEN_i),
-          .BE_A1_i(WR_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA[17:0]),
-          .ADDR_B1_i(RD_ADDR_SHIFTED),
-          .CLK_B1_i(RD_CLK_i),
-          .REN_B1_i(REN_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN_i,REN_i}),
-        
-          .WDATA_A2_i(PORT_A_WDATA[35:18]),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR_ADDR_SHIFTED),
-          .CLK_A2_i(WR_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN_i),
-          .BE_A2_i(WR_BE[3:2]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA[17:0]),
-          .ADDR_B2_i(RD_ADDR_SHIFTED),
-          .CLK_B2_i(RD_CLK_i),
-          .REN_B2_i(REN_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN_i,REN_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );        
-			end
-			2: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_1, MODE_2, MODE_1, MODE_2, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_1, MODE_2, MODE_1, MODE_2, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(1'b1),
-        
-          .WDATA_A1_i(PORT_A_WDATA[17:0]),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR_ADDR_SHIFTED),
-          .CLK_A1_i(WR_CLK_i),
-          .REN_A1_i(1'b0),
-          .WEN_A1_i(WEN_i),
-          .BE_A1_i(WR_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA[17:0]),
-          .ADDR_B1_i(RD_ADDR_SHIFTED),
-          .CLK_B1_i(RD_CLK_i),
-          .REN_B1_i(REN_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN_i,REN_i}),
-        
-          .WDATA_A2_i(PORT_A_WDATA[35:18]),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR_ADDR_SHIFTED),
-          .CLK_A2_i(WR_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN_i),
-          .BE_A2_i(WR_BE[3:2]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA[17:0]),
-          .ADDR_B2_i(RD_ADDR_SHIFTED),
-          .CLK_B2_i(RD_CLK_i),
-          .REN_B2_i(REN_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN_i,REN_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );        
-			end
-			4: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_1, MODE_4, MODE_1, MODE_4, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_1, MODE_4, MODE_1, MODE_4, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(1'b1),
-        
-          .WDATA_A1_i(PORT_A_WDATA[17:0]),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR_ADDR_SHIFTED),
-          .CLK_A1_i(WR_CLK_i),
-          .REN_A1_i(1'b0),
-          .WEN_A1_i(WEN_i),
-          .BE_A1_i(WR_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA[17:0]),
-          .ADDR_B1_i(RD_ADDR_SHIFTED),
-          .CLK_B1_i(RD_CLK_i),
-          .REN_B1_i(REN_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN_i,REN_i}),
-        
-          .WDATA_A2_i(PORT_A_WDATA[35:18]),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR_ADDR_SHIFTED),
-          .CLK_A2_i(WR_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN_i),
-          .BE_A2_i(WR_BE[3:2]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA[17:0]),
-          .ADDR_B2_i(RD_ADDR_SHIFTED),
-          .CLK_B2_i(RD_CLK_i),
-          .REN_B2_i(REN_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN_i,REN_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );        
-			end
-			8, 9: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_1, MODE_9, MODE_1, MODE_9, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_1, MODE_9, MODE_1, MODE_9, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(1'b1),
-        
-          .WDATA_A1_i(PORT_A_WDATA[17:0]),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR_ADDR_SHIFTED),
-          .CLK_A1_i(WR_CLK_i),
-          .REN_A1_i(1'b0),
-          .WEN_A1_i(WEN_i),
-          .BE_A1_i(WR_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA[17:0]),
-          .ADDR_B1_i(RD_ADDR_SHIFTED),
-          .CLK_B1_i(RD_CLK_i),
-          .REN_B1_i(REN_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN_i,REN_i}),
-        
-          .WDATA_A2_i(PORT_A_WDATA[35:18]),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR_ADDR_SHIFTED),
-          .CLK_A2_i(WR_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN_i),
-          .BE_A2_i(WR_BE[3:2]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA[17:0]),
-          .ADDR_B2_i(RD_ADDR_SHIFTED),
-          .CLK_B2_i(RD_CLK_i),
-          .REN_B2_i(REN_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN_i,REN_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );       
-			end
-			16, 18: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_1, MODE_18, MODE_1, MODE_18, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_1, MODE_18, MODE_1, MODE_18, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(1'b1),
-        
-          .WDATA_A1_i(PORT_A_WDATA[17:0]),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR_ADDR_SHIFTED),
-          .CLK_A1_i(WR_CLK_i),
-          .REN_A1_i(1'b0),
-          .WEN_A1_i(WEN_i),
-          .BE_A1_i(WR_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA[17:0]),
-          .ADDR_B1_i(RD_ADDR_SHIFTED),
-          .CLK_B1_i(RD_CLK_i),
-          .REN_B1_i(REN_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN_i,REN_i}),
-        
-          .WDATA_A2_i(PORT_A_WDATA[35:18]),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR_ADDR_SHIFTED),
-          .CLK_A2_i(WR_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN_i),
-          .BE_A2_i(WR_BE[3:2]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA[17:0]),
-          .ADDR_B2_i(RD_ADDR_SHIFTED),
-          .CLK_B2_i(RD_CLK_i),
-          .REN_B2_i(REN_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN_i,REN_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );       
-			end
-			32, 36: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_1, MODE_36, MODE_1, MODE_36, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_1, MODE_36, MODE_1, MODE_36, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(1'b1),
-        
-          .WDATA_A1_i(PORT_A_WDATA[17:0]),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR_ADDR_SHIFTED),
-          .CLK_A1_i(WR_CLK_i),
-          .REN_A1_i(1'b0),
-          .WEN_A1_i(WEN_i),
-          .BE_A1_i(WR_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA[17:0]),
-          .ADDR_B1_i(RD_ADDR_SHIFTED),
-          .CLK_B1_i(RD_CLK_i),
-          .REN_B1_i(REN_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN_i,REN_i}),
-        
-          .WDATA_A2_i(PORT_A_WDATA[35:18]),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR_ADDR_SHIFTED),
-          .CLK_A2_i(WR_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN_i),
-          .BE_A2_i(WR_BE[3:2]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA[17:0]),
-          .ADDR_B2_i(RD_ADDR_SHIFTED),
-          .CLK_B2_i(RD_CLK_i),
-          .REN_B2_i(REN_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN_i,REN_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );        
-			end
-			default: begin
-				defparam BRAM_BLK.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_1, MODE_1, MODE_1, MODE_1, 1'd0,
-					12'd10, 12'd10, 4'd0, MODE_1, MODE_1, MODE_1, MODE_1, 1'd0
-				};
-        (* is_inferred = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K BRAM_BLK (
-          .RESET_ni(1'b1),
-        
-          .WDATA_A1_i(PORT_A_WDATA[17:0]),
-          .RDATA_A1_o(),
-          .ADDR_A1_i(WR_ADDR_SHIFTED),
-          .CLK_A1_i(WR_CLK_i),
-          .REN_A1_i(1'b0),
-          .WEN_A1_i(WEN_i),
-          .BE_A1_i(WR_BE[1:0]),
-        
-          .WDATA_B1_i(18'h0),
-          .RDATA_B1_o(PORT_B1_RDATA[17:0]),
-          .ADDR_B1_i(RD_ADDR_SHIFTED),
-          .CLK_B1_i(RD_CLK_i),
-          .REN_B1_i(REN_i),
-          .WEN_B1_i(1'b0),
-          .BE_B1_i({REN_i,REN_i}),
-        
-          .WDATA_A2_i(PORT_A_WDATA[35:18]),
-          .RDATA_A2_o(),
-          .ADDR_A2_i(WR_ADDR_SHIFTED),
-          .CLK_A2_i(WR_CLK_i),
-          .REN_A2_i(1'b0),
-          .WEN_A2_i(WEN_i),
-          .BE_A2_i(WR_BE[3:2]),
-        
-          .WDATA_B2_i(18'h0),
-          .RDATA_B2_o(PORT_B2_RDATA[17:0]),
-          .ADDR_B2_i(RD_ADDR_SHIFTED),
-          .CLK_B2_i(RD_CLK_i),
-          .REN_B2_i(REN_i),
-          .WEN_B2_i(1'b0),
-          .BE_B2_i({REN_i,REN_i}),
-        
-          .FLUSH1_i(FLUSH1),
-          .FLUSH2_i(FLUSH2)
-        );        
-			end
-		endcase
-	end
-endcase
+defparam _TECHMAP_REPLACE_.MODE_BITS = { 1'b0,
+	UPAF2_i, UPAE2_i, PROTECT2_i, SLEEP2_i, POWERDN2_i, FMODE2_i, WMODE_B2_i, WMODE_A2_i, RMODE_B2_i, RMODE_A2_i, SYNC_FIFO2_i,
+	UPAF1_i, UPAE1_i, PROTECT1_i, SLEEP1_i, POWERDN1_i, FMODE1_i, WMODE_B1_i, WMODE_A1_i, RMODE_B1_i, RMODE_A1_i, SYNC_FIFO1_i
+};
+
+(* is_inferred = 1 *)
+(* is_split = 0 *)
+(* port_a_width = WR_DATA_WIDTH *)
+(* port_b_width = RD_DATA_WIDTH *)
+TDP36K _TECHMAP_REPLACE_ (
+	.RESET_ni(1'b1),
+
+	.CLK_A1_i(PORT_A_CLK),
+	.ADDR_A1_i(PORT_A_ADDR),
+	.WEN_A1_i(WEN_A1_i),
+	.BE_A1_i(BE_A1_i),
+	.WDATA_A1_i(WDATA_A1_i),
+	.REN_A1_i(REN_A1_i),
+	.RDATA_A1_o(RDATA_A1_o),
+
+	.CLK_A2_i(PORT_A_CLK),
+	.ADDR_A2_i(PORT_A_ADDR[13:0]),
+	.WEN_A2_i(WEN_A1_i),
+	.BE_A2_i(BE_A2_i),
+	.WDATA_A2_i(WDATA_A2_i),
+	.REN_A2_i(REN_A1_i),
+	.RDATA_A2_o(RDATA_A2_o),
+
+	.CLK_B1_i(PORT_B_CLK),
+	.ADDR_B1_i(PORT_B_ADDR),
+	.WEN_B1_i(WEN_B1_i),
+	.BE_B1_i(BE_B1_i),
+	.WDATA_B1_i(WDATA_B1_i),
+	.REN_B1_i(REN_B1_i),
+	.RDATA_B1_o(RDATA_B1_o),
+
+	.CLK_B2_i(PORT_B_CLK),
+	.ADDR_B2_i(PORT_B_ADDR[13:0]),
+	.WEN_B2_i(WEN_B1_i),
+	.BE_B2_i(BE_B2_i),
+	.WDATA_B2_i(WDATA_B2_i),
+	.REN_B2_i(REN_B1_i),
+	.RDATA_B2_o(RDATA_B2_o),
+
+	.FLUSH1_i(1'b0),
+	.FLUSH2_i(1'b0)
+);
 
 endmodule
 
-module BRAM2x18_DP (A1ADDR, A1DATA, A1EN, B1ADDR, B1DATA, B1EN, C1ADDR, C1DATA, C1EN, CLK1, CLK2, CLK3, CLK4, D1ADDR, D1DATA, D1EN, E1ADDR, E1DATA, E1EN, F1ADDR, F1DATA, F1EN, G1ADDR, G1DATA, G1EN, H1ADDR, H1DATA, H1EN);
-	parameter CFG_ABITS = 11;
-	parameter CFG_DBITS = 18;
-	parameter CFG_ENABLE_B = 4;
-	parameter CFG_ENABLE_D = 4;
-	parameter CFG_ENABLE_F = 4;
-	parameter CFG_ENABLE_H = 4;
 
-	parameter CLKPOL2 = 1;
-	parameter CLKPOL3 = 1;
-	parameter [18431:0] INIT0 = 18432'bx;
-	parameter [18431:0] INIT1 = 18432'bx;
-  
-  localparam MODE_36 = 3'b011; // 36- or 32-bit
-  localparam MODE_18 = 3'b010; // 18- or 16-bit
-  localparam MODE_9 = 3'b001; // 9- or 8-bit
-  localparam MODE_4 = 3'b100; // 4-bit
-  localparam MODE_2 = 3'b110; // 2-bit
-  localparam MODE_1 = 3'b101; // 1-bit
-
-  input wire CLK1;
-  input wire CLK2;
-  input wire CLK3;
-  input wire CLK4;
-
-  input  wire [CFG_ABITS-1:0] A1ADDR;
-  output wire [CFG_DBITS-1:0] A1DATA;
-  input  wire A1EN;
-
-  input  wire [CFG_ABITS-1:0] B1ADDR;
-  input  wire [CFG_DBITS-1:0] B1DATA;
-  input  wire [CFG_ENABLE_B-1:0] B1EN;
-
-  input  wire [CFG_ABITS-1:0] C1ADDR;
-  output wire [CFG_DBITS-1:0] C1DATA;
-  input  wire C1EN;
-
-  input  wire [CFG_ABITS-1:0] D1ADDR;
-  input  wire [CFG_DBITS-1:0] D1DATA;
-  input  wire [CFG_ENABLE_D-1:0] D1EN;
-
-  input  wire [CFG_ABITS-1:0] E1ADDR;
-  output wire [CFG_DBITS-1:0] E1DATA;
-  input  wire E1EN;
-
-  input  wire [CFG_ABITS-1:0] F1ADDR;
-  input  wire [CFG_DBITS-1:0] F1DATA;
-  input  wire [CFG_ENABLE_F-1:0] F1EN;
-
-  input  wire [CFG_ABITS-1:0] G1ADDR;
-  output wire [CFG_DBITS-1:0] G1DATA;
-  input  wire G1EN;
-
-  input  wire [CFG_ABITS-1:0] H1ADDR;
-  input  wire [CFG_DBITS-1:0] H1DATA;
-  input  wire [CFG_ENABLE_H-1:0] H1EN;
-
-	wire FLUSH1;
-	wire FLUSH2;
-
-	wire [14:0] A1ADDR_TOTAL;
-	wire [14:0] B1ADDR_TOTAL;
-	wire [14:0] C1ADDR_TOTAL;
-	wire [14:0] D1ADDR_TOTAL;
-	wire [14:0] E1ADDR_TOTAL;
-	wire [14:0] F1ADDR_TOTAL;
-	wire [14:0] G1ADDR_TOTAL;
-	wire [14:0] H1ADDR_TOTAL;
-  
-  generate
-    if (CFG_ABITS == 15) begin
-      assign A1ADDR_TOTAL = A1ADDR;
-      assign B1ADDR_TOTAL = B1ADDR;
-      assign C1ADDR_TOTAL = C1ADDR;
-      assign D1ADDR_TOTAL = D1ADDR;
-      assign E1ADDR_TOTAL = E1ADDR;
-      assign F1ADDR_TOTAL = F1ADDR;
-      assign G1ADDR_TOTAL = G1ADDR;
-      assign H1ADDR_TOTAL = H1ADDR;
-    end else begin
-      assign A1ADDR_TOTAL[14:CFG_ABITS] = 0;
-      assign A1ADDR_TOTAL[CFG_ABITS-1:0] = A1ADDR;
-      assign B1ADDR_TOTAL[14:CFG_ABITS] = 0;
-      assign B1ADDR_TOTAL[CFG_ABITS-1:0] = B1ADDR;
-      assign C1ADDR_TOTAL[14:CFG_ABITS] = 0;
-      assign C1ADDR_TOTAL[CFG_ABITS-1:0] = C1ADDR;
-      assign D1ADDR_TOTAL[14:CFG_ABITS] = 0;
-      assign D1ADDR_TOTAL[CFG_ABITS-1:0] = D1ADDR;
-      assign E1ADDR_TOTAL[14:CFG_ABITS] = 0;
-      assign E1ADDR_TOTAL[CFG_ABITS-1:0] = E1ADDR;
-      assign F1ADDR_TOTAL[14:CFG_ABITS] = 0;
-      assign F1ADDR_TOTAL[CFG_ABITS-1:0] = F1ADDR;
-      assign G1ADDR_TOTAL[14:CFG_ABITS] = 0;
-      assign G1ADDR_TOTAL[CFG_ABITS-1:0] = G1ADDR;
-      assign H1ADDR_TOTAL[14:CFG_ABITS] = 0;
-      assign H1ADDR_TOTAL[CFG_ABITS-1:0] = H1ADDR;
-    end
-  endgenerate
-
-	wire [17:CFG_DBITS] A1_RDATA_CMPL;
-	wire [17:CFG_DBITS] C1_RDATA_CMPL;
-	wire [17:CFG_DBITS] E1_RDATA_CMPL;
-	wire [17:CFG_DBITS] G1_RDATA_CMPL;
-
-	wire [17:CFG_DBITS] B1_WDATA_CMPL;
-	wire [17:CFG_DBITS] D1_WDATA_CMPL;
-	wire [17:CFG_DBITS] F1_WDATA_CMPL;
-	wire [17:CFG_DBITS] H1_WDATA_CMPL;
-
-	wire [14:0] PORT_A1_ADDR;
-	wire [14:0] PORT_A2_ADDR;
-	wire [14:0] PORT_B1_ADDR;
-	wire [14:0] PORT_B2_ADDR;
-
-	assign FLUSH1 = 1'b0;
-	assign FLUSH2 = 1'b0;
-
-	wire [17:0] PORT_A1_RDATA;
-	wire [17:0] PORT_B1_RDATA;
-	wire [17:0] PORT_A2_RDATA;
-	wire [17:0] PORT_B2_RDATA;
-
-	wire [17:0] PORT_A1_WDATA;
-	wire [17:0] PORT_B1_WDATA;
-	wire [17:0] PORT_A2_WDATA;
-	wire [17:0] PORT_B2_WDATA;
-
-	// Assign read/write data - handle special case for 9bit mode
-	// parity bit for 9bit mode is placed in R/W port on bit #16
-	case (CFG_DBITS)
-		9: begin
-			assign A1DATA = {PORT_A1_RDATA[16], PORT_A1_RDATA[7:0]};
-			assign C1DATA = {PORT_B1_RDATA[16], PORT_B1_RDATA[7:0]};
-			assign E1DATA = {PORT_A2_RDATA[16], PORT_A2_RDATA[7:0]};
-			assign G1DATA = {PORT_B2_RDATA[16], PORT_B2_RDATA[7:0]};
-			assign PORT_A1_WDATA = {B1_WDATA_CMPL[17], B1DATA[8], B1_WDATA_CMPL[16:9], B1DATA[7:0]};
-			assign PORT_B1_WDATA = {D1_WDATA_CMPL[17], D1DATA[8], D1_WDATA_CMPL[16:9], D1DATA[7:0]};
-			assign PORT_A2_WDATA = {F1_WDATA_CMPL[17], F1DATA[8], F1_WDATA_CMPL[16:9], F1DATA[7:0]};
-			assign PORT_B2_WDATA = {H1_WDATA_CMPL[17], H1DATA[8], H1_WDATA_CMPL[16:9], H1DATA[7:0]};
-		end
-		default: begin
-			assign A1DATA = PORT_A1_RDATA[CFG_DBITS-1:0];
-			assign C1DATA = PORT_B1_RDATA[CFG_DBITS-1:0];
-			assign E1DATA = PORT_A2_RDATA[CFG_DBITS-1:0];
-			assign G1DATA = PORT_B2_RDATA[CFG_DBITS-1:0];
-			assign PORT_A1_WDATA = {B1_WDATA_CMPL, B1DATA};
-			assign PORT_B1_WDATA = {D1_WDATA_CMPL, D1DATA};
-			assign PORT_A2_WDATA = {F1_WDATA_CMPL, F1DATA};
-			assign PORT_B2_WDATA = {H1_WDATA_CMPL, H1DATA};
-
-		end
-	endcase
-
-	wire PORT_A1_CLK = CLK1;
-	wire PORT_A2_CLK = CLK3;
-	wire PORT_B1_CLK = CLK2;
-	wire PORT_B2_CLK = CLK4;
-
-	wire PORT_A1_REN = A1EN;
-	wire PORT_A1_WEN = B1EN[0];
-	wire [CFG_ENABLE_B-1:0] PORT_A1_BE = {B1EN[1],B1EN[0]};
-
-	wire PORT_A2_REN = E1EN;
-	wire PORT_A2_WEN = F1EN[0];
-	wire [CFG_ENABLE_F-1:0] PORT_A2_BE = {F1EN[1],F1EN[0]};
-
-	wire PORT_B1_REN = C1EN;
-	wire PORT_B1_WEN = D1EN[0];
-	wire [CFG_ENABLE_D-1:0] PORT_B1_BE = {D1EN[1],D1EN[0]};
-
-	wire PORT_B2_REN = G1EN;
-	wire PORT_B2_WEN = H1EN[0];
-	wire [CFG_ENABLE_H-1:0] PORT_B2_BE = {H1EN[1],H1EN[0]};
-  
-  	case (CFG_DBITS)
-		1: begin
-			assign PORT_A1_ADDR = A1EN ? A1ADDR_TOTAL : (B1EN ? B1ADDR_TOTAL : 14'd0);
-			assign PORT_B1_ADDR = C1EN ? C1ADDR_TOTAL : (D1EN ? D1ADDR_TOTAL : 14'd0);
-			assign PORT_A2_ADDR = E1EN ? E1ADDR_TOTAL : (F1EN ? F1ADDR_TOTAL : 14'd0);
-			assign PORT_B2_ADDR = G1EN ? G1ADDR_TOTAL : (H1EN ? H1ADDR_TOTAL : 14'd0);
-			defparam _TECHMAP_REPLACE_.MODE_BITS = { 1'b1,
-				11'd10, 11'd10, 4'd0, MODE_1, MODE_1, MODE_1, MODE_1, 1'd0,
-				12'd10, 12'd10, 4'd0, MODE_1, MODE_1, MODE_1, MODE_1, 1'd0
-			};
-      (* is_split = 1 *)
-      (* rd_data_width = CFG_DBITS *)
-      (* wr_data_width = CFG_DBITS *)
-      TDP36K  _TECHMAP_REPLACE_ (
-        .WDATA_A1_i(PORT_A1_WDATA),
-        .RDATA_A1_o(PORT_A1_RDATA),
-        .ADDR_A1_i(PORT_A1_ADDR),
-        .CLK_A1_i(PORT_A1_CLK),
-        .REN_A1_i(PORT_A1_REN),
-        .WEN_A1_i(PORT_A1_WEN),
-        .BE_A1_i(PORT_A1_BE),
+module DPRAM_18K_X2_BLK (   
+    PORT_A1_CLK_i,
+    PORT_A1_WEN_i,
+    PORT_A1_WR_BE_i,
+    PORT_A1_REN_i,
+    PORT_A1_ADDR_i,
+    PORT_A1_WR_DATA_i,
+    PORT_A1_RD_DATA_o,
     
-        .WDATA_A2_i(PORT_A2_WDATA),
-        .RDATA_A2_o(PORT_A2_RDATA),
-        .ADDR_A2_i(PORT_A2_ADDR),
-        .CLK_A2_i(PORT_A2_CLK),
-        .REN_A2_i(PORT_A2_REN),
-        .WEN_A2_i(PORT_A2_WEN),
-        .BE_A2_i(PORT_A2_BE),
+    PORT_B1_CLK_i,
+    PORT_B1_WEN_i,
+    PORT_B1_WR_BE_i,
+    PORT_B1_REN_i,
+    PORT_B1_ADDR_i,
+    PORT_B1_WR_DATA_i,
+    PORT_B1_RD_DATA_o,
+	
+    PORT_A2_CLK_i,
+    PORT_A2_WEN_i,
+    PORT_A2_WR_BE_i,
+    PORT_A2_REN_i,
+    PORT_A2_ADDR_i,
+    PORT_A2_WR_DATA_i,
+    PORT_A2_RD_DATA_o,
     
-        .WDATA_B1_i(PORT_B1_WDATA),
-        .RDATA_B1_o(PORT_B1_RDATA),
-        .ADDR_B1_i(PORT_B1_ADDR),
-        .CLK_B1_i(PORT_B1_CLK),
-        .REN_B1_i(PORT_B1_REN),
-        .WEN_B1_i(PORT_B1_WEN),
-        .BE_B1_i(PORT_B1_BE),
-    
-        .WDATA_B2_i(PORT_B2_WDATA),
-        .RDATA_B2_o(PORT_B2_RDATA),
-        .ADDR_B2_i(PORT_B2_ADDR),
-        .CLK_B2_i(PORT_B2_CLK),
-        .REN_B2_i(PORT_B2_REN),
-        .WEN_B2_i(PORT_B2_WEN),
-        .BE_B2_i(PORT_B2_BE),
-    
-        .FLUSH1_i(FLUSH1),
-        .FLUSH2_i(FLUSH2)
-      );
-		end
+    PORT_B2_CLK_i,
+    PORT_B2_WEN_i,
+    PORT_B2_WR_BE_i,
+    PORT_B2_REN_i,
+    PORT_B2_ADDR_i,
+    PORT_B2_WR_DATA_i,
+    PORT_B2_RD_DATA_o
+);
 
-		2: begin
-			assign PORT_A1_ADDR = A1EN ? (A1ADDR_TOTAL << 1) : (B1EN ? (B1ADDR_TOTAL << 1) : 14'd0);
-			assign PORT_B1_ADDR = C1EN ? (C1ADDR_TOTAL << 1) : (D1EN ? (D1ADDR_TOTAL << 1) : 14'd0);
-			assign PORT_A2_ADDR = E1EN ? (E1ADDR_TOTAL << 1) : (F1EN ? (F1ADDR_TOTAL << 1) : 14'd0);
-			assign PORT_B2_ADDR = G1EN ? (G1ADDR_TOTAL << 1) : (H1EN ? (H1ADDR_TOTAL << 1) : 14'd0);
-			defparam _TECHMAP_REPLACE_.MODE_BITS = { 1'b1,
-				11'd10, 11'd10, 4'd0, MODE_2, MODE_2, MODE_2, MODE_2, 1'd0,
-				12'd10, 12'd10, 4'd0, MODE_2, MODE_2, MODE_2, MODE_2, 1'd0
-			};
-      (* is_split = 1 *)
-      (* rd_data_width = CFG_DBITS *)
-      (* wr_data_width = CFG_DBITS *)
-      TDP36K  _TECHMAP_REPLACE_ (
-        .WDATA_A1_i(PORT_A1_WDATA),
-        .RDATA_A1_o(PORT_A1_RDATA),
-        .ADDR_A1_i(PORT_A1_ADDR),
-        .CLK_A1_i(PORT_A1_CLK),
-        .REN_A1_i(PORT_A1_REN),
-        .WEN_A1_i(PORT_A1_WEN),
-        .BE_A1_i(PORT_A1_BE),
-    
-        .WDATA_A2_i(PORT_A2_WDATA),
-        .RDATA_A2_o(PORT_A2_RDATA),
-        .ADDR_A2_i(PORT_A2_ADDR),
-        .CLK_A2_i(PORT_A2_CLK),
-        .REN_A2_i(PORT_A2_REN),
-        .WEN_A2_i(PORT_A2_WEN),
-        .BE_A2_i(PORT_A2_BE),
-    
-        .WDATA_B1_i(PORT_B1_WDATA),
-        .RDATA_B1_o(PORT_B1_RDATA),
-        .ADDR_B1_i(PORT_B1_ADDR),
-        .CLK_B1_i(PORT_B1_CLK),
-        .REN_B1_i(PORT_B1_REN),
-        .WEN_B1_i(PORT_B1_WEN),
-        .BE_B1_i(PORT_B1_BE),
-    
-        .WDATA_B2_i(PORT_B2_WDATA),
-        .RDATA_B2_o(PORT_B2_RDATA),
-        .ADDR_B2_i(PORT_B2_ADDR),
-        .CLK_B2_i(PORT_B2_CLK),
-        .REN_B2_i(PORT_B2_REN),
-        .WEN_B2_i(PORT_B2_WEN),
-        .BE_B2_i(PORT_B2_BE),
-    
-        .FLUSH1_i(FLUSH1),
-        .FLUSH2_i(FLUSH2)
-      );
-		end
+parameter PORT_A1_AWIDTH = 10;
+parameter PORT_A1_DWIDTH = 18;
+parameter PORT_A1_WR_BE_WIDTH = 2;
+				
+parameter PORT_B1_AWIDTH = 10;
+parameter PORT_B1_DWIDTH = 18;
+parameter PORT_B1_WR_BE_WIDTH = 2;
 
-		4: begin
-			assign PORT_A1_ADDR = A1EN ? (A1ADDR_TOTAL << 2) : (B1EN ? (B1ADDR_TOTAL << 2) : 14'd0);
-			assign PORT_B1_ADDR = C1EN ? (C1ADDR_TOTAL << 2) : (D1EN ? (D1ADDR_TOTAL << 2) : 14'd0);
-			assign PORT_A2_ADDR = E1EN ? (E1ADDR_TOTAL << 2) : (F1EN ? (F1ADDR_TOTAL << 2) : 14'd0);
-			assign PORT_B2_ADDR = G1EN ? (G1ADDR_TOTAL << 2) : (H1EN ? (H1ADDR_TOTAL << 2) : 14'd0);
-			defparam _TECHMAP_REPLACE_.MODE_BITS = { 1'b1,
-				11'd10, 11'd10, 4'd0, MODE_4, MODE_4, MODE_4, MODE_4, 1'd0,
-				12'd10, 12'd10, 4'd0, MODE_4, MODE_4, MODE_4, MODE_4, 1'd0
-			};
-      (* is_split = 1 *)
-      (* rd_data_width = CFG_DBITS *)
-      (* wr_data_width = CFG_DBITS *)
-      TDP36K  _TECHMAP_REPLACE_ (
-        .WDATA_A1_i(PORT_A1_WDATA),
-        .RDATA_A1_o(PORT_A1_RDATA),
-        .ADDR_A1_i(PORT_A1_ADDR),
-        .CLK_A1_i(PORT_A1_CLK),
-        .REN_A1_i(PORT_A1_REN),
-        .WEN_A1_i(PORT_A1_WEN),
-        .BE_A1_i(PORT_A1_BE),
-    
-        .WDATA_A2_i(PORT_A2_WDATA),
-        .RDATA_A2_o(PORT_A2_RDATA),
-        .ADDR_A2_i(PORT_A2_ADDR),
-        .CLK_A2_i(PORT_A2_CLK),
-        .REN_A2_i(PORT_A2_REN),
-        .WEN_A2_i(PORT_A2_WEN),
-        .BE_A2_i(PORT_A2_BE),
-    
-        .WDATA_B1_i(PORT_B1_WDATA),
-        .RDATA_B1_o(PORT_B1_RDATA),
-        .ADDR_B1_i(PORT_B1_ADDR),
-        .CLK_B1_i(PORT_B1_CLK),
-        .REN_B1_i(PORT_B1_REN),
-        .WEN_B1_i(PORT_B1_WEN),
-        .BE_B1_i(PORT_B1_BE),
-    
-        .WDATA_B2_i(PORT_B2_WDATA),
-        .RDATA_B2_o(PORT_B2_RDATA),
-        .ADDR_B2_i(PORT_B2_ADDR),
-        .CLK_B2_i(PORT_B2_CLK),
-        .REN_B2_i(PORT_B2_REN),
-        .WEN_B2_i(PORT_B2_WEN),
-        .BE_B2_i(PORT_B2_BE),
-    
-        .FLUSH1_i(FLUSH1),
-        .FLUSH2_i(FLUSH2)
-      );
-		end
+parameter PORT_A2_AWIDTH = 10;
+parameter PORT_A2_DWIDTH = 18;
+parameter PORT_A2_WR_BE_WIDTH = 2;
+				
+parameter PORT_B2_AWIDTH = 10;
+parameter PORT_B2_DWIDTH = 18;
+parameter PORT_B2_WR_BE_WIDTH = 2;
 
-		8, 9: begin
-			assign PORT_A1_ADDR = A1EN ? (A1ADDR_TOTAL << 3) : (B1EN ? (B1ADDR_TOTAL << 3) : 14'd0);
-			assign PORT_B1_ADDR = C1EN ? (C1ADDR_TOTAL << 3) : (D1EN ? (D1ADDR_TOTAL << 3) : 14'd0);
-			assign PORT_A2_ADDR = E1EN ? (E1ADDR_TOTAL << 3) : (F1EN ? (F1ADDR_TOTAL << 3) : 14'd0);
-			assign PORT_B2_ADDR = G1EN ? (G1ADDR_TOTAL << 3) : (H1EN ? (H1ADDR_TOTAL << 3) : 14'd0);
-			defparam _TECHMAP_REPLACE_.MODE_BITS = { 1'b1,
-				11'd10, 11'd10, 4'd0, MODE_9, MODE_9, MODE_9, MODE_9, 1'd0,
-				12'd10, 12'd10, 4'd0, MODE_9, MODE_9, MODE_9, MODE_9, 1'd0
-			};
-      (* is_split = 1 *)
-      (* rd_data_width = CFG_DBITS *)
-      (* wr_data_width = CFG_DBITS *)
-      TDP36K  _TECHMAP_REPLACE_ (
-        .WDATA_A1_i(PORT_A1_WDATA),
-        .RDATA_A1_o(PORT_A1_RDATA),
-        .ADDR_A1_i(PORT_A1_ADDR),
-        .CLK_A1_i(PORT_A1_CLK),
-        .REN_A1_i(PORT_A1_REN),
-        .WEN_A1_i(PORT_A1_WEN),
-        .BE_A1_i(PORT_A1_BE),
-    
-        .WDATA_A2_i(PORT_A2_WDATA),
-        .RDATA_A2_o(PORT_A2_RDATA),
-        .ADDR_A2_i(PORT_A2_ADDR),
-        .CLK_A2_i(PORT_A2_CLK),
-        .REN_A2_i(PORT_A2_REN),
-        .WEN_A2_i(PORT_A2_WEN),
-        .BE_A2_i(PORT_A2_BE),
-    
-        .WDATA_B1_i(PORT_B1_WDATA),
-        .RDATA_B1_o(PORT_B1_RDATA),
-        .ADDR_B1_i(PORT_B1_ADDR),
-        .CLK_B1_i(PORT_B1_CLK),
-        .REN_B1_i(PORT_B1_REN),
-        .WEN_B1_i(PORT_B1_WEN),
-        .BE_B1_i(PORT_B1_BE),
-    
-        .WDATA_B2_i(PORT_B2_WDATA),
-        .RDATA_B2_o(PORT_B2_RDATA),
-        .ADDR_B2_i(PORT_B2_ADDR),
-        .CLK_B2_i(PORT_B2_CLK),
-        .REN_B2_i(PORT_B2_REN),
-        .WEN_B2_i(PORT_B2_WEN),
-        .BE_B2_i(PORT_B2_BE),
-    
-        .FLUSH1_i(FLUSH1),
-        .FLUSH2_i(FLUSH2)
-      );
-		end
 
-		16, 18: begin
-			assign PORT_A1_ADDR = A1EN ? (A1ADDR_TOTAL << 4) : (B1EN ? (B1ADDR_TOTAL << 4) : 14'd0);
-			assign PORT_B1_ADDR = C1EN ? (C1ADDR_TOTAL << 4) : (D1EN ? (D1ADDR_TOTAL << 4) : 14'd0);
-			assign PORT_A2_ADDR = E1EN ? (E1ADDR_TOTAL << 4) : (F1EN ? (F1ADDR_TOTAL << 4) : 14'd0);
-			assign PORT_B2_ADDR = G1EN ? (G1ADDR_TOTAL << 4) : (H1EN ? (H1ADDR_TOTAL << 4) : 14'd0);
-			defparam _TECHMAP_REPLACE_.MODE_BITS = { 1'b1,
-				11'd10, 11'd10, 4'd0, MODE_18, MODE_18, MODE_18, MODE_18, 1'd0,
-				12'd10, 12'd10, 4'd0, MODE_18, MODE_18, MODE_18, MODE_18, 1'd0
-			};
-      (* is_split = 1 *)
-      (* rd_data_width = CFG_DBITS *)
-      (* wr_data_width = CFG_DBITS *)
-      TDP36K  _TECHMAP_REPLACE_ (
-        .WDATA_A1_i(PORT_A1_WDATA),
-        .RDATA_A1_o(PORT_A1_RDATA),
-        .ADDR_A1_i(PORT_A1_ADDR),
-        .CLK_A1_i(PORT_A1_CLK),
-        .REN_A1_i(PORT_A1_REN),
-        .WEN_A1_i(PORT_A1_WEN),
-        .BE_A1_i(PORT_A1_BE),
-    
-        .WDATA_A2_i(PORT_A2_WDATA),
-        .RDATA_A2_o(PORT_A2_RDATA),
-        .ADDR_A2_i(PORT_A2_ADDR),
-        .CLK_A2_i(PORT_A2_CLK),
-        .REN_A2_i(PORT_A2_REN),
-        .WEN_A2_i(PORT_A2_WEN),
-        .BE_A2_i(PORT_A2_BE),
-    
-        .WDATA_B1_i(PORT_B1_WDATA),
-        .RDATA_B1_o(PORT_B1_RDATA),
-        .ADDR_B1_i(PORT_B1_ADDR),
-        .CLK_B1_i(PORT_B1_CLK),
-        .REN_B1_i(PORT_B1_REN),
-        .WEN_B1_i(PORT_B1_WEN),
-        .BE_B1_i(PORT_B1_BE),
-    
-        .WDATA_B2_i(PORT_B2_WDATA),
-        .RDATA_B2_o(PORT_B2_RDATA),
-        .ADDR_B2_i(PORT_B2_ADDR),
-        .CLK_B2_i(PORT_B2_CLK),
-        .REN_B2_i(PORT_B2_REN),
-        .WEN_B2_i(PORT_B2_WEN),
-        .BE_B2_i(PORT_B2_BE),
-    
-        .FLUSH1_i(FLUSH1),
-        .FLUSH2_i(FLUSH2)
-      );
-		end
+input wire PORT_A1_CLK_i;
+input wire [PORT_A1_AWIDTH-1:0] PORT_A1_ADDR_i;
+input wire [PORT_A1_DWIDTH-1:0] PORT_A1_WR_DATA_i;
+input wire PORT_A1_WEN_i;
+input wire [PORT_A1_WR_BE_WIDTH-1:0] PORT_A1_WR_BE_i;
+input wire PORT_A1_REN_i;
+output wire [PORT_A1_DWIDTH-1:0] PORT_A1_RD_DATA_o;
 
-		default: begin
-			assign PORT_A1_ADDR = A1EN ? A1ADDR_TOTAL : (B1EN ? B1ADDR_TOTAL : 14'd0);
-			assign PORT_B1_ADDR = C1EN ? C1ADDR_TOTAL : (D1EN ? D1ADDR_TOTAL : 14'd0);
-			assign PORT_A2_ADDR = E1EN ? E1ADDR_TOTAL : (F1EN ? F1ADDR_TOTAL : 14'd0);
-			assign PORT_B2_ADDR = G1EN ? G1ADDR_TOTAL : (H1EN ? H1ADDR_TOTAL : 14'd0);
-			defparam _TECHMAP_REPLACE_.MODE_BITS = { 1'b1,
-				11'd10, 11'd10, 4'd0, MODE_36, MODE_36, MODE_36, MODE_36, 1'd0,
-				12'd10, 12'd10, 4'd0, MODE_36, MODE_36, MODE_36, MODE_36, 1'd0
-			};
-      (* is_split = 1 *)
-      (* rd_data_width = CFG_DBITS *)
-      (* wr_data_width = CFG_DBITS *)
-      TDP36K  _TECHMAP_REPLACE_ (
-        .WDATA_A1_i(PORT_A1_WDATA),
-        .RDATA_A1_o(PORT_A1_RDATA),
-        .ADDR_A1_i(PORT_A1_ADDR),
-        .CLK_A1_i(PORT_A1_CLK),
-        .REN_A1_i(PORT_A1_REN),
-        .WEN_A1_i(PORT_A1_WEN),
-        .BE_A1_i(PORT_A1_BE),
+input wire PORT_B1_CLK_i;
+input wire [PORT_B1_AWIDTH-1:0] PORT_B1_ADDR_i;
+input wire [PORT_B1_DWIDTH-1:0] PORT_B1_WR_DATA_i;
+input wire PORT_B1_WEN_i;
+input wire [PORT_B1_WR_BE_WIDTH-1:0] PORT_B1_WR_BE_i;
+input wire PORT_B1_REN_i;
+output wire [PORT_B1_DWIDTH-1:0] PORT_B1_RD_DATA_o;
+
+input wire PORT_A2_CLK_i;
+input wire [PORT_A2_AWIDTH-1:0] PORT_A2_ADDR_i;
+input wire [PORT_A2_DWIDTH-1:0] PORT_A2_WR_DATA_i;
+input wire PORT_A2_WEN_i;
+input wire [PORT_A2_WR_BE_WIDTH-1:0] PORT_A2_WR_BE_i;
+input wire PORT_A2_REN_i;
+output wire [PORT_A2_DWIDTH-1:0] PORT_A2_RD_DATA_o;
+
+input wire PORT_B2_CLK_i;
+input wire [PORT_B2_AWIDTH-1:0] PORT_B2_ADDR_i;
+input wire [PORT_B2_DWIDTH-1:0] PORT_B2_WR_DATA_i;
+input wire PORT_B2_WEN_i;
+input wire [PORT_B2_WR_BE_WIDTH-1:0] PORT_B2_WR_BE_i;
+input wire PORT_B2_REN_i;
+output wire [PORT_B2_DWIDTH-1:0] PORT_B2_RD_DATA_o;
+
+
+// Fixed mode settings
+localparam [ 0:0] SYNC_FIFO1_i  = 1'd0;
+localparam [ 0:0] FMODE1_i      = 1'd0;
+localparam [ 0:0] POWERDN1_i    = 1'd0;
+localparam [ 0:0] SLEEP1_i      = 1'd0;
+localparam [ 0:0] PROTECT1_i    = 1'd0;
+localparam [11:0] UPAE1_i       = 12'd10;
+localparam [11:0] UPAF1_i       = 12'd10;
+
+localparam [ 0:0] SYNC_FIFO2_i  = 1'd0;
+localparam [ 0:0] FMODE2_i      = 1'd0;
+localparam [ 0:0] POWERDN2_i    = 1'd0;
+localparam [ 0:0] SLEEP2_i      = 1'd0;
+localparam [ 0:0] PROTECT2_i    = 1'd0;
+localparam [10:0] UPAE2_i       = 11'd10;
+localparam [10:0] UPAF2_i       = 11'd10;
+
+// Width mode function
+function [2:0] mode;
+input integer width;
+case (width)
+1: mode = 3'b101;
+2: mode = 3'b110;
+4: mode = 3'b100;
+8,9: mode = 3'b001;
+16, 18: mode = 3'b010;
+32, 36: mode = 3'b011;
+default: mode = 3'b000;
+endcase
+endfunction
+
+wire REN_A1_i;
+wire REN_A2_i;
+
+wire REN_B1_i;
+wire REN_B2_i;
+
+wire WEN_A1_i;
+wire WEN_A2_i;
+
+wire WEN_B1_i;
+wire WEN_B2_i;
+
+wire [1:0] BE_A1_i;
+wire [1:0] BE_A2_i;
+
+wire [1:0] BE_B1_i;
+wire [1:0] BE_B2_i;
+
+wire [14:0] ADDR_A1_i;
+wire [13:0] ADDR_A2_i;
+
+wire [14:0] ADDR_B1_i;
+wire [13:0] ADDR_B2_i;
+
+wire [17:0] WDATA_A1_i;
+wire [17:0] WDATA_A2_i;
+
+wire [17:0] WDATA_B1_i;
+wire [17:0] WDATA_B2_i;
+
+wire [17:0] RDATA_A1_o;
+wire [17:0] RDATA_A2_o;
+
+wire [17:0] RDATA_B1_o;
+wire [17:0] RDATA_B2_o;
+
+wire [1:0] PORT_A1_WR_BE;
+wire [1:0] PORT_B1_WR_BE;
+
+wire [1:0] PORT_A2_WR_BE;
+wire [1:0] PORT_B2_WR_BE;
+
+wire [17:0] PORT_B1_WDATA;
+wire [17:0] PORT_B1_RDATA;
+wire [17:0] PORT_A1_WDATA;
+wire [17:0] PORT_A1_RDATA;
+
+wire [17:0] PORT_B2_WDATA;
+wire [17:0] PORT_B2_RDATA;
+wire [17:0] PORT_A2_WDATA;
+wire [17:0] PORT_A2_RDATA;
+
+wire [13:0] PORT_A1_ADDR_INT;
+wire [13:0] PORT_B1_ADDR_INT; 
+
+wire [13:0] PORT_A2_ADDR_INT;
+wire [13:0] PORT_B2_ADDR_INT; 
+	   
+wire [13:0] PORT_A1_ADDR;
+wire [13:0] PORT_B1_ADDR;
+
+wire [13:0] PORT_A2_ADDR;
+wire [13:0] PORT_B2_ADDR;
+
+wire PORT_A1_CLK;
+wire PORT_B1_CLK;
+
+wire PORT_A2_CLK;
+wire PORT_B2_CLK;
+
+// Set port width mode (In non-split mode A2/B2 is not active. Set same values anyway to match previous behavior.)
+localparam [ 2:0] RMODE_A1_i    = mode(PORT_A1_DWIDTH);
+localparam [ 2:0] WMODE_A1_i    = mode(PORT_A1_DWIDTH);
+localparam [ 2:0] RMODE_A2_i    = mode(PORT_A2_DWIDTH);
+localparam [ 2:0] WMODE_A2_i    = mode(PORT_A2_DWIDTH);
+
+localparam [ 2:0] RMODE_B1_i    = mode(PORT_B1_DWIDTH);
+localparam [ 2:0] WMODE_B1_i    = mode(PORT_B1_DWIDTH);
+localparam [ 2:0] RMODE_B2_i    = mode(PORT_B2_DWIDTH);
+localparam [ 2:0] WMODE_B2_i    = mode(PORT_B2_DWIDTH);
+
+assign PORT_A1_CLK = PORT_A1_CLK_i;
+assign PORT_B1_CLK = PORT_B1_CLK_i;
+
+assign PORT_A2_CLK = PORT_A2_CLK_i;
+assign PORT_B2_CLK = PORT_B2_CLK_i;
+
+generate
+  if (PORT_A1_AWIDTH == 14) begin
+    assign PORT_A1_ADDR_INT = PORT_A1_ADDR_i;
+  end else begin
+    assign PORT_A1_ADDR_INT[13:PORT_A1_AWIDTH] = 0;
+    assign PORT_A1_ADDR_INT[PORT_A1_AWIDTH-1:0] = PORT_A1_ADDR_i;
+  end
+endgenerate
+
+case (PORT_A1_DWIDTH)
+	1: begin
+		assign PORT_A1_ADDR = PORT_A1_ADDR_INT;
+	end
+	2: begin
+		assign PORT_A1_ADDR = PORT_A1_ADDR_INT << 1;
+	end
+	4: begin
+		assign PORT_A1_ADDR = PORT_A1_ADDR_INT << 2;
+	end
+	8, 9: begin
+		assign PORT_A1_ADDR = PORT_A1_ADDR_INT << 3;
+	end
+	16, 18: begin
+		assign PORT_A1_ADDR = PORT_A1_ADDR_INT << 4;
+	end
+	default: begin
+		assign PORT_A1_ADDR = PORT_A1_ADDR_INT;
+	end
+endcase
+
+generate
+  if (PORT_B1_AWIDTH == 14) begin
+    assign PORT_B1_ADDR_INT = PORT_B1_ADDR_i;
+  end else begin
+    assign PORT_B1_ADDR_INT[13:PORT_B1_AWIDTH] = 0;
+    assign PORT_B1_ADDR_INT[PORT_B1_AWIDTH-1:0] = PORT_B1_ADDR_i;
+  end
+endgenerate
+
+case (PORT_B1_DWIDTH)
+	1: begin
+		assign PORT_B1_ADDR = PORT_B1_ADDR_INT;
+	end
+	2: begin
+		assign PORT_B1_ADDR = PORT_B1_ADDR_INT << 1;
+	end
+	4: begin
+		assign PORT_B1_ADDR = PORT_B1_ADDR_INT << 2;
+	end
+	8, 9: begin
+		assign PORT_B1_ADDR = PORT_B1_ADDR_INT << 3;
+	end
+	16, 18: begin
+		assign PORT_B1_ADDR = PORT_B1_ADDR_INT << 4;
+	end
+	default: begin
+		assign PORT_B1_ADDR = PORT_B1_ADDR_INT;
+	end
+endcase
+
+generate
+  if (PORT_A2_AWIDTH == 14) begin
+    assign PORT_A2_ADDR_INT = PORT_A2_ADDR_i;
+  end else begin
+    assign PORT_A2_ADDR_INT[13:PORT_A2_AWIDTH] = 0;
+    assign PORT_A2_ADDR_INT[PORT_A2_AWIDTH-1:0] = PORT_A2_ADDR_i;
+  end
+endgenerate
+
+case (PORT_A2_DWIDTH)
+	1: begin
+		assign PORT_A2_ADDR = PORT_A2_ADDR_INT;
+	end
+	2: begin
+		assign PORT_A2_ADDR = PORT_A2_ADDR_INT << 1;
+	end
+	4: begin
+		assign PORT_A2_ADDR = PORT_A2_ADDR_INT << 2;
+	end
+	8, 9: begin
+		assign PORT_A2_ADDR = PORT_A2_ADDR_INT << 3;
+	end
+	16, 18: begin
+		assign PORT_A2_ADDR = PORT_A2_ADDR_INT << 4;
+	end
+	default: begin
+		assign PORT_A2_ADDR = PORT_A2_ADDR_INT;
+	end
+endcase
+
+generate
+  if (PORT_B2_AWIDTH == 14) begin
+    assign PORT_B2_ADDR_INT = PORT_B2_ADDR_i;
+  end else begin
+    assign PORT_B2_ADDR_INT[13:PORT_B2_AWIDTH] = 0;
+    assign PORT_B2_ADDR_INT[PORT_B2_AWIDTH-1:0] = PORT_B2_ADDR_i;
+  end
+endgenerate
+
+case (PORT_B2_DWIDTH)
+	1: begin
+		assign PORT_B2_ADDR = PORT_B2_ADDR_INT;
+	end
+	2: begin
+		assign PORT_B2_ADDR = PORT_B2_ADDR_INT << 1;
+	end
+	4: begin
+		assign PORT_B2_ADDR = PORT_B2_ADDR_INT << 2;
+	end
+	8, 9: begin
+		assign PORT_B2_ADDR = PORT_B2_ADDR_INT << 3;
+	end
+	16, 18: begin
+		assign PORT_B2_ADDR = PORT_B2_ADDR_INT << 4;
+	end
+	default: begin
+		assign PORT_B2_ADDR = PORT_B2_ADDR_INT;
+	end
+endcase
+
+case (PORT_A1_WR_BE_WIDTH)
+	2: begin
+		assign PORT_A1_WR_BE = PORT_A1_WR_BE_i[PORT_A1_WR_BE_WIDTH-1 :0];
+	end
+	default: begin
+		assign PORT_A1_WR_BE[1:PORT_A1_WR_BE_WIDTH] = 0;
+		assign PORT_A1_WR_BE[PORT_A1_WR_BE_WIDTH-1 :0] = PORT_A1_WR_BE_i[PORT_A1_WR_BE_WIDTH-1 :0];
+	end
+endcase
+
+case (PORT_B1_WR_BE_WIDTH)
+	2: begin
+		assign PORT_B1_WR_BE = PORT_B1_WR_BE_i[PORT_B1_WR_BE_WIDTH-1 :0];
+	end
+	default: begin
+		assign PORT_B1_WR_BE[1:PORT_B1_WR_BE_WIDTH] = 0;
+		assign PORT_B1_WR_BE[PORT_B1_WR_BE_WIDTH-1 :0] = PORT_B1_WR_BE_i[PORT_B1_WR_BE_WIDTH-1 :0];
+	end
+endcase
+
+case (PORT_A2_WR_BE_WIDTH)
+	2: begin
+		assign PORT_A2_WR_BE = PORT_A2_WR_BE_i[PORT_A2_WR_BE_WIDTH-1 :0];
+	end
+	default: begin
+		assign PORT_A2_WR_BE[1:PORT_A2_WR_BE_WIDTH] = 0;
+		assign PORT_A2_WR_BE[PORT_A2_WR_BE_WIDTH-1 :0] = PORT_A2_WR_BE_i[PORT_A2_WR_BE_WIDTH-1 :0];
+	end
+endcase
+
+case (PORT_B2_WR_BE_WIDTH)
+	2: begin
+		assign PORT_B2_WR_BE = PORT_B2_WR_BE_i[PORT_B2_WR_BE_WIDTH-1 :0];
+	end
+	default: begin
+		assign PORT_B2_WR_BE[1:PORT_B2_WR_BE_WIDTH] = 0;
+		assign PORT_B2_WR_BE[PORT_B2_WR_BE_WIDTH-1 :0] = PORT_B2_WR_BE_i[PORT_B2_WR_BE_WIDTH-1 :0];
+	end
+endcase
+
+assign REN_A1_i = PORT_A1_REN_i;
+assign WEN_A1_i = PORT_A1_WEN_i;
+assign BE_A1_i  = PORT_A1_WR_BE;
+
+assign REN_A2_i = PORT_A2_REN_i;
+assign WEN_A2_i = PORT_A2_WEN_i;
+assign BE_A2_i  = PORT_A2_WR_BE;
+
+assign REN_B1_i = PORT_B1_REN_i;
+assign WEN_B1_i = PORT_B1_WEN_i;
+assign BE_B1_i  = PORT_B1_WR_BE;
+
+assign REN_B2_i = PORT_B2_REN_i;
+assign WEN_B2_i = PORT_B2_WEN_i;
+assign BE_B2_i  = PORT_B2_WR_BE;
+
+generate
+  if (PORT_A1_DWIDTH == 18) begin
+    assign PORT_A1_WDATA[PORT_A1_DWIDTH-1:0] = PORT_A1_WR_DATA_i[PORT_A1_DWIDTH-1:0];
+  end else if (PORT_A1_DWIDTH == 9) begin
+    assign PORT_A1_WDATA = {1'b0, PORT_A1_WR_DATA_i[8], 8'h0, PORT_A1_WR_DATA_i[7:0]};
+  end else begin
+    assign PORT_A1_WDATA[17:PORT_A1_DWIDTH] = 0;
+    assign PORT_A1_WDATA[PORT_A1_DWIDTH-1:0] = PORT_A1_WR_DATA_i[PORT_A1_DWIDTH-1:0];
+  end
+endgenerate
+
+assign WDATA_A1_i = PORT_A1_WDATA;
+
+generate
+  if (PORT_A2_DWIDTH == 18) begin
+    assign PORT_A2_WDATA[PORT_A2_DWIDTH-1:0] = PORT_A2_WR_DATA_i[PORT_A2_DWIDTH-1:0];
+  end else if (PORT_A2_DWIDTH == 9) begin
+    assign PORT_A2_WDATA = {1'b0, PORT_A2_WR_DATA_i[8], 8'h0, PORT_A2_WR_DATA_i[7:0]};
+  end else begin
+    assign PORT_A2_WDATA[17:PORT_A2_DWIDTH] = 0;
+    assign PORT_A2_WDATA[PORT_A2_DWIDTH-1:0] = PORT_A2_WR_DATA_i[PORT_A2_DWIDTH-1:0];
+  end
+endgenerate
+
+assign WDATA_A2_i = PORT_A2_WDATA;
+
+generate
+  if (PORT_A1_DWIDTH == 9) begin
+    assign PORT_A1_RDATA = { 9'h0, RDATA_A1_o[16], RDATA_A1_o[7:0]};
+  end else begin
+    assign PORT_A1_RDATA = RDATA_A1_o;
+  end
+endgenerate
+
+assign PORT_A1_RD_DATA_o = PORT_A1_RDATA[PORT_A1_DWIDTH-1:0];
+
+generate
+  if (PORT_A2_DWIDTH == 9) begin
+    assign PORT_A2_RDATA = { 9'h0, RDATA_A2_o[16], RDATA_A2_o[7:0]};
+  end else begin
+    assign PORT_A2_RDATA = RDATA_A2_o;
+  end
+endgenerate
+
+assign PORT_A2_RD_DATA_o = PORT_A2_RDATA[PORT_A2_DWIDTH-1:0];
+
+generate
+  if (PORT_B1_DWIDTH == 18) begin
+    assign PORT_B1_WDATA[PORT_B1_DWIDTH-1:0] = PORT_B1_WR_DATA_i[PORT_B1_DWIDTH-1:0];
+  end else if (PORT_B1_DWIDTH == 9) begin
+    assign PORT_B1_WDATA = {1'b0, PORT_B1_WR_DATA_i[8], 8'h0, PORT_B1_WR_DATA_i[7:0]};
+  end else begin
+    assign PORT_B1_WDATA[17:PORT_B1_DWIDTH] = 0;
+    assign PORT_B1_WDATA[PORT_B1_DWIDTH-1:0] = PORT_B1_WR_DATA_i[PORT_B1_DWIDTH-1:0];
+  end
+endgenerate
+
+assign WDATA_B1_i = PORT_B1_WDATA;
+
+generate
+  if (PORT_B2_DWIDTH == 18) begin
+    assign PORT_B2_WDATA[PORT_B2_DWIDTH-1:0] = PORT_B2_WR_DATA_i[PORT_B2_DWIDTH-1:0];
+  end else if (PORT_B2_DWIDTH == 9) begin
+    assign PORT_B2_WDATA = {1'b0, PORT_B2_WR_DATA_i[8], 8'h0, PORT_B2_WR_DATA_i[7:0]};
+  end else begin
+    assign PORT_B2_WDATA[17:PORT_B2_DWIDTH] = 0;
+    assign PORT_B2_WDATA[PORT_B2_DWIDTH-1:0] = PORT_B2_WR_DATA_i[PORT_B2_DWIDTH-1:0];
+  end
+endgenerate
+
+assign WDATA_B2_i = PORT_B2_WDATA;
+
+generate
+  if (PORT_B1_DWIDTH == 9) begin
+    assign PORT_B1_RDATA = { 9'h0, RDATA_B1_o[16], RDATA_B1_o[7:0]};
+  end else begin
+    assign PORT_B1_RDATA = RDATA_B1_o;
+  end
+endgenerate
+
+assign PORT_B1_RD_DATA_o = PORT_B1_RDATA[PORT_B1_DWIDTH-1:0];
+
+generate
+  if (PORT_B2_DWIDTH == 9) begin
+    assign PORT_B2_RDATA = { 9'h0, RDATA_B2_o[16], RDATA_B2_o[7:0]};
+  end else begin
+    assign PORT_B2_RDATA = RDATA_B2_o;
+  end
+endgenerate
+
+assign PORT_B2_RD_DATA_o = PORT_B2_RDATA[PORT_B2_DWIDTH-1:0];
+
+defparam _TECHMAP_REPLACE_.MODE_BITS = { 1'b1,
+	UPAF2_i, UPAE2_i, PROTECT2_i, SLEEP2_i, POWERDN2_i, FMODE2_i, WMODE_B2_i, WMODE_A2_i, RMODE_B2_i, RMODE_A2_i, SYNC_FIFO2_i,
+	UPAF1_i, UPAE1_i, PROTECT1_i, SLEEP1_i, POWERDN1_i, FMODE1_i, WMODE_B1_i, WMODE_A1_i, RMODE_B1_i, RMODE_A1_i, SYNC_FIFO1_i
+};
+
+(* is_inferred = 0 *)
+(* is_split = 1 *)
+(* port_a1_dwidth = PORT_A1_DWIDTH *)
+(* port_a2_dwidth = PORT_A2_DWIDTH *)
+(* port_b1_dwidth = PORT_B1_DWIDTH *)
+(* port_b2_dwidth = PORT_B2_DWIDTH *)
+TDP36K _TECHMAP_REPLACE_ (
+	.RESET_ni(1'b1),
+
+	.CLK_A1_i(PORT_A1_CLK),
+	.ADDR_A1_i({1'b0,PORT_A1_ADDR}),
+	.WEN_A1_i(WEN_A1_i),
+	.BE_A1_i(BE_A1_i),
+	.WDATA_A1_i(WDATA_A1_i),
+	.REN_A1_i(REN_A1_i),
+	.RDATA_A1_o(RDATA_A1_o),
+
+	.CLK_A2_i(PORT_A2_CLK),
+	.ADDR_A2_i(PORT_A2_ADDR),
+	.WEN_A2_i(WEN_A2_i),
+	.BE_A2_i(BE_A2_i),
+	.WDATA_A2_i(WDATA_A2_i),
+	.REN_A2_i(REN_A2_i),
+	.RDATA_A2_o(RDATA_A2_o),
+
+	.CLK_B1_i(PORT_B1_CLK),
+	.ADDR_B1_i({1'b0,PORT_B1_ADDR}),
+	.WEN_B1_i(WEN_B1_i),
+	.BE_B1_i(BE_B1_i),
+	.WDATA_B1_i(WDATA_B1_i),
+	.REN_B1_i(REN_B1_i),
+	.RDATA_B1_o(RDATA_B1_o),
+
+	.CLK_B2_i(PORT_B2_CLK),
+	.ADDR_B2_i(PORT_B2_ADDR),
+	.WEN_B2_i(WEN_B2_i),
+	.BE_B2_i(BE_B2_i),
+	.WDATA_B2_i(WDATA_B2_i),
+	.REN_B2_i(REN_B2_i),
+	.RDATA_B2_o(RDATA_B2_o),
+
+	.FLUSH1_i(1'b0),
+	.FLUSH2_i(1'b0)
+);
+
+endmodule
+
+module BRAM2x18_dP (   
+    PORT_A1_CLK_i,
+    PORT_A1_WEN_i,
+    PORT_A1_WR_BE_i,
+    PORT_A1_REN_i,
+    PORT_A1_ADDR_i,
+    PORT_A1_WR_DATA_i,
+    PORT_A1_RD_DATA_o,
     
-        .WDATA_A2_i(PORT_A2_WDATA),
-        .RDATA_A2_o(PORT_A2_RDATA),
-        .ADDR_A2_i(PORT_A2_ADDR),
-        .CLK_A2_i(PORT_A2_CLK),
-        .REN_A2_i(PORT_A2_REN),
-        .WEN_A2_i(PORT_A2_WEN),
-        .BE_A2_i(PORT_A2_BE),
+    PORT_B1_CLK_i,
+    PORT_B1_WEN_i,
+    PORT_B1_WR_BE_i,
+    PORT_B1_REN_i,
+    PORT_B1_ADDR_i,
+    PORT_B1_WR_DATA_i,
+    PORT_B1_RD_DATA_o,
+	
+    PORT_A2_CLK_i,
+    PORT_A2_WEN_i,
+    PORT_A2_WR_BE_i,
+    PORT_A2_REN_i,
+    PORT_A2_ADDR_i,
+    PORT_A2_WR_DATA_i,
+    PORT_A2_RD_DATA_o,
     
-        .WDATA_B1_i(PORT_B1_WDATA),
-        .RDATA_B1_o(PORT_B1_RDATA),
-        .ADDR_B1_i(PORT_B1_ADDR),
-        .CLK_B1_i(PORT_B1_CLK),
-        .REN_B1_i(PORT_B1_REN),
-        .WEN_B1_i(PORT_B1_WEN),
-        .BE_B1_i(PORT_B1_BE),
-    
-        .WDATA_B2_i(PORT_B2_WDATA),
-        .RDATA_B2_o(PORT_B2_RDATA),
-        .ADDR_B2_i(PORT_B2_ADDR),
-        .CLK_B2_i(PORT_B2_CLK),
-        .REN_B2_i(PORT_B2_REN),
-        .WEN_B2_i(PORT_B2_WEN),
-        .BE_B2_i(PORT_B2_BE),
-    
-        .FLUSH1_i(FLUSH1),
-        .FLUSH2_i(FLUSH2)
-      );
-		end
-	endcase
+    PORT_B2_CLK_i,
+    PORT_B2_WEN_i,
+    PORT_B2_WR_BE_i,
+    PORT_B2_REN_i,
+    PORT_B2_ADDR_i,
+    PORT_B2_WR_DATA_i,
+    PORT_B2_RD_DATA_o
+);
+
+parameter PORT_A1_AWIDTH = 10;
+parameter PORT_A1_DWIDTH = 18;
+parameter PORT_A1_WR_BE_WIDTH = 2;
+				
+parameter PORT_B1_AWIDTH = 10;
+parameter PORT_B1_DWIDTH = 18;
+parameter PORT_B1_WR_BE_WIDTH = 2;
+
+parameter PORT_A2_AWIDTH = 10;
+parameter PORT_A2_DWIDTH = 18;
+parameter PORT_A2_WR_BE_WIDTH = 2;
+				
+parameter PORT_B2_AWIDTH = 10;
+parameter PORT_B2_DWIDTH = 18;
+parameter PORT_B2_WR_BE_WIDTH = 2;
+
+input wire PORT_A1_CLK_i;
+input wire [PORT_A1_AWIDTH-1:0] PORT_A1_ADDR_i;
+input wire [PORT_A1_DWIDTH-1:0] PORT_A1_WR_DATA_i;
+input wire PORT_A1_WEN_i;
+input wire [PORT_A1_WR_BE_WIDTH-1:0] PORT_A1_WR_BE_i;
+input wire PORT_A1_REN_i;
+output wire [PORT_A1_DWIDTH-1:0] PORT_A1_RD_DATA_o;
+
+input wire PORT_B1_CLK_i;
+input wire [PORT_B1_AWIDTH-1:0] PORT_B1_ADDR_i;
+input wire [PORT_B1_DWIDTH-1:0] PORT_B1_WR_DATA_i;
+input wire PORT_B1_WEN_i;
+input wire [PORT_B1_WR_BE_WIDTH-1:0] PORT_B1_WR_BE_i;
+input wire PORT_B1_REN_i;
+output wire [PORT_B1_DWIDTH-1:0] PORT_B1_RD_DATA_o;
+
+input wire PORT_A2_CLK_i;
+input wire [PORT_A2_AWIDTH-1:0] PORT_A2_ADDR_i;
+input wire [PORT_A2_DWIDTH-1:0] PORT_A2_WR_DATA_i;
+input wire PORT_A2_WEN_i;
+input wire [PORT_A2_WR_BE_WIDTH-1:0] PORT_A2_WR_BE_i;
+input wire PORT_A2_REN_i;
+output wire [PORT_A2_DWIDTH-1:0] PORT_A2_RD_DATA_o;
+
+input wire PORT_B2_CLK_i;
+input wire [PORT_B2_AWIDTH-1:0] PORT_B2_ADDR_i;
+input wire [PORT_B2_DWIDTH-1:0] PORT_B2_WR_DATA_i;
+input wire PORT_B2_WEN_i;
+input wire [PORT_B2_WR_BE_WIDTH-1:0] PORT_B2_WR_BE_i;
+input wire PORT_B2_REN_i;
+output wire [PORT_B2_DWIDTH-1:0] PORT_B2_RD_DATA_o;
+
+
+// Fixed mode settings
+localparam [ 0:0] SYNC_FIFO1_i  = 1'd0;
+localparam [ 0:0] FMODE1_i      = 1'd0;
+localparam [ 0:0] POWERDN1_i    = 1'd0;
+localparam [ 0:0] SLEEP1_i      = 1'd0;
+localparam [ 0:0] PROTECT1_i    = 1'd0;
+localparam [11:0] UPAE1_i       = 12'd10;
+localparam [11:0] UPAF1_i       = 12'd10;
+
+localparam [ 0:0] SYNC_FIFO2_i  = 1'd0;
+localparam [ 0:0] FMODE2_i      = 1'd0;
+localparam [ 0:0] POWERDN2_i    = 1'd0;
+localparam [ 0:0] SLEEP2_i      = 1'd0;
+localparam [ 0:0] PROTECT2_i    = 1'd0;
+localparam [10:0] UPAE2_i       = 11'd10;
+localparam [10:0] UPAF2_i       = 11'd10;
+
+// Width mode function
+function [2:0] mode;
+input integer width;
+case (width)
+1: mode = 3'b101;
+2: mode = 3'b110;
+4: mode = 3'b100;
+8,9: mode = 3'b001;
+16, 18: mode = 3'b010;
+32, 36: mode = 3'b011;
+default: mode = 3'b000;
+endcase
+endfunction
+
+wire REN_A1_i;
+wire REN_A2_i;
+
+wire REN_B1_i;
+wire REN_B2_i;
+
+wire WEN_A1_i;
+wire WEN_A2_i;
+
+wire WEN_B1_i;
+wire WEN_B2_i;
+
+wire [1:0] BE_A1_i;
+wire [1:0] BE_A2_i;
+
+wire [1:0] BE_B1_i;
+wire [1:0] BE_B2_i;
+
+wire [14:0] ADDR_A1_i;
+wire [13:0] ADDR_A2_i;
+
+wire [14:0] ADDR_B1_i;
+wire [13:0] ADDR_B2_i;
+
+wire [17:0] WDATA_A1_i;
+wire [17:0] WDATA_A2_i;
+
+wire [17:0] WDATA_B1_i;
+wire [17:0] WDATA_B2_i;
+
+wire [17:0] RDATA_A1_o;
+wire [17:0] RDATA_A2_o;
+
+wire [17:0] RDATA_B1_o;
+wire [17:0] RDATA_B2_o;
+
+wire [1:0] PORT_A1_WR_BE;
+wire [1:0] PORT_B1_WR_BE;
+
+wire [1:0] PORT_A2_WR_BE;
+wire [1:0] PORT_B2_WR_BE;
+
+wire [17:0] PORT_B1_WDATA;
+wire [17:0] PORT_B1_RDATA;
+wire [17:0] PORT_A1_WDATA;
+wire [17:0] PORT_A1_RDATA;
+
+wire [17:0] PORT_B2_WDATA;
+wire [17:0] PORT_B2_RDATA;
+wire [17:0] PORT_A2_WDATA;
+wire [17:0] PORT_A2_RDATA;
+
+wire [13:0] PORT_A1_ADDR_INT;
+wire [13:0] PORT_B1_ADDR_INT; 
+
+wire [13:0] PORT_A2_ADDR_INT;
+wire [13:0] PORT_B2_ADDR_INT; 
+	   
+wire [13:0] PORT_A1_ADDR;
+wire [13:0] PORT_B1_ADDR;
+
+wire [13:0] PORT_A2_ADDR;
+wire [13:0] PORT_B2_ADDR;
+
+wire PORT_A1_CLK;
+wire PORT_B1_CLK;
+
+wire PORT_A2_CLK;
+wire PORT_B2_CLK;
+
+// Set port width mode (In non-split mode A2/B2 is not active. Set same values anyway to match previous behavior.)
+localparam [ 2:0] RMODE_A1_i    = mode(PORT_A1_DWIDTH);
+localparam [ 2:0] WMODE_A1_i    = mode(PORT_A1_DWIDTH);
+localparam [ 2:0] RMODE_A2_i    = mode(PORT_A2_DWIDTH);
+localparam [ 2:0] WMODE_A2_i    = mode(PORT_A2_DWIDTH);
+
+localparam [ 2:0] RMODE_B1_i    = mode(PORT_B1_DWIDTH);
+localparam [ 2:0] WMODE_B1_i    = mode(PORT_B1_DWIDTH);
+localparam [ 2:0] RMODE_B2_i    = mode(PORT_B2_DWIDTH);
+localparam [ 2:0] WMODE_B2_i    = mode(PORT_B2_DWIDTH);
+
+assign PORT_A1_CLK = PORT_A1_CLK_i;
+assign PORT_B1_CLK = PORT_B1_CLK_i;
+
+assign PORT_A2_CLK = PORT_A2_CLK_i;
+assign PORT_B2_CLK = PORT_B2_CLK_i;
+
+generate
+  if (PORT_A1_AWIDTH == 14) begin
+    assign PORT_A1_ADDR_INT = PORT_A1_ADDR_i;
+  end else begin
+    assign PORT_A1_ADDR_INT[13:PORT_A1_AWIDTH] = 0;
+    assign PORT_A1_ADDR_INT[PORT_A1_AWIDTH-1:0] = PORT_A1_ADDR_i;
+  end
+endgenerate
+
+case (PORT_A1_DWIDTH)
+	1: begin
+		assign PORT_A1_ADDR = PORT_A1_ADDR_INT;
+	end
+	2: begin
+		assign PORT_A1_ADDR = PORT_A1_ADDR_INT << 1;
+	end
+	4: begin
+		assign PORT_A1_ADDR = PORT_A1_ADDR_INT << 2;
+	end
+	8, 9: begin
+		assign PORT_A1_ADDR = PORT_A1_ADDR_INT << 3;
+	end
+	16, 18: begin
+		assign PORT_A1_ADDR = PORT_A1_ADDR_INT << 4;
+	end
+	default: begin
+		assign PORT_A1_ADDR = PORT_A1_ADDR_INT;
+	end
+endcase
+
+generate
+  if (PORT_B1_AWIDTH == 14) begin
+    assign PORT_B1_ADDR_INT = PORT_B1_ADDR_i;
+  end else begin
+    assign PORT_B1_ADDR_INT[13:PORT_B1_AWIDTH] = 0;
+    assign PORT_B1_ADDR_INT[PORT_B1_AWIDTH-1:0] = PORT_B1_ADDR_i;
+  end
+endgenerate
+
+case (PORT_B1_DWIDTH)
+	1: begin
+		assign PORT_B1_ADDR = PORT_B1_ADDR_INT;
+	end
+	2: begin
+		assign PORT_B1_ADDR = PORT_B1_ADDR_INT << 1;
+	end
+	4: begin
+		assign PORT_B1_ADDR = PORT_B1_ADDR_INT << 2;
+	end
+	8, 9: begin
+		assign PORT_B1_ADDR = PORT_B1_ADDR_INT << 3;
+	end
+	16, 18: begin
+		assign PORT_B1_ADDR = PORT_B1_ADDR_INT << 4;
+	end
+	default: begin
+		assign PORT_B1_ADDR = PORT_B1_ADDR_INT;
+	end
+endcase
+
+generate
+  if (PORT_A2_AWIDTH == 14) begin
+    assign PORT_A2_ADDR_INT = PORT_A2_ADDR_i;
+  end else begin
+    assign PORT_A2_ADDR_INT[13:PORT_A2_AWIDTH] = 0;
+    assign PORT_A2_ADDR_INT[PORT_A2_AWIDTH-1:0] = PORT_A2_ADDR_i;
+  end
+endgenerate
+
+case (PORT_A2_DWIDTH)
+	1: begin
+		assign PORT_A2_ADDR = PORT_A2_ADDR_INT;
+	end
+	2: begin
+		assign PORT_A2_ADDR = PORT_A2_ADDR_INT << 1;
+	end
+	4: begin
+		assign PORT_A2_ADDR = PORT_A2_ADDR_INT << 2;
+	end
+	8, 9: begin
+		assign PORT_A2_ADDR = PORT_A2_ADDR_INT << 3;
+	end
+	16, 18: begin
+		assign PORT_A2_ADDR = PORT_A2_ADDR_INT << 4;
+	end
+	default: begin
+		assign PORT_A2_ADDR = PORT_A2_ADDR_INT;
+	end
+endcase
+
+generate
+  if (PORT_B2_AWIDTH == 14) begin
+    assign PORT_B2_ADDR_INT = PORT_B2_ADDR_i;
+  end else begin
+    assign PORT_B2_ADDR_INT[13:PORT_B2_AWIDTH] = 0;
+    assign PORT_B2_ADDR_INT[PORT_B2_AWIDTH-1:0] = PORT_B2_ADDR_i;
+  end
+endgenerate
+
+case (PORT_B2_DWIDTH)
+	1: begin
+		assign PORT_B2_ADDR = PORT_B2_ADDR_INT;
+	end
+	2: begin
+		assign PORT_B2_ADDR = PORT_B2_ADDR_INT << 1;
+	end
+	4: begin
+		assign PORT_B2_ADDR = PORT_B2_ADDR_INT << 2;
+	end
+	8, 9: begin
+		assign PORT_B2_ADDR = PORT_B2_ADDR_INT << 3;
+	end
+	16, 18: begin
+		assign PORT_B2_ADDR = PORT_B2_ADDR_INT << 4;
+	end
+	default: begin
+		assign PORT_B2_ADDR = PORT_B2_ADDR_INT;
+	end
+endcase
+
+case (PORT_A1_WR_BE_WIDTH)
+	2: begin
+		assign PORT_A1_WR_BE = PORT_A1_WR_BE_i[PORT_A1_WR_BE_WIDTH-1 :0];
+	end
+	default: begin
+		assign PORT_A1_WR_BE[1:PORT_A1_WR_BE_WIDTH] = 0;
+		assign PORT_A1_WR_BE[PORT_A1_WR_BE_WIDTH-1 :0] = PORT_A1_WR_BE_i[PORT_A1_WR_BE_WIDTH-1 :0];
+	end
+endcase
+
+case (PORT_B1_WR_BE_WIDTH)
+	2: begin
+		assign PORT_B1_WR_BE = PORT_B1_WR_BE_i[PORT_B1_WR_BE_WIDTH-1 :0];
+	end
+	default: begin
+		assign PORT_B1_WR_BE[1:PORT_B1_WR_BE_WIDTH] = 0;
+		assign PORT_B1_WR_BE[PORT_B1_WR_BE_WIDTH-1 :0] = PORT_B1_WR_BE_i[PORT_B1_WR_BE_WIDTH-1 :0];
+	end
+endcase
+
+case (PORT_A2_WR_BE_WIDTH)
+	2: begin
+		assign PORT_A2_WR_BE = PORT_A2_WR_BE_i[PORT_A2_WR_BE_WIDTH-1 :0];
+	end
+	default: begin
+		assign PORT_A2_WR_BE[1:PORT_A2_WR_BE_WIDTH] = 0;
+		assign PORT_A2_WR_BE[PORT_A2_WR_BE_WIDTH-1 :0] = PORT_A2_WR_BE_i[PORT_A2_WR_BE_WIDTH-1 :0];
+	end
+endcase
+
+case (PORT_B2_WR_BE_WIDTH)
+	2: begin
+		assign PORT_B2_WR_BE = PORT_B2_WR_BE_i[PORT_B2_WR_BE_WIDTH-1 :0];
+	end
+	default: begin
+		assign PORT_B2_WR_BE[1:PORT_B2_WR_BE_WIDTH] = 0;
+		assign PORT_B2_WR_BE[PORT_B2_WR_BE_WIDTH-1 :0] = PORT_B2_WR_BE_i[PORT_B2_WR_BE_WIDTH-1 :0];
+	end
+endcase
+
+assign REN_A1_i = PORT_A1_REN_i;
+assign WEN_A1_i = PORT_A1_WEN_i;
+assign BE_A1_i  = PORT_A1_WR_BE;
+
+assign REN_A2_i = PORT_A2_REN_i;
+assign WEN_A2_i = PORT_A2_WEN_i;
+assign BE_A2_i  = PORT_A2_WR_BE;
+
+assign REN_B1_i = PORT_B1_REN_i;
+assign WEN_B1_i = PORT_B1_WEN_i;
+assign BE_B1_i  = PORT_B1_WR_BE;
+
+assign REN_B2_i = PORT_B2_REN_i;
+assign WEN_B2_i = PORT_B2_WEN_i;
+assign BE_B2_i  = PORT_B2_WR_BE;
+
+generate
+  if (PORT_A1_DWIDTH == 18) begin
+    assign PORT_A1_WDATA[PORT_A1_DWIDTH-1:0] = PORT_A1_WR_DATA_i[PORT_A1_DWIDTH-1:0];
+  end else if (PORT_A1_DWIDTH == 9) begin
+    assign PORT_A1_WDATA = {1'b0, PORT_A1_WR_DATA_i[8], 8'h0, PORT_A1_WR_DATA_i[7:0]};
+  end else begin
+    assign PORT_A1_WDATA[17:PORT_A1_DWIDTH] = 0;
+    assign PORT_A1_WDATA[PORT_A1_DWIDTH-1:0] = PORT_A1_WR_DATA_i[PORT_A1_DWIDTH-1:0];
+  end
+endgenerate
+
+assign WDATA_A1_i = PORT_A1_WDATA;
+
+generate
+  if (PORT_A2_DWIDTH == 18) begin
+    assign PORT_A2_WDATA[PORT_A2_DWIDTH-1:0] = PORT_A2_WR_DATA_i[PORT_A2_DWIDTH-1:0];
+  end else if (PORT_A2_DWIDTH == 9) begin
+    assign PORT_A2_WDATA = {1'b0, PORT_A2_WR_DATA_i[8], 8'h0, PORT_A2_WR_DATA_i[7:0]};
+  end else begin
+    assign PORT_A2_WDATA[17:PORT_A2_DWIDTH] = 0;
+    assign PORT_A2_WDATA[PORT_A2_DWIDTH-1:0] = PORT_A2_WR_DATA_i[PORT_A2_DWIDTH-1:0];
+  end
+endgenerate
+
+assign WDATA_A2_i = PORT_A2_WDATA;
+
+generate
+  if (PORT_A1_DWIDTH == 9) begin
+    assign PORT_A1_RDATA = { 9'h0, RDATA_A1_o[16], RDATA_A1_o[7:0]};
+  end else begin
+    assign PORT_A1_RDATA = RDATA_A1_o;
+  end
+endgenerate
+
+assign PORT_A1_RD_DATA_o = PORT_A1_RDATA[PORT_A1_DWIDTH-1:0];
+
+generate
+  if (PORT_A2_DWIDTH == 9) begin
+    assign PORT_A2_RDATA = { 9'h0, RDATA_A2_o[16], RDATA_A2_o[7:0]};
+  end else begin
+    assign PORT_A2_RDATA = RDATA_A2_o;
+  end
+endgenerate
+
+assign PORT_A2_RD_DATA_o = PORT_A2_RDATA[PORT_A2_DWIDTH-1:0];
+
+generate
+  if (PORT_B1_DWIDTH == 18) begin
+    assign PORT_B1_WDATA[PORT_B1_DWIDTH-1:0] = PORT_B1_WR_DATA_i[PORT_B1_DWIDTH-1:0];
+  end else if (PORT_B1_DWIDTH == 9) begin
+    assign PORT_B1_WDATA = {1'b0, PORT_B1_WR_DATA_i[8], 8'h0, PORT_B1_WR_DATA_i[7:0]};
+  end else begin
+    assign PORT_B1_WDATA[17:PORT_B1_DWIDTH] = 0;
+    assign PORT_B1_WDATA[PORT_B1_DWIDTH-1:0] = PORT_B1_WR_DATA_i[PORT_B1_DWIDTH-1:0];
+  end
+endgenerate
+
+assign WDATA_B1_i = PORT_B1_WDATA;
+
+generate
+  if (PORT_B2_DWIDTH == 18) begin
+    assign PORT_B2_WDATA[PORT_B2_DWIDTH-1:0] = PORT_B2_WR_DATA_i[PORT_B2_DWIDTH-1:0];
+  end else if (PORT_B2_DWIDTH == 9) begin
+    assign PORT_B2_WDATA = {1'b0, PORT_B2_WR_DATA_i[8], 8'h0, PORT_B2_WR_DATA_i[7:0]};
+  end else begin
+    assign PORT_B2_WDATA[17:PORT_B2_DWIDTH] = 0;
+    assign PORT_B2_WDATA[PORT_B2_DWIDTH-1:0] = PORT_B2_WR_DATA_i[PORT_B2_DWIDTH-1:0];
+  end
+endgenerate
+
+assign WDATA_B2_i = PORT_B2_WDATA;
+
+generate
+  if (PORT_B1_DWIDTH == 9) begin
+    assign PORT_B1_RDATA = { 9'h0, RDATA_B1_o[16], RDATA_B1_o[7:0]};
+  end else begin
+    assign PORT_B1_RDATA = RDATA_B1_o;
+  end
+endgenerate
+
+assign PORT_B1_RD_DATA_o = PORT_B1_RDATA[PORT_B1_DWIDTH-1:0];
+
+generate
+  if (PORT_B2_DWIDTH == 9) begin
+    assign PORT_B2_RDATA = { 9'h0, RDATA_B2_o[16], RDATA_B2_o[7:0]};
+  end else begin
+    assign PORT_B2_RDATA = RDATA_B2_o;
+  end
+endgenerate
+
+assign PORT_B2_RD_DATA_o = PORT_B2_RDATA[PORT_B2_DWIDTH-1:0];
+
+defparam _TECHMAP_REPLACE_.MODE_BITS = { 1'b1,
+	UPAF2_i, UPAE2_i, PROTECT2_i, SLEEP2_i, POWERDN2_i, FMODE2_i, WMODE_B2_i, WMODE_A2_i, RMODE_B2_i, RMODE_A2_i, SYNC_FIFO2_i,
+	UPAF1_i, UPAE1_i, PROTECT1_i, SLEEP1_i, POWERDN1_i, FMODE1_i, WMODE_B1_i, WMODE_A1_i, RMODE_B1_i, RMODE_A1_i, SYNC_FIFO1_i
+};
+
+(* is_inferred = 0 *)
+(* is_split = 0 *)
+(* port_a_dwidth = PORT_A1_DWIDTH *)
+(* port_b_dwidth = PORT_B1_DWIDTH *)
+TDP36K _TECHMAP_REPLACE_ (
+	.RESET_ni(1'b1),
+
+	.CLK_A1_i(PORT_A1_CLK),
+	.ADDR_A1_i({1'b0,PORT_A1_ADDR}),
+	.WEN_A1_i(WEN_A1_i),
+	.BE_A1_i(BE_A1_i),
+	.WDATA_A1_i(WDATA_A1_i),
+	.REN_A1_i(REN_A1_i),
+	.RDATA_A1_o(RDATA_A1_o),
+
+	.CLK_A2_i(PORT_A2_CLK),
+	.ADDR_A2_i(PORT_A2_ADDR),
+	.WEN_A2_i(WEN_A2_i),
+	.BE_A2_i(BE_A2_i),
+	.WDATA_A2_i(WDATA_A2_i),
+	.REN_A2_i(REN_A2_i),
+	.RDATA_A2_o(RDATA_A2_o),
+
+	.CLK_B1_i(PORT_B1_CLK),
+	.ADDR_B1_i({1'b0,PORT_B1_ADDR}),
+	.WEN_B1_i(WEN_B1_i),
+	.BE_B1_i(BE_B1_i),
+	.WDATA_B1_i(WDATA_B1_i),
+	.REN_B1_i(REN_B1_i),
+	.RDATA_B1_o(RDATA_B1_o),
+
+	.CLK_B2_i(PORT_B2_CLK),
+	.ADDR_B2_i(PORT_B2_ADDR),
+	.WEN_B2_i(WEN_B2_i),
+	.BE_B2_i(BE_B2_i),
+	.WDATA_B2_i(WDATA_B2_i),
+	.REN_B2_i(REN_B2_i),
+	.RDATA_B2_o(RDATA_B2_o),
+
+	.FLUSH1_i(1'b0),
+	.FLUSH2_i(1'b0)
+);
 
 endmodule
 
 module DPRAM_18K_BLK (   
-    CLK1_i,
-    WEN1_i,
-    REN1_i,
-    WR1_ADDR_i,
-    RD1_ADDR_i,
-    WDATA1_i,
-    RDATA1_o,
+    PORT_A_CLK_i,
+    PORT_A_WEN_i,
+    PORT_A_WR_BE_i,
+    PORT_A_REN_i,
+    PORT_A_ADDR_i,
+    PORT_A_WR_DATA_i,
+    PORT_A_RD_DATA_o,
     
-    CLK2_i,
-    WEN2_i,
-    REN2_i,
-    WR2_ADDR_i,
-    RD2_ADDR_i,
-    WDATA2_i,
-    RDATA2_o
+    PORT_B_CLK_i,
+    PORT_B_WEN_i,
+    PORT_B_WR_BE_i,
+    PORT_B_REN_i,
+    PORT_B_ADDR_i,
+    PORT_B_WR_DATA_i,
+    PORT_B_RD_DATA_o
 );
 
-parameter ADDR_WIDTH = 10;
-parameter DATA_WIDTH = 18;
-parameter BE1_WIDTH = 2;
-parameter BE2_WIDTH = 2;
+parameter PORT_A_AWIDTH = 10;
+parameter PORT_A_DWIDTH = 36;
+parameter PORT_A_WR_BE_WIDTH = 4;
 
-input wire CLK1_i;
-input wire WEN1_i;
-input wire REN1_i;
-input wire [ADDR_WIDTH-1 :0] WR1_ADDR_i;
-input wire [ADDR_WIDTH-1 :0] RD1_ADDR_i;
-input wire [DATA_WIDTH-1 :0] WDATA1_i;
-output wire [DATA_WIDTH-1 :0] RDATA1_o;
+parameter PORT_B_AWIDTH = 10;
+parameter PORT_B_DWIDTH = 36;
+parameter PORT_B_WR_BE_WIDTH = 4;
 
-input wire CLK2_i;
-input wire WEN2_i;
-input wire REN2_i;
-input wire [ADDR_WIDTH-1 :0] WR2_ADDR_i;
-input wire [ADDR_WIDTH-1 :0] RD2_ADDR_i;
-input wire [DATA_WIDTH-1 :0] WDATA2_i;
-output wire [DATA_WIDTH-1 :0] RDATA2_o;
+input wire PORT_A_CLK_i;
+input wire [PORT_A_AWIDTH-1:0] PORT_A_ADDR_i;
+input wire [PORT_A_DWIDTH-1:0] PORT_A_WR_DATA_i;
+input wire PORT_A_WEN_i;
+input wire [PORT_A_WR_BE_WIDTH-1:0] PORT_A_WR_BE_i;
+input wire PORT_A_REN_i;
+output wire [PORT_A_DWIDTH-1:0] PORT_A_RD_DATA_o;
 
-(* is_inferred = 1 *)
-BRAM2x18_DP #(
-	.CFG_ABITS(ADDR_WIDTH),
-	.CFG_DBITS(DATA_WIDTH),
-	.CFG_ENABLE_B(BE1_WIDTH),
-	.CFG_ENABLE_D(BE2_WIDTH)
-) bram2x18_inst (
-	.A1ADDR(RD1_ADDR_i),
-	.A1DATA(RDATA1_o),
-	.A1EN(REN1_i),
-	.B1ADDR(WR1_ADDR_i),
-	.B1DATA(WDATA1_i),
-	.B1EN({WEN1_i,WEN1_i}),
-	.CLK1(CLK1_i),
+input wire PORT_B_CLK_i;
+input wire [PORT_B_AWIDTH-1:0] PORT_B_ADDR_i;
+input wire [PORT_B_DWIDTH-1:0] PORT_B_WR_DATA_i;
+input wire PORT_B_WEN_i;
+input wire [PORT_B_WR_BE_WIDTH-1:0] PORT_B_WR_BE_i;
+input wire PORT_B_REN_i;
+output wire [PORT_B_DWIDTH-1:0] PORT_B_RD_DATA_o;
 
-	.C1ADDR(RD2_ADDR_i),
-	.C1DATA(RDATA2_o),
-	.C1EN(REN2_i),
-	.D1ADDR(WR2_ADDR_i),
-	.D1DATA(WDATA2_i),
-	.D1EN({WEN2_i,WEN2_i}),
-	.CLK2(CLK2_i),
 
-	.E1ADDR(),
-	.E1DATA(),
-	.E1EN(),
-	.F1ADDR(),
-	.F1DATA(),
-	.F1EN(),
-	.CLK3(),
-
-	.G1ADDR(),
-	.G1DATA(),
-	.G1EN(),
-	.H1ADDR(),
-	.H1DATA(),
-	.H1EN(),
-	.CLK4()
+(* is_inferred = 0 *)
+(* is_split = 0 *)
+BRAM2x18_dP #(
+	.PORT_A1_AWIDTH(PORT_A_AWIDTH),
+	.PORT_A1_DWIDTH(PORT_A_DWIDTH),
+	.PORT_A1_WR_BE_WIDTH(PORT_A_WR_BE_WIDTH),
+	.PORT_B1_AWIDTH(PORT_B_AWIDTH),
+	.PORT_B1_DWIDTH(PORT_B_DWIDTH),
+	.PORT_B1_WR_BE_WIDTH(PORT_B_WR_BE_WIDTH),
+	.PORT_A2_AWIDTH(),
+	.PORT_A2_DWIDTH(),
+	.PORT_A2_WR_BE_WIDTH(),
+	.PORT_B2_AWIDTH(),
+	.PORT_B2_DWIDTH(),
+	.PORT_B2_WR_BE_WIDTH()
+) U1 (
+    .PORT_A1_CLK_i(PORT_A_CLK_i),
+    .PORT_A1_WEN_i(PORT_A_WEN_i),
+    .PORT_A1_WR_BE_i(PORT_A_WR_BE_i),
+    .PORT_A1_REN_i(PORT_A_REN_i),
+    .PORT_A1_ADDR_i(PORT_A_ADDR_i),
+    .PORT_A1_WR_DATA_i(PORT_A_WR_DATA_i),
+    .PORT_A1_RD_DATA_o(PORT_A_RD_DATA_o),
+    
+    .PORT_B1_CLK_i(PORT_B_CLK_i),
+    .PORT_B1_WEN_i(PORT_B_WEN_i),
+    .PORT_B1_WR_BE_i(PORT_B_WR_BE_i),
+    .PORT_B1_REN_i(PORT_B_REN_i),
+    .PORT_B1_ADDR_i(PORT_B_ADDR_i),
+    .PORT_B1_WR_DATA_i(PORT_B_WR_DATA_i),
+    .PORT_B1_RD_DATA_o(PORT_B_RD_DATA_o),
+	
+    .PORT_A2_CLK_i(1'b0),
+    .PORT_A2_WEN_i(1'b0),
+    .PORT_A2_WR_BE_i(2'b00),
+    .PORT_A2_REN_i(1'b0),
+    .PORT_A2_ADDR_i(14'h0),
+    .PORT_A2_WR_DATA_i(18'h0),
+    .PORT_A2_RD_DATA_o(),
+    
+    .PORT_B2_CLK_i(1'b0),
+    .PORT_B2_WEN_i(1'b0),
+    .PORT_B2_WR_BE_i(2'b00),
+    .PORT_B2_REN_i(1'b0),
+    .PORT_B2_ADDR_i(14'h0),
+    .PORT_B2_WR_DATA_i(18'h0),
+    .PORT_B2_RD_DATA_o()
 );
+
 endmodule
 
 module DPRAM_36K_BLK (   
-    CLK1_i,
-    WEN1_i,
-    WR1_BE_i,
-    REN1_i,
-    WR1_ADDR_i,
-    RD1_ADDR_i,
-    WDATA1_i,
-    RDATA1_o,
+    PORT_A_CLK_i,
+    PORT_A_WEN_i,
+    PORT_A_WR_BE_i,
+    PORT_A_REN_i,
+    PORT_A_ADDR_i,
+    PORT_A_WR_DATA_i,
+    PORT_A_RD_DATA_o,
     
-    CLK2_i,
-    WEN2_i,
-    WR2_BE_i,
-    REN2_i,
-    WR2_ADDR_i,
-    RD2_ADDR_i,
-    WDATA2_i,
-    RDATA2_o
+    PORT_B_CLK_i,
+    PORT_B_WEN_i,
+    PORT_B_WR_BE_i,
+    PORT_B_REN_i,
+    PORT_B_ADDR_i,
+    PORT_B_WR_DATA_i,
+    PORT_B_RD_DATA_o
 );
 
-parameter ADDR_WIDTH = 10;
-parameter DATA_WIDTH = 36;
-parameter BE1_WIDTH = 4;
-parameter BE2_WIDTH = 4;
+parameter PORT_A_AWIDTH = 10;
+parameter PORT_A_DWIDTH = 36;
+parameter PORT_A_WR_BE_WIDTH = 4;
 
-localparam MODE_36 = 3'b011; // 36- or 32-bit
-localparam MODE_18 = 3'b010; // 18- or 16-bit
-localparam MODE_9 = 3'b001; // 9- or 8-bit
-localparam MODE_4 = 3'b100; // 4-bit
-localparam MODE_2 = 3'b110; // 2-bit
-localparam MODE_1 = 3'b101; // 1-bit
+parameter PORT_B_AWIDTH = 10;
+parameter PORT_B_DWIDTH = 36;
+parameter PORT_B_WR_BE_WIDTH = 4;
 
-input wire CLK1_i;
-input wire WEN1_i;
-input wire [BE1_WIDTH-1 :0] WR1_BE_i;
-input wire REN1_i;
-input wire [ADDR_WIDTH-1 :0] WR1_ADDR_i;
-input wire [ADDR_WIDTH-1 :0] RD1_ADDR_i;
-input wire [DATA_WIDTH-1 :0] WDATA1_i;
-output wire [DATA_WIDTH-1 :0] RDATA1_o;
+input wire PORT_A_CLK_i;
+input wire [PORT_A_AWIDTH-1:0] PORT_A_ADDR_i;
+input wire [PORT_A_DWIDTH-1:0] PORT_A_WR_DATA_i;
+input wire PORT_A_WEN_i;
+input wire [PORT_A_WR_BE_WIDTH-1:0] PORT_A_WR_BE_i;
+input wire PORT_A_REN_i;
+output wire [PORT_A_DWIDTH-1:0] PORT_A_RD_DATA_o;
 
-input wire CLK2_i;
-input wire WEN2_i;
-input wire [BE2_WIDTH-1 :0] WR2_BE_i;
-input wire REN2_i;
-input wire [ADDR_WIDTH-1 :0] WR2_ADDR_i;
-input wire [ADDR_WIDTH-1 :0] RD2_ADDR_i;
-input wire [DATA_WIDTH-1 :0] WDATA2_i;
-output wire [DATA_WIDTH-1 :0] RDATA2_o;
+input wire PORT_B_CLK_i;
+input wire [PORT_B_AWIDTH-1:0] PORT_B_ADDR_i;
+input wire [PORT_B_DWIDTH-1:0] PORT_B_WR_DATA_i;
+input wire PORT_B_WEN_i;
+input wire [PORT_B_WR_BE_WIDTH-1:0] PORT_B_WR_BE_i;
+input wire PORT_B_REN_i;
+output wire [PORT_B_DWIDTH-1:0] PORT_B_RD_DATA_o;
 
-wire FLUSH1;
-wire FLUSH2;
 
-wire [14:0] A1ADDR_TOTAL;
-wire [14:0] B1ADDR_TOTAL;
-wire [14:0] C1ADDR_TOTAL;
-wire [14:0] D1ADDR_TOTAL;
+// Fixed mode settings
+localparam [ 0:0] SYNC_FIFO1_i  = 1'd0;
+localparam [ 0:0] FMODE1_i      = 1'd0;
+localparam [ 0:0] POWERDN1_i    = 1'd0;
+localparam [ 0:0] SLEEP1_i      = 1'd0;
+localparam [ 0:0] PROTECT1_i    = 1'd0;
+localparam [11:0] UPAE1_i       = 12'd10;
+localparam [11:0] UPAF1_i       = 12'd10;
 
-generate
-  if (ADDR_WIDTH == 15) begin
-    assign A1ADDR_TOTAL = RD1_ADDR_i;
-    assign B1ADDR_TOTAL = WR1_ADDR_i;
-    assign C1ADDR_TOTAL = RD2_ADDR_i;
-    assign D1ADDR_TOTAL = WR2_ADDR_i;
-  end else begin
-    assign A1ADDR_TOTAL[14:ADDR_WIDTH] = 0;
-    assign A1ADDR_TOTAL[ADDR_WIDTH-1:0] = RD1_ADDR_i;
-    assign B1ADDR_TOTAL[14:ADDR_WIDTH] = 0;
-    assign B1ADDR_TOTAL[ADDR_WIDTH-1:0] = WR1_ADDR_i;
-    assign C1ADDR_TOTAL[14:ADDR_WIDTH] = 0;
-    assign C1ADDR_TOTAL[ADDR_WIDTH-1:0] = RD2_ADDR_i;
-    assign D1ADDR_TOTAL[14:ADDR_WIDTH] = 0;
-    assign D1ADDR_TOTAL[ADDR_WIDTH-1:0] = WR2_ADDR_i;
-  end
-endgenerate
+localparam [ 0:0] SYNC_FIFO2_i  = 1'd0;
+localparam [ 0:0] FMODE2_i      = 1'd0;
+localparam [ 0:0] POWERDN2_i    = 1'd0;
+localparam [ 0:0] SLEEP2_i      = 1'd0;
+localparam [ 0:0] PROTECT2_i    = 1'd0;
+localparam [10:0] UPAE2_i       = 11'd10;
+localparam [10:0] UPAF2_i       = 11'd10;
 
-wire [35:DATA_WIDTH] A1DATA_CMPL;
-wire [35:DATA_WIDTH] B1DATA_CMPL;
-wire [35:DATA_WIDTH] C1DATA_CMPL;
-wire [35:DATA_WIDTH] D1DATA_CMPL;
+// Width mode function
+function [2:0] mode;
+input integer width;
+case (width)
+1: mode = 3'b101;
+2: mode = 3'b110;
+4: mode = 3'b100;
+8,9: mode = 3'b001;
+16, 18: mode = 3'b010;
+32, 36: mode = 3'b011;
+default: mode = 3'b000;
+endcase
+endfunction
 
-wire [35:0] A1DATA_TOTAL;
-wire [35:0] B1DATA_TOTAL;
-wire [35:0] C1DATA_TOTAL;
-wire [35:0] D1DATA_TOTAL;
+wire REN_A1_i;
+wire REN_A2_i;
+
+wire REN_B1_i;
+wire REN_B2_i;
+
+wire WEN_A1_i;
+wire WEN_A2_i;
+
+wire WEN_B1_i;
+wire WEN_B2_i;
+
+wire [1:0] BE_A1_i;
+wire [1:0] BE_A2_i;
+
+wire [1:0] BE_B1_i;
+wire [1:0] BE_B2_i;
+
+wire [14:0] ADDR_A1_i;
+wire [13:0] ADDR_A2_i;
+
+wire [14:0] ADDR_B1_i;
+wire [13:0] ADDR_B2_i;
+
+wire [17:0] WDATA_A1_i;
+wire [17:0] WDATA_A2_i;
+
+wire [17:0] WDATA_B1_i;
+wire [17:0] WDATA_B2_i;
+
+wire [17:0] RDATA_A1_o;
+wire [17:0] RDATA_A2_o;
+
+wire [17:0] RDATA_B1_o;
+wire [17:0] RDATA_B2_o;
+
+wire [3:0] PORT_A_WR_BE;
+wire [3:0] PORT_B_WR_BE;
+
+wire [35:0] PORT_B_WDATA;
+wire [35:0] PORT_B_RDATA;
+wire [35:0] PORT_A_WDATA;
+wire [35:0] PORT_A_RDATA;
+
+wire [14:0] PORT_A_ADDR_INT;
+wire [14:0] PORT_B_ADDR_INT; 
 
 wire [14:0] PORT_A_ADDR;
 wire [14:0] PORT_B_ADDR;
 
-wire [3:0] WR1_BE;
-wire [3:0] WR2_BE;
+wire PORT_A_CLK;
+wire PORT_B_CLK;
+
+// Set port width mode (In non-split mode A2/B2 is not active. Set same values anyway to match previous behavior.)
+localparam [ 2:0] RMODE_A1_i    = mode(PORT_A_DWIDTH);
+localparam [ 2:0] WMODE_A1_i    = mode(PORT_A_DWIDTH);
+localparam [ 2:0] RMODE_A2_i    = mode(PORT_A_DWIDTH);
+localparam [ 2:0] WMODE_A2_i    = mode(PORT_A_DWIDTH);
+
+localparam [ 2:0] RMODE_B1_i    = mode(PORT_B_DWIDTH);
+localparam [ 2:0] WMODE_B1_i    = mode(PORT_B_DWIDTH);
+localparam [ 2:0] RMODE_B2_i    = mode(PORT_B_DWIDTH);
+localparam [ 2:0] WMODE_B2_i    = mode(PORT_B_DWIDTH);
+
+assign PORT_A_CLK = PORT_A_CLK_i;
+assign PORT_B_CLK = PORT_B_CLK_i;
 
 generate
-  if (BE1_WIDTH == 4) begin
-    assign WR1_BE = WR1_BE_i;
+  if (PORT_A_AWIDTH == 15) begin
+    assign PORT_A_ADDR_INT = PORT_A_ADDR_i;
   end else begin
-    assign WR1_BE[3:BE1_WIDTH] = 0;
-    assign WR1_BE[BE1_WIDTH-1:0] = WR1_BE_i[BE1_WIDTH-1:0];
+    assign PORT_A_ADDR_INT[14:PORT_A_AWIDTH] = 0;
+    assign PORT_A_ADDR_INT[PORT_A_AWIDTH-1:0] = PORT_A_ADDR_i;
   end
 endgenerate
 
-generate
-  if (BE2_WIDTH == 4) begin
-    assign WR2_BE = WR2_BE_i;
-  end else begin
-    assign WR2_BE[3:BE2_WIDTH] = 0;
-    assign WR2_BE[BE2_WIDTH-1:0] = WR2_BE_i[BE2_WIDTH-1:0];
-  end
-endgenerate
-
-// Assign read/write data - handle special case for 9bit mode
-// parity bit for 9bit mode is placed in R/W port on bit #16
-case (DATA_WIDTH)
-	9: begin
-		assign RDATA1_o = {A1DATA_TOTAL[16], A1DATA_TOTAL[7:0]};
-		assign RDATA2_o = {C1DATA_TOTAL[16], C1DATA_TOTAL[7:0]};
-		assign B1DATA_TOTAL = {B1DATA_CMPL[35:17], WDATA1_i[8], B1DATA_CMPL[16:9], WDATA1_i[7:0]};
-		assign D1DATA_TOTAL = {D1DATA_CMPL[35:17], WDATA2_i[8], D1DATA_CMPL[16:9], WDATA2_i[7:0]};
-	end
-	default: begin
-		assign RDATA1_o = A1DATA_TOTAL[DATA_WIDTH-1:0];
-		assign RDATA2_o = C1DATA_TOTAL[DATA_WIDTH-1:0];
-		assign B1DATA_TOTAL = {B1DATA_CMPL, WDATA1_i};
-		assign D1DATA_TOTAL = {D1DATA_CMPL, WDATA2_i};
-	end
-endcase
-
-assign FLUSH1 = 1'b0;
-assign FLUSH2 = 1'b0;
-
-case (DATA_WIDTH)
+case (PORT_A_DWIDTH)
 	1: begin
-		assign PORT_A_ADDR = REN1_i ? A1ADDR_TOTAL : (WEN1_i ? B1ADDR_TOTAL : 15'd0);
-		assign PORT_B_ADDR = REN2_i ? C1ADDR_TOTAL : (WEN2_i ? D1ADDR_TOTAL : 15'd0);
-          defparam U1.MODE_BITS = { 1'b0,
-              11'd10, 11'd10, 4'd0, MODE_1, MODE_1, MODE_1, MODE_1, 1'd0,
-              12'd10, 12'd10, 4'd0, MODE_1, MODE_1, MODE_1, MODE_1, 1'd0
-          };
-          (* is_inferred = 1 *)
-          (* rd_data_width = DATA_WIDTH *)
-          (* wr_data_width = DATA_WIDTH *)
-          TDP36K U1 (
-            .RESET_ni(1'b1),
-            .WDATA_A1_i(B1DATA_TOTAL[17:0]),
-            .WDATA_A2_i(B1DATA_TOTAL[35:18]),
-            .RDATA_A1_o(A1DATA_TOTAL[17:0]),
-            .RDATA_A2_o(A1DATA_TOTAL[35:18]),
-            .ADDR_A1_i(PORT_A_ADDR),
-            .ADDR_A2_i(PORT_A_ADDR),
-            .CLK_A1_i(CLK1_i),
-            .CLK_A2_i(CLK1_i),
-            .REN_A1_i(REN1_i),
-            .REN_A2_i(REN1_i),
-            .WEN_A1_i(WEN1_i),
-            .WEN_A2_i(WEN1_i),
-            .BE_A1_i(WR1_BE[1:0]),
-            .BE_A2_i(WR1_BE[3:0]),
-          
-            .WDATA_B1_i(D1DATA_TOTAL[17:0]),
-            .WDATA_B2_i(D1DATA_TOTAL[35:18]),
-            .RDATA_B1_o(C1DATA_TOTAL[17:0]),
-            .RDATA_B2_o(C1DATA_TOTAL[35:18]),
-            .ADDR_B1_i(PORT_B_ADDR),
-            .ADDR_B2_i(PORT_B_ADDR),
-            .CLK_B1_i(CLK2_i),
-            .CLK_B2_i(CLK2_i),
-            .REN_B1_i(REN2_i),
-            .REN_B2_i(REN2_i),
-            .WEN_B1_i(WEN2_i),
-            .WEN_B2_i(WEN2_i),
-            .BE_B1_i(WR2_BE[1:0]),
-            .BE_B2_i(WR2_BE[3:0]),
-          
-            .FLUSH1_i(FLUSH1),
-            .FLUSH2_i(FLUSH2)
-          );          
+		assign PORT_A_ADDR = PORT_A_ADDR_INT;
 	end
-
 	2: begin
-		assign PORT_A_ADDR = REN1_i ? (A1ADDR_TOTAL << 1) : (WEN1_i ? (B1ADDR_TOTAL << 1) : 15'd0);
-		assign PORT_B_ADDR = REN2_i ? (C1ADDR_TOTAL << 1) : (WEN2_i ? (D1ADDR_TOTAL << 1) : 15'd0);
-          defparam U1.MODE_BITS = { 1'b0,
-              11'd10, 11'd10, 4'd0, MODE_2, MODE_2, MODE_2, MODE_2, 1'd0,
-              12'd10, 12'd10, 4'd0, MODE_2, MODE_2, MODE_2, MODE_2, 1'd0
-          };
-          (* is_inferred = 1 *)
-          (* rd_data_width = DATA_WIDTH *)
-          (* wr_data_width = DATA_WIDTH *)
-          TDP36K U1 (
-            .RESET_ni(1'b1),
-            .WDATA_A1_i(B1DATA_TOTAL[17:0]),
-            .WDATA_A2_i(B1DATA_TOTAL[35:18]),
-            .RDATA_A1_o(A1DATA_TOTAL[17:0]),
-            .RDATA_A2_o(A1DATA_TOTAL[35:18]),
-            .ADDR_A1_i(PORT_A_ADDR),
-            .ADDR_A2_i(PORT_A_ADDR),
-            .CLK_A1_i(CLK1_i),
-            .CLK_A2_i(CLK1_i),
-            .REN_A1_i(REN1_i),
-            .REN_A2_i(REN1_i),
-            .WEN_A1_i(WEN1_i),
-            .WEN_A2_i(WEN1_i),
-            .BE_A1_i(WR1_BE[1:0]),
-            .BE_A2_i(WR1_BE[3:0]),
-          
-            .WDATA_B1_i(D1DATA_TOTAL[17:0]),
-            .WDATA_B2_i(D1DATA_TOTAL[35:18]),
-            .RDATA_B1_o(C1DATA_TOTAL[17:0]),
-            .RDATA_B2_o(C1DATA_TOTAL[35:18]),
-            .ADDR_B1_i(PORT_B_ADDR),
-            .ADDR_B2_i(PORT_B_ADDR),
-            .CLK_B1_i(CLK2_i),
-            .CLK_B2_i(CLK2_i),
-            .REN_B1_i(REN2_i),
-            .REN_B2_i(REN2_i),
-            .WEN_B1_i(WEN2_i),
-            .WEN_B2_i(WEN2_i),
-            .BE_B1_i(WR2_BE[1:0]),
-            .BE_B2_i(WR2_BE[3:0]),
-          
-            .FLUSH1_i(FLUSH1),
-            .FLUSH2_i(FLUSH2)
-          );          
+		assign PORT_A_ADDR = PORT_A_ADDR_INT << 1;
 	end
-
 	4: begin
-		assign PORT_A_ADDR = REN1_i ? (A1ADDR_TOTAL << 2) : (WEN1_i ? (B1ADDR_TOTAL << 2) : 15'd0);
-		assign PORT_B_ADDR = REN2_i ? (C1ADDR_TOTAL << 2) : (WEN2_i ? (D1ADDR_TOTAL << 2) : 15'd0);
-          defparam U1.MODE_BITS = { 1'b0,
-              11'd10, 11'd10, 4'd0, MODE_4, MODE_4, MODE_4, MODE_4, 1'd0,
-              12'd10, 12'd10, 4'd0, MODE_4, MODE_4, MODE_4, MODE_4, 1'd0
-          };
-          (* is_inferred = 1 *)
-          (* rd_data_width = DATA_WIDTH *)
-          (* wr_data_width = DATA_WIDTH *)
-          TDP36K U1 (
-            .RESET_ni(1'b1),
-            .WDATA_A1_i(B1DATA_TOTAL[17:0]),
-            .WDATA_A2_i(B1DATA_TOTAL[35:18]),
-            .RDATA_A1_o(A1DATA_TOTAL[17:0]),
-            .RDATA_A2_o(A1DATA_TOTAL[35:18]),
-            .ADDR_A1_i(PORT_A_ADDR),
-            .ADDR_A2_i(PORT_A_ADDR),
-            .CLK_A1_i(CLK1_i),
-            .CLK_A2_i(CLK1_i),
-            .REN_A1_i(REN1_i),
-            .REN_A2_i(REN1_i),
-            .WEN_A1_i(WEN1_i),
-            .WEN_A2_i(WEN1_i),
-            .BE_A1_i(WR1_BE[1:0]),
-            .BE_A2_i(WR1_BE[3:0]),
-          
-            .WDATA_B1_i(D1DATA_TOTAL[17:0]),
-            .WDATA_B2_i(D1DATA_TOTAL[35:18]),
-            .RDATA_B1_o(C1DATA_TOTAL[17:0]),
-            .RDATA_B2_o(C1DATA_TOTAL[35:18]),
-            .ADDR_B1_i(PORT_B_ADDR),
-            .ADDR_B2_i(PORT_B_ADDR),
-            .CLK_B1_i(CLK2_i),
-            .CLK_B2_i(CLK2_i),
-            .REN_B1_i(REN2_i),
-            .REN_B2_i(REN2_i),
-            .WEN_B1_i(WEN2_i),
-            .WEN_B2_i(WEN2_i),
-            .BE_B1_i(WR2_BE[1:0]),
-            .BE_B2_i(WR2_BE[3:0]),
-          
-            .FLUSH1_i(FLUSH1),
-            .FLUSH2_i(FLUSH2)
-          );          
+		assign PORT_A_ADDR = PORT_A_ADDR_INT << 2;
 	end
-
 	8, 9: begin
-		assign PORT_A_ADDR = REN1_i ? (A1ADDR_TOTAL << 3) : (WEN1_i ? (B1ADDR_TOTAL << 3) : 15'd0);
-		assign PORT_B_ADDR = REN2_i ? (C1ADDR_TOTAL << 3) : (WEN2_i ? (D1ADDR_TOTAL << 3) : 15'd0);
-          defparam U1.MODE_BITS = { 1'b0,
-              11'd10, 11'd10, 4'd0, MODE_9, MODE_9, MODE_9, MODE_9, 1'd0,
-              12'd10, 12'd10, 4'd0, MODE_9, MODE_9, MODE_9, MODE_9, 1'd0
-          };
-          (* is_inferred = 1 *)
-          (* rd_data_width = DATA_WIDTH *)
-          (* wr_data_width = DATA_WIDTH *)
-          TDP36K U1 (
-            .RESET_ni(1'b1),
-            .WDATA_A1_i(B1DATA_TOTAL[17:0]),
-            .WDATA_A2_i(B1DATA_TOTAL[35:18]),
-            .RDATA_A1_o(A1DATA_TOTAL[17:0]),
-            .RDATA_A2_o(A1DATA_TOTAL[35:18]),
-            .ADDR_A1_i(PORT_A_ADDR),
-            .ADDR_A2_i(PORT_A_ADDR),
-            .CLK_A1_i(CLK1_i),
-            .CLK_A2_i(CLK1_i),
-            .REN_A1_i(REN1_i),
-            .REN_A2_i(REN1_i),
-            .WEN_A1_i(WEN1_i),
-            .WEN_A2_i(WEN1_i),
-            .BE_A1_i(WR1_BE[1:0]),
-            .BE_A2_i(WR1_BE[3:0]),
-          
-            .WDATA_B1_i(D1DATA_TOTAL[17:0]),
-            .WDATA_B2_i(D1DATA_TOTAL[35:18]),
-            .RDATA_B1_o(C1DATA_TOTAL[17:0]),
-            .RDATA_B2_o(C1DATA_TOTAL[35:18]),
-            .ADDR_B1_i(PORT_B_ADDR),
-            .ADDR_B2_i(PORT_B_ADDR),
-            .CLK_B1_i(CLK2_i),
-            .CLK_B2_i(CLK2_i),
-            .REN_B1_i(REN2_i),
-            .REN_B2_i(REN2_i),
-            .WEN_B1_i(WEN2_i),
-            .WEN_B2_i(WEN2_i),
-            .BE_B1_i(WR2_BE[1:0]),
-            .BE_B2_i(WR2_BE[3:0]),
-          
-            .FLUSH1_i(FLUSH1),
-            .FLUSH2_i(FLUSH2)
-          );          
+		assign PORT_A_ADDR = PORT_A_ADDR_INT << 3;
 	end
-
 	16, 18: begin
-		assign PORT_A_ADDR = REN1_i ? (A1ADDR_TOTAL << 4) : (WEN1_i ? (B1ADDR_TOTAL << 4) : 15'd0);
-		assign PORT_B_ADDR = REN2_i ? (C1ADDR_TOTAL << 4) : (WEN2_i ? (D1ADDR_TOTAL << 4) : 15'd0);
-          defparam U1.MODE_BITS = { 1'b0,
-              11'd10, 11'd10, 4'd0, MODE_18, MODE_18, MODE_18, MODE_18, 1'd0,
-              12'd10, 12'd10, 4'd0, MODE_18, MODE_18, MODE_18, MODE_18, 1'd0
-          };
-          (* is_inferred = 1 *)
-          (* rd_data_width = DATA_WIDTH *)
-          (* wr_data_width = DATA_WIDTH *)
-          TDP36K U1 (
-            .RESET_ni(1'b1),
-            .WDATA_A1_i(B1DATA_TOTAL[17:0]),
-            .WDATA_A2_i(B1DATA_TOTAL[35:18]),
-            .RDATA_A1_o(A1DATA_TOTAL[17:0]),
-            .RDATA_A2_o(A1DATA_TOTAL[35:18]),
-            .ADDR_A1_i(PORT_A_ADDR),
-            .ADDR_A2_i(PORT_A_ADDR),
-            .CLK_A1_i(CLK1_i),
-            .CLK_A2_i(CLK1_i),
-            .REN_A1_i(REN1_i),
-            .REN_A2_i(REN1_i),
-            .WEN_A1_i(WEN1_i),
-            .WEN_A2_i(WEN1_i),
-            .BE_A1_i(WR1_BE[1:0]),
-            .BE_A2_i(WR1_BE[3:0]),
-          
-            .WDATA_B1_i(D1DATA_TOTAL[17:0]),
-            .WDATA_B2_i(D1DATA_TOTAL[35:18]),
-            .RDATA_B1_o(C1DATA_TOTAL[17:0]),
-            .RDATA_B2_o(C1DATA_TOTAL[35:18]),
-            .ADDR_B1_i(PORT_B_ADDR),
-            .ADDR_B2_i(PORT_B_ADDR),
-            .CLK_B1_i(CLK2_i),
-            .CLK_B2_i(CLK2_i),
-            .REN_B1_i(REN2_i),
-            .REN_B2_i(REN2_i),
-            .WEN_B1_i(WEN2_i),
-            .WEN_B2_i(WEN2_i),
-            .BE_B1_i(WR2_BE[1:0]),
-            .BE_B2_i(WR2_BE[3:0]),
-          
-            .FLUSH1_i(FLUSH1),
-            .FLUSH2_i(FLUSH2)
-          );          
+		assign PORT_A_ADDR = PORT_A_ADDR_INT << 4;
 	end
-
 	32, 36: begin
-		assign PORT_A_ADDR = REN1_i ? (A1ADDR_TOTAL << 5) : (WEN1_i ? (B1ADDR_TOTAL << 5) : 15'd0);
-		assign PORT_B_ADDR = REN2_i ? (C1ADDR_TOTAL << 5) : (WEN2_i ? (D1ADDR_TOTAL << 5) : 15'd0);
-          defparam U1.MODE_BITS = { 1'b0,
-              11'd10, 11'd10, 4'd0, MODE_36, MODE_36, MODE_36, MODE_36, 1'd0,
-              12'd10, 12'd10, 4'd0, MODE_36, MODE_36, MODE_36, MODE_36, 1'd0
-          };
-          (* is_inferred = 1 *)
-          (* rd_data_width = DATA_WIDTH *)
-          (* wr_data_width = DATA_WIDTH *)
-          TDP36K U1 (
-            .RESET_ni(1'b1),
-            .WDATA_A1_i(B1DATA_TOTAL[17:0]),
-            .WDATA_A2_i(B1DATA_TOTAL[35:18]),
-            .RDATA_A1_o(A1DATA_TOTAL[17:0]),
-            .RDATA_A2_o(A1DATA_TOTAL[35:18]),
-            .ADDR_A1_i(PORT_A_ADDR),
-            .ADDR_A2_i(PORT_A_ADDR),
-            .CLK_A1_i(CLK1_i),
-            .CLK_A2_i(CLK1_i),
-            .REN_A1_i(REN1_i),
-            .REN_A2_i(REN1_i),
-            .WEN_A1_i(WEN1_i),
-            .WEN_A2_i(WEN1_i),
-            .BE_A1_i(WR1_BE[1:0]),
-            .BE_A2_i(WR1_BE[3:0]),
-          
-            .WDATA_B1_i(D1DATA_TOTAL[17:0]),
-            .WDATA_B2_i(D1DATA_TOTAL[35:18]),
-            .RDATA_B1_o(C1DATA_TOTAL[17:0]),
-            .RDATA_B2_o(C1DATA_TOTAL[35:18]),
-            .ADDR_B1_i(PORT_B_ADDR),
-            .ADDR_B2_i(PORT_B_ADDR),
-            .CLK_B1_i(CLK2_i),
-            .CLK_B2_i(CLK2_i),
-            .REN_B1_i(REN2_i),
-            .REN_B2_i(REN2_i),
-            .WEN_B1_i(WEN2_i),
-            .WEN_B2_i(WEN2_i),
-            .BE_B1_i(WR2_BE[1:0]),
-            .BE_B2_i(WR2_BE[3:0]),
-          
-            .FLUSH1_i(FLUSH1),
-            .FLUSH2_i(FLUSH2)
-          );          
+		assign PORT_A_ADDR = PORT_A_ADDR_INT << 5;
 	end
 	default: begin
-		assign PORT_A_ADDR = REN1_i ? (A1ADDR_TOTAL << 5) : (WEN1_i ? (B1ADDR_TOTAL << 5) : 15'd0);
-		assign PORT_B_ADDR = REN2_i ? (C1ADDR_TOTAL << 5) : (WEN2_i ? (D1ADDR_TOTAL << 5) : 15'd0);
-          defparam U1.MODE_BITS = { 1'b0,
-              11'd10, 11'd10, 4'd0, MODE_36, MODE_36, MODE_36, MODE_36, 1'd0,
-              12'd10, 12'd10, 4'd0, MODE_36, MODE_36, MODE_36, MODE_36, 1'd0
-          };
-          (* is_inferred = 1 *)
-          (* rd_data_width = DATA_WIDTH *)
-          (* wr_data_width = DATA_WIDTH *)
-          TDP36K U1 (
-            .RESET_ni(1'b1),
-            .WDATA_A1_i(B1DATA_TOTAL[17:0]),
-            .WDATA_A2_i(B1DATA_TOTAL[35:18]),
-            .RDATA_A1_o(A1DATA_TOTAL[17:0]),
-            .RDATA_A2_o(A1DATA_TOTAL[35:18]),
-            .ADDR_A1_i(PORT_A_ADDR),
-            .ADDR_A2_i(PORT_A_ADDR),
-            .CLK_A1_i(CLK1_i),
-            .CLK_A2_i(CLK1_i),
-            .REN_A1_i(REN1_i),
-            .REN_A2_i(REN1_i),
-            .WEN_A1_i(WEN1_i),
-            .WEN_A2_i(WEN1_i),
-            .BE_A1_i(WR1_BE[1:0]),
-            .BE_A2_i(WR1_BE[3:0]),
-          
-            .WDATA_B1_i(D1DATA_TOTAL[17:0]),
-            .WDATA_B2_i(D1DATA_TOTAL[35:18]),
-            .RDATA_B1_o(C1DATA_TOTAL[17:0]),
-            .RDATA_B2_o(C1DATA_TOTAL[35:18]),
-            .ADDR_B1_i(PORT_B_ADDR),
-            .ADDR_B2_i(PORT_B_ADDR),
-            .CLK_B1_i(CLK2_i),
-            .CLK_B2_i(CLK2_i),
-            .REN_B1_i(REN2_i),
-            .REN_B2_i(REN2_i),
-            .WEN_B1_i(WEN2_i),
-            .WEN_B2_i(WEN2_i),
-            .BE_B1_i(WR2_BE[1:0]),
-            .BE_B2_i(WR2_BE[3:0]),
-          
-            .FLUSH1_i(FLUSH1),
-            .FLUSH2_i(FLUSH2)
-          );          
+		assign PORT_A_ADDR = PORT_A_ADDR_INT;
 	end
 endcase
 
-endmodule
+generate
+  if (PORT_B_AWIDTH == 15) begin
+    assign PORT_B_ADDR_INT = PORT_B_ADDR_i;
+  end else begin
+    assign PORT_B_ADDR_INT[14:PORT_B_AWIDTH] = 0;
+    assign PORT_B_ADDR_INT[PORT_B_AWIDTH-1:0] = PORT_B_ADDR_i;
+  end
+endgenerate
 
-// ============================================================================
-// TDP36K write width 1 functional modes
+case (PORT_B_DWIDTH)
+	1: begin
+		assign PORT_B_ADDR = PORT_B_ADDR_INT;
+	end
+	2: begin
+		assign PORT_B_ADDR = PORT_B_ADDR_INT << 1;
+	end
+	4: begin
+		assign PORT_B_ADDR = PORT_B_ADDR_INT << 2;
+	end
+	8, 9: begin
+		assign PORT_B_ADDR = PORT_B_ADDR_INT << 3;
+	end
+	16, 18: begin
+		assign PORT_B_ADDR = PORT_B_ADDR_INT << 4;
+	end
+	32, 36: begin
+		assign PORT_B_ADDR = PORT_B_ADDR_INT << 5;
+	end
+	default: begin
+		assign PORT_B_ADDR = PORT_B_ADDR_INT;
+	end
+endcase
 
-module TDP36K_BRAM_WR_X1_RD_X1_nonsplit (
-    RESET_ni,
-    WEN_A1_i,   WEN_B1_i,
-    REN_A1_i,   REN_B1_i,
-    CLK_A1_i,   CLK_B1_i,
-    BE_A1_i,    BE_B1_i,
-    ADDR_A1_i,  ADDR_B1_i,
-    WDATA_A1_i, WDATA_B1_i,
-    RDATA_A1_o, RDATA_B1_o,
-    FLUSH1_i,
-    WEN_A2_i,   WEN_B2_i,
-    REN_A2_i,   REN_B2_i,
-    CLK_A2_i,   CLK_B2_i,
-    BE_A2_i,    BE_B2_i,
-    ADDR_A2_i,  ADDR_B2_i,
-    WDATA_A2_i, WDATA_B2_i,
-    RDATA_A2_o, RDATA_B2_o,
-    FLUSH2_i
+case (PORT_A_WR_BE_WIDTH)
+	4: begin
+		assign PORT_A_WR_BE = PORT_A_WR_BE_i[PORT_A_WR_BE_WIDTH-1 :0];
+	end
+	default: begin
+		assign PORT_A_WR_BE[3:PORT_A_WR_BE_WIDTH] = 0;
+		assign PORT_A_WR_BE[PORT_A_WR_BE_WIDTH-1 :0] = PORT_A_WR_BE_i[PORT_A_WR_BE_WIDTH-1 :0];
+	end
+endcase
+
+case (PORT_B_WR_BE_WIDTH)
+	4: begin
+		assign PORT_B_WR_BE = PORT_B_WR_BE_i[PORT_B_WR_BE_WIDTH-1 :0];
+	end
+	default: begin
+		assign PORT_B_WR_BE[3:PORT_B_WR_BE_WIDTH] = 0;
+		assign PORT_B_WR_BE[PORT_B_WR_BE_WIDTH-1 :0] = PORT_B_WR_BE_i[PORT_B_WR_BE_WIDTH-1 :0];
+	end
+endcase
+
+assign REN_A1_i = PORT_A_REN_i;
+assign WEN_A1_i = PORT_A_WEN_i;
+assign {BE_A2_i, BE_A1_i} = PORT_A_WR_BE;
+
+assign REN_B1_i = PORT_B_REN_i;
+assign WEN_B1_i = PORT_B_WEN_i;
+assign {BE_B2_i, BE_B1_i} = PORT_B_WR_BE;
+
+generate
+  if (PORT_A_DWIDTH == 36) begin
+    assign PORT_A_WDATA[PORT_A_DWIDTH-1:0] = PORT_A_WR_DATA_i[PORT_A_DWIDTH-1:0];
+  end else if (PORT_A_DWIDTH > 18 && PORT_A_DWIDTH < 36) begin
+    assign PORT_A_WDATA[PORT_A_DWIDTH+1:18]  = PORT_A_WR_DATA_i[PORT_A_DWIDTH-1:16];
+    assign PORT_A_WDATA[17:0] = {2'b00,PORT_A_WR_DATA_i[15:0]};
+  end else if (PORT_A_DWIDTH == 9) begin
+    assign PORT_A_WDATA = {19'h0, PORT_A_WR_DATA_i[8], 8'h0, PORT_A_WR_DATA_i[7:0]};
+  end else begin
+    assign PORT_A_WDATA[35:PORT_A_DWIDTH] = 0;
+    assign PORT_A_WDATA[PORT_A_DWIDTH-1:0] = PORT_A_WR_DATA_i[PORT_A_DWIDTH-1:0];
+  end
+endgenerate
+
+assign WDATA_A1_i = PORT_A_WDATA[17:0];
+assign WDATA_A2_i = PORT_A_WDATA[35:18];
+
+generate
+  if (PORT_A_DWIDTH == 36) begin
+    assign PORT_A_RDATA = {RDATA_A2_o, RDATA_A1_o};
+  end else if (PORT_A_DWIDTH > 18 && PORT_A_DWIDTH < 36) begin
+    assign PORT_A_RDATA  = {2'b00,RDATA_A2_o[17:0],RDATA_A1_o[15:0]};
+  end else if (PORT_A_DWIDTH == 9) begin
+    assign PORT_A_RDATA = { 27'h0, RDATA_A1_o[16], RDATA_A1_o[7:0]};
+  end else begin
+    assign PORT_A_RDATA = {18'h0, RDATA_A1_o};
+  end
+endgenerate
+
+assign PORT_A_RD_DATA_o = PORT_A_RDATA[PORT_A_DWIDTH-1:0];
+
+generate
+  if (PORT_B_DWIDTH == 36) begin
+    assign PORT_B_WDATA[PORT_B_DWIDTH-1:0] = PORT_B_WR_DATA_i[PORT_B_DWIDTH-1:0];
+  end else if (PORT_B_DWIDTH > 18 && PORT_B_DWIDTH < 36) begin
+    assign PORT_B_WDATA[PORT_B_DWIDTH+1:18]  = PORT_B_WR_DATA_i[PORT_B_DWIDTH-1:16];
+    assign PORT_B_WDATA[17:0] = {2'b00,PORT_B_WR_DATA_i[15:0]};
+  end else if (PORT_B_DWIDTH == 9) begin
+    assign PORT_B_WDATA = {19'h0, PORT_B_WR_DATA_i[8], 8'h0, PORT_B_WR_DATA_i[7:0]};
+  end else begin
+    assign PORT_B_WDATA[35:PORT_B_DWIDTH] = 0;
+    assign PORT_B_WDATA[PORT_B_DWIDTH-1:0] = PORT_B_WR_DATA_i[PORT_B_DWIDTH-1:0];
+  end
+endgenerate
+
+assign WDATA_B1_i = PORT_B_WDATA[17:0];
+assign WDATA_B2_i = PORT_B_WDATA[35:18];
+
+generate
+  if (PORT_B_DWIDTH == 36) begin
+    assign PORT_B_RDATA = {RDATA_B2_o, RDATA_B1_o};
+  end else if (PORT_B_DWIDTH > 18 && PORT_B_DWIDTH < 36) begin
+    assign PORT_B_RDATA  = {2'b00,RDATA_B2_o[17:0],RDATA_B1_o[15:0]};
+  end else if (PORT_B_DWIDTH == 9) begin
+    assign PORT_B_RDATA = { 27'h0, RDATA_B1_o[16], RDATA_B1_o[7:0]};
+  end else begin
+    assign PORT_B_RDATA = {18'h0, RDATA_B1_o};
+  end
+endgenerate
+
+assign PORT_B_RD_DATA_o = PORT_B_RDATA[PORT_B_DWIDTH-1:0];
+
+defparam _TECHMAP_REPLACE_.MODE_BITS = { 1'b0,
+	UPAF2_i, UPAE2_i, PROTECT2_i, SLEEP2_i, POWERDN2_i, FMODE2_i, WMODE_B2_i, WMODE_A2_i, RMODE_B2_i, RMODE_A2_i, SYNC_FIFO2_i,
+	UPAF1_i, UPAE1_i, PROTECT1_i, SLEEP1_i, POWERDN1_i, FMODE1_i, WMODE_B1_i, WMODE_A1_i, RMODE_B1_i, RMODE_A1_i, SYNC_FIFO1_i
+};
+
+(* is_inferred = 1 *)
+(* is_split = 0 *)
+(* port_a_width = PORT_A_DWIDTH *)
+(* port_b_width = PORT_B_DWIDTH *)
+TDP36K _TECHMAP_REPLACE_ (
+	.RESET_ni(1'b1),
+
+	.CLK_A1_i(PORT_A_CLK),
+	.ADDR_A1_i(PORT_A_ADDR),
+	.WEN_A1_i(WEN_A1_i),
+	.BE_A1_i(BE_A1_i),
+	.WDATA_A1_i(WDATA_A1_i),
+	.REN_A1_i(REN_A1_i),
+	.RDATA_A1_o(RDATA_A1_o),
+
+	.CLK_A2_i(PORT_A_CLK),
+	.ADDR_A2_i(PORT_A_ADDR[13:0]),
+	.WEN_A2_i(WEN_A1_i),
+	.BE_A2_i(BE_A2_i),
+	.WDATA_A2_i(WDATA_A2_i),
+	.REN_A2_i(REN_A1_i),
+	.RDATA_A2_o(RDATA_A2_o),
+
+	.CLK_B1_i(PORT_B_CLK),
+	.ADDR_B1_i(PORT_B_ADDR),
+	.WEN_B1_i(WEN_B1_i),
+	.BE_B1_i(BE_B1_i),
+	.WDATA_B1_i(WDATA_B1_i),
+	.REN_B1_i(REN_B1_i),
+	.RDATA_B1_o(RDATA_B1_o),
+
+	.CLK_B2_i(PORT_B_CLK),
+	.ADDR_B2_i(PORT_B_ADDR[13:0]),
+	.WEN_B2_i(WEN_B1_i),
+	.BE_B2_i(BE_B2_i),
+	.WDATA_B2_i(WDATA_B2_i),
+	.REN_B2_i(REN_B1_i),
+	.RDATA_B2_o(RDATA_B2_o),
+
+	.FLUSH1_i(1'b0),
+	.FLUSH2_i(1'b0)
 );
-    parameter [80:0] MODE_BITS = 81'd0;
-
-    input wire RESET_ni;
-    input wire WEN_A1_i, WEN_B1_i;
-    input wire REN_A1_i, REN_B1_i;
-    input wire WEN_A2_i, WEN_B2_i;
-    input wire REN_A2_i, REN_B2_i;
-
-    (* clkbuf_sink *)
-    input wire CLK_A1_i;
-    (* clkbuf_sink *)
-    input wire CLK_B1_i;
-    (* clkbuf_sink *)
-    input wire CLK_A2_i;
-    (* clkbuf_sink *)
-    input wire CLK_B2_i;
-
-    input  wire [ 1:0] BE_A1_i,    BE_B1_i;
-    input  wire [14:0] ADDR_A1_i,  ADDR_B1_i;
-    input  wire [17:0] WDATA_A1_i, WDATA_B1_i;
-    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
-
-    input  wire FLUSH1_i;
-
-    input  wire [ 1:0] BE_A2_i,    BE_B2_i;
-    input  wire [13:0] ADDR_A2_i,  ADDR_B2_i;
-    input  wire [17:0] WDATA_A2_i, WDATA_B2_i;
-    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
-
-    input  wire FLUSH2_i;
-
-    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
-        .RESET_ni   (RESET_ni),   
-        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
-        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
-        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
-        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
-        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
-        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
-        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
-        .FLUSH1_i   (FLUSH1_i),
-        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
-        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
-        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
-        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
-        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
-        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
-        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
-        .FLUSH2_i   (FLUSH2_i)
-    );
-
-`ifdef SDF_SIM
-	specify
-		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
-    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
-    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
-    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
-	endspecify
-`endif
 
 endmodule
 
-module TDP36K_BRAM_WR_X1_RD_X2_nonsplit (
-    RESET_ni,
-    WEN_A1_i,   WEN_B1_i,
-    REN_A1_i,   REN_B1_i,
-    CLK_A1_i,   CLK_B1_i,
-    BE_A1_i,    BE_B1_i,
-    ADDR_A1_i,  ADDR_B1_i,
-    WDATA_A1_i, WDATA_B1_i,
-    RDATA_A1_o, RDATA_B1_o,
-    FLUSH1_i,
-    WEN_A2_i,   WEN_B2_i,
-    REN_A2_i,   REN_B2_i,
-    CLK_A2_i,   CLK_B2_i,
-    BE_A2_i,    BE_B2_i,
-    ADDR_A2_i,  ADDR_B2_i,
-    WDATA_A2_i, WDATA_B2_i,
-    RDATA_A2_o, RDATA_B2_o,
-    FLUSH2_i
+module BRAM2x18_SFIFO (
+    DIN1,
+    PUSH1,
+    POP1,
+    CLK1,
+    Async_Flush1,
+    Overrun_Error1,
+    Full_Watermark1,
+    Almost_Full1,
+    Full1,
+    Underrun_Error1,
+    Empty_Watermark1,
+    Almost_Empty1,
+    Empty1,
+    DOUT1,
+    
+    DIN2,
+    PUSH2,
+    POP2,
+    CLK2,
+    Async_Flush2,
+    Overrun_Error2,
+    Full_Watermark2,
+    Almost_Full2,
+    Full2,
+    Underrun_Error2,
+    Empty_Watermark2,
+    Almost_Empty2,
+    Empty2,
+    DOUT2
 );
-    parameter [80:0] MODE_BITS = 81'd0;
 
-    input  wire RESET_ni;
-    input  wire WEN_A1_i, WEN_B1_i;
-    input  wire REN_A1_i, REN_B1_i;
-    input  wire WEN_A2_i, WEN_B2_i;
-    input  wire REN_A2_i, REN_B2_i;
+  parameter WR1_DATA_WIDTH = 18;
+  parameter RD1_DATA_WIDTH = 18;
+  
+  parameter WR2_DATA_WIDTH = 18;
+  parameter RD2_DATA_WIDTH = 18;
+  
+  parameter UPAE_DBITS1 = 12'd10;
+  parameter UPAF_DBITS1 = 12'd10;
+  
+  parameter UPAE_DBITS2 = 11'd10;
+  parameter UPAF_DBITS2 = 11'd10;
 
-    (* clkbuf_sink *)
-    input  wire CLK_A1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_A2_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B2_i;
+  input wire CLK1;
+  input wire PUSH1, POP1;
+  input wire [WR1_DATA_WIDTH-1:0] DIN1;
+  input wire Async_Flush1;
+  output wire [RD1_DATA_WIDTH-1:0] DOUT1;
+  output wire Almost_Full1, Almost_Empty1;
+  output wire Full1, Empty1;
+  output wire Full_Watermark1, Empty_Watermark1;
+  output wire Overrun_Error1, Underrun_Error1;
+  
+  input wire CLK2;
+  input wire PUSH2, POP2;
+  input wire [WR2_DATA_WIDTH-1:0] DIN2;
+  input wire Async_Flush2;
+  output wire [RD2_DATA_WIDTH-1:0] DOUT2;
+  output wire Almost_Full2, Almost_Empty2;
+  output wire Full2, Empty2;
+  output wire Full_Watermark2, Empty_Watermark2;
+  output wire Overrun_Error2, Underrun_Error2;
+  
+  // Fixed mode settings
+  localparam [ 0:0] SYNC_FIFO1_i  = 1'd1;
+  localparam [ 0:0] FMODE1_i      = 1'd1;
+  localparam [ 0:0] POWERDN1_i    = 1'd0;
+  localparam [ 0:0] SLEEP1_i      = 1'd0;
+  localparam [ 0:0] PROTECT1_i    = 1'd0;
+  localparam [11:0] UPAE1_i       = UPAE_DBITS1;
+  localparam [11:0] UPAF1_i       = UPAF_DBITS1;
+  
+  localparam [ 0:0] SYNC_FIFO2_i  = 1'd1;
+  localparam [ 0:0] FMODE2_i      = 1'd1;
+  localparam [ 0:0] POWERDN2_i    = 1'd0;
+  localparam [ 0:0] SLEEP2_i      = 1'd0;
+  localparam [ 0:0] PROTECT2_i    = 1'd0;
+  localparam [10:0] UPAE2_i       = UPAE_DBITS2;
+  localparam [10:0] UPAF2_i       = UPAF_DBITS2;
 
-    input  wire [ 1:0] BE_A1_i,    BE_B1_i;
-    input  wire [14:0] ADDR_A1_i,  ADDR_B1_i;
-    input  wire [17:0] WDATA_A1_i, WDATA_B1_i;
-    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
+  // Width mode function
+  function [2:0] mode;
+  input integer width;
+  case (width)
+  1: mode = 3'b101;
+  2: mode = 3'b110;
+  4: mode = 3'b100;
+  8,9: mode = 3'b001;
+  16, 18: mode = 3'b010;
+  32, 36: mode = 3'b011;
+  default: mode = 3'b000;
+  endcase
+  endfunction
+  
+  wire [17:0] in_reg1;
+  wire [17:0] out_reg1;
+  wire [17:0] fifo1_flags;
+  
+  wire [17:0] in_reg2;
+  wire [17:0] out_reg2;
+  wire [17:0] fifo2_flags;
+  
+  wire Push_Clk1, Pop_Clk1;
+  wire Push_Clk2, Pop_Clk2;
+  assign Push_Clk1 = CLK1;
+  assign Pop_Clk1 = CLK1;
+  assign Push_Clk2 = CLK2;
+  assign Pop_Clk2 = CLK2;
+  
+  assign Overrun_Error1 = fifo1_flags[0];
+  assign Full_Watermark1 = fifo1_flags[1];
+  assign Almost_Full1 = fifo1_flags[2];
+  assign Full1 = fifo1_flags[3];
+  assign Underrun_Error1 = fifo1_flags[4];
+  assign Empty_Watermark1 = fifo1_flags[5];
+  assign Almost_Empty1 = fifo1_flags[6];
+  assign Empty1 = fifo1_flags[7];
+  
+  assign Overrun_Error2 = fifo2_flags[0];
+  assign Full_Watermark2 = fifo2_flags[1];
+  assign Almost_Full2 = fifo2_flags[2];
+  assign Full2 = fifo2_flags[3];
+  assign Underrun_Error2 = fifo2_flags[4];
+  assign Empty_Watermark2 = fifo2_flags[5];
+  assign Almost_Empty2 = fifo2_flags[6];
+  assign Empty2 = fifo2_flags[7];
+  
+  localparam [ 2:0] RMODE_A1_i    = mode(WR1_DATA_WIDTH);
+  localparam [ 2:0] WMODE_A1_i    = mode(WR1_DATA_WIDTH);
+  localparam [ 2:0] RMODE_A2_i    = mode(WR2_DATA_WIDTH);
+  localparam [ 2:0] WMODE_A2_i    = mode(WR2_DATA_WIDTH);
+  
+  localparam [ 2:0] RMODE_B1_i    = mode(RD1_DATA_WIDTH);
+  localparam [ 2:0] WMODE_B1_i    = mode(RD1_DATA_WIDTH);
+  localparam [ 2:0] RMODE_B2_i    = mode(RD2_DATA_WIDTH);
+  localparam [ 2:0] WMODE_B2_i    = mode(RD2_DATA_WIDTH);
+  
+  generate
+    if (WR1_DATA_WIDTH == 18) begin
+      assign in_reg1[17:0] = DIN1[17:0];
+    end else if (WR1_DATA_WIDTH == 9) begin
+      assign in_reg1[17:0] = {1'b0, DIN1[8], 8'h0, DIN1[7:0]};
+    end else begin
+      assign in_reg1[17:WR1_DATA_WIDTH]  = 0;
+      assign in_reg1[WR1_DATA_WIDTH-1:0] = DIN1[WR1_DATA_WIDTH-1:0];
+    end
+  endgenerate     
+  
+  generate
+    if (RD1_DATA_WIDTH == 9) begin
+      assign DOUT1[RD1_DATA_WIDTH-1:0] = {out_reg1[16], out_reg1[7:0]};
+    end else begin
+      assign DOUT1[RD1_DATA_WIDTH-1:0] = out_reg1[RD1_DATA_WIDTH-1:0];
+    end
+  endgenerate 
+  
+  generate
+    if (WR2_DATA_WIDTH == 18) begin
+      assign in_reg2[17:0] = DIN2[17:0];
+    end else if (WR2_DATA_WIDTH == 9) begin
+      assign in_reg2[17:0] = {1'b0, DIN2[8], 8'h0, DIN2[7:0]};
+    end else begin
+      assign in_reg2[17:WR2_DATA_WIDTH]  = 0;
+      assign in_reg2[WR2_DATA_WIDTH-1:0] = DIN2[WR2_DATA_WIDTH-1:0];
+    end
+  endgenerate     
+  
+  generate
+    if (RD2_DATA_WIDTH == 9) begin
+      assign DOUT2[RD2_DATA_WIDTH-1:0] = {out_reg2[16], out_reg2[7:0]};
+    end else begin
+      assign DOUT2[RD2_DATA_WIDTH-1:0] = out_reg2[RD2_DATA_WIDTH-1:0];
+    end
+  endgenerate 
+  
+  defparam _TECHMAP_REPLACE_.MODE_BITS = { 1'b1,
+	UPAF2_i, UPAE2_i, PROTECT2_i, SLEEP2_i, POWERDN2_i, FMODE2_i, WMODE_B2_i, WMODE_A2_i, RMODE_B2_i, RMODE_A2_i, SYNC_FIFO2_i,
+	UPAF1_i, UPAE1_i, PROTECT1_i, SLEEP1_i, POWERDN1_i, FMODE1_i, WMODE_B1_i, WMODE_A1_i, RMODE_B1_i, RMODE_A1_i, SYNC_FIFO1_i
+	};
 
-    input  wire FLUSH1_i;
+  (* is_fifo = 1 *) 
+  (* sync_fifo = 1 *) 
+  (* is_split = 0 *)
+  (* is_inferred = 0 *)
+  (* port_a_dwidth = WR1_DATA_WIDTH *)
+  (* port_b_dwidth = RD1_DATA_WIDTH *)
+ 	TDP36K _TECHMAP_REPLACE_ (
+		.RESET_ni(1'b1),
+		.WDATA_A1_i(in_reg1[17:0]),
+		.WDATA_A2_i(in_reg2[17:0]),
+		.RDATA_A1_o(fifo1_flags),
+		.RDATA_A2_o(fifo2_flags),
+		.ADDR_A1_i(14'h0),
+		.ADDR_A2_i(14'h0),
+		.CLK_A1_i(Push_Clk1),
+		.CLK_A2_i(Push_Clk2),
+		.REN_A1_i(1'b1),
+		.REN_A2_i(1'b1),
+		.WEN_A1_i(PUSH1),
+		.WEN_A2_i(PUSH2),
+		.BE_A1_i(2'b11),
+		.BE_A2_i(2'b11),
 
-    input  wire [ 1:0] BE_A2_i,    BE_B2_i;
-    input  wire [13:0] ADDR_A2_i,  ADDR_B2_i;
-    input  wire [17:0] WDATA_A2_i, WDATA_B2_i;
-    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
+		.WDATA_B1_i(18'h0),
+		.WDATA_B2_i(18'h0),
+		.RDATA_B1_o(out_reg1[17:0]),
+		.RDATA_B2_o(out_reg2[17:0]),
+		.ADDR_B1_i(14'h0),
+		.ADDR_B2_i(14'h0),
+		.CLK_B1_i(Pop_Clk1),
+		.CLK_B2_i(Pop_Clk2),
+		.REN_B1_i(POP1),
+		.REN_B2_i(POP2),
+		.WEN_B1_i(1'b0),
+		.WEN_B2_i(1'b0),
+		.BE_B1_i(2'b11),
+		.BE_B2_i(2'b11),
 
-    input  wire FLUSH2_i;
-
-    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
-        .RESET_ni   (RESET_ni),   
-        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
-        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
-        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
-        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
-        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
-        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
-        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
-        .FLUSH1_i   (FLUSH1_i),
-        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
-        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
-        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
-        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
-        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
-        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
-        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
-        .FLUSH2_i   (FLUSH2_i)
-    );
-
-`ifdef SDF_SIM
-	specify
-		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
-    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
-    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
-    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
-	endspecify
-`endif
-
-endmodule
-
-module TDP36K_BRAM_WR_X1_RD_X4_nonsplit (
-    RESET_ni,
-    WEN_A1_i,   WEN_B1_i,
-    REN_A1_i,   REN_B1_i,
-    CLK_A1_i,   CLK_B1_i,
-    BE_A1_i,    BE_B1_i,
-    ADDR_A1_i,  ADDR_B1_i,
-    WDATA_A1_i, WDATA_B1_i,
-    RDATA_A1_o, RDATA_B1_o,
-    FLUSH1_i,
-    WEN_A2_i,   WEN_B2_i,
-    REN_A2_i,   REN_B2_i,
-    CLK_A2_i,   CLK_B2_i,
-    BE_A2_i,    BE_B2_i,
-    ADDR_A2_i,  ADDR_B2_i,
-    WDATA_A2_i, WDATA_B2_i,
-    RDATA_A2_o, RDATA_B2_o,
-    FLUSH2_i
-);
-    parameter [80:0] MODE_BITS = 81'd0;
-
-    input  wire RESET_ni;
-    input  wire WEN_A1_i, WEN_B1_i;
-    input  wire REN_A1_i, REN_B1_i;
-    input  wire WEN_A2_i, WEN_B2_i;
-    input  wire REN_A2_i, REN_B2_i;
-
-    (* clkbuf_sink *)
-    input  wire CLK_A1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_A2_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B2_i;
-
-    input  wire [ 1:0] BE_A1_i,    BE_B1_i;
-    input  wire [14:0] ADDR_A1_i,  ADDR_B1_i;
-    input  wire [17:0] WDATA_A1_i, WDATA_B1_i;
-    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
-
-    input  wire FLUSH1_i;
-
-    input  wire [ 1:0] BE_A2_i,    BE_B2_i;
-    input  wire [13:0] ADDR_A2_i,  ADDR_B2_i;
-    input  wire [17:0] WDATA_A2_i, WDATA_B2_i;
-    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
-
-    input  wire FLUSH2_i;
-
-    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
-        .RESET_ni   (RESET_ni),   
-        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
-        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
-        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
-        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
-        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
-        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
-        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
-        .FLUSH1_i   (FLUSH1_i),
-        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
-        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
-        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
-        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
-        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
-        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
-        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
-        .FLUSH2_i   (FLUSH2_i)
-    );
-
-`ifdef SDF_SIM
-	specify
-		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
-    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
-    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
-    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
-	endspecify
-`endif
+		.FLUSH1_i(Async_Flush1),
+		.FLUSH2_i(Async_Flush2)
+	);
 
 endmodule
-
-module TDP36K_BRAM_WR_X1_RD_X9_nonsplit (
-    RESET_ni,
-    WEN_A1_i,   WEN_B1_i,
-    REN_A1_i,   REN_B1_i,
-    CLK_A1_i,   CLK_B1_i,
-    BE_A1_i,    BE_B1_i,
-    ADDR_A1_i,  ADDR_B1_i,
-    WDATA_A1_i, WDATA_B1_i,
-    RDATA_A1_o, RDATA_B1_o,
-    FLUSH1_i,
-    WEN_A2_i,   WEN_B2_i,
-    REN_A2_i,   REN_B2_i,
-    CLK_A2_i,   CLK_B2_i,
-    BE_A2_i,    BE_B2_i,
-    ADDR_A2_i,  ADDR_B2_i,
-    WDATA_A2_i, WDATA_B2_i,
-    RDATA_A2_o, RDATA_B2_o,
-    FLUSH2_i
-);
-    parameter [80:0] MODE_BITS = 81'd0;
-
-    input  wire RESET_ni;
-    input  wire WEN_A1_i, WEN_B1_i;
-    input  wire REN_A1_i, REN_B1_i;
-    input  wire WEN_A2_i, WEN_B2_i;
-    input  wire REN_A2_i, REN_B2_i;
-
-    (* clkbuf_sink *)
-    input  wire CLK_A1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_A2_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B2_i;
-
-    input  wire [ 1:0] BE_A1_i,    BE_B1_i;
-    input  wire [14:0] ADDR_A1_i,  ADDR_B1_i;
-    input  wire [17:0] WDATA_A1_i, WDATA_B1_i;
-    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
-
-    input  wire FLUSH1_i;
-
-    input  wire [ 1:0] BE_A2_i,    BE_B2_i;
-    input  wire [13:0] ADDR_A2_i,  ADDR_B2_i;
-    input  wire [17:0] WDATA_A2_i, WDATA_B2_i;
-    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
-
-    input  wire FLUSH2_i;
-
-    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
-        .RESET_ni   (RESET_ni),   
-        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
-        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
-        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
-        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
-        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
-        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
-        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
-        .FLUSH1_i   (FLUSH1_i),
-        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
-        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
-        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
-        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
-        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
-        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
-        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
-        .FLUSH2_i   (FLUSH2_i)
-    );
-
-`ifdef SDF_SIM
-	specify
-		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
-    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
-    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
-    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
-	endspecify
-`endif
-
-endmodule
-
-module TDP36K_BRAM_WR_X1_RD_X18_nonsplit (
-    RESET_ni,
-    WEN_A1_i,   WEN_B1_i,
-    REN_A1_i,   REN_B1_i,
-    CLK_A1_i,   CLK_B1_i,
-    BE_A1_i,    BE_B1_i,
-    ADDR_A1_i,  ADDR_B1_i,
-    WDATA_A1_i, WDATA_B1_i,
-    RDATA_A1_o, RDATA_B1_o,
-    FLUSH1_i,
-    WEN_A2_i,   WEN_B2_i,
-    REN_A2_i,   REN_B2_i,
-    CLK_A2_i,   CLK_B2_i,
-    BE_A2_i,    BE_B2_i,
-    ADDR_A2_i,  ADDR_B2_i,
-    WDATA_A2_i, WDATA_B2_i,
-    RDATA_A2_o, RDATA_B2_o,
-    FLUSH2_i
-);
-    parameter [80:0] MODE_BITS = 81'd0;
-
-    input  wire RESET_ni;
-    input  wire WEN_A1_i, WEN_B1_i;
-    input  wire REN_A1_i, REN_B1_i;
-    input  wire WEN_A2_i, WEN_B2_i;
-    input  wire REN_A2_i, REN_B2_i;
-
-    (* clkbuf_sink *)
-    input  wire CLK_A1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_A2_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B2_i;
-
-    input  wire [ 1:0] BE_A1_i,    BE_B1_i;
-    input  wire [14:0] ADDR_A1_i,  ADDR_B1_i;
-    input  wire [17:0] WDATA_A1_i, WDATA_B1_i;
-    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
-
-    input  wire FLUSH1_i;
-
-    input  wire [ 1:0] BE_A2_i,    BE_B2_i;
-    input  wire [13:0] ADDR_A2_i,  ADDR_B2_i;
-    input  wire [17:0] WDATA_A2_i, WDATA_B2_i;
-    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
-
-    input  wire FLUSH2_i;
-
-    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
-        .RESET_ni   (RESET_ni),   
-        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
-        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
-        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
-        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
-        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
-        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
-        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
-        .FLUSH1_i   (FLUSH1_i),
-        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
-        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
-        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
-        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
-        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
-        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
-        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
-        .FLUSH2_i   (FLUSH2_i)
-    );
-
-`ifdef SDF_SIM
-	specify
-		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
-    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
-    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
-    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
-	endspecify
-`endif
-
-endmodule
-
-module TDP36K_BRAM_WR_X1_RD_X36_nonsplit (
-    RESET_ni,
-    WEN_A1_i,   WEN_B1_i,
-    REN_A1_i,   REN_B1_i,
-    CLK_A1_i,   CLK_B1_i,
-    BE_A1_i,    BE_B1_i,
-    ADDR_A1_i,  ADDR_B1_i,
-    WDATA_A1_i, WDATA_B1_i,
-    RDATA_A1_o, RDATA_B1_o,
-    FLUSH1_i,
-    WEN_A2_i,   WEN_B2_i,
-    REN_A2_i,   REN_B2_i,
-    CLK_A2_i,   CLK_B2_i,
-    BE_A2_i,    BE_B2_i,
-    ADDR_A2_i,  ADDR_B2_i,
-    WDATA_A2_i, WDATA_B2_i,
-    RDATA_A2_o, RDATA_B2_o,
-    FLUSH2_i
-);
-    parameter [80:0] MODE_BITS = 81'd0;
-
-    input  wire RESET_ni;
-    input  wire WEN_A1_i, WEN_B1_i;
-    input  wire REN_A1_i, REN_B1_i;
-    input  wire WEN_A2_i, WEN_B2_i;
-    input  wire REN_A2_i, REN_B2_i;
-
-    (* clkbuf_sink *)
-    input  wire CLK_A1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_A2_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B2_i;
-
-    input  wire [ 1:0] BE_A1_i,    BE_B1_i;
-    input  wire [14:0] ADDR_A1_i,  ADDR_B1_i;
-    input  wire [17:0] WDATA_A1_i, WDATA_B1_i;
-    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
-
-    input  wire FLUSH1_i;
-
-    input  wire [ 1:0] BE_A2_i,    BE_B2_i;
-    input  wire [13:0] ADDR_A2_i,  ADDR_B2_i;
-    input  wire [17:0] WDATA_A2_i, WDATA_B2_i;
-    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
-
-    input  wire FLUSH2_i;
-
-    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
-        .RESET_ni   (RESET_ni),   
-        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
-        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
-        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
-        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
-        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
-        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
-        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
-        .FLUSH1_i   (FLUSH1_i),
-        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
-        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
-        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
-        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
-        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
-        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
-        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
-        .FLUSH2_i   (FLUSH2_i)
-    );
-
-`ifdef SDF_SIM
-	specify
-		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
-    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
-    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
-    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
-	endspecify
-`endif
-
-endmodule
-
-// ============================================================================
-// TDP36K write width 2 functional modes
-
-module TDP36K_BRAM_WR_X2_RD_X1_nonsplit (
-    RESET_ni,
-    WEN_A1_i,   WEN_B1_i,
-    REN_A1_i,   REN_B1_i,
-    CLK_A1_i,   CLK_B1_i,
-    BE_A1_i,    BE_B1_i,
-    ADDR_A1_i,  ADDR_B1_i,
-    WDATA_A1_i, WDATA_B1_i,
-    RDATA_A1_o, RDATA_B1_o,
-    FLUSH1_i,
-    WEN_A2_i,   WEN_B2_i,
-    REN_A2_i,   REN_B2_i,
-    CLK_A2_i,   CLK_B2_i,
-    BE_A2_i,    BE_B2_i,
-    ADDR_A2_i,  ADDR_B2_i,
-    WDATA_A2_i, WDATA_B2_i,
-    RDATA_A2_o, RDATA_B2_o,
-    FLUSH2_i
-);
-    parameter [80:0] MODE_BITS = 81'd0;
-
-    input  wire RESET_ni;
-    input  wire WEN_A1_i, WEN_B1_i;
-    input  wire REN_A1_i, REN_B1_i;
-    input  wire WEN_A2_i, WEN_B2_i;
-    input  wire REN_A2_i, REN_B2_i;
-
-    (* clkbuf_sink *)
-    input  wire CLK_A1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_A2_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B2_i;
-
-    input  wire [ 1:0] BE_A1_i,    BE_B1_i;
-    input  wire [14:0] ADDR_A1_i,  ADDR_B1_i;
-    input  wire [17:0] WDATA_A1_i, WDATA_B1_i;
-    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
-
-    input  wire FLUSH1_i;
-
-    input  wire [ 1:0] BE_A2_i,    BE_B2_i;
-    input  wire [13:0] ADDR_A2_i,  ADDR_B2_i;
-    input  wire [17:0] WDATA_A2_i, WDATA_B2_i;
-    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
-
-    input  wire FLUSH2_i;
-
-    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
-        .RESET_ni   (RESET_ni),   
-        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
-        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
-        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
-        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
-        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
-        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
-        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
-        .FLUSH1_i   (FLUSH1_i),
-        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
-        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
-        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
-        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
-        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
-        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
-        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
-        .FLUSH2_i   (FLUSH2_i)
-    );
-
-`ifdef SDF_SIM
-	specify
-		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
-    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
-    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
-    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
-	endspecify
-`endif
-
-endmodule
-
-module TDP36K_BRAM_WR_X2_RD_X2_nonsplit (
-    RESET_ni,
-    WEN_A1_i,   WEN_B1_i,
-    REN_A1_i,   REN_B1_i,
-    CLK_A1_i,   CLK_B1_i,
-    BE_A1_i,    BE_B1_i,
-    ADDR_A1_i,  ADDR_B1_i,
-    WDATA_A1_i, WDATA_B1_i,
-    RDATA_A1_o, RDATA_B1_o,
-    FLUSH1_i,
-    WEN_A2_i,   WEN_B2_i,
-    REN_A2_i,   REN_B2_i,
-    CLK_A2_i,   CLK_B2_i,
-    BE_A2_i,    BE_B2_i,
-    ADDR_A2_i,  ADDR_B2_i,
-    WDATA_A2_i, WDATA_B2_i,
-    RDATA_A2_o, RDATA_B2_o,
-    FLUSH2_i
-);
-    parameter [80:0] MODE_BITS = 81'd0;
-
-    input  wire RESET_ni;
-    input  wire WEN_A1_i, WEN_B1_i;
-    input  wire REN_A1_i, REN_B1_i;
-    input  wire WEN_A2_i, WEN_B2_i;
-    input  wire REN_A2_i, REN_B2_i;
-
-    (* clkbuf_sink *)
-    input  wire CLK_A1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_A2_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B2_i;
-
-    input  wire [ 1:0] BE_A1_i,    BE_B1_i;
-    input  wire [14:0] ADDR_A1_i,  ADDR_B1_i;
-    input  wire [17:0] WDATA_A1_i, WDATA_B1_i;
-    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
-
-    input  wire FLUSH1_i;
-
-    input  wire [ 1:0] BE_A2_i,    BE_B2_i;
-    input  wire [13:0] ADDR_A2_i,  ADDR_B2_i;
-    input  wire [17:0] WDATA_A2_i, WDATA_B2_i;
-    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
-
-    input  wire FLUSH2_i;
-
-    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
-        .RESET_ni   (RESET_ni),   
-        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
-        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
-        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
-        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
-        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
-        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
-        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
-        .FLUSH1_i   (FLUSH1_i),
-        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
-        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
-        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
-        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
-        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
-        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
-        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
-        .FLUSH2_i   (FLUSH2_i)
-    );
-
-`ifdef SDF_SIM
-	specify
-		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
-    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
-    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
-    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
-	endspecify
-`endif
-
-endmodule
-
-module TDP36K_BRAM_WR_X2_RD_X4_nonsplit (
-    RESET_ni,
-    WEN_A1_i,   WEN_B1_i,
-    REN_A1_i,   REN_B1_i,
-    CLK_A1_i,   CLK_B1_i,
-    BE_A1_i,    BE_B1_i,
-    ADDR_A1_i,  ADDR_B1_i,
-    WDATA_A1_i, WDATA_B1_i,
-    RDATA_A1_o, RDATA_B1_o,
-    FLUSH1_i,
-    WEN_A2_i,   WEN_B2_i,
-    REN_A2_i,   REN_B2_i,
-    CLK_A2_i,   CLK_B2_i,
-    BE_A2_i,    BE_B2_i,
-    ADDR_A2_i,  ADDR_B2_i,
-    WDATA_A2_i, WDATA_B2_i,
-    RDATA_A2_o, RDATA_B2_o,
-    FLUSH2_i
-);
-    parameter [80:0] MODE_BITS = 81'd0;
-
-    input  wire RESET_ni;
-    input  wire WEN_A1_i, WEN_B1_i;
-    input  wire REN_A1_i, REN_B1_i;
-    input  wire WEN_A2_i, WEN_B2_i;
-    input  wire REN_A2_i, REN_B2_i;
-
-    (* clkbuf_sink *)
-    input  wire CLK_A1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_A2_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B2_i;
-
-    input  wire [ 1:0] BE_A1_i,    BE_B1_i;
-    input  wire [14:0] ADDR_A1_i,  ADDR_B1_i;
-    input  wire [17:0] WDATA_A1_i, WDATA_B1_i;
-    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
-
-    input  wire FLUSH1_i;
-
-    input  wire [ 1:0] BE_A2_i,    BE_B2_i;
-    input  wire [13:0] ADDR_A2_i,  ADDR_B2_i;
-    input  wire [17:0] WDATA_A2_i, WDATA_B2_i;
-    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
-
-    input  wire FLUSH2_i;
-
-    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
-        .RESET_ni   (RESET_ni),   
-        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
-        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
-        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
-        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
-        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
-        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
-        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
-        .FLUSH1_i   (FLUSH1_i),
-        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
-        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
-        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
-        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
-        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
-        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
-        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
-        .FLUSH2_i   (FLUSH2_i)
-    );
-
-`ifdef SDF_SIM
-	specify
-		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
-    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
-    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
-    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
-	endspecify
-`endif
-
-endmodule
-
-module TDP36K_BRAM_WR_X2_RD_X9_nonsplit (
-    RESET_ni,
-    WEN_A1_i,   WEN_B1_i,
-    REN_A1_i,   REN_B1_i,
-    CLK_A1_i,   CLK_B1_i,
-    BE_A1_i,    BE_B1_i,
-    ADDR_A1_i,  ADDR_B1_i,
-    WDATA_A1_i, WDATA_B1_i,
-    RDATA_A1_o, RDATA_B1_o,
-    FLUSH1_i,
-    WEN_A2_i,   WEN_B2_i,
-    REN_A2_i,   REN_B2_i,
-    CLK_A2_i,   CLK_B2_i,
-    BE_A2_i,    BE_B2_i,
-    ADDR_A2_i,  ADDR_B2_i,
-    WDATA_A2_i, WDATA_B2_i,
-    RDATA_A2_o, RDATA_B2_o,
-    FLUSH2_i
-);
-    parameter [80:0] MODE_BITS = 81'd0;
-
-    input  wire RESET_ni;
-    input  wire WEN_A1_i, WEN_B1_i;
-    input  wire REN_A1_i, REN_B1_i;
-    input  wire WEN_A2_i, WEN_B2_i;
-    input  wire REN_A2_i, REN_B2_i;
-
-    (* clkbuf_sink *)
-    input  wire CLK_A1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_A2_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B2_i;
-
-    input  wire [ 1:0] BE_A1_i,    BE_B1_i;
-    input  wire [14:0] ADDR_A1_i,  ADDR_B1_i;
-    input  wire [17:0] WDATA_A1_i, WDATA_B1_i;
-    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
-
-    input  wire FLUSH1_i;
-
-    input  wire [ 1:0] BE_A2_i,    BE_B2_i;
-    input  wire [13:0] ADDR_A2_i,  ADDR_B2_i;
-    input  wire [17:0] WDATA_A2_i, WDATA_B2_i;
-    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
-
-    input  wire FLUSH2_i;
-
-    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
-        .RESET_ni   (RESET_ni),   
-        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
-        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
-        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
-        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
-        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
-        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
-        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
-        .FLUSH1_i   (FLUSH1_i),
-        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
-        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
-        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
-        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
-        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
-        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
-        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
-        .FLUSH2_i   (FLUSH2_i)
-    );
-
-`ifdef SDF_SIM
-	specify
-		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
-    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
-    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
-    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
-	endspecify
-`endif
-
-endmodule
-
-module TDP36K_BRAM_WR_X2_RD_X18_nonsplit (
-    RESET_ni,
-    WEN_A1_i,   WEN_B1_i,
-    REN_A1_i,   REN_B1_i,
-    CLK_A1_i,   CLK_B1_i,
-    BE_A1_i,    BE_B1_i,
-    ADDR_A1_i,  ADDR_B1_i,
-    WDATA_A1_i, WDATA_B1_i,
-    RDATA_A1_o, RDATA_B1_o,
-    FLUSH1_i,
-    WEN_A2_i,   WEN_B2_i,
-    REN_A2_i,   REN_B2_i,
-    CLK_A2_i,   CLK_B2_i,
-    BE_A2_i,    BE_B2_i,
-    ADDR_A2_i,  ADDR_B2_i,
-    WDATA_A2_i, WDATA_B2_i,
-    RDATA_A2_o, RDATA_B2_o,
-    FLUSH2_i
-);
-    parameter [80:0] MODE_BITS = 81'd0;
-
-    input  wire RESET_ni;
-    input  wire WEN_A1_i, WEN_B1_i;
-    input  wire REN_A1_i, REN_B1_i;
-    input  wire WEN_A2_i, WEN_B2_i;
-    input  wire REN_A2_i, REN_B2_i;
-
-    (* clkbuf_sink *)
-    input  wire CLK_A1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_A2_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B2_i;
-
-    input  wire [ 1:0] BE_A1_i,    BE_B1_i;
-    input  wire [14:0] ADDR_A1_i,  ADDR_B1_i;
-    input  wire [17:0] WDATA_A1_i, WDATA_B1_i;
-    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
-
-    input  wire FLUSH1_i;
-
-    input  wire [ 1:0] BE_A2_i,    BE_B2_i;
-    input  wire [13:0] ADDR_A2_i,  ADDR_B2_i;
-    input  wire [17:0] WDATA_A2_i, WDATA_B2_i;
-    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
-
-    input  wire FLUSH2_i;
-
-    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
-        .RESET_ni   (RESET_ni),   
-        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
-        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
-        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
-        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
-        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
-        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
-        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
-        .FLUSH1_i   (FLUSH1_i),
-        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
-        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
-        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
-        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
-        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
-        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
-        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
-        .FLUSH2_i   (FLUSH2_i)
-    );
-
-`ifdef SDF_SIM
-	specify  
-		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
-    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
-    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
-    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
-	endspecify
-`endif
-
-endmodule
-
-module TDP36K_BRAM_WR_X2_RD_X36_nonsplit (
-    RESET_ni,
-    WEN_A1_i,   WEN_B1_i,
-    REN_A1_i,   REN_B1_i,
-    CLK_A1_i,   CLK_B1_i,
-    BE_A1_i,    BE_B1_i,
-    ADDR_A1_i,  ADDR_B1_i,
-    WDATA_A1_i, WDATA_B1_i,
-    RDATA_A1_o, RDATA_B1_o,
-    FLUSH1_i,
-    WEN_A2_i,   WEN_B2_i,
-    REN_A2_i,   REN_B2_i,
-    CLK_A2_i,   CLK_B2_i,
-    BE_A2_i,    BE_B2_i,
-    ADDR_A2_i,  ADDR_B2_i,
-    WDATA_A2_i, WDATA_B2_i,
-    RDATA_A2_o, RDATA_B2_o,
-    FLUSH2_i
-);
-    parameter [80:0] MODE_BITS = 81'd0;
-
-    input  wire RESET_ni;
-    input  wire WEN_A1_i, WEN_B1_i;
-    input  wire REN_A1_i, REN_B1_i;
-    input  wire WEN_A2_i, WEN_B2_i;
-    input  wire REN_A2_i, REN_B2_i;
-
-    (* clkbuf_sink *)
-    input  wire CLK_A1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_A2_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B2_i;
-
-    input  wire [ 1:0] BE_A1_i,    BE_B1_i;
-    input  wire [14:0] ADDR_A1_i,  ADDR_B1_i;
-    input  wire [17:0] WDATA_A1_i, WDATA_B1_i;
-    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
-
-    input  wire FLUSH1_i;
-
-    input  wire [ 1:0] BE_A2_i,    BE_B2_i;
-    input  wire [13:0] ADDR_A2_i,  ADDR_B2_i;
-    input  wire [17:0] WDATA_A2_i, WDATA_B2_i;
-    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
-
-    input  wire FLUSH2_i;
-
-    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
-        .RESET_ni   (RESET_ni),   
-        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
-        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
-        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
-        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
-        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
-        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
-        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
-        .FLUSH1_i   (FLUSH1_i),
-        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
-        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
-        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
-        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
-        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
-        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
-        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
-        .FLUSH2_i   (FLUSH2_i)
-    );
-
-`ifdef SDF_SIM
-	specify
-		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
-    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
-    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
-    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
-	endspecify
-`endif
-
-endmodule
-
-// ============================================================================
-// TDP36K write width 4 functional modes
-
-module TDP36K_BRAM_WR_X4_RD_X1_nonsplit (
-    RESET_ni,
-    WEN_A1_i,   WEN_B1_i,
-    REN_A1_i,   REN_B1_i,
-    CLK_A1_i,   CLK_B1_i,
-    BE_A1_i,    BE_B1_i,
-    ADDR_A1_i,  ADDR_B1_i,
-    WDATA_A1_i, WDATA_B1_i,
-    RDATA_A1_o, RDATA_B1_o,
-    FLUSH1_i,
-    WEN_A2_i,   WEN_B2_i,
-    REN_A2_i,   REN_B2_i,
-    CLK_A2_i,   CLK_B2_i,
-    BE_A2_i,    BE_B2_i,
-    ADDR_A2_i,  ADDR_B2_i,
-    WDATA_A2_i, WDATA_B2_i,
-    RDATA_A2_o, RDATA_B2_o,
-    FLUSH2_i
-);
-    parameter [80:0] MODE_BITS = 81'd0;
-
-    input  wire RESET_ni;
-    input  wire WEN_A1_i, WEN_B1_i;
-    input  wire REN_A1_i, REN_B1_i;
-    input  wire WEN_A2_i, WEN_B2_i;
-    input  wire REN_A2_i, REN_B2_i;
-
-    (* clkbuf_sink *)
-    input  wire CLK_A1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_A2_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B2_i;
-
-    input  wire [ 1:0] BE_A1_i,    BE_B1_i;
-    input  wire [14:0] ADDR_A1_i,  ADDR_B1_i;
-    input  wire [17:0] WDATA_A1_i, WDATA_B1_i;
-    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
-
-    input  wire FLUSH1_i;
-
-    input  wire [ 1:0] BE_A2_i,    BE_B2_i;
-    input  wire [13:0] ADDR_A2_i,  ADDR_B2_i;
-    input  wire [17:0] WDATA_A2_i, WDATA_B2_i;
-    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
-
-    input  wire FLUSH2_i;
-
-    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
-        .RESET_ni   (RESET_ni),   
-        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
-        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
-        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
-        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
-        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
-        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
-        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
-        .FLUSH1_i   (FLUSH1_i),
-        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
-        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
-        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
-        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
-        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
-        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
-        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
-        .FLUSH2_i   (FLUSH2_i)
-    );
-
-`ifdef SDF_SIM
-	specify
-		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
-    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
-    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
-    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
-	endspecify
-`endif
-
-endmodule
-
-module TDP36K_BRAM_WR_X4_RD_X2_nonsplit (
-    RESET_ni,
-    WEN_A1_i,   WEN_B1_i,
-    REN_A1_i,   REN_B1_i,
-    CLK_A1_i,   CLK_B1_i,
-    BE_A1_i,    BE_B1_i,
-    ADDR_A1_i,  ADDR_B1_i,
-    WDATA_A1_i, WDATA_B1_i,
-    RDATA_A1_o, RDATA_B1_o,
-    FLUSH1_i,
-    WEN_A2_i,   WEN_B2_i,
-    REN_A2_i,   REN_B2_i,
-    CLK_A2_i,   CLK_B2_i,
-    BE_A2_i,    BE_B2_i,
-    ADDR_A2_i,  ADDR_B2_i,
-    WDATA_A2_i, WDATA_B2_i,
-    RDATA_A2_o, RDATA_B2_o,
-    FLUSH2_i
-);
-    parameter [80:0] MODE_BITS = 81'd0;
-
-    input  wire RESET_ni;
-    input  wire WEN_A1_i, WEN_B1_i;
-    input  wire REN_A1_i, REN_B1_i;
-    input  wire WEN_A2_i, WEN_B2_i;
-    input  wire REN_A2_i, REN_B2_i;
-
-    (* clkbuf_sink *)
-    input  wire CLK_A1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_A2_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B2_i;
-
-    input  wire [ 1:0] BE_A1_i,    BE_B1_i;
-    input  wire [14:0] ADDR_A1_i,  ADDR_B1_i;
-    input  wire [17:0] WDATA_A1_i, WDATA_B1_i;
-    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
-
-    input  wire FLUSH1_i;
-
-    input  wire [ 1:0] BE_A2_i,    BE_B2_i;
-    input  wire [13:0] ADDR_A2_i,  ADDR_B2_i;
-    input  wire [17:0] WDATA_A2_i, WDATA_B2_i;
-    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
-
-    input  wire FLUSH2_i;
-
-    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
-        .RESET_ni   (RESET_ni),   
-        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
-        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
-        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
-        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
-        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
-        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
-        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
-        .FLUSH1_i   (FLUSH1_i),
-        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
-        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
-        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
-        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
-        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
-        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
-        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
-        .FLUSH2_i   (FLUSH2_i)
-    );
-
-`ifdef SDF_SIM
-	specify
-		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
-    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
-    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
-    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
-	endspecify
-`endif
-
-endmodule
-
-module TDP36K_BRAM_WR_X4_RD_X4_nonsplit (
-    RESET_ni,
-    WEN_A1_i,   WEN_B1_i,
-    REN_A1_i,   REN_B1_i,
-    CLK_A1_i,   CLK_B1_i,
-    BE_A1_i,    BE_B1_i,
-    ADDR_A1_i,  ADDR_B1_i,
-    WDATA_A1_i, WDATA_B1_i,
-    RDATA_A1_o, RDATA_B1_o,
-    FLUSH1_i,
-    WEN_A2_i,   WEN_B2_i,
-    REN_A2_i,   REN_B2_i,
-    CLK_A2_i,   CLK_B2_i,
-    BE_A2_i,    BE_B2_i,
-    ADDR_A2_i,  ADDR_B2_i,
-    WDATA_A2_i, WDATA_B2_i,
-    RDATA_A2_o, RDATA_B2_o,
-    FLUSH2_i
-);
-    parameter [80:0] MODE_BITS = 81'd0;
-
-    input  wire RESET_ni;
-    input  wire WEN_A1_i, WEN_B1_i;
-    input  wire REN_A1_i, REN_B1_i;
-    input  wire WEN_A2_i, WEN_B2_i;
-    input  wire REN_A2_i, REN_B2_i;
-
-    (* clkbuf_sink *)
-    input  wire CLK_A1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_A2_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B2_i;
-
-    input  wire [ 1:0] BE_A1_i,    BE_B1_i;
-    input  wire [14:0] ADDR_A1_i,  ADDR_B1_i;
-    input  wire [17:0] WDATA_A1_i, WDATA_B1_i;
-    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
-
-    input  wire FLUSH1_i;
-
-    input  wire [ 1:0] BE_A2_i,    BE_B2_i;
-    input  wire [13:0] ADDR_A2_i,  ADDR_B2_i;
-    input  wire [17:0] WDATA_A2_i, WDATA_B2_i;
-    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
-
-    input  wire FLUSH2_i;
-
-    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
-        .RESET_ni   (RESET_ni),   
-        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
-        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
-        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
-        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
-        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
-        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
-        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
-        .FLUSH1_i   (FLUSH1_i),
-        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
-        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
-        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
-        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
-        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
-        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
-        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
-        .FLUSH2_i   (FLUSH2_i)
-    );
-
-`ifdef SDF_SIM
-	specify
-		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
-    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
-    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
-    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
-	endspecify
-`endif
-
-endmodule
-
-module TDP36K_BRAM_WR_X4_RD_X9_nonsplit (
-    RESET_ni,
-    WEN_A1_i,   WEN_B1_i,
-    REN_A1_i,   REN_B1_i,
-    CLK_A1_i,   CLK_B1_i,
-    BE_A1_i,    BE_B1_i,
-    ADDR_A1_i,  ADDR_B1_i,
-    WDATA_A1_i, WDATA_B1_i,
-    RDATA_A1_o, RDATA_B1_o,
-    FLUSH1_i,
-    WEN_A2_i,   WEN_B2_i,
-    REN_A2_i,   REN_B2_i,
-    CLK_A2_i,   CLK_B2_i,
-    BE_A2_i,    BE_B2_i,
-    ADDR_A2_i,  ADDR_B2_i,
-    WDATA_A2_i, WDATA_B2_i,
-    RDATA_A2_o, RDATA_B2_o,
-    FLUSH2_i
-);
-    parameter [80:0] MODE_BITS = 81'd0;
-
-    input  wire RESET_ni;
-    input  wire WEN_A1_i, WEN_B1_i;
-    input  wire REN_A1_i, REN_B1_i;
-    input  wire WEN_A2_i, WEN_B2_i;
-    input  wire REN_A2_i, REN_B2_i;
-
-    (* clkbuf_sink *)
-    input  wire CLK_A1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_A2_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B2_i;
-
-    input  wire [ 1:0] BE_A1_i,    BE_B1_i;
-    input  wire [14:0] ADDR_A1_i,  ADDR_B1_i;
-    input  wire [17:0] WDATA_A1_i, WDATA_B1_i;
-    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
-
-    input  wire FLUSH1_i;
-
-    input  wire [ 1:0] BE_A2_i,    BE_B2_i;
-    input  wire [13:0] ADDR_A2_i,  ADDR_B2_i;
-    input  wire [17:0] WDATA_A2_i, WDATA_B2_i;
-    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
-
-    input  wire FLUSH2_i;
-
-    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
-        .RESET_ni   (RESET_ni),   
-        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
-        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
-        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
-        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
-        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
-        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
-        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
-        .FLUSH1_i   (FLUSH1_i),
-        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
-        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
-        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
-        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
-        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
-        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
-        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
-        .FLUSH2_i   (FLUSH2_i)
-    );
-
-`ifdef SDF_SIM
-	specify
-		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
-    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
-    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
-    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
-	endspecify
-`endif
-
-endmodule
-
-module TDP36K_BRAM_WR_X4_RD_X18_nonsplit (
-    RESET_ni,
-    WEN_A1_i,   WEN_B1_i,
-    REN_A1_i,   REN_B1_i,
-    CLK_A1_i,   CLK_B1_i,
-    BE_A1_i,    BE_B1_i,
-    ADDR_A1_i,  ADDR_B1_i,
-    WDATA_A1_i, WDATA_B1_i,
-    RDATA_A1_o, RDATA_B1_o,
-    FLUSH1_i,
-    WEN_A2_i,   WEN_B2_i,
-    REN_A2_i,   REN_B2_i,
-    CLK_A2_i,   CLK_B2_i,
-    BE_A2_i,    BE_B2_i,
-    ADDR_A2_i,  ADDR_B2_i,
-    WDATA_A2_i, WDATA_B2_i,
-    RDATA_A2_o, RDATA_B2_o,
-    FLUSH2_i
-);
-    parameter [80:0] MODE_BITS = 81'd0;
-
-    input  wire RESET_ni;
-    input  wire WEN_A1_i, WEN_B1_i;
-    input  wire REN_A1_i, REN_B1_i;
-    input  wire WEN_A2_i, WEN_B2_i;
-    input  wire REN_A2_i, REN_B2_i;
-
-    (* clkbuf_sink *)
-    input  wire CLK_A1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_A2_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B2_i;
-
-    input  wire [ 1:0] BE_A1_i,    BE_B1_i;
-    input  wire [14:0] ADDR_A1_i,  ADDR_B1_i;
-    input  wire [17:0] WDATA_A1_i, WDATA_B1_i;
-    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
-
-    input  wire FLUSH1_i;
-
-    input  wire [ 1:0] BE_A2_i,    BE_B2_i;
-    input  wire [13:0] ADDR_A2_i,  ADDR_B2_i;
-    input  wire [17:0] WDATA_A2_i, WDATA_B2_i;
-    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
-
-    input  wire FLUSH2_i;
-
-    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
-        .RESET_ni   (RESET_ni),   
-        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
-        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
-        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
-        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
-        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
-        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
-        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
-        .FLUSH1_i   (FLUSH1_i),
-        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
-        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
-        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
-        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
-        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
-        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
-        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
-        .FLUSH2_i   (FLUSH2_i)
-    );
-
-`ifdef SDF_SIM
-	specify
-		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
-    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
-    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
-    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
-	endspecify
-`endif
-
-endmodule
-
-module TDP36K_BRAM_WR_X4_RD_X36_nonsplit (
-    RESET_ni,
-    WEN_A1_i,   WEN_B1_i,
-    REN_A1_i,   REN_B1_i,
-    CLK_A1_i,   CLK_B1_i,
-    BE_A1_i,    BE_B1_i,
-    ADDR_A1_i,  ADDR_B1_i,
-    WDATA_A1_i, WDATA_B1_i,
-    RDATA_A1_o, RDATA_B1_o,
-    FLUSH1_i,
-    WEN_A2_i,   WEN_B2_i,
-    REN_A2_i,   REN_B2_i,
-    CLK_A2_i,   CLK_B2_i,
-    BE_A2_i,    BE_B2_i,
-    ADDR_A2_i,  ADDR_B2_i,
-    WDATA_A2_i, WDATA_B2_i,
-    RDATA_A2_o, RDATA_B2_o,
-    FLUSH2_i
-);
-    parameter [80:0] MODE_BITS = 81'd0;
-
-    input  wire RESET_ni;
-    input  wire WEN_A1_i, WEN_B1_i;
-    input  wire REN_A1_i, REN_B1_i;
-    input  wire WEN_A2_i, WEN_B2_i;
-    input  wire REN_A2_i, REN_B2_i;
-
-    (* clkbuf_sink *)
-    input  wire CLK_A1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_A2_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B2_i;
-
-    input  wire [ 1:0] BE_A1_i,    BE_B1_i;
-    input  wire [14:0] ADDR_A1_i,  ADDR_B1_i;
-    input  wire [17:0] WDATA_A1_i, WDATA_B1_i;
-    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
-
-    input  wire FLUSH1_i;
-
-    input  wire [ 1:0] BE_A2_i,    BE_B2_i;
-    input  wire [13:0] ADDR_A2_i,  ADDR_B2_i;
-    input  wire [17:0] WDATA_A2_i, WDATA_B2_i;
-    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
-
-    input  wire FLUSH2_i;
-
-    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
-        .RESET_ni   (RESET_ni),   
-        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
-        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
-        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
-        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
-        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
-        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
-        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
-        .FLUSH1_i   (FLUSH1_i),
-        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
-        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
-        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
-        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
-        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
-        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
-        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
-        .FLUSH2_i   (FLUSH2_i)
-    );
-
-`ifdef SDF_SIM
-	specify
-		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
-    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
-    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
-    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
-	endspecify
-`endif
-
-endmodule
-
-// ============================================================================
-// TDP36K write width 9 functional modes
-
-module TDP36K_BRAM_WR_X9_RD_X1_nonsplit (
-    RESET_ni,
-    WEN_A1_i,   WEN_B1_i,
-    REN_A1_i,   REN_B1_i,
-    CLK_A1_i,   CLK_B1_i,
-    BE_A1_i,    BE_B1_i,
-    ADDR_A1_i,  ADDR_B1_i,
-    WDATA_A1_i, WDATA_B1_i,
-    RDATA_A1_o, RDATA_B1_o,
-    FLUSH1_i,
-    WEN_A2_i,   WEN_B2_i,
-    REN_A2_i,   REN_B2_i,
-    CLK_A2_i,   CLK_B2_i,
-    BE_A2_i,    BE_B2_i,
-    ADDR_A2_i,  ADDR_B2_i,
-    WDATA_A2_i, WDATA_B2_i,
-    RDATA_A2_o, RDATA_B2_o,
-    FLUSH2_i
-);
-    parameter [80:0] MODE_BITS = 81'd0;
-
-    input  wire RESET_ni;
-    input  wire WEN_A1_i, WEN_B1_i;
-    input  wire REN_A1_i, REN_B1_i;
-    input  wire WEN_A2_i, WEN_B2_i;
-    input  wire REN_A2_i, REN_B2_i;
-
-    (* clkbuf_sink *)
-    input  wire CLK_A1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_A2_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B2_i;
-
-    input  wire [ 1:0] BE_A1_i,    BE_B1_i;
-    input  wire [14:0] ADDR_A1_i,  ADDR_B1_i;
-    input  wire [17:0] WDATA_A1_i, WDATA_B1_i;
-    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
-
-    input  wire FLUSH1_i;
-
-    input  wire [ 1:0] BE_A2_i,    BE_B2_i;
-    input  wire [13:0] ADDR_A2_i,  ADDR_B2_i;
-    input  wire [17:0] WDATA_A2_i, WDATA_B2_i;
-    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
-
-    input  wire FLUSH2_i;
-
-    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
-        .RESET_ni   (RESET_ni),   
-        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
-        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
-        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
-        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
-        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
-        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
-        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
-        .FLUSH1_i   (FLUSH1_i),
-        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
-        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
-        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
-        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
-        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
-        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
-        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
-        .FLUSH2_i   (FLUSH2_i)
-    );
-
-`ifdef SDF_SIM
-	specify
-		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
-    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
-    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
-    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
-	endspecify
-`endif
-
-endmodule
-
-module TDP36K_BRAM_WR_X9_RD_X2_nonsplit (
-    RESET_ni,
-    WEN_A1_i,   WEN_B1_i,
-    REN_A1_i,   REN_B1_i,
-    CLK_A1_i,   CLK_B1_i,
-    BE_A1_i,    BE_B1_i,
-    ADDR_A1_i,  ADDR_B1_i,
-    WDATA_A1_i, WDATA_B1_i,
-    RDATA_A1_o, RDATA_B1_o,
-    FLUSH1_i,
-    WEN_A2_i,   WEN_B2_i,
-    REN_A2_i,   REN_B2_i,
-    CLK_A2_i,   CLK_B2_i,
-    BE_A2_i,    BE_B2_i,
-    ADDR_A2_i,  ADDR_B2_i,
-    WDATA_A2_i, WDATA_B2_i,
-    RDATA_A2_o, RDATA_B2_o,
-    FLUSH2_i
-);
-    parameter [80:0] MODE_BITS = 81'd0;
-
-    input  wire RESET_ni;
-    input  wire WEN_A1_i, WEN_B1_i;
-    input  wire REN_A1_i, REN_B1_i;
-    input  wire WEN_A2_i, WEN_B2_i;
-    input  wire REN_A2_i, REN_B2_i;
-
-    (* clkbuf_sink *)
-    input  wire CLK_A1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_A2_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B2_i;
-
-    input  wire [ 1:0] BE_A1_i,    BE_B1_i;
-    input  wire [14:0] ADDR_A1_i,  ADDR_B1_i;
-    input  wire [17:0] WDATA_A1_i, WDATA_B1_i;
-    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
-
-    input  wire FLUSH1_i;
-
-    input  wire [ 1:0] BE_A2_i,    BE_B2_i;
-    input  wire [13:0] ADDR_A2_i,  ADDR_B2_i;
-    input  wire [17:0] WDATA_A2_i, WDATA_B2_i;
-    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
-
-    input  wire FLUSH2_i;
-
-    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
-        .RESET_ni   (RESET_ni),   
-        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
-        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
-        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
-        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
-        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
-        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
-        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
-        .FLUSH1_i   (FLUSH1_i),
-        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
-        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
-        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
-        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
-        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
-        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
-        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
-        .FLUSH2_i   (FLUSH2_i)
-    );
-
-`ifdef SDF_SIM
-	specify
-		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
-    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
-    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
-    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
-	endspecify
-`endif
-
-endmodule
-
-module TDP36K_BRAM_WR_X9_RD_X4_nonsplit (
-    RESET_ni,
-    WEN_A1_i,   WEN_B1_i,
-    REN_A1_i,   REN_B1_i,
-    CLK_A1_i,   CLK_B1_i,
-    BE_A1_i,    BE_B1_i,
-    ADDR_A1_i,  ADDR_B1_i,
-    WDATA_A1_i, WDATA_B1_i,
-    RDATA_A1_o, RDATA_B1_o,
-    FLUSH1_i,
-    WEN_A2_i,   WEN_B2_i,
-    REN_A2_i,   REN_B2_i,
-    CLK_A2_i,   CLK_B2_i,
-    BE_A2_i,    BE_B2_i,
-    ADDR_A2_i,  ADDR_B2_i,
-    WDATA_A2_i, WDATA_B2_i,
-    RDATA_A2_o, RDATA_B2_o,
-    FLUSH2_i
-);
-    parameter [80:0] MODE_BITS = 81'd0;
-
-    input  wire RESET_ni;
-    input  wire WEN_A1_i, WEN_B1_i;
-    input  wire REN_A1_i, REN_B1_i;
-    input  wire WEN_A2_i, WEN_B2_i;
-    input  wire REN_A2_i, REN_B2_i;
-
-    (* clkbuf_sink *)
-    input  wire CLK_A1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_A2_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B2_i;
-
-    input  wire [ 1:0] BE_A1_i,    BE_B1_i;
-    input  wire [14:0] ADDR_A1_i,  ADDR_B1_i;
-    input  wire [17:0] WDATA_A1_i, WDATA_B1_i;
-    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
-
-    input  wire FLUSH1_i;
-
-    input  wire [ 1:0] BE_A2_i,    BE_B2_i;
-    input  wire [13:0] ADDR_A2_i,  ADDR_B2_i;
-    input  wire [17:0] WDATA_A2_i, WDATA_B2_i;
-    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
-
-    input  wire FLUSH2_i;
-
-    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
-        .RESET_ni   (RESET_ni),   
-        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
-        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
-        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
-        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
-        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
-        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
-        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
-        .FLUSH1_i   (FLUSH1_i),
-        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
-        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
-        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
-        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
-        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
-        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
-        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
-        .FLUSH2_i   (FLUSH2_i)
-    );
-
-`ifdef SDF_SIM
-	specify
-		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
-    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
-    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
-    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
-	endspecify
-`endif
-
-endmodule
-
-module TDP36K_BRAM_WR_X9_RD_X9_nonsplit (
-    RESET_ni,
-    WEN_A1_i,   WEN_B1_i,
-    REN_A1_i,   REN_B1_i,
-    CLK_A1_i,   CLK_B1_i,
-    BE_A1_i,    BE_B1_i,
-    ADDR_A1_i,  ADDR_B1_i,
-    WDATA_A1_i, WDATA_B1_i,
-    RDATA_A1_o, RDATA_B1_o,
-    FLUSH1_i,
-    WEN_A2_i,   WEN_B2_i,
-    REN_A2_i,   REN_B2_i,
-    CLK_A2_i,   CLK_B2_i,
-    BE_A2_i,    BE_B2_i,
-    ADDR_A2_i,  ADDR_B2_i,
-    WDATA_A2_i, WDATA_B2_i,
-    RDATA_A2_o, RDATA_B2_o,
-    FLUSH2_i
-);
-    parameter [80:0] MODE_BITS = 81'd0;
-
-    input  wire RESET_ni;
-    input  wire WEN_A1_i, WEN_B1_i;
-    input  wire REN_A1_i, REN_B1_i;
-    input  wire WEN_A2_i, WEN_B2_i;
-    input  wire REN_A2_i, REN_B2_i;
-
-    (* clkbuf_sink *)
-    input  wire CLK_A1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_A2_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B2_i;
-
-    input  wire [ 1:0] BE_A1_i,    BE_B1_i;
-    input  wire [14:0] ADDR_A1_i,  ADDR_B1_i;
-    input  wire [17:0] WDATA_A1_i, WDATA_B1_i;
-    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
-
-    input  wire FLUSH1_i;
-
-    input  wire [ 1:0] BE_A2_i,    BE_B2_i;
-    input  wire [13:0] ADDR_A2_i,  ADDR_B2_i;
-    input  wire [17:0] WDATA_A2_i, WDATA_B2_i;
-    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
-
-    input  wire FLUSH2_i;
-
-    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
-        .RESET_ni   (RESET_ni),   
-        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
-        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
-        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
-        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
-        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
-        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
-        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
-        .FLUSH1_i   (FLUSH1_i),
-        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
-        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
-        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
-        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
-        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
-        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
-        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
-        .FLUSH2_i   (FLUSH2_i)
-    );
-
-`ifdef SDF_SIM
-	specify
-		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
-    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
-    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
-    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
-	endspecify
-`endif
-
-endmodule
-
-module TDP36K_BRAM_WR_X9_RD_X18_nonsplit (
-    RESET_ni,
-    WEN_A1_i,   WEN_B1_i,
-    REN_A1_i,   REN_B1_i,
-    CLK_A1_i,   CLK_B1_i,
-    BE_A1_i,    BE_B1_i,
-    ADDR_A1_i,  ADDR_B1_i,
-    WDATA_A1_i, WDATA_B1_i,
-    RDATA_A1_o, RDATA_B1_o,
-    FLUSH1_i,
-    WEN_A2_i,   WEN_B2_i,
-    REN_A2_i,   REN_B2_i,
-    CLK_A2_i,   CLK_B2_i,
-    BE_A2_i,    BE_B2_i,
-    ADDR_A2_i,  ADDR_B2_i,
-    WDATA_A2_i, WDATA_B2_i,
-    RDATA_A2_o, RDATA_B2_o,
-    FLUSH2_i
-);
-    parameter [80:0] MODE_BITS = 81'd0;
-
-    input  wire RESET_ni;
-    input  wire WEN_A1_i, WEN_B1_i;
-    input  wire REN_A1_i, REN_B1_i;
-    input  wire WEN_A2_i, WEN_B2_i;
-    input  wire REN_A2_i, REN_B2_i;
-
-    (* clkbuf_sink *)
-    input  wire CLK_A1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_A2_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B2_i;
-
-    input  wire [ 1:0] BE_A1_i,    BE_B1_i;
-    input  wire [14:0] ADDR_A1_i,  ADDR_B1_i;
-    input  wire [17:0] WDATA_A1_i, WDATA_B1_i;
-    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
-
-    input  wire FLUSH1_i;
-
-    input  wire [ 1:0] BE_A2_i,    BE_B2_i;
-    input  wire [13:0] ADDR_A2_i,  ADDR_B2_i;
-    input  wire [17:0] WDATA_A2_i, WDATA_B2_i;
-    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
-
-    input  wire FLUSH2_i;
-
-    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
-        .RESET_ni   (RESET_ni),   
-        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
-        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
-        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
-        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
-        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
-        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
-        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
-        .FLUSH1_i   (FLUSH1_i),
-        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
-        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
-        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
-        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
-        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
-        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
-        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
-        .FLUSH2_i   (FLUSH2_i)
-    );
-
-`ifdef SDF_SIM
-	specify
-		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
-    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
-    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
-    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
-	endspecify
-`endif
-
-endmodule
-
-module TDP36K_BRAM_WR_X9_RD_X36_nonsplit (
-    RESET_ni,
-    WEN_A1_i,   WEN_B1_i,
-    REN_A1_i,   REN_B1_i,
-    CLK_A1_i,   CLK_B1_i,
-    BE_A1_i,    BE_B1_i,
-    ADDR_A1_i,  ADDR_B1_i,
-    WDATA_A1_i, WDATA_B1_i,
-    RDATA_A1_o, RDATA_B1_o,
-    FLUSH1_i,
-    WEN_A2_i,   WEN_B2_i,
-    REN_A2_i,   REN_B2_i,
-    CLK_A2_i,   CLK_B2_i,
-    BE_A2_i,    BE_B2_i,
-    ADDR_A2_i,  ADDR_B2_i,
-    WDATA_A2_i, WDATA_B2_i,
-    RDATA_A2_o, RDATA_B2_o,
-    FLUSH2_i
-);
-    parameter [80:0] MODE_BITS = 81'd0;
-
-    input  wire RESET_ni;
-    input  wire WEN_A1_i, WEN_B1_i;
-    input  wire REN_A1_i, REN_B1_i;
-    input  wire WEN_A2_i, WEN_B2_i;
-    input  wire REN_A2_i, REN_B2_i;
-
-    (* clkbuf_sink *)
-    input  wire CLK_A1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_A2_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B2_i;
-
-    input  wire [ 1:0] BE_A1_i,    BE_B1_i;
-    input  wire [14:0] ADDR_A1_i,  ADDR_B1_i;
-    input  wire [17:0] WDATA_A1_i, WDATA_B1_i;
-    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
-
-    input  wire FLUSH1_i;
-
-    input  wire [ 1:0] BE_A2_i,    BE_B2_i;
-    input  wire [13:0] ADDR_A2_i,  ADDR_B2_i;
-    input  wire [17:0] WDATA_A2_i, WDATA_B2_i;
-    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
-
-    input  wire FLUSH2_i;
-
-    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
-        .RESET_ni   (RESET_ni),   
-        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
-        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
-        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
-        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
-        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
-        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
-        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
-        .FLUSH1_i   (FLUSH1_i),
-        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
-        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
-        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
-        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
-        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
-        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
-        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
-        .FLUSH2_i   (FLUSH2_i)
-    );
-
-`ifdef SDF_SIM
-	specify
-		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
-    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
-    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
-    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
-	endspecify
-`endif
-
-endmodule
-
-// ============================================================================
-// TDP36K write width 18 functional modes
-
-module TDP36K_BRAM_WR_X18_RD_X1_nonsplit (
-    RESET_ni,
-    WEN_A1_i,   WEN_B1_i,
-    REN_A1_i,   REN_B1_i,
-    CLK_A1_i,   CLK_B1_i,
-    BE_A1_i,    BE_B1_i,
-    ADDR_A1_i,  ADDR_B1_i,
-    WDATA_A1_i, WDATA_B1_i,
-    RDATA_A1_o, RDATA_B1_o,
-    FLUSH1_i,
-    WEN_A2_i,   WEN_B2_i,
-    REN_A2_i,   REN_B2_i,
-    CLK_A2_i,   CLK_B2_i,
-    BE_A2_i,    BE_B2_i,
-    ADDR_A2_i,  ADDR_B2_i,
-    WDATA_A2_i, WDATA_B2_i,
-    RDATA_A2_o, RDATA_B2_o,
-    FLUSH2_i
-);
-    parameter [80:0] MODE_BITS = 81'd0;
-
-    input  wire RESET_ni;
-    input  wire WEN_A1_i, WEN_B1_i;
-    input  wire REN_A1_i, REN_B1_i;
-    input  wire WEN_A2_i, WEN_B2_i;
-    input  wire REN_A2_i, REN_B2_i;
-
-    (* clkbuf_sink *)
-    input  wire CLK_A1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_A2_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B2_i;
-
-    input  wire [ 1:0] BE_A1_i,    BE_B1_i;
-    input  wire [14:0] ADDR_A1_i,  ADDR_B1_i;
-    input  wire [17:0] WDATA_A1_i, WDATA_B1_i;
-    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
-
-    input  wire FLUSH1_i;
-
-    input  wire [ 1:0] BE_A2_i,    BE_B2_i;
-    input  wire [13:0] ADDR_A2_i,  ADDR_B2_i;
-    input  wire [17:0] WDATA_A2_i, WDATA_B2_i;
-    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
-
-    input  wire FLUSH2_i;
-
-    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
-        .RESET_ni   (RESET_ni),   
-        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
-        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
-        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
-        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
-        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
-        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
-        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
-        .FLUSH1_i   (FLUSH1_i),
-        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
-        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
-        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
-        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
-        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
-        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
-        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
-        .FLUSH2_i   (FLUSH2_i)
-    );
-
-`ifdef SDF_SIM
-	specify
-		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
-    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
-    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
-    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
-	endspecify
-`endif
-
-endmodule
-
-module TDP36K_BRAM_WR_X18_RD_X2_nonsplit (
-    RESET_ni,
-    WEN_A1_i,   WEN_B1_i,
-    REN_A1_i,   REN_B1_i,
-    CLK_A1_i,   CLK_B1_i,
-    BE_A1_i,    BE_B1_i,
-    ADDR_A1_i,  ADDR_B1_i,
-    WDATA_A1_i, WDATA_B1_i,
-    RDATA_A1_o, RDATA_B1_o,
-    FLUSH1_i,
-    WEN_A2_i,   WEN_B2_i,
-    REN_A2_i,   REN_B2_i,
-    CLK_A2_i,   CLK_B2_i,
-    BE_A2_i,    BE_B2_i,
-    ADDR_A2_i,  ADDR_B2_i,
-    WDATA_A2_i, WDATA_B2_i,
-    RDATA_A2_o, RDATA_B2_o,
-    FLUSH2_i
-);
-    parameter [80:0] MODE_BITS = 81'd0;
-
-    input  wire RESET_ni;
-    input  wire WEN_A1_i, WEN_B1_i;
-    input  wire REN_A1_i, REN_B1_i;
-    input  wire WEN_A2_i, WEN_B2_i;
-    input  wire REN_A2_i, REN_B2_i;
-
-    (* clkbuf_sink *)
-    input  wire CLK_A1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_A2_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B2_i;
-
-    input  wire [ 1:0] BE_A1_i,    BE_B1_i;
-    input  wire [14:0] ADDR_A1_i,  ADDR_B1_i;
-    input  wire [17:0] WDATA_A1_i, WDATA_B1_i;
-    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
-
-    input  wire FLUSH1_i;
-
-    input  wire [ 1:0] BE_A2_i,    BE_B2_i;
-    input  wire [13:0] ADDR_A2_i,  ADDR_B2_i;
-    input  wire [17:0] WDATA_A2_i, WDATA_B2_i;
-    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
-
-    input  wire FLUSH2_i;
-
-    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
-        .RESET_ni   (RESET_ni),   
-        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
-        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
-        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
-        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
-        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
-        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
-        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
-        .FLUSH1_i   (FLUSH1_i),
-        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
-        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
-        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
-        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
-        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
-        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
-        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
-        .FLUSH2_i   (FLUSH2_i)
-    );
-
-`ifdef SDF_SIM
-	specify
-		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
-    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
-    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
-    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
-	endspecify
-`endif
-
-endmodule
-
-module TDP36K_BRAM_WR_X18_RD_X4_nonsplit (
-    RESET_ni,
-    WEN_A1_i,   WEN_B1_i,
-    REN_A1_i,   REN_B1_i,
-    CLK_A1_i,   CLK_B1_i,
-    BE_A1_i,    BE_B1_i,
-    ADDR_A1_i,  ADDR_B1_i,
-    WDATA_A1_i, WDATA_B1_i,
-    RDATA_A1_o, RDATA_B1_o,
-    FLUSH1_i,
-    WEN_A2_i,   WEN_B2_i,
-    REN_A2_i,   REN_B2_i,
-    CLK_A2_i,   CLK_B2_i,
-    BE_A2_i,    BE_B2_i,
-    ADDR_A2_i,  ADDR_B2_i,
-    WDATA_A2_i, WDATA_B2_i,
-    RDATA_A2_o, RDATA_B2_o,
-    FLUSH2_i
-);
-    parameter [80:0] MODE_BITS = 81'd0;
-
-    input  wire RESET_ni;
-    input  wire WEN_A1_i, WEN_B1_i;
-    input  wire REN_A1_i, REN_B1_i;
-    input  wire WEN_A2_i, WEN_B2_i;
-    input  wire REN_A2_i, REN_B2_i;
-
-    (* clkbuf_sink *)
-    input  wire CLK_A1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_A2_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B2_i;
-
-    input  wire [ 1:0] BE_A1_i,    BE_B1_i;
-    input  wire [14:0] ADDR_A1_i,  ADDR_B1_i;
-    input  wire [17:0] WDATA_A1_i, WDATA_B1_i;
-    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
-
-    input  wire FLUSH1_i;
-
-    input  wire [ 1:0] BE_A2_i,    BE_B2_i;
-    input  wire [13:0] ADDR_A2_i,  ADDR_B2_i;
-    input  wire [17:0] WDATA_A2_i, WDATA_B2_i;
-    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
-
-    input  wire FLUSH2_i;
-
-    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
-        .RESET_ni   (RESET_ni),   
-        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
-        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
-        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
-        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
-        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
-        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
-        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
-        .FLUSH1_i   (FLUSH1_i),
-        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
-        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
-        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
-        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
-        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
-        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
-        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
-        .FLUSH2_i   (FLUSH2_i)
-    );
-
-`ifdef SDF_SIM
-	specify
-		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
-    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
-    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
-    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
-	endspecify
-`endif
-
-endmodule
-
-module TDP36K_BRAM_WR_X18_RD_X9_nonsplit (
-    RESET_ni,
-    WEN_A1_i,   WEN_B1_i,
-    REN_A1_i,   REN_B1_i,
-    CLK_A1_i,   CLK_B1_i,
-    BE_A1_i,    BE_B1_i,
-    ADDR_A1_i,  ADDR_B1_i,
-    WDATA_A1_i, WDATA_B1_i,
-    RDATA_A1_o, RDATA_B1_o,
-    FLUSH1_i,
-    WEN_A2_i,   WEN_B2_i,
-    REN_A2_i,   REN_B2_i,
-    CLK_A2_i,   CLK_B2_i,
-    BE_A2_i,    BE_B2_i,
-    ADDR_A2_i,  ADDR_B2_i,
-    WDATA_A2_i, WDATA_B2_i,
-    RDATA_A2_o, RDATA_B2_o,
-    FLUSH2_i
-);
-    parameter [80:0] MODE_BITS = 81'd0;
-
-    input  wire RESET_ni;
-    input  wire WEN_A1_i, WEN_B1_i;
-    input  wire REN_A1_i, REN_B1_i;
-    input  wire WEN_A2_i, WEN_B2_i;
-    input  wire REN_A2_i, REN_B2_i;
-
-    (* clkbuf_sink *)
-    input  wire CLK_A1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_A2_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B2_i;
-
-    input  wire [ 1:0] BE_A1_i,    BE_B1_i;
-    input  wire [14:0] ADDR_A1_i,  ADDR_B1_i;
-    input  wire [17:0] WDATA_A1_i, WDATA_B1_i;
-    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
-
-    input  wire FLUSH1_i;
-
-    input  wire [ 1:0] BE_A2_i,    BE_B2_i;
-    input  wire [13:0] ADDR_A2_i,  ADDR_B2_i;
-    input  wire [17:0] WDATA_A2_i, WDATA_B2_i;
-    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
-
-    input  wire FLUSH2_i;
-
-    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
-        .RESET_ni   (RESET_ni),   
-        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
-        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
-        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
-        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
-        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
-        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
-        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
-        .FLUSH1_i   (FLUSH1_i),
-        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
-        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
-        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
-        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
-        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
-        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
-        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
-        .FLUSH2_i   (FLUSH2_i)
-    );
-
-`ifdef SDF_SIM
-	specify
-		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
-    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
-    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
-    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
-	endspecify
-`endif
-
-endmodule
-
-module TDP36K_BRAM_WR_X18_RD_X18_nonsplit (
-    RESET_ni,
-    WEN_A1_i,   WEN_B1_i,
-    REN_A1_i,   REN_B1_i,
-    CLK_A1_i,   CLK_B1_i,
-    BE_A1_i,    BE_B1_i,
-    ADDR_A1_i,  ADDR_B1_i,
-    WDATA_A1_i, WDATA_B1_i,
-    RDATA_A1_o, RDATA_B1_o,
-    FLUSH1_i,
-    WEN_A2_i,   WEN_B2_i,
-    REN_A2_i,   REN_B2_i,
-    CLK_A2_i,   CLK_B2_i,
-    BE_A2_i,    BE_B2_i,
-    ADDR_A2_i,  ADDR_B2_i,
-    WDATA_A2_i, WDATA_B2_i,
-    RDATA_A2_o, RDATA_B2_o,
-    FLUSH2_i
-);
-    parameter [80:0] MODE_BITS = 81'd0;
-
-    input  wire RESET_ni;
-    input  wire WEN_A1_i, WEN_B1_i;
-    input  wire REN_A1_i, REN_B1_i;
-    input  wire WEN_A2_i, WEN_B2_i;
-    input  wire REN_A2_i, REN_B2_i;
-
-    (* clkbuf_sink *)
-    input  wire CLK_A1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_A2_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B2_i;
-
-    input  wire [ 1:0] BE_A1_i,    BE_B1_i;
-    input  wire [14:0] ADDR_A1_i,  ADDR_B1_i;
-    input  wire [17:0] WDATA_A1_i, WDATA_B1_i;
-    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
-
-    input  wire FLUSH1_i;
-
-    input  wire [ 1:0] BE_A2_i,    BE_B2_i;
-    input  wire [13:0] ADDR_A2_i,  ADDR_B2_i;
-    input  wire [17:0] WDATA_A2_i, WDATA_B2_i;
-    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
-
-    input  wire FLUSH2_i;
-
-    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
-        .RESET_ni   (RESET_ni),   
-        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
-        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
-        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
-        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
-        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
-        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
-        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
-        .FLUSH1_i   (FLUSH1_i),
-        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
-        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
-        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
-        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
-        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
-        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
-        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
-        .FLUSH2_i   (FLUSH2_i)
-    );
-
-`ifdef SDF_SIM
-	specify
-		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
-    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
-    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
-    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
-	endspecify
-`endif
-
-endmodule
-
-module TDP36K_BRAM_WR_X18_RD_X36_nonsplit (
-    RESET_ni,
-    WEN_A1_i,   WEN_B1_i,
-    REN_A1_i,   REN_B1_i,
-    CLK_A1_i,   CLK_B1_i,
-    BE_A1_i,    BE_B1_i,
-    ADDR_A1_i,  ADDR_B1_i,
-    WDATA_A1_i, WDATA_B1_i,
-    RDATA_A1_o, RDATA_B1_o,
-    FLUSH1_i,
-    WEN_A2_i,   WEN_B2_i,
-    REN_A2_i,   REN_B2_i,
-    CLK_A2_i,   CLK_B2_i,
-    BE_A2_i,    BE_B2_i,
-    ADDR_A2_i,  ADDR_B2_i,
-    WDATA_A2_i, WDATA_B2_i,
-    RDATA_A2_o, RDATA_B2_o,
-    FLUSH2_i
-);
-    parameter [80:0] MODE_BITS = 81'd0;
-
-    input  wire RESET_ni;
-    input  wire WEN_A1_i, WEN_B1_i;
-    input  wire REN_A1_i, REN_B1_i;
-    input  wire WEN_A2_i, WEN_B2_i;
-    input  wire REN_A2_i, REN_B2_i;
-
-    (* clkbuf_sink *)
-    input  wire CLK_A1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_A2_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B2_i;
-
-    input  wire [ 1:0] BE_A1_i,    BE_B1_i;
-    input  wire [14:0] ADDR_A1_i,  ADDR_B1_i;
-    input  wire [17:0] WDATA_A1_i, WDATA_B1_i;
-    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
-
-    input  wire FLUSH1_i;
-
-    input  wire [ 1:0] BE_A2_i,    BE_B2_i;
-    input  wire [13:0] ADDR_A2_i,  ADDR_B2_i;
-    input  wire [17:0] WDATA_A2_i, WDATA_B2_i;
-    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
-
-    input  wire FLUSH2_i;
-
-    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
-        .RESET_ni   (RESET_ni),   
-        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
-        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
-        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
-        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
-        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
-        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
-        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
-        .FLUSH1_i   (FLUSH1_i),
-        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
-        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
-        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
-        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
-        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
-        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
-        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
-        .FLUSH2_i   (FLUSH2_i)
-    );
-
-`ifdef SDF_SIM
-	specify
-		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
-    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
-    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
-    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
-	endspecify
-`endif
-
-endmodule
-
-// ============================================================================
-// TDP36K write width 36 functional modes
-
-module TDP36K_BRAM_WR_X36_RD_X1_nonsplit (
-    RESET_ni,
-    WEN_A1_i,   WEN_B1_i,
-    REN_A1_i,   REN_B1_i,
-    CLK_A1_i,   CLK_B1_i,
-    BE_A1_i,    BE_B1_i,
-    ADDR_A1_i,  ADDR_B1_i,
-    WDATA_A1_i, WDATA_B1_i,
-    RDATA_A1_o, RDATA_B1_o,
-    FLUSH1_i,
-    WEN_A2_i,   WEN_B2_i,
-    REN_A2_i,   REN_B2_i,
-    CLK_A2_i,   CLK_B2_i,
-    BE_A2_i,    BE_B2_i,
-    ADDR_A2_i,  ADDR_B2_i,
-    WDATA_A2_i, WDATA_B2_i,
-    RDATA_A2_o, RDATA_B2_o,
-    FLUSH2_i
-);
-    parameter [80:0] MODE_BITS = 81'd0;
-
-    input  wire RESET_ni;
-    input  wire WEN_A1_i, WEN_B1_i;
-    input  wire REN_A1_i, REN_B1_i;
-    input  wire WEN_A2_i, WEN_B2_i;
-    input  wire REN_A2_i, REN_B2_i;
-
-    (* clkbuf_sink *)
-    input  wire CLK_A1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_A2_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B2_i;
-
-    input  wire [ 1:0] BE_A1_i,    BE_B1_i;
-    input  wire [14:0] ADDR_A1_i,  ADDR_B1_i;
-    input  wire [17:0] WDATA_A1_i, WDATA_B1_i;
-    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
-
-    input  wire FLUSH1_i;
-
-    input  wire [ 1:0] BE_A2_i,    BE_B2_i;
-    input  wire [13:0] ADDR_A2_i,  ADDR_B2_i;
-    input  wire [17:0] WDATA_A2_i, WDATA_B2_i;
-    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
-
-    input  wire FLUSH2_i;
-
-    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
-        .RESET_ni   (RESET_ni),   
-        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
-        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
-        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
-        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
-        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
-        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
-        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
-        .FLUSH1_i   (FLUSH1_i),
-        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
-        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
-        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
-        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
-        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
-        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
-        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
-        .FLUSH2_i   (FLUSH2_i)
-    );
-
-`ifdef SDF_SIM
-	specify
-		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
-    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
-    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
-    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
-	endspecify
-`endif
-
-endmodule
-
-module TDP36K_BRAM_WR_X36_RD_X2_nonsplit (
-    RESET_ni,
-    WEN_A1_i,   WEN_B1_i,
-    REN_A1_i,   REN_B1_i,
-    CLK_A1_i,   CLK_B1_i,
-    BE_A1_i,    BE_B1_i,
-    ADDR_A1_i,  ADDR_B1_i,
-    WDATA_A1_i, WDATA_B1_i,
-    RDATA_A1_o, RDATA_B1_o,
-    FLUSH1_i,
-    WEN_A2_i,   WEN_B2_i,
-    REN_A2_i,   REN_B2_i,
-    CLK_A2_i,   CLK_B2_i,
-    BE_A2_i,    BE_B2_i,
-    ADDR_A2_i,  ADDR_B2_i,
-    WDATA_A2_i, WDATA_B2_i,
-    RDATA_A2_o, RDATA_B2_o,
-    FLUSH2_i
-);
-    parameter [80:0] MODE_BITS = 81'd0;
-
-    input  wire RESET_ni;
-    input  wire WEN_A1_i, WEN_B1_i;
-    input  wire REN_A1_i, REN_B1_i;
-    input  wire WEN_A2_i, WEN_B2_i;
-    input  wire REN_A2_i, REN_B2_i;
-
-    (* clkbuf_sink *)
-    input  wire CLK_A1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_A2_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B2_i;
-
-    input  wire [ 1:0] BE_A1_i,    BE_B1_i;
-    input  wire [14:0] ADDR_A1_i,  ADDR_B1_i;
-    input  wire [17:0] WDATA_A1_i, WDATA_B1_i;
-    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
-
-    input  wire FLUSH1_i;
-
-    input  wire [ 1:0] BE_A2_i,    BE_B2_i;
-    input  wire [13:0] ADDR_A2_i,  ADDR_B2_i;
-    input  wire [17:0] WDATA_A2_i, WDATA_B2_i;
-    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
-
-    input  wire FLUSH2_i;
-
-    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
-        .RESET_ni   (RESET_ni),   
-        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
-        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
-        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
-        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
-        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
-        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
-        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
-        .FLUSH1_i   (FLUSH1_i),
-        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
-        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
-        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
-        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
-        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
-        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
-        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
-        .FLUSH2_i   (FLUSH2_i)
-    );
-
-`ifdef SDF_SIM
-	specify
-		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
-    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
-    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
-    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
-	endspecify
-`endif
-
-endmodule
-
-module TDP36K_BRAM_WR_X36_RD_X4_nonsplit (
-    RESET_ni,
-    WEN_A1_i,   WEN_B1_i,
-    REN_A1_i,   REN_B1_i,
-    CLK_A1_i,   CLK_B1_i,
-    BE_A1_i,    BE_B1_i,
-    ADDR_A1_i,  ADDR_B1_i,
-    WDATA_A1_i, WDATA_B1_i,
-    RDATA_A1_o, RDATA_B1_o,
-    FLUSH1_i,
-    WEN_A2_i,   WEN_B2_i,
-    REN_A2_i,   REN_B2_i,
-    CLK_A2_i,   CLK_B2_i,
-    BE_A2_i,    BE_B2_i,
-    ADDR_A2_i,  ADDR_B2_i,
-    WDATA_A2_i, WDATA_B2_i,
-    RDATA_A2_o, RDATA_B2_o,
-    FLUSH2_i
-);
-    parameter [80:0] MODE_BITS = 81'd0;
-
-    input  wire RESET_ni;
-    input  wire WEN_A1_i, WEN_B1_i;
-    input  wire REN_A1_i, REN_B1_i;
-    input  wire WEN_A2_i, WEN_B2_i;
-    input  wire REN_A2_i, REN_B2_i;
-
-    (* clkbuf_sink *)
-    input  wire CLK_A1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_A2_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B2_i;
-
-    input  wire [ 1:0] BE_A1_i,    BE_B1_i;
-    input  wire [14:0] ADDR_A1_i,  ADDR_B1_i;
-    input  wire [17:0] WDATA_A1_i, WDATA_B1_i;
-    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
-
-    input  wire FLUSH1_i;
-
-    input  wire [ 1:0] BE_A2_i,    BE_B2_i;
-    input  wire [13:0] ADDR_A2_i,  ADDR_B2_i;
-    input  wire [17:0] WDATA_A2_i, WDATA_B2_i;
-    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
-
-    input  wire FLUSH2_i;
-
-    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
-        .RESET_ni   (RESET_ni),   
-        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
-        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
-        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
-        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
-        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
-        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
-        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
-        .FLUSH1_i   (FLUSH1_i),
-        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
-        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
-        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
-        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
-        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
-        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
-        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
-        .FLUSH2_i   (FLUSH2_i)
-    );
-
-`ifdef SDF_SIM
-	specify
-		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
-    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
-    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
-    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
-	endspecify
-`endif
-
-endmodule
-
-module TDP36K_BRAM_WR_X36_RD_X9_nonsplit (
-    RESET_ni,
-    WEN_A1_i,   WEN_B1_i,
-    REN_A1_i,   REN_B1_i,
-    CLK_A1_i,   CLK_B1_i,
-    BE_A1_i,    BE_B1_i,
-    ADDR_A1_i,  ADDR_B1_i,
-    WDATA_A1_i, WDATA_B1_i,
-    RDATA_A1_o, RDATA_B1_o,
-    FLUSH1_i,
-    WEN_A2_i,   WEN_B2_i,
-    REN_A2_i,   REN_B2_i,
-    CLK_A2_i,   CLK_B2_i,
-    BE_A2_i,    BE_B2_i,
-    ADDR_A2_i,  ADDR_B2_i,
-    WDATA_A2_i, WDATA_B2_i,
-    RDATA_A2_o, RDATA_B2_o,
-    FLUSH2_i
-);
-    parameter [80:0] MODE_BITS = 81'd0;
-
-    input  wire RESET_ni;
-    input  wire WEN_A1_i, WEN_B1_i;
-    input  wire REN_A1_i, REN_B1_i;
-    input  wire WEN_A2_i, WEN_B2_i;
-    input  wire REN_A2_i, REN_B2_i;
-
-    (* clkbuf_sink *)
-    input  wire CLK_A1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_A2_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B2_i;
-
-    input  wire [ 1:0] BE_A1_i,    BE_B1_i;
-    input  wire [14:0] ADDR_A1_i,  ADDR_B1_i;
-    input  wire [17:0] WDATA_A1_i, WDATA_B1_i;
-    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
-
-    input  wire FLUSH1_i;
-
-    input  wire [ 1:0] BE_A2_i,    BE_B2_i;
-    input  wire [13:0] ADDR_A2_i,  ADDR_B2_i;
-    input  wire [17:0] WDATA_A2_i, WDATA_B2_i;
-    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
-
-    input  wire FLUSH2_i;
-
-    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
-        .RESET_ni   (RESET_ni),   
-        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
-        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
-        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
-        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
-        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
-        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
-        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
-        .FLUSH1_i   (FLUSH1_i),
-        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
-        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
-        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
-        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
-        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
-        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
-        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
-        .FLUSH2_i   (FLUSH2_i)
-    );
-	
-`ifdef SDF_SIM
-	specify
-		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
-    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
-    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
-    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
-	endspecify
-`endif
-
-endmodule
-
-module TDP36K_BRAM_WR_X36_RD_X18_nonsplit (
-    RESET_ni,
-    WEN_A1_i,   WEN_B1_i,
-    REN_A1_i,   REN_B1_i,
-    CLK_A1_i,   CLK_B1_i,
-    BE_A1_i,    BE_B1_i,
-    ADDR_A1_i,  ADDR_B1_i,
-    WDATA_A1_i, WDATA_B1_i,
-    RDATA_A1_o, RDATA_B1_o,
-    FLUSH1_i,
-    WEN_A2_i,   WEN_B2_i,
-    REN_A2_i,   REN_B2_i,
-    CLK_A2_i,   CLK_B2_i,
-    BE_A2_i,    BE_B2_i,
-    ADDR_A2_i,  ADDR_B2_i,
-    WDATA_A2_i, WDATA_B2_i,
-    RDATA_A2_o, RDATA_B2_o,
-    FLUSH2_i
-);
-    parameter [80:0] MODE_BITS = 81'd0;
-
-    input  wire RESET_ni;
-    input  wire WEN_A1_i, WEN_B1_i;
-    input  wire REN_A1_i, REN_B1_i;
-    input  wire WEN_A2_i, WEN_B2_i;
-    input  wire REN_A2_i, REN_B2_i;
-
-    (* clkbuf_sink *)
-    input  wire CLK_A1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_A2_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B2_i;
-
-    input  wire [ 1:0] BE_A1_i,    BE_B1_i;
-    input  wire [14:0] ADDR_A1_i,  ADDR_B1_i;
-    input  wire [17:0] WDATA_A1_i, WDATA_B1_i;
-    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
-
-    input  wire FLUSH1_i;
-
-    input  wire [ 1:0] BE_A2_i,    BE_B2_i;
-    input  wire [13:0] ADDR_A2_i,  ADDR_B2_i;
-    input  wire [17:0] WDATA_A2_i, WDATA_B2_i;
-    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
-
-    input  wire FLUSH2_i;
-
-    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
-        .RESET_ni   (RESET_ni),   
-        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
-        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
-        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
-        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
-        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
-        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
-        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
-        .FLUSH1_i   (FLUSH1_i),
-        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
-        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
-        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
-        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
-        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
-        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
-        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
-        .FLUSH2_i   (FLUSH2_i)
-    );
-
-`ifdef SDF_SIM
-	specify
-		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
-    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
-    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
-    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
-	endspecify
-`endif
-
-endmodule
-
-module TDP36K_BRAM_WR_X36_RD_X36_nonsplit (
-    RESET_ni,
-    WEN_A1_i,   WEN_B1_i,
-    REN_A1_i,   REN_B1_i,
-    CLK_A1_i,   CLK_B1_i,
-    BE_A1_i,    BE_B1_i,
-    ADDR_A1_i,  ADDR_B1_i,
-    WDATA_A1_i, WDATA_B1_i,
-    RDATA_A1_o, RDATA_B1_o,
-    FLUSH1_i,
-    WEN_A2_i,   WEN_B2_i,
-    REN_A2_i,   REN_B2_i,
-    CLK_A2_i,   CLK_B2_i,
-    BE_A2_i,    BE_B2_i,
-    ADDR_A2_i,  ADDR_B2_i,
-    WDATA_A2_i, WDATA_B2_i,
-    RDATA_A2_o, RDATA_B2_o,
-    FLUSH2_i
-);
-    parameter [80:0] MODE_BITS = 81'd0;
-
-    input  wire RESET_ni;
-    input  wire WEN_A1_i, WEN_B1_i;
-    input  wire REN_A1_i, REN_B1_i;
-    input  wire WEN_A2_i, WEN_B2_i;
-    input  wire REN_A2_i, REN_B2_i;
-
-    (* clkbuf_sink *)
-    input  wire CLK_A1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_A2_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B2_i;
-
-    input  wire [ 1:0] BE_A1_i,    BE_B1_i;
-    input  wire [14:0] ADDR_A1_i,  ADDR_B1_i;
-    input  wire [17:0] WDATA_A1_i, WDATA_B1_i;
-    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
-
-    input  wire FLUSH1_i;
-
-    input  wire [ 1:0] BE_A2_i,    BE_B2_i;
-    input  wire [13:0] ADDR_A2_i,  ADDR_B2_i;
-    input  wire [17:0] WDATA_A2_i, WDATA_B2_i;
-    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
-
-    input  wire FLUSH2_i;
-
-    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
-        .RESET_ni   (RESET_ni),   
-        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
-        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
-        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
-        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
-        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
-        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
-        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
-        .FLUSH1_i   (FLUSH1_i),
-        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
-        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
-        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
-        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
-        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
-        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
-        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
-        .FLUSH2_i   (FLUSH2_i)
-    );
-
-`ifdef SDF_SIM
-	specify
-		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
-    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
-    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
-    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
-	endspecify
-`endif
-
-endmodule
-
-// ============================================================================
-// TDP36K (split mode) write width 1 functional modes
-
-module TDP36K_BRAM_WR_X1_RD_X1_split (
-    RESET_ni,
-    WEN_A1_i,   WEN_B1_i,
-    REN_A1_i,   REN_B1_i,
-    CLK_A1_i,   CLK_B1_i,
-    BE_A1_i,    BE_B1_i,
-    ADDR_A1_i,  ADDR_B1_i,
-    WDATA_A1_i, WDATA_B1_i,
-    RDATA_A1_o, RDATA_B1_o,
-    FLUSH1_i,
-    WEN_A2_i,   WEN_B2_i,
-    REN_A2_i,   REN_B2_i,
-    CLK_A2_i,   CLK_B2_i,
-    BE_A2_i,    BE_B2_i,
-    ADDR_A2_i,  ADDR_B2_i,
-    WDATA_A2_i, WDATA_B2_i,
-    RDATA_A2_o, RDATA_B2_o,
-    FLUSH2_i
-);
-    parameter [80:0] MODE_BITS = 81'd0;
-
-    input  wire RESET_ni;
-    input  wire WEN_A1_i, WEN_B1_i;
-    input  wire REN_A1_i, REN_B1_i;
-    input  wire WEN_A2_i, WEN_B2_i;
-    input  wire REN_A2_i, REN_B2_i;
-
-    (* clkbuf_sink *)
-    input  wire CLK_A1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_A2_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B2_i;
-
-    input  wire [ 1:0] BE_A1_i,    BE_B1_i;
-    input  wire [14:0] ADDR_A1_i,  ADDR_B1_i;
-    input  wire [17:0] WDATA_A1_i, WDATA_B1_i;
-    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
-
-    input  wire FLUSH1_i;
-
-    input  wire [ 1:0] BE_A2_i,    BE_B2_i;
-    input  wire [13:0] ADDR_A2_i,  ADDR_B2_i;
-    input  wire [17:0] WDATA_A2_i, WDATA_B2_i;
-    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
-
-    input  wire FLUSH2_i;
-
-    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
-        .RESET_ni   (RESET_ni),   
-        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
-        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
-        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
-        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
-        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
-        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
-        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
-        .FLUSH1_i   (FLUSH1_i),
-        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
-        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
-        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
-        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
-        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
-        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
-        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
-        .FLUSH2_i   (FLUSH2_i)
-    );
-
-`ifdef SDF_SIM
-	specify
-		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
-    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
-    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
-    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
-	endspecify
-`endif
-
-endmodule
-
-module TDP36K_BRAM_WR_X1_RD_X2_split (
-    RESET_ni,
-    WEN_A1_i,   WEN_B1_i,
-    REN_A1_i,   REN_B1_i,
-    CLK_A1_i,   CLK_B1_i,
-    BE_A1_i,    BE_B1_i,
-    ADDR_A1_i,  ADDR_B1_i,
-    WDATA_A1_i, WDATA_B1_i,
-    RDATA_A1_o, RDATA_B1_o,
-    FLUSH1_i,
-    WEN_A2_i,   WEN_B2_i,
-    REN_A2_i,   REN_B2_i,
-    CLK_A2_i,   CLK_B2_i,
-    BE_A2_i,    BE_B2_i,
-    ADDR_A2_i,  ADDR_B2_i,
-    WDATA_A2_i, WDATA_B2_i,
-    RDATA_A2_o, RDATA_B2_o,
-    FLUSH2_i
-);
-    parameter [80:0] MODE_BITS = 81'd0;
-
-    input  wire RESET_ni;
-    input  wire WEN_A1_i, WEN_B1_i;
-    input  wire REN_A1_i, REN_B1_i;
-    input  wire WEN_A2_i, WEN_B2_i;
-    input  wire REN_A2_i, REN_B2_i;
-
-    (* clkbuf_sink *)
-    input  wire CLK_A1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_A2_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B2_i;
-
-    input  wire [ 1:0] BE_A1_i,    BE_B1_i;
-    input  wire [14:0] ADDR_A1_i,  ADDR_B1_i;
-    input  wire [17:0] WDATA_A1_i, WDATA_B1_i;
-    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
-
-    input  wire FLUSH1_i;
-
-    input  wire [ 1:0] BE_A2_i,    BE_B2_i;
-    input  wire [13:0] ADDR_A2_i,  ADDR_B2_i;
-    input  wire [17:0] WDATA_A2_i, WDATA_B2_i;
-    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
-
-    input  wire FLUSH2_i;
-
-    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
-        .RESET_ni   (RESET_ni),   
-        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
-        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
-        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
-        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
-        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
-        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
-        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
-        .FLUSH1_i   (FLUSH1_i),
-        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
-        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
-        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
-        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
-        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
-        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
-        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
-        .FLUSH2_i   (FLUSH2_i)
-    );
-
-`ifdef SDF_SIM
-	specify
-		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
-    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
-    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
-    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
-	endspecify
-`endif
-
-endmodule
-
-module TDP36K_BRAM_WR_X1_RD_X4_split (
-    RESET_ni,
-    WEN_A1_i,   WEN_B1_i,
-    REN_A1_i,   REN_B1_i,
-    CLK_A1_i,   CLK_B1_i,
-    BE_A1_i,    BE_B1_i,
-    ADDR_A1_i,  ADDR_B1_i,
-    WDATA_A1_i, WDATA_B1_i,
-    RDATA_A1_o, RDATA_B1_o,
-    FLUSH1_i,
-    WEN_A2_i,   WEN_B2_i,
-    REN_A2_i,   REN_B2_i,
-    CLK_A2_i,   CLK_B2_i,
-    BE_A2_i,    BE_B2_i,
-    ADDR_A2_i,  ADDR_B2_i,
-    WDATA_A2_i, WDATA_B2_i,
-    RDATA_A2_o, RDATA_B2_o,
-    FLUSH2_i
-);
-    parameter [80:0] MODE_BITS = 81'd0;
-
-    input  wire RESET_ni;
-    input  wire WEN_A1_i, WEN_B1_i;
-    input  wire REN_A1_i, REN_B1_i;
-    input  wire WEN_A2_i, WEN_B2_i;
-    input  wire REN_A2_i, REN_B2_i;
-
-    (* clkbuf_sink *)
-    input  wire CLK_A1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_A2_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B2_i;
-
-    input  wire [ 1:0] BE_A1_i,    BE_B1_i;
-    input  wire [14:0] ADDR_A1_i,  ADDR_B1_i;
-    input  wire [17:0] WDATA_A1_i, WDATA_B1_i;
-    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
-
-    input  wire FLUSH1_i;
-
-    input  wire [ 1:0] BE_A2_i,    BE_B2_i;
-    input  wire [13:0] ADDR_A2_i,  ADDR_B2_i;
-    input  wire [17:0] WDATA_A2_i, WDATA_B2_i;
-    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
-
-    input  wire FLUSH2_i;
-
-    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
-        .RESET_ni   (RESET_ni),   
-        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
-        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
-        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
-        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
-        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
-        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
-        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
-        .FLUSH1_i   (FLUSH1_i),
-        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
-        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
-        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
-        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
-        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
-        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
-        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
-        .FLUSH2_i   (FLUSH2_i)
-    );
-
-`ifdef SDF_SIM
-	specify
-		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
-    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
-    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
-    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
-	endspecify
-`endif
-
-endmodule
-
-module TDP36K_BRAM_WR_X1_RD_X9_split (
-    RESET_ni,
-    WEN_A1_i,   WEN_B1_i,
-    REN_A1_i,   REN_B1_i,
-    CLK_A1_i,   CLK_B1_i,
-    BE_A1_i,    BE_B1_i,
-    ADDR_A1_i,  ADDR_B1_i,
-    WDATA_A1_i, WDATA_B1_i,
-    RDATA_A1_o, RDATA_B1_o,
-    FLUSH1_i,
-    WEN_A2_i,   WEN_B2_i,
-    REN_A2_i,   REN_B2_i,
-    CLK_A2_i,   CLK_B2_i,
-    BE_A2_i,    BE_B2_i,
-    ADDR_A2_i,  ADDR_B2_i,
-    WDATA_A2_i, WDATA_B2_i,
-    RDATA_A2_o, RDATA_B2_o,
-    FLUSH2_i
-);
-    parameter [80:0] MODE_BITS = 81'd0;
-
-    input  wire RESET_ni;
-    input  wire WEN_A1_i, WEN_B1_i;
-    input  wire REN_A1_i, REN_B1_i;
-    input  wire WEN_A2_i, WEN_B2_i;
-    input  wire REN_A2_i, REN_B2_i;
-
-    (* clkbuf_sink *)
-    input  wire CLK_A1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_A2_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B2_i;
-
-    input  wire [ 1:0] BE_A1_i,    BE_B1_i;
-    input  wire [14:0] ADDR_A1_i,  ADDR_B1_i;
-    input  wire [17:0] WDATA_A1_i, WDATA_B1_i;
-    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
-
-    input  wire FLUSH1_i;
-
-    input  wire [ 1:0] BE_A2_i,    BE_B2_i;
-    input  wire [13:0] ADDR_A2_i,  ADDR_B2_i;
-    input  wire [17:0] WDATA_A2_i, WDATA_B2_i;
-    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
-
-    input  wire FLUSH2_i;
-
-    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
-        .RESET_ni   (RESET_ni),   
-        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
-        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
-        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
-        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
-        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
-        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
-        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
-        .FLUSH1_i   (FLUSH1_i),
-        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
-        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
-        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
-        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
-        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
-        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
-        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
-        .FLUSH2_i   (FLUSH2_i)
-    );
-
-`ifdef SDF_SIM
-	specify
-		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
-    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
-    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
-    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
-	endspecify
-`endif
-
-endmodule
-
-module TDP36K_BRAM_WR_X1_RD_X18_split (
-    RESET_ni,
-    WEN_A1_i,   WEN_B1_i,
-    REN_A1_i,   REN_B1_i,
-    CLK_A1_i,   CLK_B1_i,
-    BE_A1_i,    BE_B1_i,
-    ADDR_A1_i,  ADDR_B1_i,
-    WDATA_A1_i, WDATA_B1_i,
-    RDATA_A1_o, RDATA_B1_o,
-    FLUSH1_i,
-    WEN_A2_i,   WEN_B2_i,
-    REN_A2_i,   REN_B2_i,
-    CLK_A2_i,   CLK_B2_i,
-    BE_A2_i,    BE_B2_i,
-    ADDR_A2_i,  ADDR_B2_i,
-    WDATA_A2_i, WDATA_B2_i,
-    RDATA_A2_o, RDATA_B2_o,
-    FLUSH2_i
-);
-    parameter [80:0] MODE_BITS = 81'd0;
-
-    input  wire RESET_ni;
-    input  wire WEN_A1_i, WEN_B1_i;
-    input  wire REN_A1_i, REN_B1_i;
-    input  wire WEN_A2_i, WEN_B2_i;
-    input  wire REN_A2_i, REN_B2_i;
-
-    (* clkbuf_sink *)
-    input  wire CLK_A1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_A2_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B2_i;
-
-    input  wire [ 1:0] BE_A1_i,    BE_B1_i;
-    input  wire [14:0] ADDR_A1_i,  ADDR_B1_i;
-    input  wire [17:0] WDATA_A1_i, WDATA_B1_i;
-    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
-
-    input  wire FLUSH1_i;
-
-    input  wire [ 1:0] BE_A2_i,    BE_B2_i;
-    input  wire [13:0] ADDR_A2_i,  ADDR_B2_i;
-    input  wire [17:0] WDATA_A2_i, WDATA_B2_i;
-    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
-
-    input  wire FLUSH2_i;
-
-    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
-        .RESET_ni   (RESET_ni),   
-        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
-        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
-        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
-        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
-        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
-        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
-        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
-        .FLUSH1_i   (FLUSH1_i),
-        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
-        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
-        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
-        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
-        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
-        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
-        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
-        .FLUSH2_i   (FLUSH2_i)
-    );
-
-`ifdef SDF_SIM
-	specify
-		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
-    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
-    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
-    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
-	endspecify
-`endif
-
-endmodule
-
-// ============================================================================
-// TDP36K (split mode) write width 2 functional modes
-
-module TDP36K_BRAM_WR_X2_RD_X1_split (
-    RESET_ni,
-    WEN_A1_i,   WEN_B1_i,
-    REN_A1_i,   REN_B1_i,
-    CLK_A1_i,   CLK_B1_i,
-    BE_A1_i,    BE_B1_i,
-    ADDR_A1_i,  ADDR_B1_i,
-    WDATA_A1_i, WDATA_B1_i,
-    RDATA_A1_o, RDATA_B1_o,
-    FLUSH1_i,
-    WEN_A2_i,   WEN_B2_i,
-    REN_A2_i,   REN_B2_i,
-    CLK_A2_i,   CLK_B2_i,
-    BE_A2_i,    BE_B2_i,
-    ADDR_A2_i,  ADDR_B2_i,
-    WDATA_A2_i, WDATA_B2_i,
-    RDATA_A2_o, RDATA_B2_o,
-    FLUSH2_i
-);
-    parameter [80:0] MODE_BITS = 81'd0;
-
-    input  wire RESET_ni;
-    input  wire WEN_A1_i, WEN_B1_i;
-    input  wire REN_A1_i, REN_B1_i;
-    input  wire WEN_A2_i, WEN_B2_i;
-    input  wire REN_A2_i, REN_B2_i;
-
-    (* clkbuf_sink *)
-    input  wire CLK_A1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_A2_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B2_i;
-
-    input  wire [ 1:0] BE_A1_i,    BE_B1_i;
-    input  wire [14:0] ADDR_A1_i,  ADDR_B1_i;
-    input  wire [17:0] WDATA_A1_i, WDATA_B1_i;
-    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
-
-    input  wire FLUSH1_i;
-
-    input  wire [ 1:0] BE_A2_i,    BE_B2_i;
-    input  wire [13:0] ADDR_A2_i,  ADDR_B2_i;
-    input  wire [17:0] WDATA_A2_i, WDATA_B2_i;
-    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
-
-    input  wire FLUSH2_i;
-
-    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
-        .RESET_ni   (RESET_ni),   
-        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
-        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
-        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
-        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
-        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
-        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
-        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
-        .FLUSH1_i   (FLUSH1_i),
-        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
-        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
-        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
-        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
-        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
-        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
-        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
-        .FLUSH2_i   (FLUSH2_i)
-    );
-
-`ifdef SDF_SIM
-	specify
-		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
-    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
-    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
-    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
-	endspecify
-`endif
-
-endmodule
-
-module TDP36K_BRAM_WR_X2_RD_X2_split (
-    RESET_ni,
-    WEN_A1_i,   WEN_B1_i,
-    REN_A1_i,   REN_B1_i,
-    CLK_A1_i,   CLK_B1_i,
-    BE_A1_i,    BE_B1_i,
-    ADDR_A1_i,  ADDR_B1_i,
-    WDATA_A1_i, WDATA_B1_i,
-    RDATA_A1_o, RDATA_B1_o,
-    FLUSH1_i,
-    WEN_A2_i,   WEN_B2_i,
-    REN_A2_i,   REN_B2_i,
-    CLK_A2_i,   CLK_B2_i,
-    BE_A2_i,    BE_B2_i,
-    ADDR_A2_i,  ADDR_B2_i,
-    WDATA_A2_i, WDATA_B2_i,
-    RDATA_A2_o, RDATA_B2_o,
-    FLUSH2_i
-);
-    parameter [80:0] MODE_BITS = 81'd0;
-
-    input  wire RESET_ni;
-    input  wire WEN_A1_i, WEN_B1_i;
-    input  wire REN_A1_i, REN_B1_i;
-    input  wire WEN_A2_i, WEN_B2_i;
-    input  wire REN_A2_i, REN_B2_i;
-
-    (* clkbuf_sink *)
-    input  wire CLK_A1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_A2_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B2_i;
-
-    input  wire [ 1:0] BE_A1_i,    BE_B1_i;
-    input  wire [14:0] ADDR_A1_i,  ADDR_B1_i;
-    input  wire [17:0] WDATA_A1_i, WDATA_B1_i;
-    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
-
-    input  wire FLUSH1_i;
-
-    input  wire [ 1:0] BE_A2_i,    BE_B2_i;
-    input  wire [13:0] ADDR_A2_i,  ADDR_B2_i;
-    input  wire [17:0] WDATA_A2_i, WDATA_B2_i;
-    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
-
-    input  wire FLUSH2_i;
-
-    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
-        .RESET_ni   (RESET_ni),   
-        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
-        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
-        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
-        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
-        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
-        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
-        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
-        .FLUSH1_i   (FLUSH1_i),
-        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
-        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
-        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
-        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
-        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
-        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
-        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
-        .FLUSH2_i   (FLUSH2_i)
-    );
-
-`ifdef SDF_SIM
-	specify
-		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
-    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
-    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
-    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
-	endspecify
-`endif
-
-endmodule
-
-module TDP36K_BRAM_WR_X2_RD_X4_split (
-    RESET_ni,
-    WEN_A1_i,   WEN_B1_i,
-    REN_A1_i,   REN_B1_i,
-    CLK_A1_i,   CLK_B1_i,
-    BE_A1_i,    BE_B1_i,
-    ADDR_A1_i,  ADDR_B1_i,
-    WDATA_A1_i, WDATA_B1_i,
-    RDATA_A1_o, RDATA_B1_o,
-    FLUSH1_i,
-    WEN_A2_i,   WEN_B2_i,
-    REN_A2_i,   REN_B2_i,
-    CLK_A2_i,   CLK_B2_i,
-    BE_A2_i,    BE_B2_i,
-    ADDR_A2_i,  ADDR_B2_i,
-    WDATA_A2_i, WDATA_B2_i,
-    RDATA_A2_o, RDATA_B2_o,
-    FLUSH2_i
-);
-    parameter [80:0] MODE_BITS = 81'd0;
-
-    input  wire RESET_ni;
-    input  wire WEN_A1_i, WEN_B1_i;
-    input  wire REN_A1_i, REN_B1_i;
-    input  wire WEN_A2_i, WEN_B2_i;
-    input  wire REN_A2_i, REN_B2_i;
-
-    (* clkbuf_sink *)
-    input  wire CLK_A1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_A2_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B2_i;
-
-    input  wire [ 1:0] BE_A1_i,    BE_B1_i;
-    input  wire [14:0] ADDR_A1_i,  ADDR_B1_i;
-    input  wire [17:0] WDATA_A1_i, WDATA_B1_i;
-    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
-
-    input  wire FLUSH1_i;
-
-    input  wire [ 1:0] BE_A2_i,    BE_B2_i;
-    input  wire [13:0] ADDR_A2_i,  ADDR_B2_i;
-    input  wire [17:0] WDATA_A2_i, WDATA_B2_i;
-    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
-
-    input  wire FLUSH2_i;
-
-    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
-        .RESET_ni   (RESET_ni),   
-        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
-        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
-        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
-        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
-        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
-        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
-        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
-        .FLUSH1_i   (FLUSH1_i),
-        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
-        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
-        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
-        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
-        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
-        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
-        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
-        .FLUSH2_i   (FLUSH2_i)
-    );
-
-`ifdef SDF_SIM
-	specify
-		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
-    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
-    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
-    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
-	endspecify
-`endif
-
-endmodule
-
-module TDP36K_BRAM_WR_X2_RD_X9_split (
-    RESET_ni,
-    WEN_A1_i,   WEN_B1_i,
-    REN_A1_i,   REN_B1_i,
-    CLK_A1_i,   CLK_B1_i,
-    BE_A1_i,    BE_B1_i,
-    ADDR_A1_i,  ADDR_B1_i,
-    WDATA_A1_i, WDATA_B1_i,
-    RDATA_A1_o, RDATA_B1_o,
-    FLUSH1_i,
-    WEN_A2_i,   WEN_B2_i,
-    REN_A2_i,   REN_B2_i,
-    CLK_A2_i,   CLK_B2_i,
-    BE_A2_i,    BE_B2_i,
-    ADDR_A2_i,  ADDR_B2_i,
-    WDATA_A2_i, WDATA_B2_i,
-    RDATA_A2_o, RDATA_B2_o,
-    FLUSH2_i
-);
-    parameter [80:0] MODE_BITS = 81'd0;
-
-    input  wire RESET_ni;
-    input  wire WEN_A1_i, WEN_B1_i;
-    input  wire REN_A1_i, REN_B1_i;
-    input  wire WEN_A2_i, WEN_B2_i;
-    input  wire REN_A2_i, REN_B2_i;
-
-    (* clkbuf_sink *)
-    input  wire CLK_A1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_A2_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B2_i;
-
-    input  wire [ 1:0] BE_A1_i,    BE_B1_i;
-    input  wire [14:0] ADDR_A1_i,  ADDR_B1_i;
-    input  wire [17:0] WDATA_A1_i, WDATA_B1_i;
-    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
-
-    input  wire FLUSH1_i;
-
-    input  wire [ 1:0] BE_A2_i,    BE_B2_i;
-    input  wire [13:0] ADDR_A2_i,  ADDR_B2_i;
-    input  wire [17:0] WDATA_A2_i, WDATA_B2_i;
-    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
-
-    input  wire FLUSH2_i;
-
-    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
-        .RESET_ni   (RESET_ni),   
-        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
-        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
-        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
-        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
-        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
-        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
-        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
-        .FLUSH1_i   (FLUSH1_i),
-        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
-        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
-        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
-        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
-        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
-        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
-        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
-        .FLUSH2_i   (FLUSH2_i)
-    );
-
-`ifdef SDF_SIM
-	specify
-		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
-    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
-    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
-    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
-	endspecify
-`endif
-
-endmodule
-
-module TDP36K_BRAM_WR_X2_RD_X18_split (
-    RESET_ni,
-    WEN_A1_i,   WEN_B1_i,
-    REN_A1_i,   REN_B1_i,
-    CLK_A1_i,   CLK_B1_i,
-    BE_A1_i,    BE_B1_i,
-    ADDR_A1_i,  ADDR_B1_i,
-    WDATA_A1_i, WDATA_B1_i,
-    RDATA_A1_o, RDATA_B1_o,
-    FLUSH1_i,
-    WEN_A2_i,   WEN_B2_i,
-    REN_A2_i,   REN_B2_i,
-    CLK_A2_i,   CLK_B2_i,
-    BE_A2_i,    BE_B2_i,
-    ADDR_A2_i,  ADDR_B2_i,
-    WDATA_A2_i, WDATA_B2_i,
-    RDATA_A2_o, RDATA_B2_o,
-    FLUSH2_i
-);
-    parameter [80:0] MODE_BITS = 81'd0;
-
-    input  wire RESET_ni;
-    input  wire WEN_A1_i, WEN_B1_i;
-    input  wire REN_A1_i, REN_B1_i;
-    input  wire WEN_A2_i, WEN_B2_i;
-    input  wire REN_A2_i, REN_B2_i;
-
-    (* clkbuf_sink *)
-    input  wire CLK_A1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_A2_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B2_i;
-
-    input  wire [ 1:0] BE_A1_i,    BE_B1_i;
-    input  wire [14:0] ADDR_A1_i,  ADDR_B1_i;
-    input  wire [17:0] WDATA_A1_i, WDATA_B1_i;
-    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
-
-    input  wire FLUSH1_i;
-
-    input  wire [ 1:0] BE_A2_i,    BE_B2_i;
-    input  wire [13:0] ADDR_A2_i,  ADDR_B2_i;
-    input  wire [17:0] WDATA_A2_i, WDATA_B2_i;
-    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
-
-    input  wire FLUSH2_i;
-
-    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
-        .RESET_ni   (RESET_ni),   
-        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
-        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
-        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
-        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
-        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
-        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
-        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
-        .FLUSH1_i   (FLUSH1_i),
-        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
-        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
-        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
-        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
-        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
-        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
-        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
-        .FLUSH2_i   (FLUSH2_i)
-    );
-
-`ifdef SDF_SIM
-	specify
-		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
-    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
-    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
-    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
-	endspecify
-`endif
-
-endmodule
-
-// ============================================================================
-// TDP36K (split mode) write width 4 functional modes
-
-module TDP36K_BRAM_WR_X4_RD_X1_split (
-    RESET_ni,
-    WEN_A1_i,   WEN_B1_i,
-    REN_A1_i,   REN_B1_i,
-    CLK_A1_i,   CLK_B1_i,
-    BE_A1_i,    BE_B1_i,
-    ADDR_A1_i,  ADDR_B1_i,
-    WDATA_A1_i, WDATA_B1_i,
-    RDATA_A1_o, RDATA_B1_o,
-    FLUSH1_i,
-    WEN_A2_i,   WEN_B2_i,
-    REN_A2_i,   REN_B2_i,
-    CLK_A2_i,   CLK_B2_i,
-    BE_A2_i,    BE_B2_i,
-    ADDR_A2_i,  ADDR_B2_i,
-    WDATA_A2_i, WDATA_B2_i,
-    RDATA_A2_o, RDATA_B2_o,
-    FLUSH2_i
-);
-    parameter [80:0] MODE_BITS = 81'd0;
-
-    input  wire RESET_ni;
-    input  wire WEN_A1_i, WEN_B1_i;
-    input  wire REN_A1_i, REN_B1_i;
-    input  wire WEN_A2_i, WEN_B2_i;
-    input  wire REN_A2_i, REN_B2_i;
-
-    (* clkbuf_sink *)
-    input  wire CLK_A1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_A2_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B2_i;
-
-    input  wire [ 1:0] BE_A1_i,    BE_B1_i;
-    input  wire [14:0] ADDR_A1_i,  ADDR_B1_i;
-    input  wire [17:0] WDATA_A1_i, WDATA_B1_i;
-    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
-
-    input  wire FLUSH1_i;
-
-    input  wire [ 1:0] BE_A2_i,    BE_B2_i;
-    input  wire [13:0] ADDR_A2_i,  ADDR_B2_i;
-    input  wire [17:0] WDATA_A2_i, WDATA_B2_i;
-    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
-
-    input  wire FLUSH2_i;
-
-    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
-        .RESET_ni   (RESET_ni),   
-        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
-        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
-        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
-        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
-        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
-        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
-        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
-        .FLUSH1_i   (FLUSH1_i),
-        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
-        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
-        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
-        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
-        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
-        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
-        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
-        .FLUSH2_i   (FLUSH2_i)
-    );
-
-`ifdef SDF_SIM
-	specify
-		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
-    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
-    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
-    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
-	endspecify
-`endif
-
-endmodule
-
-module TDP36K_BRAM_WR_X4_RD_X2_split (
-    RESET_ni,
-    WEN_A1_i,   WEN_B1_i,
-    REN_A1_i,   REN_B1_i,
-    CLK_A1_i,   CLK_B1_i,
-    BE_A1_i,    BE_B1_i,
-    ADDR_A1_i,  ADDR_B1_i,
-    WDATA_A1_i, WDATA_B1_i,
-    RDATA_A1_o, RDATA_B1_o,
-    FLUSH1_i,
-    WEN_A2_i,   WEN_B2_i,
-    REN_A2_i,   REN_B2_i,
-    CLK_A2_i,   CLK_B2_i,
-    BE_A2_i,    BE_B2_i,
-    ADDR_A2_i,  ADDR_B2_i,
-    WDATA_A2_i, WDATA_B2_i,
-    RDATA_A2_o, RDATA_B2_o,
-    FLUSH2_i
-);
-    parameter [80:0] MODE_BITS = 81'd0;
-
-    input  wire RESET_ni;
-    input  wire WEN_A1_i, WEN_B1_i;
-    input  wire REN_A1_i, REN_B1_i;
-    input  wire WEN_A2_i, WEN_B2_i;
-    input  wire REN_A2_i, REN_B2_i;
-
-    (* clkbuf_sink *)
-    input  wire CLK_A1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_A2_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B2_i;
-
-    input  wire [ 1:0] BE_A1_i,    BE_B1_i;
-    input  wire [14:0] ADDR_A1_i,  ADDR_B1_i;
-    input  wire [17:0] WDATA_A1_i, WDATA_B1_i;
-    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
-
-    input  wire FLUSH1_i;
-
-    input  wire [ 1:0] BE_A2_i,    BE_B2_i;
-    input  wire [13:0] ADDR_A2_i,  ADDR_B2_i;
-    input  wire [17:0] WDATA_A2_i, WDATA_B2_i;
-    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
-
-    input  wire FLUSH2_i;
-
-    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
-        .RESET_ni   (RESET_ni),   
-        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
-        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
-        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
-        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
-        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
-        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
-        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
-        .FLUSH1_i   (FLUSH1_i),
-        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
-        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
-        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
-        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
-        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
-        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
-        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
-        .FLUSH2_i   (FLUSH2_i)
-    );
-
-`ifdef SDF_SIM
-	specify
-		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
-    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
-    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
-    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
-	endspecify
-`endif
-
-endmodule
-
-module TDP36K_BRAM_WR_X4_RD_X4_split (
-    RESET_ni,
-    WEN_A1_i,   WEN_B1_i,
-    REN_A1_i,   REN_B1_i,
-    CLK_A1_i,   CLK_B1_i,
-    BE_A1_i,    BE_B1_i,
-    ADDR_A1_i,  ADDR_B1_i,
-    WDATA_A1_i, WDATA_B1_i,
-    RDATA_A1_o, RDATA_B1_o,
-    FLUSH1_i,
-    WEN_A2_i,   WEN_B2_i,
-    REN_A2_i,   REN_B2_i,
-    CLK_A2_i,   CLK_B2_i,
-    BE_A2_i,    BE_B2_i,
-    ADDR_A2_i,  ADDR_B2_i,
-    WDATA_A2_i, WDATA_B2_i,
-    RDATA_A2_o, RDATA_B2_o,
-    FLUSH2_i
-);
-    parameter [80:0] MODE_BITS = 81'd0;
-
-    input  wire RESET_ni;
-    input  wire WEN_A1_i, WEN_B1_i;
-    input  wire REN_A1_i, REN_B1_i;
-    input  wire WEN_A2_i, WEN_B2_i;
-    input  wire REN_A2_i, REN_B2_i;
-
-    (* clkbuf_sink *)
-    input  wire CLK_A1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_A2_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B2_i;
-
-    input  wire [ 1:0] BE_A1_i,    BE_B1_i;
-    input  wire [14:0] ADDR_A1_i,  ADDR_B1_i;
-    input  wire [17:0] WDATA_A1_i, WDATA_B1_i;
-    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
-
-    input  wire FLUSH1_i;
-
-    input  wire [ 1:0] BE_A2_i,    BE_B2_i;
-    input  wire [13:0] ADDR_A2_i,  ADDR_B2_i;
-    input  wire [17:0] WDATA_A2_i, WDATA_B2_i;
-    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
-
-    input  wire FLUSH2_i;
-
-    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
-        .RESET_ni   (RESET_ni),   
-        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
-        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
-        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
-        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
-        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
-        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
-        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
-        .FLUSH1_i   (FLUSH1_i),
-        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
-        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
-        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
-        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
-        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
-        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
-        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
-        .FLUSH2_i   (FLUSH2_i)
-    );
-
-`ifdef SDF_SIM
-	specify
-		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
-    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
-    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
-    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
-	endspecify
-`endif
-
-endmodule
-
-module TDP36K_BRAM_WR_X4_RD_X9_split (
-    RESET_ni,
-    WEN_A1_i,   WEN_B1_i,
-    REN_A1_i,   REN_B1_i,
-    CLK_A1_i,   CLK_B1_i,
-    BE_A1_i,    BE_B1_i,
-    ADDR_A1_i,  ADDR_B1_i,
-    WDATA_A1_i, WDATA_B1_i,
-    RDATA_A1_o, RDATA_B1_o,
-    FLUSH1_i,
-    WEN_A2_i,   WEN_B2_i,
-    REN_A2_i,   REN_B2_i,
-    CLK_A2_i,   CLK_B2_i,
-    BE_A2_i,    BE_B2_i,
-    ADDR_A2_i,  ADDR_B2_i,
-    WDATA_A2_i, WDATA_B2_i,
-    RDATA_A2_o, RDATA_B2_o,
-    FLUSH2_i
-);
-    parameter [80:0] MODE_BITS = 81'd0;
-
-    input  wire RESET_ni;
-    input  wire WEN_A1_i, WEN_B1_i;
-    input  wire REN_A1_i, REN_B1_i;
-    input  wire WEN_A2_i, WEN_B2_i;
-    input  wire REN_A2_i, REN_B2_i;
-
-    (* clkbuf_sink *)
-    input  wire CLK_A1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_A2_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B2_i;
-
-    input  wire [ 1:0] BE_A1_i,    BE_B1_i;
-    input  wire [14:0] ADDR_A1_i,  ADDR_B1_i;
-    input  wire [17:0] WDATA_A1_i, WDATA_B1_i;
-    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
-
-    input  wire FLUSH1_i;
-
-    input  wire [ 1:0] BE_A2_i,    BE_B2_i;
-    input  wire [13:0] ADDR_A2_i,  ADDR_B2_i;
-    input  wire [17:0] WDATA_A2_i, WDATA_B2_i;
-    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
-
-    input  wire FLUSH2_i;
-
-    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
-        .RESET_ni   (RESET_ni),   
-        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
-        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
-        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
-        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
-        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
-        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
-        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
-        .FLUSH1_i   (FLUSH1_i),
-        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
-        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
-        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
-        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
-        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
-        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
-        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
-        .FLUSH2_i   (FLUSH2_i)
-    );
-
-`ifdef SDF_SIM
-	specify
-		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
-    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
-    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
-    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
-	endspecify
-`endif
-
-endmodule
-
-module TDP36K_BRAM_WR_X4_RD_X18_split (
-    RESET_ni,
-    WEN_A1_i,   WEN_B1_i,
-    REN_A1_i,   REN_B1_i,
-    CLK_A1_i,   CLK_B1_i,
-    BE_A1_i,    BE_B1_i,
-    ADDR_A1_i,  ADDR_B1_i,
-    WDATA_A1_i, WDATA_B1_i,
-    RDATA_A1_o, RDATA_B1_o,
-    FLUSH1_i,
-    WEN_A2_i,   WEN_B2_i,
-    REN_A2_i,   REN_B2_i,
-    CLK_A2_i,   CLK_B2_i,
-    BE_A2_i,    BE_B2_i,
-    ADDR_A2_i,  ADDR_B2_i,
-    WDATA_A2_i, WDATA_B2_i,
-    RDATA_A2_o, RDATA_B2_o,
-    FLUSH2_i
-);
-    parameter [80:0] MODE_BITS = 81'd0;
-
-    input  wire RESET_ni;
-    input  wire WEN_A1_i, WEN_B1_i;
-    input  wire REN_A1_i, REN_B1_i;
-    input  wire WEN_A2_i, WEN_B2_i;
-    input  wire REN_A2_i, REN_B2_i;
-
-    (* clkbuf_sink *)
-    input  wire CLK_A1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_A2_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B2_i;
-
-    input  wire [ 1:0] BE_A1_i,    BE_B1_i;
-    input  wire [14:0] ADDR_A1_i,  ADDR_B1_i;
-    input  wire [17:0] WDATA_A1_i, WDATA_B1_i;
-    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
-
-    input  wire FLUSH1_i;
-
-    input  wire [ 1:0] BE_A2_i,    BE_B2_i;
-    input  wire [13:0] ADDR_A2_i,  ADDR_B2_i;
-    input  wire [17:0] WDATA_A2_i, WDATA_B2_i;
-    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
-
-    input  wire FLUSH2_i;
-
-    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
-        .RESET_ni   (RESET_ni),   
-        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
-        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
-        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
-        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
-        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
-        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
-        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
-        .FLUSH1_i   (FLUSH1_i),
-        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
-        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
-        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
-        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
-        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
-        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
-        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
-        .FLUSH2_i   (FLUSH2_i)
-    );
-
-`ifdef SDF_SIM
-	specify
-		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
-    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
-    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
-    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
-	endspecify
-`endif
-
-endmodule
-
-// ============================================================================
-// TDP36K (split mode) write width 9 functional modes
-
-module TDP36K_BRAM_WR_X9_RD_X1_split (
-    RESET_ni,
-    WEN_A1_i,   WEN_B1_i,
-    REN_A1_i,   REN_B1_i,
-    CLK_A1_i,   CLK_B1_i,
-    BE_A1_i,    BE_B1_i,
-    ADDR_A1_i,  ADDR_B1_i,
-    WDATA_A1_i, WDATA_B1_i,
-    RDATA_A1_o, RDATA_B1_o,
-    FLUSH1_i,
-    WEN_A2_i,   WEN_B2_i,
-    REN_A2_i,   REN_B2_i,
-    CLK_A2_i,   CLK_B2_i,
-    BE_A2_i,    BE_B2_i,
-    ADDR_A2_i,  ADDR_B2_i,
-    WDATA_A2_i, WDATA_B2_i,
-    RDATA_A2_o, RDATA_B2_o,
-    FLUSH2_i
-);
-    parameter [80:0] MODE_BITS = 81'd0;
-
-    input  wire RESET_ni;
-    input  wire WEN_A1_i, WEN_B1_i;
-    input  wire REN_A1_i, REN_B1_i;
-    input  wire WEN_A2_i, WEN_B2_i;
-    input  wire REN_A2_i, REN_B2_i;
-
-    (* clkbuf_sink *)
-    input  wire CLK_A1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_A2_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B2_i;
-
-    input  wire [ 1:0] BE_A1_i,    BE_B1_i;
-    input  wire [14:0] ADDR_A1_i,  ADDR_B1_i;
-    input  wire [17:0] WDATA_A1_i, WDATA_B1_i;
-    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
-
-    input  wire FLUSH1_i;
-
-    input  wire [ 1:0] BE_A2_i,    BE_B2_i;
-    input  wire [13:0] ADDR_A2_i,  ADDR_B2_i;
-    input  wire [17:0] WDATA_A2_i, WDATA_B2_i;
-    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
-
-    input  wire FLUSH2_i;
-
-    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
-        .RESET_ni   (RESET_ni),   
-        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
-        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
-        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
-        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
-        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
-        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
-        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
-        .FLUSH1_i   (FLUSH1_i),
-        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
-        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
-        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
-        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
-        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
-        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
-        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
-        .FLUSH2_i   (FLUSH2_i)
-    );
-
-`ifdef SDF_SIM
-	specify
-		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
-    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
-    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
-    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
-	endspecify
-`endif
-
-endmodule
-
-module TDP36K_BRAM_WR_X9_RD_X2_split (
-    RESET_ni,
-    WEN_A1_i,   WEN_B1_i,
-    REN_A1_i,   REN_B1_i,
-    CLK_A1_i,   CLK_B1_i,
-    BE_A1_i,    BE_B1_i,
-    ADDR_A1_i,  ADDR_B1_i,
-    WDATA_A1_i, WDATA_B1_i,
-    RDATA_A1_o, RDATA_B1_o,
-    FLUSH1_i,
-    WEN_A2_i,   WEN_B2_i,
-    REN_A2_i,   REN_B2_i,
-    CLK_A2_i,   CLK_B2_i,
-    BE_A2_i,    BE_B2_i,
-    ADDR_A2_i,  ADDR_B2_i,
-    WDATA_A2_i, WDATA_B2_i,
-    RDATA_A2_o, RDATA_B2_o,
-    FLUSH2_i
-);
-    parameter [80:0] MODE_BITS = 81'd0;
-
-    input  wire RESET_ni;
-    input  wire WEN_A1_i, WEN_B1_i;
-    input  wire REN_A1_i, REN_B1_i;
-    input  wire WEN_A2_i, WEN_B2_i;
-    input  wire REN_A2_i, REN_B2_i;
-
-    (* clkbuf_sink *)
-    input  wire CLK_A1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_A2_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B2_i;
-
-    input  wire [ 1:0] BE_A1_i,    BE_B1_i;
-    input  wire [14:0] ADDR_A1_i,  ADDR_B1_i;
-    input  wire [17:0] WDATA_A1_i, WDATA_B1_i;
-    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
-
-    input  wire FLUSH1_i;
-
-    input  wire [ 1:0] BE_A2_i,    BE_B2_i;
-    input  wire [13:0] ADDR_A2_i,  ADDR_B2_i;
-    input  wire [17:0] WDATA_A2_i, WDATA_B2_i;
-    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
-
-    input  wire FLUSH2_i;
-
-    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
-        .RESET_ni   (RESET_ni),   
-        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
-        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
-        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
-        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
-        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
-        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
-        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
-        .FLUSH1_i   (FLUSH1_i),
-        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
-        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
-        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
-        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
-        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
-        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
-        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
-        .FLUSH2_i   (FLUSH2_i)
-    );
-
-`ifdef SDF_SIM
-	specify
-		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
-    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
-    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
-    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
-	endspecify
-`endif
-
-endmodule
-
-module TDP36K_BRAM_WR_X9_RD_X4_split (
-    RESET_ni,
-    WEN_A1_i,   WEN_B1_i,
-    REN_A1_i,   REN_B1_i,
-    CLK_A1_i,   CLK_B1_i,
-    BE_A1_i,    BE_B1_i,
-    ADDR_A1_i,  ADDR_B1_i,
-    WDATA_A1_i, WDATA_B1_i,
-    RDATA_A1_o, RDATA_B1_o,
-    FLUSH1_i,
-    WEN_A2_i,   WEN_B2_i,
-    REN_A2_i,   REN_B2_i,
-    CLK_A2_i,   CLK_B2_i,
-    BE_A2_i,    BE_B2_i,
-    ADDR_A2_i,  ADDR_B2_i,
-    WDATA_A2_i, WDATA_B2_i,
-    RDATA_A2_o, RDATA_B2_o,
-    FLUSH2_i
-);
-    parameter [80:0] MODE_BITS = 81'd0;
-
-    input  wire RESET_ni;
-    input  wire WEN_A1_i, WEN_B1_i;
-    input  wire REN_A1_i, REN_B1_i;
-    input  wire WEN_A2_i, WEN_B2_i;
-    input  wire REN_A2_i, REN_B2_i;
-
-    (* clkbuf_sink *)
-    input  wire CLK_A1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_A2_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B2_i;
-
-    input  wire [ 1:0] BE_A1_i,    BE_B1_i;
-    input  wire [14:0] ADDR_A1_i,  ADDR_B1_i;
-    input  wire [17:0] WDATA_A1_i, WDATA_B1_i;
-    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
-
-    input  wire FLUSH1_i;
-
-    input  wire [ 1:0] BE_A2_i,    BE_B2_i;
-    input  wire [13:0] ADDR_A2_i,  ADDR_B2_i;
-    input  wire [17:0] WDATA_A2_i, WDATA_B2_i;
-    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
-
-    input  wire FLUSH2_i;
-
-    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
-        .RESET_ni   (RESET_ni),   
-        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
-        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
-        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
-        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
-        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
-        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
-        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
-        .FLUSH1_i   (FLUSH1_i),
-        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
-        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
-        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
-        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
-        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
-        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
-        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
-        .FLUSH2_i   (FLUSH2_i)
-    );
-
-`ifdef SDF_SIM
-	specify
-		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
-    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
-    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
-    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
-	endspecify
-`endif
-
-endmodule
-
-module TDP36K_BRAM_WR_X9_RD_X9_split (
-    RESET_ni,
-    WEN_A1_i,   WEN_B1_i,
-    REN_A1_i,   REN_B1_i,
-    CLK_A1_i,   CLK_B1_i,
-    BE_A1_i,    BE_B1_i,
-    ADDR_A1_i,  ADDR_B1_i,
-    WDATA_A1_i, WDATA_B1_i,
-    RDATA_A1_o, RDATA_B1_o,
-    FLUSH1_i,
-    WEN_A2_i,   WEN_B2_i,
-    REN_A2_i,   REN_B2_i,
-    CLK_A2_i,   CLK_B2_i,
-    BE_A2_i,    BE_B2_i,
-    ADDR_A2_i,  ADDR_B2_i,
-    WDATA_A2_i, WDATA_B2_i,
-    RDATA_A2_o, RDATA_B2_o,
-    FLUSH2_i
-);
-    parameter [80:0] MODE_BITS = 81'd0;
-
-    input  wire RESET_ni;
-    input  wire WEN_A1_i, WEN_B1_i;
-    input  wire REN_A1_i, REN_B1_i;
-    input  wire WEN_A2_i, WEN_B2_i;
-    input  wire REN_A2_i, REN_B2_i;
-
-    (* clkbuf_sink *)
-    input  wire CLK_A1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_A2_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B2_i;
-
-    input  wire [ 1:0] BE_A1_i,    BE_B1_i;
-    input  wire [14:0] ADDR_A1_i,  ADDR_B1_i;
-    input  wire [17:0] WDATA_A1_i, WDATA_B1_i;
-    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
-
-    input  wire FLUSH1_i;
-
-    input  wire [ 1:0] BE_A2_i,    BE_B2_i;
-    input  wire [13:0] ADDR_A2_i,  ADDR_B2_i;
-    input  wire [17:0] WDATA_A2_i, WDATA_B2_i;
-    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
-
-    input  wire FLUSH2_i;
-
-    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
-        .RESET_ni   (RESET_ni),   
-        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
-        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
-        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
-        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
-        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
-        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
-        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
-        .FLUSH1_i   (FLUSH1_i),
-        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
-        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
-        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
-        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
-        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
-        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
-        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
-        .FLUSH2_i   (FLUSH2_i)
-    );
-
-`ifdef SDF_SIM
-	specify
-		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
-    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
-    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
-    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
-	endspecify
-`endif
-
-endmodule
-
-module TDP36K_BRAM_WR_X9_RD_X18_split (
-    RESET_ni,
-    WEN_A1_i,   WEN_B1_i,
-    REN_A1_i,   REN_B1_i,
-    CLK_A1_i,   CLK_B1_i,
-    BE_A1_i,    BE_B1_i,
-    ADDR_A1_i,  ADDR_B1_i,
-    WDATA_A1_i, WDATA_B1_i,
-    RDATA_A1_o, RDATA_B1_o,
-    FLUSH1_i,
-    WEN_A2_i,   WEN_B2_i,
-    REN_A2_i,   REN_B2_i,
-    CLK_A2_i,   CLK_B2_i,
-    BE_A2_i,    BE_B2_i,
-    ADDR_A2_i,  ADDR_B2_i,
-    WDATA_A2_i, WDATA_B2_i,
-    RDATA_A2_o, RDATA_B2_o,
-    FLUSH2_i
-);
-    parameter [80:0] MODE_BITS = 81'd0;
-
-    input  wire RESET_ni;
-    input  wire WEN_A1_i, WEN_B1_i;
-    input  wire REN_A1_i, REN_B1_i;
-    input  wire WEN_A2_i, WEN_B2_i;
-    input  wire REN_A2_i, REN_B2_i;
-
-    (* clkbuf_sink *)
-    input  wire CLK_A1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_A2_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B2_i;
-
-    input  wire [ 1:0] BE_A1_i,    BE_B1_i;
-    input  wire [14:0] ADDR_A1_i,  ADDR_B1_i;
-    input  wire [17:0] WDATA_A1_i, WDATA_B1_i;
-    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
-
-    input  wire FLUSH1_i;
-
-    input  wire [ 1:0] BE_A2_i,    BE_B2_i;
-    input  wire [13:0] ADDR_A2_i,  ADDR_B2_i;
-    input  wire [17:0] WDATA_A2_i, WDATA_B2_i;
-    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
-
-    input  wire FLUSH2_i;
-
-    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
-        .RESET_ni   (RESET_ni),   
-        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
-        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
-        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
-        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
-        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
-        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
-        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
-        .FLUSH1_i   (FLUSH1_i),
-        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
-        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
-        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
-        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
-        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
-        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
-        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
-        .FLUSH2_i   (FLUSH2_i)
-    );
-
-`ifdef SDF_SIM
-	specify
-		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
-    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
-    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
-    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
-	endspecify
-`endif
-
-endmodule
-
-// ============================================================================
-// TDP36K (split mode) write width 18 functional modes
-
-module TDP36K_BRAM_WR_X18_RD_X1_split (
-    RESET_ni,
-    WEN_A1_i,   WEN_B1_i,
-    REN_A1_i,   REN_B1_i,
-    CLK_A1_i,   CLK_B1_i,
-    BE_A1_i,    BE_B1_i,
-    ADDR_A1_i,  ADDR_B1_i,
-    WDATA_A1_i, WDATA_B1_i,
-    RDATA_A1_o, RDATA_B1_o,
-    FLUSH1_i,
-    WEN_A2_i,   WEN_B2_i,
-    REN_A2_i,   REN_B2_i,
-    CLK_A2_i,   CLK_B2_i,
-    BE_A2_i,    BE_B2_i,
-    ADDR_A2_i,  ADDR_B2_i,
-    WDATA_A2_i, WDATA_B2_i,
-    RDATA_A2_o, RDATA_B2_o,
-    FLUSH2_i
-);
-    parameter [80:0] MODE_BITS = 81'd0;
-
-    input  wire RESET_ni;
-    input  wire WEN_A1_i, WEN_B1_i;
-    input  wire REN_A1_i, REN_B1_i;
-    input  wire WEN_A2_i, WEN_B2_i;
-    input  wire REN_A2_i, REN_B2_i;
-
-    (* clkbuf_sink *)
-    input  wire CLK_A1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_A2_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B2_i;
-
-    input  wire [ 1:0] BE_A1_i,    BE_B1_i;
-    input  wire [14:0] ADDR_A1_i,  ADDR_B1_i;
-    input  wire [17:0] WDATA_A1_i, WDATA_B1_i;
-    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
-
-    input  wire FLUSH1_i;
-
-    input  wire [ 1:0] BE_A2_i,    BE_B2_i;
-    input  wire [13:0] ADDR_A2_i,  ADDR_B2_i;
-    input  wire [17:0] WDATA_A2_i, WDATA_B2_i;
-    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
-
-    input  wire FLUSH2_i;
-
-    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
-        .RESET_ni   (RESET_ni),   
-        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
-        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
-        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
-        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
-        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
-        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
-        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
-        .FLUSH1_i   (FLUSH1_i),
-        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
-        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
-        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
-        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
-        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
-        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
-        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
-        .FLUSH2_i   (FLUSH2_i)
-    );
-
-`ifdef SDF_SIM
-	specify
-		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
-    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
-    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
-    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
-	endspecify
-`endif
-
-endmodule
-
-module TDP36K_BRAM_WR_X18_RD_X2_split (
-    RESET_ni,
-    WEN_A1_i,   WEN_B1_i,
-    REN_A1_i,   REN_B1_i,
-    CLK_A1_i,   CLK_B1_i,
-    BE_A1_i,    BE_B1_i,
-    ADDR_A1_i,  ADDR_B1_i,
-    WDATA_A1_i, WDATA_B1_i,
-    RDATA_A1_o, RDATA_B1_o,
-    FLUSH1_i,
-    WEN_A2_i,   WEN_B2_i,
-    REN_A2_i,   REN_B2_i,
-    CLK_A2_i,   CLK_B2_i,
-    BE_A2_i,    BE_B2_i,
-    ADDR_A2_i,  ADDR_B2_i,
-    WDATA_A2_i, WDATA_B2_i,
-    RDATA_A2_o, RDATA_B2_o,
-    FLUSH2_i
-);
-    parameter [80:0] MODE_BITS = 81'd0;
-
-    input  wire RESET_ni;
-    input  wire WEN_A1_i, WEN_B1_i;
-    input  wire REN_A1_i, REN_B1_i;
-    input  wire WEN_A2_i, WEN_B2_i;
-    input  wire REN_A2_i, REN_B2_i;
-
-    (* clkbuf_sink *)
-    input  wire CLK_A1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_A2_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B2_i;
-
-    input  wire [ 1:0] BE_A1_i,    BE_B1_i;
-    input  wire [14:0] ADDR_A1_i,  ADDR_B1_i;
-    input  wire [17:0] WDATA_A1_i, WDATA_B1_i;
-    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
-
-    input  wire FLUSH1_i;
-
-    input  wire [ 1:0] BE_A2_i,    BE_B2_i;
-    input  wire [13:0] ADDR_A2_i,  ADDR_B2_i;
-    input  wire [17:0] WDATA_A2_i, WDATA_B2_i;
-    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
-
-    input  wire FLUSH2_i;
-
-    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
-        .RESET_ni   (RESET_ni),   
-        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
-        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
-        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
-        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
-        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
-        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
-        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
-        .FLUSH1_i   (FLUSH1_i),
-        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
-        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
-        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
-        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
-        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
-        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
-        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
-        .FLUSH2_i   (FLUSH2_i)
-    );
-
-`ifdef SDF_SIM
-	specify
-		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
-    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
-    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
-    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
-	endspecify
-`endif
-
-endmodule
-
-module TDP36K_BRAM_WR_X18_RD_X4_split (
-    RESET_ni,
-    WEN_A1_i,   WEN_B1_i,
-    REN_A1_i,   REN_B1_i,
-    CLK_A1_i,   CLK_B1_i,
-    BE_A1_i,    BE_B1_i,
-    ADDR_A1_i,  ADDR_B1_i,
-    WDATA_A1_i, WDATA_B1_i,
-    RDATA_A1_o, RDATA_B1_o,
-    FLUSH1_i,
-    WEN_A2_i,   WEN_B2_i,
-    REN_A2_i,   REN_B2_i,
-    CLK_A2_i,   CLK_B2_i,
-    BE_A2_i,    BE_B2_i,
-    ADDR_A2_i,  ADDR_B2_i,
-    WDATA_A2_i, WDATA_B2_i,
-    RDATA_A2_o, RDATA_B2_o,
-    FLUSH2_i
-);
-    parameter [80:0] MODE_BITS = 81'd0;
-
-    input  wire RESET_ni;
-    input  wire WEN_A1_i, WEN_B1_i;
-    input  wire REN_A1_i, REN_B1_i;
-    input  wire WEN_A2_i, WEN_B2_i;
-    input  wire REN_A2_i, REN_B2_i;
-
-    (* clkbuf_sink *)
-    input  wire CLK_A1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_A2_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B2_i;
-
-    input  wire [ 1:0] BE_A1_i,    BE_B1_i;
-    input  wire [14:0] ADDR_A1_i,  ADDR_B1_i;
-    input  wire [17:0] WDATA_A1_i, WDATA_B1_i;
-    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
-
-    input  wire FLUSH1_i;
-
-    input  wire [ 1:0] BE_A2_i,    BE_B2_i;
-    input  wire [13:0] ADDR_A2_i,  ADDR_B2_i;
-    input  wire [17:0] WDATA_A2_i, WDATA_B2_i;
-    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
-
-    input  wire FLUSH2_i;
-
-    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
-        .RESET_ni   (RESET_ni),   
-        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
-        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
-        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
-        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
-        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
-        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
-        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
-        .FLUSH1_i   (FLUSH1_i),
-        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
-        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
-        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
-        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
-        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
-        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
-        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
-        .FLUSH2_i   (FLUSH2_i)
-    );
-
-`ifdef SDF_SIM
-	specify
-		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
-    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
-    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
-    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
-	endspecify
-`endif
-
-endmodule
-
-module TDP36K_BRAM_WR_X18_RD_X9_split (
-    RESET_ni,
-    WEN_A1_i,   WEN_B1_i,
-    REN_A1_i,   REN_B1_i,
-    CLK_A1_i,   CLK_B1_i,
-    BE_A1_i,    BE_B1_i,
-    ADDR_A1_i,  ADDR_B1_i,
-    WDATA_A1_i, WDATA_B1_i,
-    RDATA_A1_o, RDATA_B1_o,
-    FLUSH1_i,
-    WEN_A2_i,   WEN_B2_i,
-    REN_A2_i,   REN_B2_i,
-    CLK_A2_i,   CLK_B2_i,
-    BE_A2_i,    BE_B2_i,
-    ADDR_A2_i,  ADDR_B2_i,
-    WDATA_A2_i, WDATA_B2_i,
-    RDATA_A2_o, RDATA_B2_o,
-    FLUSH2_i
-);
-    parameter [80:0] MODE_BITS = 81'd0;
-
-    input  wire RESET_ni;
-    input  wire WEN_A1_i, WEN_B1_i;
-    input  wire REN_A1_i, REN_B1_i;
-    input  wire WEN_A2_i, WEN_B2_i;
-    input  wire REN_A2_i, REN_B2_i;
-
-    (* clkbuf_sink *)
-    input  wire CLK_A1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_A2_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B2_i;
-
-    input  wire [ 1:0] BE_A1_i,    BE_B1_i;
-    input  wire [14:0] ADDR_A1_i,  ADDR_B1_i;
-    input  wire [17:0] WDATA_A1_i, WDATA_B1_i;
-    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
-
-    input  wire FLUSH1_i;
-
-    input  wire [ 1:0] BE_A2_i,    BE_B2_i;
-    input  wire [13:0] ADDR_A2_i,  ADDR_B2_i;
-    input  wire [17:0] WDATA_A2_i, WDATA_B2_i;
-    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
-
-    input  wire FLUSH2_i;
-
-    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
-        .RESET_ni   (RESET_ni),   
-        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
-        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
-        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
-        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
-        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
-        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
-        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
-        .FLUSH1_i   (FLUSH1_i),
-        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
-        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
-        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
-        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
-        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
-        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
-        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
-        .FLUSH2_i   (FLUSH2_i)
-    );
-
-`ifdef SDF_SIM
-	specify
-		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
-    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
-    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
-    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
-	endspecify
-`endif
-
-endmodule
-
-module TDP36K_BRAM_WR_X18_RD_X18_split (
-    RESET_ni,
-    WEN_A1_i,   WEN_B1_i,
-    REN_A1_i,   REN_B1_i,
-    CLK_A1_i,   CLK_B1_i,
-    BE_A1_i,    BE_B1_i,
-    ADDR_A1_i,  ADDR_B1_i,
-    WDATA_A1_i, WDATA_B1_i,
-    RDATA_A1_o, RDATA_B1_o,
-    FLUSH1_i,
-    WEN_A2_i,   WEN_B2_i,
-    REN_A2_i,   REN_B2_i,
-    CLK_A2_i,   CLK_B2_i,
-    BE_A2_i,    BE_B2_i,
-    ADDR_A2_i,  ADDR_B2_i,
-    WDATA_A2_i, WDATA_B2_i,
-    RDATA_A2_o, RDATA_B2_o,
-    FLUSH2_i
-);
-    parameter [80:0] MODE_BITS = 81'd0;
-
-    input  wire RESET_ni;
-    input  wire WEN_A1_i, WEN_B1_i;
-    input  wire REN_A1_i, REN_B1_i;
-    input  wire WEN_A2_i, WEN_B2_i;
-    input  wire REN_A2_i, REN_B2_i;
-
-    (* clkbuf_sink *)
-    input  wire CLK_A1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B1_i;
-    (* clkbuf_sink *)
-    input  wire CLK_A2_i;
-    (* clkbuf_sink *)
-    input  wire CLK_B2_i;
-
-    input  wire [ 1:0] BE_A1_i,    BE_B1_i;
-    input  wire [14:0] ADDR_A1_i,  ADDR_B1_i;
-    input  wire [17:0] WDATA_A1_i, WDATA_B1_i;
-    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
-
-    input  wire FLUSH1_i;
-
-    input  wire [ 1:0] BE_A2_i,    BE_B2_i;
-    input  wire [13:0] ADDR_A2_i,  ADDR_B2_i;
-    input  wire [17:0] WDATA_A2_i, WDATA_B2_i;
-    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
-
-    input  wire FLUSH2_i;
-
-    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
-        .RESET_ni   (RESET_ni),   
-        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
-        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
-        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
-        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
-        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
-        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
-        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
-        .FLUSH1_i   (FLUSH1_i),
-        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
-        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
-        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
-        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
-        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
-        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
-        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
-        .FLUSH2_i   (FLUSH2_i)
-    );
-
-`ifdef SDF_SIM
-	specify
-		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
-    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
-    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
-    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
-	endspecify
-`endif
-
-endmodule
-
-//=================================================================================
 
 module SFIFO_18K_BLK (
     DIN,
@@ -13854,12 +3599,14 @@ module SFIFO_18K_BLK (
   output wire Overrun_Error, Underrun_Error;
  
  	BRAM2x18_SFIFO  #(
-      .WR_DATA_WIDTH(WR_DATA_WIDTH), 
-      .RD_DATA_WIDTH(RD_DATA_WIDTH),
+      .WR1_DATA_WIDTH(WR_DATA_WIDTH), 
+      .RD1_DATA_WIDTH(RD_DATA_WIDTH),
       .UPAE_DBITS1(UPAE_DBITS),
       .UPAF_DBITS1(UPAF_DBITS),
+      .WR2_DATA_WIDTH(), 
+      .RD2_DATA_WIDTH(),
       .UPAE_DBITS2(),
-      .UPAF_DBITS2()     
+      .UPAF_DBITS2()   
        ) U1
       (
       .DIN1(DIN),
@@ -13877,11 +3624,11 @@ module SFIFO_18K_BLK (
       .Empty1(Empty),
       .DOUT1(DOUT),
       
-      .DIN2(),
-      .PUSH2(),
-      .POP2(),
-      .CLK2(),
-      .Async_Flush2(),
+      .DIN2(18'h0),
+      .PUSH2(1'b0),
+      .POP2(1'b0),
+      .CLK2(1'b0),
+      .Async_Flush2(1'b0),
       .Overrun_Error2(),
       .Full_Watermark2(),
       .Almost_Full2(),
@@ -13891,6 +3638,454 @@ module SFIFO_18K_BLK (
       .Almost_Empty2(),
       .Empty2(),
       .DOUT2()
+	);
+
+endmodule
+
+module SFIFO_18K_X2_BLK (
+    DIN1,
+    PUSH1,
+    POP1,
+    CLK1,
+    Async_Flush1,
+    Overrun_Error1,
+    Full_Watermark1,
+    Almost_Full1,
+    Full1,
+    Underrun_Error1,
+    Empty_Watermark1,
+    Almost_Empty1,
+    Empty1,
+    DOUT1,
+    
+    DIN2,
+    PUSH2,
+    POP2,
+    CLK2,
+    Async_Flush2,
+    Overrun_Error2,
+    Full_Watermark2,
+    Almost_Full2,
+    Full2,
+    Underrun_Error2,
+    Empty_Watermark2,
+    Almost_Empty2,
+    Empty2,
+    DOUT2
+);
+
+  parameter WR1_DATA_WIDTH = 18;
+  parameter RD1_DATA_WIDTH = 18;
+  
+  parameter WR2_DATA_WIDTH = 18;
+  parameter RD2_DATA_WIDTH = 18;
+  
+  parameter UPAE_DBITS1 = 12'd10;
+  parameter UPAF_DBITS1 = 12'd10;
+  
+  parameter UPAE_DBITS2 = 11'd10;
+  parameter UPAF_DBITS2 = 11'd10;
+
+  input wire CLK1;
+  input wire PUSH1, POP1;
+  input wire [WR1_DATA_WIDTH-1:0] DIN1;
+  input wire Async_Flush1;
+  output wire [RD1_DATA_WIDTH-1:0] DOUT1;
+  output wire Almost_Full1, Almost_Empty1;
+  output wire Full1, Empty1;
+  output wire Full_Watermark1, Empty_Watermark1;
+  output wire Overrun_Error1, Underrun_Error1;
+  
+  input wire CLK2;
+  input wire PUSH2, POP2;
+  input wire [WR2_DATA_WIDTH-1:0] DIN2;
+  input wire Async_Flush2;
+  output wire [RD2_DATA_WIDTH-1:0] DOUT2;
+  output wire Almost_Full2, Almost_Empty2;
+  output wire Full2, Empty2;
+  output wire Full_Watermark2, Empty_Watermark2;
+  output wire Overrun_Error2, Underrun_Error2;
+  
+  // Fixed mode settings
+  localparam [ 0:0] SYNC_FIFO1_i  = 1'd1;
+  localparam [ 0:0] FMODE1_i      = 1'd1;
+  localparam [ 0:0] POWERDN1_i    = 1'd0;
+  localparam [ 0:0] SLEEP1_i      = 1'd0;
+  localparam [ 0:0] PROTECT1_i    = 1'd0;
+  localparam [11:0] UPAE1_i       = UPAE_DBITS1;
+  localparam [11:0] UPAF1_i       = UPAF_DBITS1;
+  
+  localparam [ 0:0] SYNC_FIFO2_i  = 1'd1;
+  localparam [ 0:0] FMODE2_i      = 1'd1;
+  localparam [ 0:0] POWERDN2_i    = 1'd0;
+  localparam [ 0:0] SLEEP2_i      = 1'd0;
+  localparam [ 0:0] PROTECT2_i    = 1'd0;
+  localparam [10:0] UPAE2_i       = UPAE_DBITS2;
+  localparam [10:0] UPAF2_i       = UPAF_DBITS2;
+
+  // Width mode function
+  function [2:0] mode;
+  input integer width;
+  case (width)
+  1: mode = 3'b101;
+  2: mode = 3'b110;
+  4: mode = 3'b100;
+  8,9: mode = 3'b001;
+  16, 18: mode = 3'b010;
+  32, 36: mode = 3'b011;
+  default: mode = 3'b000;
+  endcase
+  endfunction
+  
+  wire [17:0] in_reg1;
+  wire [17:0] out_reg1;
+  wire [17:0] fifo1_flags;
+  
+  wire [17:0] in_reg2;
+  wire [17:0] out_reg2;
+  wire [17:0] fifo2_flags;
+  
+  wire Push_Clk1, Pop_Clk1;
+  wire Push_Clk2, Pop_Clk2;
+  assign Push_Clk1 = CLK1;
+  assign Pop_Clk1 = CLK1;
+  assign Push_Clk2 = CLK2;
+  assign Pop_Clk2 = CLK2;
+  
+  assign Overrun_Error1 = fifo1_flags[0];
+  assign Full_Watermark1 = fifo1_flags[1];
+  assign Almost_Full1 = fifo1_flags[2];
+  assign Full1 = fifo1_flags[3];
+  assign Underrun_Error1 = fifo1_flags[4];
+  assign Empty_Watermark1 = fifo1_flags[5];
+  assign Almost_Empty1 = fifo1_flags[6];
+  assign Empty1 = fifo1_flags[7];
+  
+  assign Overrun_Error2 = fifo2_flags[0];
+  assign Full_Watermark2 = fifo2_flags[1];
+  assign Almost_Full2 = fifo2_flags[2];
+  assign Full2 = fifo2_flags[3];
+  assign Underrun_Error2 = fifo2_flags[4];
+  assign Empty_Watermark2 = fifo2_flags[5];
+  assign Almost_Empty2 = fifo2_flags[6];
+  assign Empty2 = fifo2_flags[7];
+  
+  localparam [ 2:0] RMODE_A1_i    = mode(WR1_DATA_WIDTH);
+  localparam [ 2:0] WMODE_A1_i    = mode(WR1_DATA_WIDTH);
+  localparam [ 2:0] RMODE_A2_i    = mode(WR2_DATA_WIDTH);
+  localparam [ 2:0] WMODE_A2_i    = mode(WR2_DATA_WIDTH);
+  
+  localparam [ 2:0] RMODE_B1_i    = mode(RD1_DATA_WIDTH);
+  localparam [ 2:0] WMODE_B1_i    = mode(RD1_DATA_WIDTH);
+  localparam [ 2:0] RMODE_B2_i    = mode(RD2_DATA_WIDTH);
+  localparam [ 2:0] WMODE_B2_i    = mode(RD2_DATA_WIDTH);
+  
+  generate
+    if (WR1_DATA_WIDTH == 18) begin
+      assign in_reg1[17:0] = DIN1[17:0];
+    end else if (WR1_DATA_WIDTH == 9) begin
+      assign in_reg1[17:0] = {1'b0, DIN1[8], 8'h0, DIN1[7:0]};
+    end else begin
+      assign in_reg1[17:WR1_DATA_WIDTH]  = 0;
+      assign in_reg1[WR1_DATA_WIDTH-1:0] = DIN1[WR1_DATA_WIDTH-1:0];
+    end
+  endgenerate     
+  
+  generate
+    if (RD1_DATA_WIDTH == 9) begin
+      assign DOUT1[RD1_DATA_WIDTH-1:0] = {out_reg1[16], out_reg1[7:0]};
+    end else begin
+      assign DOUT1[RD1_DATA_WIDTH-1:0] = out_reg1[RD1_DATA_WIDTH-1:0];
+    end
+  endgenerate 
+  
+  generate
+    if (WR2_DATA_WIDTH == 18) begin
+      assign in_reg2[17:0] = DIN2[17:0];
+    end else if (WR2_DATA_WIDTH == 9) begin
+      assign in_reg2[17:0] = {1'b0, DIN2[8], 8'h0, DIN2[7:0]};
+    end else begin
+      assign in_reg2[17:WR2_DATA_WIDTH]  = 0;
+      assign in_reg2[WR2_DATA_WIDTH-1:0] = DIN2[WR2_DATA_WIDTH-1:0];
+    end
+  endgenerate     
+  
+  generate
+    if (RD2_DATA_WIDTH == 9) begin
+      assign DOUT2[RD2_DATA_WIDTH-1:0] = {out_reg2[16], out_reg2[7:0]};
+    end else begin
+      assign DOUT2[RD2_DATA_WIDTH-1:0] = out_reg2[RD2_DATA_WIDTH-1:0];
+    end
+  endgenerate 
+  
+  defparam _TECHMAP_REPLACE_.MODE_BITS = { 1'b1,
+	UPAF2_i, UPAE2_i, PROTECT2_i, SLEEP2_i, POWERDN2_i, FMODE2_i, WMODE_B2_i, WMODE_A2_i, RMODE_B2_i, RMODE_A2_i, SYNC_FIFO2_i,
+	UPAF1_i, UPAE1_i, PROTECT1_i, SLEEP1_i, POWERDN1_i, FMODE1_i, WMODE_B1_i, WMODE_A1_i, RMODE_B1_i, RMODE_A1_i, SYNC_FIFO1_i
+	};
+
+  (* is_fifo = 1 *) 
+  (* sync_fifo = 1 *) 
+  (* is_split = 1 *)
+  (* is_inferred = 0 *)
+  (* port_a1_dwidth = WR1_DATA_WIDTH *)
+  (* port_a2_dwidth = WR2_DATA_WIDTH *)
+  (* port_b1_dwidth = RD1_DATA_WIDTH *)
+  (* port_b2_dwidth = RD2_DATA_WIDTH *)
+ 	TDP36K _TECHMAP_REPLACE_ (
+		.RESET_ni(1'b1),
+		.WDATA_A1_i(in_reg1[17:0]),
+		.WDATA_A2_i(in_reg2[17:0]),
+		.RDATA_A1_o(fifo1_flags),
+		.RDATA_A2_o(fifo2_flags),
+		.ADDR_A1_i(14'h0),
+		.ADDR_A2_i(14'h0),
+		.CLK_A1_i(Push_Clk1),
+		.CLK_A2_i(Push_Clk2),
+		.REN_A1_i(1'b1),
+		.REN_A2_i(1'b1),
+		.WEN_A1_i(PUSH1),
+		.WEN_A2_i(PUSH2),
+		.BE_A1_i(2'b11),
+		.BE_A2_i(2'b11),
+
+		.WDATA_B1_i(18'h0),
+		.WDATA_B2_i(18'h0),
+		.RDATA_B1_o(out_reg1[17:0]),
+		.RDATA_B2_o(out_reg2[17:0]),
+		.ADDR_B1_i(14'h0),
+		.ADDR_B2_i(14'h0),
+		.CLK_B1_i(Pop_Clk1),
+		.CLK_B2_i(Pop_Clk2),
+		.REN_B1_i(POP1),
+		.REN_B2_i(POP2),
+		.WEN_B1_i(1'b0),
+		.WEN_B2_i(1'b0),
+		.BE_B1_i(2'b11),
+		.BE_B2_i(2'b11),
+
+		.FLUSH1_i(Async_Flush1),
+		.FLUSH2_i(Async_Flush2)
+	);
+
+endmodule
+
+
+module BRAM2x18_AFIFO (
+    DIN1,
+    PUSH1,
+    POP1,
+    Push_Clk1,
+	Pop_Clk1,
+    Async_Flush1,
+    Overrun_Error1,
+    Full_Watermark1,
+    Almost_Full1,
+    Full1,
+    Underrun_Error1,
+    Empty_Watermark1,
+    Almost_Empty1,
+    Empty1,
+    DOUT1,
+    
+    DIN2,
+    PUSH2,
+    POP2,
+    Push_Clk2,
+	Pop_Clk2,
+    Async_Flush2,
+    Overrun_Error2,
+    Full_Watermark2,
+    Almost_Full2,
+    Full2,
+    Underrun_Error2,
+    Empty_Watermark2,
+    Almost_Empty2,
+    Empty2,
+    DOUT2
+);
+
+  parameter WR1_DATA_WIDTH = 18;
+  parameter RD1_DATA_WIDTH = 18;
+  
+  parameter WR2_DATA_WIDTH = 18;
+  parameter RD2_DATA_WIDTH = 18;
+  
+  parameter UPAE_DBITS1 = 12'd10;
+  parameter UPAF_DBITS1 = 12'd10;
+  
+  parameter UPAE_DBITS2 = 11'd10;
+  parameter UPAF_DBITS2 = 11'd10;
+
+  input wire Push_Clk1, Pop_Clk1;
+  input wire PUSH1, POP1;
+  input wire [WR1_DATA_WIDTH-1:0] DIN1;
+  input wire Async_Flush1;
+  output wire [RD1_DATA_WIDTH-1:0] DOUT1;
+  output wire Almost_Full1, Almost_Empty1;
+  output wire Full1, Empty1;
+  output wire Full_Watermark1, Empty_Watermark1;
+  output wire Overrun_Error1, Underrun_Error1;
+  
+  input wire Push_Clk2, Pop_Clk2;
+  input wire PUSH2, POP2;
+  input wire [WR2_DATA_WIDTH-1:0] DIN2;
+  input wire Async_Flush2;
+  output wire [RD2_DATA_WIDTH-1:0] DOUT2;
+  output wire Almost_Full2, Almost_Empty2;
+  output wire Full2, Empty2;
+  output wire Full_Watermark2, Empty_Watermark2;
+  output wire Overrun_Error2, Underrun_Error2;
+  
+  // Fixed mode settings
+  localparam [ 0:0] SYNC_FIFO1_i  = 1'd0;
+  localparam [ 0:0] FMODE1_i      = 1'd1;
+  localparam [ 0:0] POWERDN1_i    = 1'd0;
+  localparam [ 0:0] SLEEP1_i      = 1'd0;
+  localparam [ 0:0] PROTECT1_i    = 1'd0;
+  localparam [11:0] UPAE1_i       = UPAE_DBITS1;
+  localparam [11:0] UPAF1_i       = UPAF_DBITS1;
+  
+  localparam [ 0:0] SYNC_FIFO2_i  = 1'd0;
+  localparam [ 0:0] FMODE2_i      = 1'd1;
+  localparam [ 0:0] POWERDN2_i    = 1'd0;
+  localparam [ 0:0] SLEEP2_i      = 1'd0;
+  localparam [ 0:0] PROTECT2_i    = 1'd0;
+  localparam [10:0] UPAE2_i       = UPAE_DBITS2;
+  localparam [10:0] UPAF2_i       = UPAF_DBITS2;
+
+  // Width mode function
+  function [2:0] mode;
+  input integer width;
+  case (width)
+  1: mode = 3'b101;
+  2: mode = 3'b110;
+  4: mode = 3'b100;
+  8,9: mode = 3'b001;
+  16, 18: mode = 3'b010;
+  32, 36: mode = 3'b011;
+  default: mode = 3'b000;
+  endcase
+  endfunction
+  
+  wire [17:0] in_reg1;
+  wire [17:0] out_reg1;
+  wire [17:0] fifo1_flags;
+  
+  wire [17:0] in_reg2;
+  wire [17:0] out_reg2;
+  wire [17:0] fifo2_flags;
+  
+  assign Overrun_Error1 = fifo1_flags[0];
+  assign Full_Watermark1 = fifo1_flags[1];
+  assign Almost_Full1 = fifo1_flags[2];
+  assign Full1 = fifo1_flags[3];
+  assign Underrun_Error1 = fifo1_flags[4];
+  assign Empty_Watermark1 = fifo1_flags[5];
+  assign Almost_Empty1 = fifo1_flags[6];
+  assign Empty1 = fifo1_flags[7];
+  
+  assign Overrun_Error2 = fifo2_flags[0];
+  assign Full_Watermark2 = fifo2_flags[1];
+  assign Almost_Full2 = fifo2_flags[2];
+  assign Full2 = fifo2_flags[3];
+  assign Underrun_Error2 = fifo2_flags[4];
+  assign Empty_Watermark2 = fifo2_flags[5];
+  assign Almost_Empty2 = fifo2_flags[6];
+  assign Empty2 = fifo2_flags[7];
+  
+  localparam [ 2:0] RMODE_A1_i    = mode(WR1_DATA_WIDTH);
+  localparam [ 2:0] WMODE_A1_i    = mode(WR1_DATA_WIDTH);
+  localparam [ 2:0] RMODE_A2_i    = mode(WR2_DATA_WIDTH);
+  localparam [ 2:0] WMODE_A2_i    = mode(WR2_DATA_WIDTH);
+  
+  localparam [ 2:0] RMODE_B1_i    = mode(RD1_DATA_WIDTH);
+  localparam [ 2:0] WMODE_B1_i    = mode(RD1_DATA_WIDTH);
+  localparam [ 2:0] RMODE_B2_i    = mode(RD2_DATA_WIDTH);
+  localparam [ 2:0] WMODE_B2_i    = mode(RD2_DATA_WIDTH);
+  
+  generate
+    if (WR1_DATA_WIDTH == 18) begin
+      assign in_reg1[17:0] = DIN1[17:0];
+    end else if (WR1_DATA_WIDTH == 9) begin
+      assign in_reg1[17:0] = {1'b0, DIN1[8], 8'h0, DIN1[7:0]};
+    end else begin
+      assign in_reg1[17:WR1_DATA_WIDTH]  = 0;
+      assign in_reg1[WR1_DATA_WIDTH-1:0] = DIN1[WR1_DATA_WIDTH-1:0];
+    end
+  endgenerate     
+  
+  generate
+    if (RD1_DATA_WIDTH == 9) begin
+      assign DOUT1[RD1_DATA_WIDTH-1:0] = {out_reg1[16], out_reg1[7:0]};
+    end else begin
+      assign DOUT1[RD1_DATA_WIDTH-1:0] = out_reg1[RD1_DATA_WIDTH-1:0];
+    end
+  endgenerate 
+  
+  generate
+    if (WR2_DATA_WIDTH == 18) begin
+      assign in_reg2[17:0] = DIN2[17:0];
+    end else if (WR2_DATA_WIDTH == 9) begin
+      assign in_reg2[17:0] = {1'b0, DIN2[8], 8'h0, DIN2[7:0]};
+    end else begin
+      assign in_reg2[17:WR2_DATA_WIDTH]  = 0;
+      assign in_reg2[WR2_DATA_WIDTH-1:0] = DIN2[WR2_DATA_WIDTH-1:0];
+    end
+  endgenerate     
+  
+  generate
+    if (RD2_DATA_WIDTH == 9) begin
+      assign DOUT2[RD2_DATA_WIDTH-1:0] = {out_reg2[16], out_reg2[7:0]};
+    end else begin
+      assign DOUT2[RD2_DATA_WIDTH-1:0] = out_reg2[RD2_DATA_WIDTH-1:0];
+    end
+  endgenerate 
+  
+  defparam _TECHMAP_REPLACE_.MODE_BITS = { 1'b1,
+	UPAF2_i, UPAE2_i, PROTECT2_i, SLEEP2_i, POWERDN2_i, FMODE2_i, WMODE_B2_i, WMODE_A2_i, RMODE_B2_i, RMODE_A2_i, SYNC_FIFO2_i,
+	UPAF1_i, UPAE1_i, PROTECT1_i, SLEEP1_i, POWERDN1_i, FMODE1_i, WMODE_B1_i, WMODE_A1_i, RMODE_B1_i, RMODE_A1_i, SYNC_FIFO1_i
+	};
+
+  (* is_fifo = 1 *) 
+  (* sync_fifo = 0 *) 
+  (* is_split = 0 *)
+  (* is_inferred = 0 *)
+  (* port_a_dwidth = WR1_DATA_WIDTH *)
+  (* port_b_dwidth = RD1_DATA_WIDTH *)
+ 	TDP36K _TECHMAP_REPLACE_ (
+		.RESET_ni(1'b1),
+		.WDATA_A1_i(in_reg1[17:0]),
+		.WDATA_A2_i(in_reg2[17:0]),
+		.RDATA_A1_o(fifo1_flags),
+		.RDATA_A2_o(fifo2_flags),
+		.ADDR_A1_i(14'h0),
+		.ADDR_A2_i(14'h0),
+		.CLK_A1_i(Push_Clk1),
+		.CLK_A2_i(Push_Clk2),
+		.REN_A1_i(1'b1),
+		.REN_A2_i(1'b1),
+		.WEN_A1_i(PUSH1),
+		.WEN_A2_i(PUSH2),
+		.BE_A1_i(2'b11),
+		.BE_A2_i(2'b11),
+
+		.WDATA_B1_i(18'h0),
+		.WDATA_B2_i(18'h0),
+		.RDATA_B1_o(out_reg1[17:0]),
+		.RDATA_B2_o(out_reg2[17:0]),
+		.ADDR_B1_i(14'h0),
+		.ADDR_B2_i(14'h0),
+		.CLK_B1_i(Pop_Clk1),
+		.CLK_B2_i(Pop_Clk2),
+		.REN_B1_i(POP1),
+		.REN_B2_i(POP2),
+		.WEN_B1_i(1'b0),
+		.WEN_B2_i(1'b0),
+		.BE_B1_i(2'b11),
+		.BE_B2_i(2'b11),
+
+		.FLUSH1_i(Async_Flush1),
+		.FLUSH2_i(Async_Flush2)
 	);
 
 endmodule
@@ -13929,12 +4124,14 @@ module AFIFO_18K_BLK (
   output wire Overrun_Error, Underrun_Error;
  
  	BRAM2x18_AFIFO  #(
-      .WR_DATA_WIDTH(WR_DATA_WIDTH), 
-      .RD_DATA_WIDTH(RD_DATA_WIDTH),
+      .WR1_DATA_WIDTH(WR_DATA_WIDTH), 
+      .RD1_DATA_WIDTH(RD_DATA_WIDTH),
       .UPAE_DBITS1(UPAE_DBITS),
       .UPAF_DBITS1(UPAF_DBITS),
+      .WR2_DATA_WIDTH(), 
+      .RD2_DATA_WIDTH(),
       .UPAE_DBITS2(),
-      .UPAF_DBITS2()       
+      .UPAF_DBITS2()
        ) U1
       (
       .DIN1(DIN),
@@ -13953,12 +4150,12 @@ module AFIFO_18K_BLK (
       .Empty1(Empty),
       .DOUT1(DOUT),
       
-      .DIN2(),
-      .PUSH2(),
-      .POP2(),
-      .Push_Clk2(),
-      .Pop_Clk2(),
-      .Async_Flush2(),
+      .DIN2(18'h0),
+      .PUSH2(1'b0),
+      .POP2(1'b0),
+      .Push_Clk2(1'b0),
+      .Pop_Clk2(1'b0),
+      .Async_Flush2(1'b0),
       .Overrun_Error2(),
       .Full_Watermark2(),
       .Almost_Full2(),
@@ -13972,570 +4169,12 @@ module AFIFO_18K_BLK (
 
 endmodule
 
-module BRAM2x18_SFIFO (
-    DIN1,
-    PUSH1,
-    POP1,
-    CLK1,
-    Async_Flush1,
-    Overrun_Error1,
-    Full_Watermark1,
-    Almost_Full1,
-    Full1,
-    Underrun_Error1,
-    Empty_Watermark1,
-    Almost_Empty1,
-    Empty1,
-    DOUT1,
-    
-    DIN2,
-    PUSH2,
-    POP2,
-    CLK2,
-    Async_Flush2,
-    Overrun_Error2,
-    Full_Watermark2,
-    Almost_Full2,
-    Full2,
-    Underrun_Error2,
-    Empty_Watermark2,
-    Almost_Empty2,
-    Empty2,
-    DOUT2
-);
-
-  parameter WR_DATA_WIDTH = 18;
-  parameter RD_DATA_WIDTH = 18;
-
-  
-  parameter UPAE_DBITS1 = 11'd10;
-  parameter UPAF_DBITS1 = 11'd10;
-  
-  parameter UPAE_DBITS2 = 11'd10;
-  parameter UPAF_DBITS2 = 11'd10;
-  
-  localparam MODE_36 = 3'b011; // 36- or 32-bit
-  localparam MODE_18 = 3'b010; // 18- or 16-bit
-  localparam MODE_9 = 3'b001; // 9- or 8-bit
-  localparam MODE_4 = 3'b100; // 4-bit
-  localparam MODE_2 = 3'b110; // 2-bit
-  localparam MODE_1 = 3'b101; // 1-bit
-
-  input wire CLK1;
-  input wire PUSH1, POP1;
-  input wire [WR_DATA_WIDTH-1:0] DIN1;
-  input wire Async_Flush1;
-  output wire [RD_DATA_WIDTH-1:0] DOUT1;
-  output wire Almost_Full1, Almost_Empty1;
-  output wire Full1, Empty1;
-  output wire Full_Watermark1, Empty_Watermark1;
-  output wire Overrun_Error1, Underrun_Error1;
-  
-  input wire CLK2;
-  input wire PUSH2, POP2;
-  input wire [WR_DATA_WIDTH-1:0] DIN2;
-  input wire Async_Flush2;
-  output wire [RD_DATA_WIDTH-1:0] DOUT2;
-  output wire Almost_Full2, Almost_Empty2;
-  output wire Full2, Empty2;
-  output wire Full_Watermark2, Empty_Watermark2;
-  output wire Overrun_Error2, Underrun_Error2;
-  
-  wire [17:0] in_reg1;
-  wire [17:0] out_reg1;
-  wire [17:0] fifo1_flags;
-  
-  wire [17:0] in_reg2;
-  wire [17:0] out_reg2;
-  wire [17:0] fifo2_flags;
-  
-  wire Push_Clk1, Pop_Clk1;
-  wire Push_Clk2, Pop_Clk2;
-  assign Push_Clk1 = CLK1;
-  assign Pop_Clk1 = CLK1;
-  assign Push_Clk2 = CLK2;
-  assign Pop_Clk2 = CLK2;
-  
-  assign Overrun_Error1 = fifo1_flags[0];
-  assign Full_Watermark1 = fifo1_flags[1];
-  assign Almost_Full1 = fifo1_flags[2];
-  assign Full1 = fifo1_flags[3];
-  assign Underrun_Error1 = fifo1_flags[4];
-  assign Empty_Watermark1 = fifo1_flags[5];
-  assign Almost_Empty1 = fifo1_flags[6];
-  assign Empty1 = fifo1_flags[7];
-  
-  assign Overrun_Error2 = fifo2_flags[0];
-  assign Full_Watermark2 = fifo2_flags[1];
-  assign Almost_Full2 = fifo2_flags[2];
-  assign Full2 = fifo2_flags[3];
-  assign Underrun_Error2 = fifo2_flags[4];
-  assign Empty_Watermark2 = fifo2_flags[5];
-  assign Almost_Empty2 = fifo2_flags[6];
-  assign Empty2 = fifo2_flags[7];
-  
-  generate
-    if (WR_DATA_WIDTH == 18) begin
-      assign in_reg1[17:0] = DIN1[17:0];
-      assign in_reg2[17:0] = DIN2[17:0];
-    end else if (WR_DATA_WIDTH == 9) begin
-      assign in_reg1[17:0] = {1'b0, DIN1[8], 8'h0, DIN1[7:0]};
-      assign in_reg2[17:0] = {1'b0, DIN2[8], 8'h0, DIN2[7:0]};
-    end else begin
-      assign in_reg1[17:WR_DATA_WIDTH]  = 0;
-      assign in_reg1[WR_DATA_WIDTH-1:0] = DIN1[WR_DATA_WIDTH-1:0];
-      assign in_reg2[17:WR_DATA_WIDTH]  = 0;
-      assign in_reg2[WR_DATA_WIDTH-1:0] = DIN2[WR_DATA_WIDTH-1:0];
-    end
-  endgenerate     
-  
- case (RD_DATA_WIDTH)
-	8, 9: begin
-		case (WR_DATA_WIDTH)
-			8, 9: begin
-				defparam U1.MODE_BITS = { 1'b1,
-					UPAF_DBITS2, UPAE_DBITS2, 4'h1, MODE_9, MODE_9, MODE_9, MODE_9, 1'b1,
-					1'b0, UPAF_DBITS1, 1'b0, UPAE_DBITS1, 4'h1, MODE_9, MODE_9, MODE_9, MODE_9, 1'b1
-				};
-        (* is_fifo = 1 *) 
-        (* sync_fifo = 1 *) 
-        (* is_split = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *) 
-        TDP36K U1 (
-          .RESET_ni(1'b1),
-          .WDATA_A1_i(in_reg1[17:0]),
-          .WDATA_A2_i(in_reg2[17:0]),
-          .RDATA_A1_o(fifo1_flags),
-          .RDATA_A2_o(fifo2_flags),
-          .ADDR_A1_i(14'h0),
-          .ADDR_A2_i(14'h0),
-          .CLK_A1_i(Push_Clk1),
-          .CLK_A2_i(Push_Clk2),
-          .REN_A1_i(1'b1),
-          .REN_A2_i(1'b1),
-          .WEN_A1_i(PUSH1),
-          .WEN_A2_i(PUSH2),
-          .BE_A1_i(2'b11),
-          .BE_A2_i(2'b11),
-      
-          .WDATA_B1_i(18'h0),
-          .WDATA_B2_i(18'h0),
-          .RDATA_B1_o(out_reg1[17:0]),
-          .RDATA_B2_o(out_reg2[17:0]),
-          .ADDR_B1_i(14'h0),
-          .ADDR_B2_i(14'h0),
-          .CLK_B1_i(Pop_Clk1),
-          .CLK_B2_i(Pop_Clk2),
-          .REN_B1_i(POP1),
-          .REN_B2_i(POP2),
-          .WEN_B1_i(1'b0),
-          .WEN_B2_i(1'b0),
-          .BE_B1_i(2'b11),
-          .BE_B2_i(2'b11),
-      
-          .FLUSH1_i(Async_Flush1),
-          .FLUSH2_i(Async_Flush2)
-        );        
-			end
-			16, 18: begin
-				defparam U1.MODE_BITS = { 1'b1,
-					UPAF_DBITS2, UPAE_DBITS2, 4'h1, MODE_9, MODE_18, MODE_9, MODE_18, 1'b1,
-					1'b0, UPAF_DBITS1, 1'b0, UPAE_DBITS1, 4'h1, MODE_9, MODE_18, MODE_9, MODE_18, 1'b1
-				};
-        (* is_fifo = 1 *) 
-        (* sync_fifo = 1 *) 
-        (* is_split = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *) 
-        TDP36K U1 (
-          .RESET_ni(1'b1),
-          .WDATA_A1_i(in_reg1[17:0]),
-          .WDATA_A2_i(in_reg2[17:0]),
-          .RDATA_A1_o(fifo1_flags),
-          .RDATA_A2_o(fifo2_flags),
-          .ADDR_A1_i(14'h0),
-          .ADDR_A2_i(14'h0),
-          .CLK_A1_i(Push_Clk1),
-          .CLK_A2_i(Push_Clk2),
-          .REN_A1_i(1'b1),
-          .REN_A2_i(1'b1),
-          .WEN_A1_i(PUSH1),
-          .WEN_A2_i(PUSH2),
-          .BE_A1_i(2'b11),
-          .BE_A2_i(2'b11),
-      
-          .WDATA_B1_i(18'h0),
-          .WDATA_B2_i(18'h0),
-          .RDATA_B1_o(out_reg1[17:0]),
-          .RDATA_B2_o(out_reg2[17:0]),
-          .ADDR_B1_i(14'h0),
-          .ADDR_B2_i(14'h0),
-          .CLK_B1_i(Pop_Clk1),
-          .CLK_B2_i(Pop_Clk2),
-          .REN_B1_i(POP1),
-          .REN_B2_i(POP2),
-          .WEN_B1_i(1'b0),
-          .WEN_B2_i(1'b0),
-          .BE_B1_i(2'b11),
-          .BE_B2_i(2'b11),
-      
-          .FLUSH1_i(Async_Flush1),
-          .FLUSH2_i(Async_Flush2)
-        );        
-			end
-			default: begin
-				defparam U1.MODE_BITS = { 1'b1,
-					UPAF_DBITS2, UPAE_DBITS2, 4'h1, MODE_9, MODE_9, MODE_9, MODE_9, 1'b1,
-					1'b0, UPAF_DBITS1, 1'b0, UPAE_DBITS1, 4'h1, MODE_9, MODE_9, MODE_9, MODE_9, 1'b1
-				};
-        (* is_fifo = 1 *) 
-        (* sync_fifo = 1 *) 
-        (* is_split = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *) 
-        TDP36K U1 (
-          .RESET_ni(1'b1),
-          .WDATA_A1_i(in_reg1[17:0]),
-          .WDATA_A2_i(in_reg2[17:0]),
-          .RDATA_A1_o(fifo1_flags),
-          .RDATA_A2_o(fifo2_flags),
-          .ADDR_A1_i(14'h0),
-          .ADDR_A2_i(14'h0),
-          .CLK_A1_i(Push_Clk1),
-          .CLK_A2_i(Push_Clk2),
-          .REN_A1_i(1'b1),
-          .REN_A2_i(1'b1),
-          .WEN_A1_i(PUSH1),
-          .WEN_A2_i(PUSH2),
-          .BE_A1_i(2'b11),
-          .BE_A2_i(2'b11),
-      
-          .WDATA_B1_i(18'h0),
-          .WDATA_B2_i(18'h0),
-          .RDATA_B1_o(out_reg1[17:0]),
-          .RDATA_B2_o(out_reg2[17:0]),
-          .ADDR_B1_i(14'h0),
-          .ADDR_B2_i(14'h0),
-          .CLK_B1_i(Pop_Clk1),
-          .CLK_B2_i(Pop_Clk2),
-          .REN_B1_i(POP1),
-          .REN_B2_i(POP2),
-          .WEN_B1_i(1'b0),
-          .WEN_B2_i(1'b0),
-          .BE_B1_i(2'b11),
-          .BE_B2_i(2'b11),
-      
-          .FLUSH1_i(Async_Flush1),
-          .FLUSH2_i(Async_Flush2)
-        );        
-			end
-		endcase
-	end
-	16, 18: begin
-		case (WR_DATA_WIDTH)
-			8, 9: begin
-				defparam U1.MODE_BITS = { 1'b1,
-					UPAF_DBITS2, UPAE_DBITS2, 4'h1, MODE_18, MODE_9, MODE_18, MODE_9, 1'b1,
-					1'b0, UPAF_DBITS1, 1'b0, UPAE_DBITS1, 4'h1, MODE_18, MODE_9, MODE_18, MODE_9, 1'b1
-				};
-        (* is_fifo = 1 *) 
-        (* sync_fifo = 1 *) 
-        (* is_split = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *) 
-        TDP36K U1 (
-          .RESET_ni(1'b1),
-          .WDATA_A1_i(in_reg1[17:0]),
-          .WDATA_A2_i(in_reg2[17:0]),
-          .RDATA_A1_o(fifo1_flags),
-          .RDATA_A2_o(fifo2_flags),
-          .ADDR_A1_i(14'h0),
-          .ADDR_A2_i(14'h0),
-          .CLK_A1_i(Push_Clk1),
-          .CLK_A2_i(Push_Clk2),
-          .REN_A1_i(1'b1),
-          .REN_A2_i(1'b1),
-          .WEN_A1_i(PUSH1),
-          .WEN_A2_i(PUSH2),
-          .BE_A1_i(2'b11),
-          .BE_A2_i(2'b11),
-      
-          .WDATA_B1_i(18'h0),
-          .WDATA_B2_i(18'h0),
-          .RDATA_B1_o(out_reg1[17:0]),
-          .RDATA_B2_o(out_reg2[17:0]),
-          .ADDR_B1_i(14'h0),
-          .ADDR_B2_i(14'h0),
-          .CLK_B1_i(Pop_Clk1),
-          .CLK_B2_i(Pop_Clk2),
-          .REN_B1_i(POP1),
-          .REN_B2_i(POP2),
-          .WEN_B1_i(1'b0),
-          .WEN_B2_i(1'b0),
-          .BE_B1_i(2'b11),
-          .BE_B2_i(2'b11),
-      
-          .FLUSH1_i(Async_Flush1),
-          .FLUSH2_i(Async_Flush2)
-        );        
-			end
-			16, 18: begin
-				defparam U1.MODE_BITS = { 1'b1,
-					UPAF_DBITS2, UPAE_DBITS2, 4'h1, MODE_18, MODE_18, MODE_18, MODE_18, 1'b1,
-					1'b0, UPAF_DBITS1, 1'b0, UPAE_DBITS1, 4'h1, MODE_18, MODE_18, MODE_18, MODE_18, 1'b1
-				};
-        (* is_fifo = 1 *) 
-        (* sync_fifo = 1 *) 
-        (* is_split = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *) 
-        TDP36K U1 (
-          .RESET_ni(1'b1),
-          .WDATA_A1_i(in_reg1[17:0]),
-          .WDATA_A2_i(in_reg2[17:0]),
-          .RDATA_A1_o(fifo1_flags),
-          .RDATA_A2_o(fifo2_flags),
-          .ADDR_A1_i(14'h0),
-          .ADDR_A2_i(14'h0),
-          .CLK_A1_i(Push_Clk1),
-          .CLK_A2_i(Push_Clk2),
-          .REN_A1_i(1'b1),
-          .REN_A2_i(1'b1),
-          .WEN_A1_i(PUSH1),
-          .WEN_A2_i(PUSH2),
-          .BE_A1_i(2'b11),
-          .BE_A2_i(2'b11),
-      
-          .WDATA_B1_i(18'h0),
-          .WDATA_B2_i(18'h0),
-          .RDATA_B1_o(out_reg1[17:0]),
-          .RDATA_B2_o(out_reg2[17:0]),
-          .ADDR_B1_i(14'h0),
-          .ADDR_B2_i(14'h0),
-          .CLK_B1_i(Pop_Clk1),
-          .CLK_B2_i(Pop_Clk2),
-          .REN_B1_i(POP1),
-          .REN_B2_i(POP2),
-          .WEN_B1_i(1'b0),
-          .WEN_B2_i(1'b0),
-          .BE_B1_i(2'b11),
-          .BE_B2_i(2'b11),
-      
-          .FLUSH1_i(Async_Flush1),
-          .FLUSH2_i(Async_Flush2)
-        );        
-			end
-			default: begin
-				defparam U1.MODE_BITS = { 1'b1,
-					UPAF_DBITS2, UPAE_DBITS2, 4'h1, MODE_18, MODE_18, MODE_18, MODE_18, 1'b1,
-					1'b0, UPAF_DBITS1, 1'b0, UPAE_DBITS1, 4'h1, MODE_18, MODE_18, MODE_18, MODE_18, 1'b1
-				};
-        (* is_fifo = 1 *) 
-        (* sync_fifo = 1 *) 
-        (* is_split = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *) 
-        TDP36K U1 (
-          .RESET_ni(1'b1),
-          .WDATA_A1_i(in_reg1[17:0]),
-          .WDATA_A2_i(in_reg2[17:0]),
-          .RDATA_A1_o(fifo1_flags),
-          .RDATA_A2_o(fifo2_flags),
-          .ADDR_A1_i(14'h0),
-          .ADDR_A2_i(14'h0),
-          .CLK_A1_i(Push_Clk1),
-          .CLK_A2_i(Push_Clk2),
-          .REN_A1_i(1'b1),
-          .REN_A2_i(1'b1),
-          .WEN_A1_i(PUSH1),
-          .WEN_A2_i(PUSH2),
-          .BE_A1_i(2'b11),
-          .BE_A2_i(2'b11),
-      
-          .WDATA_B1_i(18'h0),
-          .WDATA_B2_i(18'h0),
-          .RDATA_B1_o(out_reg1[17:0]),
-          .RDATA_B2_o(out_reg2[17:0]),
-          .ADDR_B1_i(14'h0),
-          .ADDR_B2_i(14'h0),
-          .CLK_B1_i(Pop_Clk1),
-          .CLK_B2_i(Pop_Clk2),
-          .REN_B1_i(POP1),
-          .REN_B2_i(POP2),
-          .WEN_B1_i(1'b0),
-          .WEN_B2_i(1'b0),
-          .BE_B1_i(2'b11),
-          .BE_B2_i(2'b11),
-      
-          .FLUSH1_i(Async_Flush1),
-          .FLUSH2_i(Async_Flush2)
-        );        
-			end
-		endcase
-	end
-	default: begin
-		case (WR_DATA_WIDTH)
-			8, 9: begin
-				defparam U1.MODE_BITS = { 1'b1,
-					UPAF_DBITS2, UPAE_DBITS2, 4'h1, MODE_9, MODE_9, MODE_9, MODE_9, 1'b1,
-					1'b0, UPAF_DBITS1, 1'b0, UPAE_DBITS1, 4'h1, MODE_9, MODE_9, MODE_9, MODE_9, 1'b1
-				};
-        (* is_fifo = 1 *) 
-        (* sync_fifo = 1 *) 
-        (* is_split = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *) 
-        TDP36K U1 (
-          .RESET_ni(1'b1),
-          .WDATA_A1_i(in_reg1[17:0]),
-          .WDATA_A2_i(in_reg2[17:0]),
-          .RDATA_A1_o(fifo1_flags),
-          .RDATA_A2_o(fifo2_flags),
-          .ADDR_A1_i(14'h0),
-          .ADDR_A2_i(14'h0),
-          .CLK_A1_i(Push_Clk1),
-          .CLK_A2_i(Push_Clk2),
-          .REN_A1_i(1'b1),
-          .REN_A2_i(1'b1),
-          .WEN_A1_i(PUSH1),
-          .WEN_A2_i(PUSH2),
-          .BE_A1_i(2'b11),
-          .BE_A2_i(2'b11),
-      
-          .WDATA_B1_i(18'h0),
-          .WDATA_B2_i(18'h0),
-          .RDATA_B1_o(out_reg1[17:0]),
-          .RDATA_B2_o(out_reg2[17:0]),
-          .ADDR_B1_i(14'h0),
-          .ADDR_B2_i(14'h0),
-          .CLK_B1_i(Pop_Clk1),
-          .CLK_B2_i(Pop_Clk2),
-          .REN_B1_i(POP1),
-          .REN_B2_i(POP2),
-          .WEN_B1_i(1'b0),
-          .WEN_B2_i(1'b0),
-          .BE_B1_i(2'b11),
-          .BE_B2_i(2'b11),
-      
-          .FLUSH1_i(Async_Flush1),
-          .FLUSH2_i(Async_Flush2)
-        );        
-			end
-			16, 18: begin
-				defparam U1.MODE_BITS = { 1'b1,
-					UPAF_DBITS2, UPAE_DBITS2, 4'h1, MODE_18, MODE_18, MODE_18, MODE_18, 1'b1,
-					1'b0, UPAF_DBITS1, 1'b0, UPAE_DBITS1, 4'h1, MODE_18, MODE_18, MODE_18, MODE_18, 1'b1
-				};
-        (* is_fifo = 1 *) 
-        (* sync_fifo = 1 *) 
-        (* is_split = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *) 
-        TDP36K U1 (
-          .RESET_ni(1'b1),
-          .WDATA_A1_i(in_reg1[17:0]),
-          .WDATA_A2_i(in_reg2[17:0]),
-          .RDATA_A1_o(fifo1_flags),
-          .RDATA_A2_o(fifo2_flags),
-          .ADDR_A1_i(14'h0),
-          .ADDR_A2_i(14'h0),
-          .CLK_A1_i(Push_Clk1),
-          .CLK_A2_i(Push_Clk2),
-          .REN_A1_i(1'b1),
-          .REN_A2_i(1'b1),
-          .WEN_A1_i(PUSH1),
-          .WEN_A2_i(PUSH2),
-          .BE_A1_i(2'b11),
-          .BE_A2_i(2'b11),
-      
-          .WDATA_B1_i(18'h0),
-          .WDATA_B2_i(18'h0),
-          .RDATA_B1_o(out_reg1[17:0]),
-          .RDATA_B2_o(out_reg2[17:0]),
-          .ADDR_B1_i(14'h0),
-          .ADDR_B2_i(14'h0),
-          .CLK_B1_i(Pop_Clk1),
-          .CLK_B2_i(Pop_Clk2),
-          .REN_B1_i(POP1),
-          .REN_B2_i(POP2),
-          .WEN_B1_i(1'b0),
-          .WEN_B2_i(1'b0),
-          .BE_B1_i(2'b11),
-          .BE_B2_i(2'b11),
-      
-          .FLUSH1_i(Async_Flush1),
-          .FLUSH2_i(Async_Flush2)
-        );        
-			end
-			default: begin
-				defparam U1.MODE_BITS = { 1'b1,
-					UPAF_DBITS2, UPAE_DBITS2, 4'h1, MODE_18, MODE_18, MODE_18, MODE_18, 1'b1,
-					1'b0, UPAF_DBITS1, 1'b0, UPAE_DBITS1, 4'h1, MODE_18, MODE_18, MODE_18, MODE_18, 1'b1
-				};
-        (* is_fifo = 1 *) 
-        (* sync_fifo = 1 *) 
-        (* is_split = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *) 
-        TDP36K U1 (
-          .RESET_ni(1'b1),
-          .WDATA_A1_i(in_reg1[17:0]),
-          .WDATA_A2_i(in_reg2[17:0]),
-          .RDATA_A1_o(fifo1_flags),
-          .RDATA_A2_o(fifo2_flags),
-          .ADDR_A1_i(14'h0),
-          .ADDR_A2_i(14'h0),
-          .CLK_A1_i(Push_Clk1),
-          .CLK_A2_i(Push_Clk2),
-          .REN_A1_i(1'b1),
-          .REN_A2_i(1'b1),
-          .WEN_A1_i(PUSH1),
-          .WEN_A2_i(PUSH2),
-          .BE_A1_i(2'b11),
-          .BE_A2_i(2'b11),
-      
-          .WDATA_B1_i(18'h0),
-          .WDATA_B2_i(18'h0),
-          .RDATA_B1_o(out_reg1[17:0]),
-          .RDATA_B2_o(out_reg2[17:0]),
-          .ADDR_B1_i(14'h0),
-          .ADDR_B2_i(14'h0),
-          .CLK_B1_i(Pop_Clk1),
-          .CLK_B2_i(Pop_Clk2),
-          .REN_B1_i(POP1),
-          .REN_B2_i(POP2),
-          .WEN_B1_i(1'b0),
-          .WEN_B2_i(1'b0),
-          .BE_B1_i(2'b11),
-          .BE_B2_i(2'b11),
-      
-          .FLUSH1_i(Async_Flush1),
-          .FLUSH2_i(Async_Flush2)
-        );
-			end
-		endcase
-	end
-  endcase
-
-  generate
-    if (RD_DATA_WIDTH == 9) begin
-      assign DOUT1[RD_DATA_WIDTH-1:0] = {out_reg1[16], out_reg1[7:0]};
-      assign DOUT2[RD_DATA_WIDTH-1:0] = {out_reg2[16], out_reg2[7:0]};
-    end else begin
-      assign DOUT1[RD_DATA_WIDTH-1:0] = out_reg1[RD_DATA_WIDTH-1:0];
-      assign DOUT2[RD_DATA_WIDTH-1:0] = out_reg2[RD_DATA_WIDTH-1:0];
-    end
-  endgenerate 
-
-endmodule
-
-module BRAM2x18_AFIFO (
+module AFIFO_18K_X2_BLK (
     DIN1,
     PUSH1,
     POP1,
     Push_Clk1,
-    Pop_Clk1,
+	Pop_Clk1,
     Async_Flush1,
     Overrun_Error1,
     Full_Watermark1,
@@ -14551,7 +4190,7 @@ module BRAM2x18_AFIFO (
     PUSH2,
     POP2,
     Push_Clk2,
-    Pop_Clk2,
+	Pop_Clk2,
     Async_Flush2,
     Overrun_Error2,
     Full_Watermark2,
@@ -14564,28 +4203,23 @@ module BRAM2x18_AFIFO (
     DOUT2
 );
 
-  parameter WR_DATA_WIDTH = 18;
-  parameter RD_DATA_WIDTH = 18;
-
+  parameter WR1_DATA_WIDTH = 18;
+  parameter RD1_DATA_WIDTH = 18;
   
-  parameter UPAE_DBITS1 = 11'd10;
-  parameter UPAF_DBITS1 = 11'd10;
+  parameter WR2_DATA_WIDTH = 18;
+  parameter RD2_DATA_WIDTH = 18;
+  
+  parameter UPAE_DBITS1 = 12'd10;
+  parameter UPAF_DBITS1 = 12'd10;
   
   parameter UPAE_DBITS2 = 11'd10;
   parameter UPAF_DBITS2 = 11'd10;
-  
-  localparam MODE_36 = 3'b011; // 36- or 32-bit
-  localparam MODE_18 = 3'b010; // 18- or 16-bit
-  localparam MODE_9 = 3'b001; // 9- or 8-bit
-  localparam MODE_4 = 3'b100; // 4-bit
-  localparam MODE_2 = 3'b110; // 2-bit
-  localparam MODE_1 = 3'b101; // 1-bit
 
   input wire Push_Clk1, Pop_Clk1;
   input wire PUSH1, POP1;
-  input wire [WR_DATA_WIDTH-1:0] DIN1;
+  input wire [WR1_DATA_WIDTH-1:0] DIN1;
   input wire Async_Flush1;
-  output wire [RD_DATA_WIDTH-1:0] DOUT1;
+  output wire [RD1_DATA_WIDTH-1:0] DOUT1;
   output wire Almost_Full1, Almost_Empty1;
   output wire Full1, Empty1;
   output wire Full_Watermark1, Empty_Watermark1;
@@ -14593,13 +4227,44 @@ module BRAM2x18_AFIFO (
   
   input wire Push_Clk2, Pop_Clk2;
   input wire PUSH2, POP2;
-  input wire [WR_DATA_WIDTH-1:0] DIN2;
+  input wire [WR2_DATA_WIDTH-1:0] DIN2;
   input wire Async_Flush2;
-  output wire [RD_DATA_WIDTH-1:0] DOUT2;
+  output wire [RD2_DATA_WIDTH-1:0] DOUT2;
   output wire Almost_Full2, Almost_Empty2;
   output wire Full2, Empty2;
   output wire Full_Watermark2, Empty_Watermark2;
   output wire Overrun_Error2, Underrun_Error2;
+  
+  // Fixed mode settings
+  localparam [ 0:0] SYNC_FIFO1_i  = 1'd0;
+  localparam [ 0:0] FMODE1_i      = 1'd1;
+  localparam [ 0:0] POWERDN1_i    = 1'd0;
+  localparam [ 0:0] SLEEP1_i      = 1'd0;
+  localparam [ 0:0] PROTECT1_i    = 1'd0;
+  localparam [11:0] UPAE1_i       = UPAE_DBITS1;
+  localparam [11:0] UPAF1_i       = UPAF_DBITS1;
+  
+  localparam [ 0:0] SYNC_FIFO2_i  = 1'd0;
+  localparam [ 0:0] FMODE2_i      = 1'd1;
+  localparam [ 0:0] POWERDN2_i    = 1'd0;
+  localparam [ 0:0] SLEEP2_i      = 1'd0;
+  localparam [ 0:0] PROTECT2_i    = 1'd0;
+  localparam [10:0] UPAE2_i       = UPAE_DBITS2;
+  localparam [10:0] UPAF2_i       = UPAF_DBITS2;
+
+  // Width mode function
+  function [2:0] mode;
+  input integer width;
+  case (width)
+  1: mode = 3'b101;
+  2: mode = 3'b110;
+  4: mode = 3'b100;
+  8,9: mode = 3'b001;
+  16, 18: mode = 3'b010;
+  32, 36: mode = 3'b011;
+  default: mode = 3'b000;
+  endcase
+  endfunction
   
   wire [17:0] in_reg1;
   wire [17:0] out_reg1;
@@ -14627,459 +4292,102 @@ module BRAM2x18_AFIFO (
   assign Almost_Empty2 = fifo2_flags[6];
   assign Empty2 = fifo2_flags[7];
   
+  localparam [ 2:0] RMODE_A1_i    = mode(WR1_DATA_WIDTH);
+  localparam [ 2:0] WMODE_A1_i    = mode(WR1_DATA_WIDTH);
+  localparam [ 2:0] RMODE_A2_i    = mode(WR2_DATA_WIDTH);
+  localparam [ 2:0] WMODE_A2_i    = mode(WR2_DATA_WIDTH);
+  
+  localparam [ 2:0] RMODE_B1_i    = mode(RD1_DATA_WIDTH);
+  localparam [ 2:0] WMODE_B1_i    = mode(RD1_DATA_WIDTH);
+  localparam [ 2:0] RMODE_B2_i    = mode(RD2_DATA_WIDTH);
+  localparam [ 2:0] WMODE_B2_i    = mode(RD2_DATA_WIDTH);
+  
   generate
-    if (WR_DATA_WIDTH == 18) begin
+    if (WR1_DATA_WIDTH == 18) begin
       assign in_reg1[17:0] = DIN1[17:0];
-      assign in_reg2[17:0] = DIN2[17:0];
-    end else if (WR_DATA_WIDTH == 9) begin
+    end else if (WR1_DATA_WIDTH == 9) begin
       assign in_reg1[17:0] = {1'b0, DIN1[8], 8'h0, DIN1[7:0]};
+    end else begin
+      assign in_reg1[17:WR1_DATA_WIDTH]  = 0;
+      assign in_reg1[WR1_DATA_WIDTH-1:0] = DIN1[WR1_DATA_WIDTH-1:0];
+    end
+  endgenerate     
+  
+  generate
+    if (RD1_DATA_WIDTH == 9) begin
+      assign DOUT1[RD1_DATA_WIDTH-1:0] = {out_reg1[16], out_reg1[7:0]};
+    end else begin
+      assign DOUT1[RD1_DATA_WIDTH-1:0] = out_reg1[RD1_DATA_WIDTH-1:0];
+    end
+  endgenerate 
+  
+  generate
+    if (WR2_DATA_WIDTH == 18) begin
+      assign in_reg2[17:0] = DIN2[17:0];
+    end else if (WR2_DATA_WIDTH == 9) begin
       assign in_reg2[17:0] = {1'b0, DIN2[8], 8'h0, DIN2[7:0]};
     end else begin
-      assign in_reg1[17:WR_DATA_WIDTH]  = 0;
-      assign in_reg1[WR_DATA_WIDTH-1:0] = DIN1[WR_DATA_WIDTH-1:0];
-      assign in_reg2[17:WR_DATA_WIDTH]  = 0;
-      assign in_reg2[WR_DATA_WIDTH-1:0] = DIN2[WR_DATA_WIDTH-1:0];
+      assign in_reg2[17:WR2_DATA_WIDTH]  = 0;
+      assign in_reg2[WR2_DATA_WIDTH-1:0] = DIN2[WR2_DATA_WIDTH-1:0];
     end
-  endgenerate   
+  endgenerate     
   
- case (RD_DATA_WIDTH)
-	8, 9: begin
-		case (WR_DATA_WIDTH)
-			8, 9: begin
-				defparam U1.MODE_BITS = { 1'b1,
-					UPAF_DBITS2, UPAE_DBITS2, 4'h1, MODE_9, MODE_9, MODE_9, MODE_9, 1'b0,
-					1'b0, UPAF_DBITS1, 1'b0, UPAE_DBITS1, 4'h1, MODE_9, MODE_9, MODE_9, MODE_9, 1'b0
-				};
-        (* is_fifo = 1 *) 
-        (* sync_fifo = 0 *) 
-        (* is_split = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *) 
-        TDP36K U1 (
-          .RESET_ni(1'b1),
-          .WDATA_A1_i(in_reg1[17:0]),
-          .WDATA_A2_i(in_reg2[17:0]),
-          .RDATA_A1_o(fifo1_flags),
-          .RDATA_A2_o(fifo2_flags),
-          .ADDR_A1_i(14'h0),
-          .ADDR_A2_i(14'h0),
-          .CLK_A1_i(Push_Clk1),
-          .CLK_A2_i(Push_Clk2),
-          .REN_A1_i(1'b1),
-          .REN_A2_i(1'b1),
-          .WEN_A1_i(PUSH1),
-          .WEN_A2_i(PUSH2),
-          .BE_A1_i(2'b11),
-          .BE_A2_i(2'b11),
-      
-          .WDATA_B1_i(18'h0),
-          .WDATA_B2_i(18'h0),
-          .RDATA_B1_o(out_reg1[17:0]),
-          .RDATA_B2_o(out_reg2[17:0]),
-          .ADDR_B1_i(14'h0),
-          .ADDR_B2_i(14'h0),
-          .CLK_B1_i(Pop_Clk1),
-          .CLK_B2_i(Pop_Clk2),
-          .REN_B1_i(POP1),
-          .REN_B2_i(POP2),
-          .WEN_B1_i(1'b0),
-          .WEN_B2_i(1'b0),
-          .BE_B1_i(2'b11),
-          .BE_B2_i(2'b11),
-      
-          .FLUSH1_i(Async_Flush1),
-          .FLUSH2_i(Async_Flush2)
-        );        
-			end
-			16, 18: begin
-				defparam U1.MODE_BITS = { 1'b1,
-					UPAF_DBITS2, UPAE_DBITS2, 4'h1, MODE_9, MODE_18, MODE_9, MODE_18, 1'b0,
-					1'b0, UPAF_DBITS1, 1'b0, UPAE_DBITS1, 4'h1, MODE_9, MODE_18, MODE_9, MODE_18, 1'b0
-				};
-        (* is_fifo = 1 *) 
-        (* sync_fifo = 0 *) 
-        (* is_split = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *) 
-        TDP36K U1 (
-          .RESET_ni(1'b1),
-          .WDATA_A1_i(in_reg1[17:0]),
-          .WDATA_A2_i(in_reg2[17:0]),
-          .RDATA_A1_o(fifo1_flags),
-          .RDATA_A2_o(fifo2_flags),
-          .ADDR_A1_i(14'h0),
-          .ADDR_A2_i(14'h0),
-          .CLK_A1_i(Push_Clk1),
-          .CLK_A2_i(Push_Clk2),
-          .REN_A1_i(1'b1),
-          .REN_A2_i(1'b1),
-          .WEN_A1_i(PUSH1),
-          .WEN_A2_i(PUSH2),
-          .BE_A1_i(2'b11),
-          .BE_A2_i(2'b11),
-      
-          .WDATA_B1_i(18'h0),
-          .WDATA_B2_i(18'h0),
-          .RDATA_B1_o(out_reg1[17:0]),
-          .RDATA_B2_o(out_reg2[17:0]),
-          .ADDR_B1_i(14'h0),
-          .ADDR_B2_i(14'h0),
-          .CLK_B1_i(Pop_Clk1),
-          .CLK_B2_i(Pop_Clk2),
-          .REN_B1_i(POP1),
-          .REN_B2_i(POP2),
-          .WEN_B1_i(1'b0),
-          .WEN_B2_i(1'b0),
-          .BE_B1_i(2'b11),
-          .BE_B2_i(2'b11),
-      
-          .FLUSH1_i(Async_Flush1),
-          .FLUSH2_i(Async_Flush2)
-        );        
-			end
-			default: begin
-				defparam U1.MODE_BITS = { 1'b1,
-					UPAF_DBITS2, UPAE_DBITS2, 4'h1, MODE_9, MODE_9, MODE_9, MODE_9, 1'b0,
-					1'b0, UPAF_DBITS1, 1'b0, UPAE_DBITS1, 4'h1, MODE_9, MODE_9, MODE_9, MODE_9, 1'b0
-				};
-        (* is_fifo = 1 *) 
-        (* sync_fifo = 0 *) 
-        (* is_split = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *) 
-        TDP36K U1 (
-          .RESET_ni(1'b1),
-          .WDATA_A1_i(in_reg1[17:0]),
-          .WDATA_A2_i(in_reg2[17:0]),
-          .RDATA_A1_o(fifo1_flags),
-          .RDATA_A2_o(fifo2_flags),
-          .ADDR_A1_i(14'h0),
-          .ADDR_A2_i(14'h0),
-          .CLK_A1_i(Push_Clk1),
-          .CLK_A2_i(Push_Clk2),
-          .REN_A1_i(1'b1),
-          .REN_A2_i(1'b1),
-          .WEN_A1_i(PUSH1),
-          .WEN_A2_i(PUSH2),
-          .BE_A1_i(2'b11),
-          .BE_A2_i(2'b11),
-      
-          .WDATA_B1_i(18'h0),
-          .WDATA_B2_i(18'h0),
-          .RDATA_B1_o(out_reg1[17:0]),
-          .RDATA_B2_o(out_reg2[17:0]),
-          .ADDR_B1_i(14'h0),
-          .ADDR_B2_i(14'h0),
-          .CLK_B1_i(Pop_Clk1),
-          .CLK_B2_i(Pop_Clk2),
-          .REN_B1_i(POP1),
-          .REN_B2_i(POP2),
-          .WEN_B1_i(1'b0),
-          .WEN_B2_i(1'b0),
-          .BE_B1_i(2'b11),
-          .BE_B2_i(2'b11),
-      
-          .FLUSH1_i(Async_Flush1),
-          .FLUSH2_i(Async_Flush2)
-        );        
-			end
-		endcase
-	end
-	16, 18: begin
-		case (WR_DATA_WIDTH)
-			8, 9: begin
-				defparam U1.MODE_BITS = { 1'b1,
-					UPAF_DBITS2, UPAE_DBITS2, 4'h1, MODE_18, MODE_9, MODE_18, MODE_9, 1'b0,
-					1'b0, UPAF_DBITS1, 1'b0, UPAE_DBITS1, 4'h1, MODE_18, MODE_9, MODE_18, MODE_9, 1'b0
-				};
-        (* is_fifo = 1 *) 
-        (* sync_fifo = 0 *) 
-        (* is_split = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *) 
-        TDP36K U1 (
-          .RESET_ni(1'b1),
-          .WDATA_A1_i(in_reg1[17:0]),
-          .WDATA_A2_i(in_reg2[17:0]),
-          .RDATA_A1_o(fifo1_flags),
-          .RDATA_A2_o(fifo2_flags),
-          .ADDR_A1_i(14'h0),
-          .ADDR_A2_i(14'h0),
-          .CLK_A1_i(Push_Clk1),
-          .CLK_A2_i(Push_Clk2),
-          .REN_A1_i(1'b1),
-          .REN_A2_i(1'b1),
-          .WEN_A1_i(PUSH1),
-          .WEN_A2_i(PUSH2),
-          .BE_A1_i(2'b11),
-          .BE_A2_i(2'b11),
-      
-          .WDATA_B1_i(18'h0),
-          .WDATA_B2_i(18'h0),
-          .RDATA_B1_o(out_reg1[17:0]),
-          .RDATA_B2_o(out_reg2[17:0]),
-          .ADDR_B1_i(14'h0),
-          .ADDR_B2_i(14'h0),
-          .CLK_B1_i(Pop_Clk1),
-          .CLK_B2_i(Pop_Clk2),
-          .REN_B1_i(POP1),
-          .REN_B2_i(POP2),
-          .WEN_B1_i(1'b0),
-          .WEN_B2_i(1'b0),
-          .BE_B1_i(2'b11),
-          .BE_B2_i(2'b11),
-      
-          .FLUSH1_i(Async_Flush1),
-          .FLUSH2_i(Async_Flush2)
-        );        
-			end
-			16, 18: begin
-				defparam U1.MODE_BITS = { 1'b1,
-					UPAF_DBITS2, UPAE_DBITS2, 4'h1, MODE_18, MODE_18, MODE_18, MODE_18, 1'b0,
-					1'b0, UPAF_DBITS1, 1'b0, UPAE_DBITS1, 4'h1, MODE_18, MODE_18, MODE_18, MODE_18, 1'b0
-				};
-        (* is_fifo = 1 *) 
-        (* sync_fifo = 0 *) 
-        (* is_split = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *) 
-        TDP36K U1 (
-          .RESET_ni(1'b1),
-          .WDATA_A1_i(in_reg1[17:0]),
-          .WDATA_A2_i(in_reg2[17:0]),
-          .RDATA_A1_o(fifo1_flags),
-          .RDATA_A2_o(fifo2_flags),
-          .ADDR_A1_i(14'h0),
-          .ADDR_A2_i(14'h0),
-          .CLK_A1_i(Push_Clk1),
-          .CLK_A2_i(Push_Clk2),
-          .REN_A1_i(1'b1),
-          .REN_A2_i(1'b1),
-          .WEN_A1_i(PUSH1),
-          .WEN_A2_i(PUSH2),
-          .BE_A1_i(2'b11),
-          .BE_A2_i(2'b11),
-      
-          .WDATA_B1_i(18'h0),
-          .WDATA_B2_i(18'h0),
-          .RDATA_B1_o(out_reg1[17:0]),
-          .RDATA_B2_o(out_reg2[17:0]),
-          .ADDR_B1_i(14'h0),
-          .ADDR_B2_i(14'h0),
-          .CLK_B1_i(Pop_Clk1),
-          .CLK_B2_i(Pop_Clk2),
-          .REN_B1_i(POP1),
-          .REN_B2_i(POP2),
-          .WEN_B1_i(1'b0),
-          .WEN_B2_i(1'b0),
-          .BE_B1_i(2'b11),
-          .BE_B2_i(2'b11),
-      
-          .FLUSH1_i(Async_Flush1),
-          .FLUSH2_i(Async_Flush2)
-        );        
-			end
-			default: begin
-				defparam U1.MODE_BITS = { 1'b1,
-					UPAF_DBITS2, UPAE_DBITS2, 4'h1, MODE_18, MODE_18, MODE_18, MODE_18, 1'b0,
-					1'b0, UPAF_DBITS1, 1'b0, UPAE_DBITS1, 4'h1, MODE_18, MODE_18, MODE_18, MODE_18, 1'b0
-				};
-        (* is_fifo = 1 *) 
-        (* sync_fifo = 0 *) 
-        (* is_split = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *) 
-        TDP36K U1 (
-          .RESET_ni(1'b1),
-          .WDATA_A1_i(in_reg1[17:0]),
-          .WDATA_A2_i(in_reg2[17:0]),
-          .RDATA_A1_o(fifo1_flags),
-          .RDATA_A2_o(fifo2_flags),
-          .ADDR_A1_i(14'h0),
-          .ADDR_A2_i(14'h0),
-          .CLK_A1_i(Push_Clk1),
-          .CLK_A2_i(Push_Clk2),
-          .REN_A1_i(1'b1),
-          .REN_A2_i(1'b1),
-          .WEN_A1_i(PUSH1),
-          .WEN_A2_i(PUSH2),
-          .BE_A1_i(2'b11),
-          .BE_A2_i(2'b11),
-      
-          .WDATA_B1_i(18'h0),
-          .WDATA_B2_i(18'h0),
-          .RDATA_B1_o(out_reg1[17:0]),
-          .RDATA_B2_o(out_reg2[17:0]),
-          .ADDR_B1_i(14'h0),
-          .ADDR_B2_i(14'h0),
-          .CLK_B1_i(Pop_Clk1),
-          .CLK_B2_i(Pop_Clk2),
-          .REN_B1_i(POP1),
-          .REN_B2_i(POP2),
-          .WEN_B1_i(1'b0),
-          .WEN_B2_i(1'b0),
-          .BE_B1_i(2'b11),
-          .BE_B2_i(2'b11),
-      
-          .FLUSH1_i(Async_Flush1),
-          .FLUSH2_i(Async_Flush2)
-        );        
-			end
-		endcase
-	end
-	default: begin
-		case (WR_DATA_WIDTH)
-			8, 9: begin
-				defparam U1.MODE_BITS = { 1'b1,
-					UPAF_DBITS2, UPAE_DBITS2, 4'h1, MODE_9, MODE_9, MODE_9, MODE_9, 1'b0,
-					1'b0, UPAF_DBITS1, 1'b0, UPAE_DBITS1, 4'h1, MODE_9, MODE_9, MODE_9, MODE_9, 1'b0
-				};
-        (* is_fifo = 1 *) 
-        (* sync_fifo = 0 *) 
-        (* is_split = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *) 
-        TDP36K U1 (
-          .RESET_ni(1'b1),
-          .WDATA_A1_i(in_reg1[17:0]),
-          .WDATA_A2_i(in_reg2[17:0]),
-          .RDATA_A1_o(fifo1_flags),
-          .RDATA_A2_o(fifo2_flags),
-          .ADDR_A1_i(14'h0),
-          .ADDR_A2_i(14'h0),
-          .CLK_A1_i(Push_Clk1),
-          .CLK_A2_i(Push_Clk2),
-          .REN_A1_i(1'b1),
-          .REN_A2_i(1'b1),
-          .WEN_A1_i(PUSH1),
-          .WEN_A2_i(PUSH2),
-          .BE_A1_i(2'b11),
-          .BE_A2_i(2'b11),
-      
-          .WDATA_B1_i(18'h0),
-          .WDATA_B2_i(18'h0),
-          .RDATA_B1_o(out_reg1[17:0]),
-          .RDATA_B2_o(out_reg2[17:0]),
-          .ADDR_B1_i(14'h0),
-          .ADDR_B2_i(14'h0),
-          .CLK_B1_i(Pop_Clk1),
-          .CLK_B2_i(Pop_Clk2),
-          .REN_B1_i(POP1),
-          .REN_B2_i(POP2),
-          .WEN_B1_i(1'b0),
-          .WEN_B2_i(1'b0),
-          .BE_B1_i(2'b11),
-          .BE_B2_i(2'b11),
-      
-          .FLUSH1_i(Async_Flush1),
-          .FLUSH2_i(Async_Flush2)
-        );        
-			end
-			16, 18: begin
-				defparam U1.MODE_BITS = { 1'b1,
-					UPAF_DBITS2, UPAE_DBITS2, 4'h1, MODE_18, MODE_18, MODE_18, MODE_18, 1'b0,
-					1'b0, UPAF_DBITS1, 1'b0, UPAE_DBITS1, 4'h1, MODE_18, MODE_18, MODE_18, MODE_18, 1'b0
-				};
-        (* is_fifo = 1 *) 
-        (* sync_fifo = 0 *) 
-        (* is_split = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *) 
-        TDP36K U1 (
-          .RESET_ni(1'b1),
-          .WDATA_A1_i(in_reg1[17:0]),
-          .WDATA_A2_i(in_reg2[17:0]),
-          .RDATA_A1_o(fifo1_flags),
-          .RDATA_A2_o(fifo2_flags),
-          .ADDR_A1_i(14'h0),
-          .ADDR_A2_i(14'h0),
-          .CLK_A1_i(Push_Clk1),
-          .CLK_A2_i(Push_Clk2),
-          .REN_A1_i(1'b1),
-          .REN_A2_i(1'b1),
-          .WEN_A1_i(PUSH1),
-          .WEN_A2_i(PUSH2),
-          .BE_A1_i(2'b11),
-          .BE_A2_i(2'b11),
-      
-          .WDATA_B1_i(18'h0),
-          .WDATA_B2_i(18'h0),
-          .RDATA_B1_o(out_reg1[17:0]),
-          .RDATA_B2_o(out_reg2[17:0]),
-          .ADDR_B1_i(14'h0),
-          .ADDR_B2_i(14'h0),
-          .CLK_B1_i(Pop_Clk1),
-          .CLK_B2_i(Pop_Clk2),
-          .REN_B1_i(POP1),
-          .REN_B2_i(POP2),
-          .WEN_B1_i(1'b0),
-          .WEN_B2_i(1'b0),
-          .BE_B1_i(2'b11),
-          .BE_B2_i(2'b11),
-      
-          .FLUSH1_i(Async_Flush1),
-          .FLUSH2_i(Async_Flush2)
-        );       
-			end
-			default: begin
-				defparam U1.MODE_BITS = { 1'b1,
-					UPAF_DBITS2, UPAE_DBITS2, 4'h1, MODE_18, MODE_18, MODE_18, MODE_18, 1'b0,
-					1'b0, UPAF_DBITS1, 1'b0, UPAE_DBITS1, 4'h1, MODE_18, MODE_18, MODE_18, MODE_18, 1'b0
-				};
-        (* is_fifo = 1 *) 
-        (* sync_fifo = 0 *) 
-        (* is_split = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *)
-        (* wr_data_width = WR_DATA_WIDTH *) 
-        TDP36K U1 (
-          .RESET_ni(1'b1),
-          .WDATA_A1_i(in_reg1[17:0]),
-          .WDATA_A2_i(in_reg2[17:0]),
-          .RDATA_A1_o(fifo1_flags),
-          .RDATA_A2_o(fifo2_flags),
-          .ADDR_A1_i(14'h0),
-          .ADDR_A2_i(14'h0),
-          .CLK_A1_i(Push_Clk1),
-          .CLK_A2_i(Push_Clk2),
-          .REN_A1_i(1'b1),
-          .REN_A2_i(1'b1),
-          .WEN_A1_i(PUSH1),
-          .WEN_A2_i(PUSH2),
-          .BE_A1_i(2'b11),
-          .BE_A2_i(2'b11),
-      
-          .WDATA_B1_i(18'h0),
-          .WDATA_B2_i(18'h0),
-          .RDATA_B1_o(out_reg1[17:0]),
-          .RDATA_B2_o(out_reg2[17:0]),
-          .ADDR_B1_i(14'h0),
-          .ADDR_B2_i(14'h0),
-          .CLK_B1_i(Pop_Clk1),
-          .CLK_B2_i(Pop_Clk2),
-          .REN_B1_i(POP1),
-          .REN_B2_i(POP2),
-          .WEN_B1_i(1'b0),
-          .WEN_B2_i(1'b0),
-          .BE_B1_i(2'b11),
-          .BE_B2_i(2'b11),
-      
-          .FLUSH1_i(Async_Flush1),
-          .FLUSH2_i(Async_Flush2)
-        );
-			end
-		endcase
-	end
-  endcase
-
   generate
-    if (RD_DATA_WIDTH == 9) begin
-      assign DOUT1[RD_DATA_WIDTH-1:0] = {out_reg1[16], out_reg1[7:0]};
-      assign DOUT2[RD_DATA_WIDTH-1:0] = {out_reg2[16], out_reg2[7:0]};
+    if (RD2_DATA_WIDTH == 9) begin
+      assign DOUT2[RD2_DATA_WIDTH-1:0] = {out_reg2[16], out_reg2[7:0]};
     end else begin
-      assign DOUT1[RD_DATA_WIDTH-1:0] = out_reg1[RD_DATA_WIDTH-1:0];
-      assign DOUT2[RD_DATA_WIDTH-1:0] = out_reg2[RD_DATA_WIDTH-1:0];
+      assign DOUT2[RD2_DATA_WIDTH-1:0] = out_reg2[RD2_DATA_WIDTH-1:0];
     end
-  endgenerate  
+  endgenerate 
+  
+  defparam _TECHMAP_REPLACE_.MODE_BITS = { 1'b1,
+	UPAF2_i, UPAE2_i, PROTECT2_i, SLEEP2_i, POWERDN2_i, FMODE2_i, WMODE_B2_i, WMODE_A2_i, RMODE_B2_i, RMODE_A2_i, SYNC_FIFO2_i,
+	UPAF1_i, UPAE1_i, PROTECT1_i, SLEEP1_i, POWERDN1_i, FMODE1_i, WMODE_B1_i, WMODE_A1_i, RMODE_B1_i, RMODE_A1_i, SYNC_FIFO1_i
+	};
+
+  (* is_fifo = 1 *) 
+  (* sync_fifo = 0 *) 
+  (* is_split = 1 *)
+  (* is_inferred = 0 *)
+  (* port_a1_dwidth = WR1_DATA_WIDTH *)
+  (* port_a2_dwidth = WR2_DATA_WIDTH *)
+  (* port_b1_dwidth = RD1_DATA_WIDTH *)
+  (* port_b2_dwidth = RD2_DATA_WIDTH *)
+ 	TDP36K _TECHMAP_REPLACE_ (
+		.RESET_ni(1'b1),
+		.WDATA_A1_i(in_reg1[17:0]),
+		.WDATA_A2_i(in_reg2[17:0]),
+		.RDATA_A1_o(fifo1_flags),
+		.RDATA_A2_o(fifo2_flags),
+		.ADDR_A1_i(14'h0),
+		.ADDR_A2_i(14'h0),
+		.CLK_A1_i(Push_Clk1),
+		.CLK_A2_i(Push_Clk2),
+		.REN_A1_i(1'b1),
+		.REN_A2_i(1'b1),
+		.WEN_A1_i(PUSH1),
+		.WEN_A2_i(PUSH2),
+		.BE_A1_i(2'b11),
+		.BE_A2_i(2'b11),
+
+		.WDATA_B1_i(18'h0),
+		.WDATA_B2_i(18'h0),
+		.RDATA_B1_o(out_reg1[17:0]),
+		.RDATA_B2_o(out_reg2[17:0]),
+		.ADDR_B1_i(14'h0),
+		.ADDR_B2_i(14'h0),
+		.CLK_B1_i(Pop_Clk1),
+		.CLK_B2_i(Pop_Clk2),
+		.REN_B1_i(POP1),
+		.REN_B2_i(POP2),
+		.WEN_B1_i(1'b0),
+		.WEN_B2_i(1'b0),
+		.BE_B1_i(2'b11),
+		.BE_B2_i(2'b11),
+
+		.FLUSH1_i(Async_Flush1),
+		.FLUSH2_i(Async_Flush2)
+	);
 
 endmodule
 
@@ -15104,13 +4412,6 @@ module SFIFO_36K_BLK (
   parameter RD_DATA_WIDTH = 36;
   parameter UPAE_DBITS = 12'd10;
   parameter UPAF_DBITS = 12'd10;
-  
-  localparam MODE_36 = 3'b011; // 36- or 32-bit
-  localparam MODE_18 = 3'b010; // 18- or 16-bit
-  localparam MODE_9 = 3'b001; // 9- or 8-bit
-  localparam MODE_4 = 3'b100; // 4-bit
-  localparam MODE_2 = 3'b110; // 2-bit
-  localparam MODE_1 = 3'b101; // 1-bit
 
   input wire CLK;
   input wire PUSH, POP;
@@ -15122,12 +4423,42 @@ module SFIFO_36K_BLK (
   output wire Full_Watermark, Empty_Watermark;
   output wire Overrun_Error, Underrun_Error;
   
+  // Fixed mode settings
+  localparam [ 0:0] SYNC_FIFO1_i  = 1'd1;
+  localparam [ 0:0] FMODE1_i      = 1'd1;
+  localparam [ 0:0] POWERDN1_i    = 1'd0;
+  localparam [ 0:0] SLEEP1_i      = 1'd0;
+  localparam [ 0:0] PROTECT1_i    = 1'd0;
+  localparam [11:0] UPAE1_i       = UPAE_DBITS;
+  localparam [11:0] UPAF1_i       = UPAF_DBITS;
+  
+  localparam [ 0:0] SYNC_FIFO2_i  = 1'd0;
+  localparam [ 0:0] FMODE2_i      = 1'd0;
+  localparam [ 0:0] POWERDN2_i    = 1'd0;
+  localparam [ 0:0] SLEEP2_i      = 1'd0;
+  localparam [ 0:0] PROTECT2_i    = 1'd0;
+  localparam [10:0] UPAE2_i       = 11'd10;
+  localparam [10:0] UPAF2_i       = 11'd10;
+
+  // Width mode function
+  function [2:0] mode;
+  input integer width;
+  case (width)
+  1: mode = 3'b101;
+  2: mode = 3'b110;
+  4: mode = 3'b100;
+  8,9: mode = 3'b001;
+  16, 18: mode = 3'b010;
+  32, 36: mode = 3'b011;
+  default: mode = 3'b000;
+  endcase
+  endfunction
+  
   wire [35:0] in_reg;
   wire [35:0] out_reg;
   wire [17:0] fifo_flags;
   
-  wire [35:0] RD_DATA_CMPL;
-  wire [35:WR_DATA_WIDTH] WR_DATA_CMPL;
+  wire [35:0] RD_DATA_INT;
   
   wire Push_Clk, Pop_Clk;
   
@@ -15142,6 +4473,16 @@ module SFIFO_36K_BLK (
   assign Empty_Watermark = fifo_flags[5];
   assign Almost_Empty = fifo_flags[6];
   assign Empty = fifo_flags[7];
+  
+  localparam [ 2:0] RMODE_A1_i    = mode(WR_DATA_WIDTH);
+  localparam [ 2:0] WMODE_A1_i    = mode(WR_DATA_WIDTH);
+  localparam [ 2:0] RMODE_A2_i    = mode(WR_DATA_WIDTH);
+  localparam [ 2:0] WMODE_A2_i    = mode(WR_DATA_WIDTH);
+  
+  localparam [ 2:0] RMODE_B1_i    = mode(RD_DATA_WIDTH);
+  localparam [ 2:0] WMODE_B1_i    = mode(RD_DATA_WIDTH);
+  localparam [ 2:0] RMODE_B2_i    = mode(RD_DATA_WIDTH);
+  localparam [ 2:0] WMODE_B2_i    = mode(RD_DATA_WIDTH);
    
   generate
     if (WR_DATA_WIDTH == 36) begin
@@ -15159,758 +4500,67 @@ module SFIFO_36K_BLK (
   
   generate
     if (RD_DATA_WIDTH == 36) begin
-      assign RD_DATA_CMPL = out_reg;
+      assign RD_DATA_INT = out_reg;
     end else if (RD_DATA_WIDTH > 18 && RD_DATA_WIDTH < 36) begin
-      assign RD_DATA_CMPL  = {2'b00,out_reg[35:18],out_reg[15:0]};
+      assign RD_DATA_INT  = {2'b00,out_reg[35:18],out_reg[15:0]};
     end else if (RD_DATA_WIDTH == 9) begin
-      assign RD_DATA_CMPL = { 27'h0, out_reg[16], out_reg[7:0]};
+      assign RD_DATA_INT = { 27'h0, out_reg[16], out_reg[7:0]};
     end else begin
-      assign RD_DATA_CMPL = {18'h0, out_reg[17:0]};
+      assign RD_DATA_INT = {18'h0, out_reg[17:0]};
     end
   endgenerate
   
-  case (RD_DATA_WIDTH)
-	8, 9: begin
-		case (WR_DATA_WIDTH)
-			8, 9: begin
-				defparam U1.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_9, MODE_9, MODE_9, MODE_9, 1'd0,
-					UPAF_DBITS, UPAE_DBITS, 4'h1, MODE_9, MODE_9, MODE_9, MODE_9, 1'b1
-				};
-        (* is_fifo = 1 *)
-        (* sync_fifo = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *) 
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K U1 (
-          .RESET_ni(1'b1),
-          .WDATA_A1_i(in_reg[17:0]),
-          .WDATA_A2_i(in_reg[35:18]),
-          .RDATA_A1_o(fifo_flags),
-          .RDATA_A2_o(),
-          .ADDR_A1_i(14'h0),
-          .ADDR_A2_i(14'h0),
-          .CLK_A1_i(Push_Clk),
-          .CLK_A2_i(1'b0),
-          .REN_A1_i(1'b1),
-          .REN_A2_i(1'b0),
-          .WEN_A1_i(PUSH),
-          .WEN_A2_i(1'b0),
-          .BE_A1_i(2'b11),
-          .BE_A2_i(2'b11),
-      
-          .WDATA_B1_i(18'h0),
-          .WDATA_B2_i(18'h0),
-          .RDATA_B1_o(out_reg[17:0]),
-          .RDATA_B2_o(out_reg[35:18]),
-          .ADDR_B1_i(14'h0),
-          .ADDR_B2_i(14'h0),
-          .CLK_B1_i(Pop_Clk),
-          .CLK_B2_i(1'b0),
-          .REN_B1_i(POP),
-          .REN_B2_i(1'b0),
-          .WEN_B1_i(1'b0),
-          .WEN_B2_i(1'b0),
-          .BE_B1_i(2'b11),
-          .BE_B2_i(2'b11),
-      
-          .FLUSH1_i(Async_Flush),
-          .FLUSH2_i(1'b0)
-        );
-			end
-			16, 18: begin
-				defparam U1.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_9, MODE_18, MODE_9, MODE_18, 1'd0,
-					UPAF_DBITS, UPAE_DBITS, 4'h1, MODE_9, MODE_18, MODE_9, MODE_18, 1'b1
-				};
-        (* is_fifo = 1 *)
-        (* sync_fifo = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *) 
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K U1 (
-          .RESET_ni(1'b1),
-          .WDATA_A1_i(in_reg[17:0]),
-          .WDATA_A2_i(in_reg[35:18]),
-          .RDATA_A1_o(fifo_flags),
-          .RDATA_A2_o(),
-          .ADDR_A1_i(14'h0),
-          .ADDR_A2_i(14'h0),
-          .CLK_A1_i(Push_Clk),
-          .CLK_A2_i(1'b0),
-          .REN_A1_i(1'b1),
-          .REN_A2_i(1'b0),
-          .WEN_A1_i(PUSH),
-          .WEN_A2_i(1'b0),
-          .BE_A1_i(2'b11),
-          .BE_A2_i(2'b11),
-      
-          .WDATA_B1_i(18'h0),
-          .WDATA_B2_i(18'h0),
-          .RDATA_B1_o(out_reg[17:0]),
-          .RDATA_B2_o(out_reg[35:18]),
-          .ADDR_B1_i(14'h0),
-          .ADDR_B2_i(14'h0),
-          .CLK_B1_i(Pop_Clk),
-          .CLK_B2_i(1'b0),
-          .REN_B1_i(POP),
-          .REN_B2_i(1'b0),
-          .WEN_B1_i(1'b0),
-          .WEN_B2_i(1'b0),
-          .BE_B1_i(2'b11),
-          .BE_B2_i(2'b11),
-      
-          .FLUSH1_i(Async_Flush),
-          .FLUSH2_i(1'b0)
-        );        
-			end
-			32, 36: begin
-				defparam U1.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_9, MODE_36, MODE_9, MODE_36, 1'd0,
-					UPAF_DBITS, UPAE_DBITS, 4'h1, MODE_9, MODE_36, MODE_9, MODE_36, 1'b1
-				};
-        (* is_fifo = 1 *)
-        (* sync_fifo = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *) 
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K U1 (
-          .RESET_ni(1'b1),
-          .WDATA_A1_i(in_reg[17:0]),
-          .WDATA_A2_i(in_reg[35:18]),
-          .RDATA_A1_o(fifo_flags),
-          .RDATA_A2_o(),
-          .ADDR_A1_i(14'h0),
-          .ADDR_A2_i(14'h0),
-          .CLK_A1_i(Push_Clk),
-          .CLK_A2_i(1'b0),
-          .REN_A1_i(1'b1),
-          .REN_A2_i(1'b0),
-          .WEN_A1_i(PUSH),
-          .WEN_A2_i(1'b0),
-          .BE_A1_i(2'b11),
-          .BE_A2_i(2'b11),
-      
-          .WDATA_B1_i(18'h0),
-          .WDATA_B2_i(18'h0),
-          .RDATA_B1_o(out_reg[17:0]),
-          .RDATA_B2_o(out_reg[35:18]),
-          .ADDR_B1_i(14'h0),
-          .ADDR_B2_i(14'h0),
-          .CLK_B1_i(Pop_Clk),
-          .CLK_B2_i(1'b0),
-          .REN_B1_i(POP),
-          .REN_B2_i(1'b0),
-          .WEN_B1_i(1'b0),
-          .WEN_B2_i(1'b0),
-          .BE_B1_i(2'b11),
-          .BE_B2_i(2'b11),
-      
-          .FLUSH1_i(Async_Flush),
-          .FLUSH2_i(1'b0)
-        );        
-			end
-			default: begin
-				defparam U1.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_9, MODE_9, MODE_9, MODE_9, 1'd0,
-					UPAF_DBITS, UPAE_DBITS, 4'h1, MODE_9, MODE_9, MODE_9, MODE_9, 1'b1
-				};
-        (* is_fifo = 1 *)
-        (* sync_fifo = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *) 
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K U1 (
-          .RESET_ni(1'b1),
-          .WDATA_A1_i(in_reg[17:0]),
-          .WDATA_A2_i(in_reg[35:18]),
-          .RDATA_A1_o(fifo_flags),
-          .RDATA_A2_o(),
-          .ADDR_A1_i(14'h0),
-          .ADDR_A2_i(14'h0),
-          .CLK_A1_i(Push_Clk),
-          .CLK_A2_i(1'b0),
-          .REN_A1_i(1'b1),
-          .REN_A2_i(1'b0),
-          .WEN_A1_i(PUSH),
-          .WEN_A2_i(1'b0),
-          .BE_A1_i(2'b11),
-          .BE_A2_i(2'b11),
-      
-          .WDATA_B1_i(18'h0),
-          .WDATA_B2_i(18'h0),
-          .RDATA_B1_o(out_reg[17:0]),
-          .RDATA_B2_o(out_reg[35:18]),
-          .ADDR_B1_i(14'h0),
-          .ADDR_B2_i(14'h0),
-          .CLK_B1_i(Pop_Clk),
-          .CLK_B2_i(1'b0),
-          .REN_B1_i(POP),
-          .REN_B2_i(1'b0),
-          .WEN_B1_i(1'b0),
-          .WEN_B2_i(1'b0),
-          .BE_B1_i(2'b11),
-          .BE_B2_i(2'b11),
-      
-          .FLUSH1_i(Async_Flush),
-          .FLUSH2_i(1'b0)
-        );        
-			end
-		endcase
-	end
-	16, 18: begin
-		case (WR_DATA_WIDTH)
-			8, 9: begin
-				defparam U1.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_18, MODE_9, MODE_18, MODE_9, 1'd0,
-					UPAF_DBITS, UPAE_DBITS, 4'h1, MODE_18, MODE_9, MODE_18, MODE_9, 1'b1
-				};
-        (* is_fifo = 1 *)
-        (* sync_fifo = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *) 
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K U1 (
-          .RESET_ni(1'b1),
-          .WDATA_A1_i(in_reg[17:0]),
-          .WDATA_A2_i(in_reg[35:18]),
-          .RDATA_A1_o(fifo_flags),
-          .RDATA_A2_o(),
-          .ADDR_A1_i(14'h0),
-          .ADDR_A2_i(14'h0),
-          .CLK_A1_i(Push_Clk),
-          .CLK_A2_i(1'b0),
-          .REN_A1_i(1'b1),
-          .REN_A2_i(1'b0),
-          .WEN_A1_i(PUSH),
-          .WEN_A2_i(1'b0),
-          .BE_A1_i(2'b11),
-          .BE_A2_i(2'b11),
-      
-          .WDATA_B1_i(18'h0),
-          .WDATA_B2_i(18'h0),
-          .RDATA_B1_o(out_reg[17:0]),
-          .RDATA_B2_o(out_reg[35:18]),
-          .ADDR_B1_i(14'h0),
-          .ADDR_B2_i(14'h0),
-          .CLK_B1_i(Pop_Clk),
-          .CLK_B2_i(1'b0),
-          .REN_B1_i(POP),
-          .REN_B2_i(1'b0),
-          .WEN_B1_i(1'b0),
-          .WEN_B2_i(1'b0),
-          .BE_B1_i(2'b11),
-          .BE_B2_i(2'b11),
-      
-          .FLUSH1_i(Async_Flush),
-          .FLUSH2_i(1'b0)
-        );        
-			end
-			16, 18: begin
-				defparam U1.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_18, MODE_18, MODE_18, MODE_18, 1'd0,
-					UPAF_DBITS, UPAE_DBITS, 4'h1, MODE_18, MODE_18, MODE_18, MODE_18, 1'b1
-				};
-        (* is_fifo = 1 *)
-        (* sync_fifo = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *) 
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K U1 (
-          .RESET_ni(1'b1),
-          .WDATA_A1_i(in_reg[17:0]),
-          .WDATA_A2_i(in_reg[35:18]),
-          .RDATA_A1_o(fifo_flags),
-          .RDATA_A2_o(),
-          .ADDR_A1_i(14'h0),
-          .ADDR_A2_i(14'h0),
-          .CLK_A1_i(Push_Clk),
-          .CLK_A2_i(1'b0),
-          .REN_A1_i(1'b1),
-          .REN_A2_i(1'b0),
-          .WEN_A1_i(PUSH),
-          .WEN_A2_i(1'b0),
-          .BE_A1_i(2'b11),
-          .BE_A2_i(2'b11),
-      
-          .WDATA_B1_i(18'h0),
-          .WDATA_B2_i(18'h0),
-          .RDATA_B1_o(out_reg[17:0]),
-          .RDATA_B2_o(out_reg[35:18]),
-          .ADDR_B1_i(14'h0),
-          .ADDR_B2_i(14'h0),
-          .CLK_B1_i(Pop_Clk),
-          .CLK_B2_i(1'b0),
-          .REN_B1_i(POP),
-          .REN_B2_i(1'b0),
-          .WEN_B1_i(1'b0),
-          .WEN_B2_i(1'b0),
-          .BE_B1_i(2'b11),
-          .BE_B2_i(2'b11),
-      
-          .FLUSH1_i(Async_Flush),
-          .FLUSH2_i(1'b0)
-        );        
-			end
-			32, 36: begin
-				defparam U1.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_18, MODE_36, MODE_18, MODE_36, 1'd0,
-					UPAF_DBITS, UPAE_DBITS, 4'h1, MODE_18, MODE_36, MODE_18, MODE_36, 1'b1
-				};
-        (* is_fifo = 1 *)
-        (* sync_fifo = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *) 
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K U1 (
-          .RESET_ni(1'b1),
-          .WDATA_A1_i(in_reg[17:0]),
-          .WDATA_A2_i(in_reg[35:18]),
-          .RDATA_A1_o(fifo_flags),
-          .RDATA_A2_o(),
-          .ADDR_A1_i(14'h0),
-          .ADDR_A2_i(14'h0),
-          .CLK_A1_i(Push_Clk),
-          .CLK_A2_i(1'b0),
-          .REN_A1_i(1'b1),
-          .REN_A2_i(1'b0),
-          .WEN_A1_i(PUSH),
-          .WEN_A2_i(1'b0),
-          .BE_A1_i(2'b11),
-          .BE_A2_i(2'b11),
-      
-          .WDATA_B1_i(18'h0),
-          .WDATA_B2_i(18'h0),
-          .RDATA_B1_o(out_reg[17:0]),
-          .RDATA_B2_o(out_reg[35:18]),
-          .ADDR_B1_i(14'h0),
-          .ADDR_B2_i(14'h0),
-          .CLK_B1_i(Pop_Clk),
-          .CLK_B2_i(1'b0),
-          .REN_B1_i(POP),
-          .REN_B2_i(1'b0),
-          .WEN_B1_i(1'b0),
-          .WEN_B2_i(1'b0),
-          .BE_B1_i(2'b11),
-          .BE_B2_i(2'b11),
-      
-          .FLUSH1_i(Async_Flush),
-          .FLUSH2_i(1'b0)
-        );        
-			end
-			default: begin
-				defparam U1.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_18, MODE_18, MODE_18, MODE_18, 1'd0,
-					UPAF_DBITS, UPAE_DBITS, 4'h1, MODE_18, MODE_18, MODE_18, MODE_18, 1'b1
-				};
-        (* is_fifo = 1 *)
-        (* sync_fifo = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *) 
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K U1 (
-          .RESET_ni(1'b1),
-          .WDATA_A1_i(in_reg[17:0]),
-          .WDATA_A2_i(in_reg[35:18]),
-          .RDATA_A1_o(fifo_flags),
-          .RDATA_A2_o(),
-          .ADDR_A1_i(14'h0),
-          .ADDR_A2_i(14'h0),
-          .CLK_A1_i(Push_Clk),
-          .CLK_A2_i(1'b0),
-          .REN_A1_i(1'b1),
-          .REN_A2_i(1'b0),
-          .WEN_A1_i(PUSH),
-          .WEN_A2_i(1'b0),
-          .BE_A1_i(2'b11),
-          .BE_A2_i(2'b11),
-      
-          .WDATA_B1_i(18'h0),
-          .WDATA_B2_i(18'h0),
-          .RDATA_B1_o(out_reg[17:0]),
-          .RDATA_B2_o(out_reg[35:18]),
-          .ADDR_B1_i(14'h0),
-          .ADDR_B2_i(14'h0),
-          .CLK_B1_i(Pop_Clk),
-          .CLK_B2_i(1'b0),
-          .REN_B1_i(POP),
-          .REN_B2_i(1'b0),
-          .WEN_B1_i(1'b0),
-          .WEN_B2_i(1'b0),
-          .BE_B1_i(2'b11),
-          .BE_B2_i(2'b11),
-      
-          .FLUSH1_i(Async_Flush),
-          .FLUSH2_i(1'b0)
-        );        
-			end
-		endcase
-	end
-	32, 36: begin
-		case (WR_DATA_WIDTH)
-			8, 9: begin
-				defparam U1.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_36, MODE_9, MODE_36, MODE_9, 1'd0,
-					UPAF_DBITS, UPAE_DBITS, 4'h1, MODE_36, MODE_9, MODE_36, MODE_9, 1'b1
-				};
-        (* is_fifo = 1 *)
-        (* sync_fifo = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *) 
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K U1 (
-          .RESET_ni(1'b1),
-          .WDATA_A1_i(in_reg[17:0]),
-          .WDATA_A2_i(in_reg[35:18]),
-          .RDATA_A1_o(fifo_flags),
-          .RDATA_A2_o(),
-          .ADDR_A1_i(14'h0),
-          .ADDR_A2_i(14'h0),
-          .CLK_A1_i(Push_Clk),
-          .CLK_A2_i(1'b0),
-          .REN_A1_i(1'b1),
-          .REN_A2_i(1'b0),
-          .WEN_A1_i(PUSH),
-          .WEN_A2_i(1'b0),
-          .BE_A1_i(2'b11),
-          .BE_A2_i(2'b11),
-      
-          .WDATA_B1_i(18'h0),
-          .WDATA_B2_i(18'h0),
-          .RDATA_B1_o(out_reg[17:0]),
-          .RDATA_B2_o(out_reg[35:18]),
-          .ADDR_B1_i(14'h0),
-          .ADDR_B2_i(14'h0),
-          .CLK_B1_i(Pop_Clk),
-          .CLK_B2_i(1'b0),
-          .REN_B1_i(POP),
-          .REN_B2_i(1'b0),
-          .WEN_B1_i(1'b0),
-          .WEN_B2_i(1'b0),
-          .BE_B1_i(2'b11),
-          .BE_B2_i(2'b11),
-      
-          .FLUSH1_i(Async_Flush),
-          .FLUSH2_i(1'b0)
-        );        
-			end
-			16, 18: begin
-				defparam U1.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_36, MODE_18, MODE_36, MODE_18, 1'd0,
-					UPAF_DBITS, UPAE_DBITS, 4'h1, MODE_36, MODE_18, MODE_36, MODE_18, 1'b1
-				};
-        (* is_fifo = 1 *)
-        (* sync_fifo = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *) 
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K U1 (
-          .RESET_ni(1'b1),
-          .WDATA_A1_i(in_reg[17:0]),
-          .WDATA_A2_i(in_reg[35:18]),
-          .RDATA_A1_o(fifo_flags),
-          .RDATA_A2_o(),
-          .ADDR_A1_i(14'h0),
-          .ADDR_A2_i(14'h0),
-          .CLK_A1_i(Push_Clk),
-          .CLK_A2_i(1'b0),
-          .REN_A1_i(1'b1),
-          .REN_A2_i(1'b0),
-          .WEN_A1_i(PUSH),
-          .WEN_A2_i(1'b0),
-          .BE_A1_i(2'b11),
-          .BE_A2_i(2'b11),
-      
-          .WDATA_B1_i(18'h0),
-          .WDATA_B2_i(18'h0),
-          .RDATA_B1_o(out_reg[17:0]),
-          .RDATA_B2_o(out_reg[35:18]),
-          .ADDR_B1_i(14'h0),
-          .ADDR_B2_i(14'h0),
-          .CLK_B1_i(Pop_Clk),
-          .CLK_B2_i(1'b0),
-          .REN_B1_i(POP),
-          .REN_B2_i(1'b0),
-          .WEN_B1_i(1'b0),
-          .WEN_B2_i(1'b0),
-          .BE_B1_i(2'b11),
-          .BE_B2_i(2'b11),
-      
-          .FLUSH1_i(Async_Flush),
-          .FLUSH2_i(1'b0)
-        );        
-			end
-			32, 36: begin
-				defparam U1.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_36, MODE_36, MODE_36, MODE_36, 1'd0,
-					UPAF_DBITS, UPAE_DBITS, 4'h1, MODE_36, MODE_36, MODE_36, MODE_36, 1'b1
-				};
-        (* is_fifo = 1 *)
-        (* sync_fifo = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *) 
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K U1 (
-          .RESET_ni(1'b1),
-          .WDATA_A1_i(in_reg[17:0]),
-          .WDATA_A2_i(in_reg[35:18]),
-          .RDATA_A1_o(fifo_flags),
-          .RDATA_A2_o(),
-          .ADDR_A1_i(14'h0),
-          .ADDR_A2_i(14'h0),
-          .CLK_A1_i(Push_Clk),
-          .CLK_A2_i(1'b0),
-          .REN_A1_i(1'b1),
-          .REN_A2_i(1'b0),
-          .WEN_A1_i(PUSH),
-          .WEN_A2_i(1'b0),
-          .BE_A1_i(2'b11),
-          .BE_A2_i(2'b11),
-      
-          .WDATA_B1_i(18'h0),
-          .WDATA_B2_i(18'h0),
-          .RDATA_B1_o(out_reg[17:0]),
-          .RDATA_B2_o(out_reg[35:18]),
-          .ADDR_B1_i(14'h0),
-          .ADDR_B2_i(14'h0),
-          .CLK_B1_i(Pop_Clk),
-          .CLK_B2_i(1'b0),
-          .REN_B1_i(POP),
-          .REN_B2_i(1'b0),
-          .WEN_B1_i(1'b0),
-          .WEN_B2_i(1'b0),
-          .BE_B1_i(2'b11),
-          .BE_B2_i(2'b11),
-      
-          .FLUSH1_i(Async_Flush),
-          .FLUSH2_i(1'b0)
-        );        
-			end
-			default: begin
-				defparam U1.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_36, MODE_36, MODE_36, MODE_36, 1'd0,
-					UPAF_DBITS, UPAE_DBITS, 4'h1, MODE_36, MODE_36, MODE_36, MODE_36, 1'b1
-				};
-        (* is_fifo = 1 *)
-        (* sync_fifo = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *) 
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K U1 (
-          .RESET_ni(1'b1),
-          .WDATA_A1_i(in_reg[17:0]),
-          .WDATA_A2_i(in_reg[35:18]),
-          .RDATA_A1_o(fifo_flags),
-          .RDATA_A2_o(),
-          .ADDR_A1_i(14'h0),
-          .ADDR_A2_i(14'h0),
-          .CLK_A1_i(Push_Clk),
-          .CLK_A2_i(1'b0),
-          .REN_A1_i(1'b1),
-          .REN_A2_i(1'b0),
-          .WEN_A1_i(PUSH),
-          .WEN_A2_i(1'b0),
-          .BE_A1_i(2'b11),
-          .BE_A2_i(2'b11),
-      
-          .WDATA_B1_i(18'h0),
-          .WDATA_B2_i(18'h0),
-          .RDATA_B1_o(out_reg[17:0]),
-          .RDATA_B2_o(out_reg[35:18]),
-          .ADDR_B1_i(14'h0),
-          .ADDR_B2_i(14'h0),
-          .CLK_B1_i(Pop_Clk),
-          .CLK_B2_i(1'b0),
-          .REN_B1_i(POP),
-          .REN_B2_i(1'b0),
-          .WEN_B1_i(1'b0),
-          .WEN_B2_i(1'b0),
-          .BE_B1_i(2'b11),
-          .BE_B2_i(2'b11),
-      
-          .FLUSH1_i(Async_Flush),
-          .FLUSH2_i(1'b0)
-        );        
-			end
-		endcase
-	end
-	default: begin
-		case (WR_DATA_WIDTH)
-			8, 9: begin
-				defparam U1.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_9, MODE_9, MODE_9, MODE_9, 1'd0,
-					UPAF_DBITS, UPAE_DBITS, 4'h1, MODE_9, MODE_9, MODE_9, MODE_9, 1'b1
-				};
-        (* is_fifo = 1 *)
-        (* sync_fifo = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *) 
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K U1 (
-          .RESET_ni(1'b1),
-          .WDATA_A1_i(in_reg[17:0]),
-          .WDATA_A2_i(in_reg[35:18]),
-          .RDATA_A1_o(fifo_flags),
-          .RDATA_A2_o(),
-          .ADDR_A1_i(14'h0),
-          .ADDR_A2_i(14'h0),
-          .CLK_A1_i(Push_Clk),
-          .CLK_A2_i(1'b0),
-          .REN_A1_i(1'b1),
-          .REN_A2_i(1'b0),
-          .WEN_A1_i(PUSH),
-          .WEN_A2_i(1'b0),
-          .BE_A1_i(2'b11),
-          .BE_A2_i(2'b11),
-      
-          .WDATA_B1_i(18'h0),
-          .WDATA_B2_i(18'h0),
-          .RDATA_B1_o(out_reg[17:0]),
-          .RDATA_B2_o(out_reg[35:18]),
-          .ADDR_B1_i(14'h0),
-          .ADDR_B2_i(14'h0),
-          .CLK_B1_i(Pop_Clk),
-          .CLK_B2_i(1'b0),
-          .REN_B1_i(POP),
-          .REN_B2_i(1'b0),
-          .WEN_B1_i(1'b0),
-          .WEN_B2_i(1'b0),
-          .BE_B1_i(2'b11),
-          .BE_B2_i(2'b11),
-      
-          .FLUSH1_i(Async_Flush),
-          .FLUSH2_i(1'b0)
-        );        
-			end
-			16, 18: begin
-				defparam U1.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_18, MODE_18, MODE_18, MODE_18, 1'd0,
-					UPAF_DBITS, UPAE_DBITS, 4'h1, MODE_18, MODE_18, MODE_18, MODE_18, 1'b1
-				};
-        (* is_fifo = 1 *)
-        (* sync_fifo = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *) 
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K U1 (
-          .RESET_ni(1'b1),
-          .WDATA_A1_i(in_reg[17:0]),
-          .WDATA_A2_i(in_reg[35:18]),
-          .RDATA_A1_o(fifo_flags),
-          .RDATA_A2_o(),
-          .ADDR_A1_i(14'h0),
-          .ADDR_A2_i(14'h0),
-          .CLK_A1_i(Push_Clk),
-          .CLK_A2_i(1'b0),
-          .REN_A1_i(1'b1),
-          .REN_A2_i(1'b0),
-          .WEN_A1_i(PUSH),
-          .WEN_A2_i(1'b0),
-          .BE_A1_i(2'b11),
-          .BE_A2_i(2'b11),
-      
-          .WDATA_B1_i(18'h0),
-          .WDATA_B2_i(18'h0),
-          .RDATA_B1_o(out_reg[17:0]),
-          .RDATA_B2_o(out_reg[35:18]),
-          .ADDR_B1_i(14'h0),
-          .ADDR_B2_i(14'h0),
-          .CLK_B1_i(Pop_Clk),
-          .CLK_B2_i(1'b0),
-          .REN_B1_i(POP),
-          .REN_B2_i(1'b0),
-          .WEN_B1_i(1'b0),
-          .WEN_B2_i(1'b0),
-          .BE_B1_i(2'b11),
-          .BE_B2_i(2'b11),
-      
-          .FLUSH1_i(Async_Flush),
-          .FLUSH2_i(1'b0)
-        );        
-			end
-			32, 36: begin
-				defparam U1.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_36, MODE_36, MODE_36, MODE_36, 1'd0,
-					UPAF_DBITS, UPAE_DBITS, 4'h1, MODE_36, MODE_36, MODE_36, MODE_36, 1'b1
-				};
-        (* is_fifo = 1 *)
-        (* sync_fifo = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *) 
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K U1 (
-          .RESET_ni(1'b1),
-          .WDATA_A1_i(in_reg[17:0]),
-          .WDATA_A2_i(in_reg[35:18]),
-          .RDATA_A1_o(fifo_flags),
-          .RDATA_A2_o(),
-          .ADDR_A1_i(14'h0),
-          .ADDR_A2_i(14'h0),
-          .CLK_A1_i(Push_Clk),
-          .CLK_A2_i(1'b0),
-          .REN_A1_i(1'b1),
-          .REN_A2_i(1'b0),
-          .WEN_A1_i(PUSH),
-          .WEN_A2_i(1'b0),
-          .BE_A1_i(2'b11),
-          .BE_A2_i(2'b11),
-      
-          .WDATA_B1_i(18'h0),
-          .WDATA_B2_i(18'h0),
-          .RDATA_B1_o(out_reg[17:0]),
-          .RDATA_B2_o(out_reg[35:18]),
-          .ADDR_B1_i(14'h0),
-          .ADDR_B2_i(14'h0),
-          .CLK_B1_i(Pop_Clk),
-          .CLK_B2_i(1'b0),
-          .REN_B1_i(POP),
-          .REN_B2_i(1'b0),
-          .WEN_B1_i(1'b0),
-          .WEN_B2_i(1'b0),
-          .BE_B1_i(2'b11),
-          .BE_B2_i(2'b11),
-      
-          .FLUSH1_i(Async_Flush),
-          .FLUSH2_i(1'b0)
-        );
-			end
-			default: begin
-				defparam U1.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_36, MODE_36, MODE_36, MODE_36, 1'd0,
-					UPAF_DBITS, UPAE_DBITS, 4'h1, MODE_36, MODE_36, MODE_36, MODE_36, 1'b1
-				};
-        (* is_fifo = 1 *)
-        (* sync_fifo = 1 *)
-        (* rd_data_width = RD_DATA_WIDTH *) 
-        (* wr_data_width = WR_DATA_WIDTH *)
-        TDP36K U1 (
-          .RESET_ni(1'b1),
-          .WDATA_A1_i(in_reg[17:0]),
-          .WDATA_A2_i(in_reg[35:18]),
-          .RDATA_A1_o(fifo_flags),
-          .RDATA_A2_o(),
-          .ADDR_A1_i(14'h0),
-          .ADDR_A2_i(14'h0),
-          .CLK_A1_i(Push_Clk),
-          .CLK_A2_i(1'b0),
-          .REN_A1_i(1'b1),
-          .REN_A2_i(1'b0),
-          .WEN_A1_i(PUSH),
-          .WEN_A2_i(1'b0),
-          .BE_A1_i(2'b11),
-          .BE_A2_i(2'b11),
-      
-          .WDATA_B1_i(18'h0),
-          .WDATA_B2_i(18'h0),
-          .RDATA_B1_o(out_reg[17:0]),
-          .RDATA_B2_o(out_reg[35:18]),
-          .ADDR_B1_i(14'h0),
-          .ADDR_B2_i(14'h0),
-          .CLK_B1_i(Pop_Clk),
-          .CLK_B2_i(1'b0),
-          .REN_B1_i(POP),
-          .REN_B2_i(1'b0),
-          .WEN_B1_i(1'b0),
-          .WEN_B2_i(1'b0),
-          .BE_B1_i(2'b11),
-          .BE_B2_i(2'b11),
-      
-          .FLUSH1_i(Async_Flush),
-          .FLUSH2_i(1'b0)
-        );
-			end
-		endcase
-	end
- endcase
+  assign DOUT[RD_DATA_WIDTH-1 : 0] = RD_DATA_INT[RD_DATA_WIDTH-1 : 0];
+  
+  defparam _TECHMAP_REPLACE_.MODE_BITS = { 1'b0,
+	UPAF2_i, UPAE2_i, PROTECT2_i, SLEEP2_i, POWERDN2_i, FMODE2_i, WMODE_B2_i, WMODE_A2_i, RMODE_B2_i, RMODE_A2_i, SYNC_FIFO2_i,
+	UPAF1_i, UPAE1_i, PROTECT1_i, SLEEP1_i, POWERDN1_i, FMODE1_i, WMODE_B1_i, WMODE_A1_i, RMODE_B1_i, RMODE_A1_i, SYNC_FIFO1_i
+	};
+ 
+  (* is_fifo = 1 *)
+  (* sync_fifo = 1 *)
+  (* is_inferred = 0 *)
+  (* is_split = 0 *)
+  (* port_a_dwidth = WR_DATA_WIDTH *)
+  (* port_b_dwidth = RD_DATA_WIDTH *)
+   TDP36K _TECHMAP_REPLACE_ (
+		.RESET_ni(1'b1),
+		.WDATA_A1_i(in_reg[17:0]),
+		.WDATA_A2_i(in_reg[35:18]),
+		.RDATA_A1_o(fifo_flags),
+		.RDATA_A2_o(),
+		.ADDR_A1_i(14'h0),
+		.ADDR_A2_i(14'h0),
+		.CLK_A1_i(Push_Clk),
+		.CLK_A2_i(1'b0),
+		.REN_A1_i(1'b1),
+		.REN_A2_i(1'b0),
+		.WEN_A1_i(PUSH),
+		.WEN_A2_i(1'b0),
+		.BE_A1_i(2'b11),
+		.BE_A2_i(2'b11),
 
-  assign DOUT[RD_DATA_WIDTH-1 : 0] = RD_DATA_CMPL[RD_DATA_WIDTH-1 : 0];
+		.WDATA_B1_i(18'h0),
+		.WDATA_B2_i(18'h0),
+		.RDATA_B1_o(out_reg[17:0]),
+		.RDATA_B2_o(out_reg[35:18]),
+		.ADDR_B1_i(14'h0),
+		.ADDR_B2_i(14'h0),
+		.CLK_B1_i(Pop_Clk),
+		.CLK_B2_i(1'b0),
+		.REN_B1_i(POP),
+		.REN_B2_i(1'b0),
+		.WEN_B1_i(1'b0),
+		.WEN_B2_i(1'b0),
+		.BE_B1_i(2'b11),
+		.BE_B2_i(2'b11),
 
-endmodule
+		.FLUSH1_i(Async_Flush),
+		.FLUSH2_i(1'b0)
+	);
+
+endmodule 
+
 
 module AFIFO_36K_BLK (
     DIN,
@@ -15935,13 +4585,6 @@ module AFIFO_36K_BLK (
   parameter UPAE_DBITS = 12'd10;
   parameter UPAF_DBITS = 12'd10;
 
-  localparam MODE_36 = 3'b011; // 36- or 32-bit
-  localparam MODE_18 = 3'b010; // 18- or 16-bit
-  localparam MODE_9 = 3'b001; // 9- or 8-bit
-  localparam MODE_4 = 3'b100; // 4-bit
-  localparam MODE_2 = 3'b110; // 2-bit
-  localparam MODE_1 = 3'b101; // 1-bit
-
   input wire Push_Clk, Pop_Clk;
   input wire PUSH, POP;
   input wire [WR_DATA_WIDTH-1:0] DIN;
@@ -15952,11 +4595,42 @@ module AFIFO_36K_BLK (
   output wire Full_Watermark, Empty_Watermark;
   output wire Overrun_Error, Underrun_Error;
   
+  // Fixed mode settings
+  localparam [ 0:0] SYNC_FIFO1_i  = 1'd0;
+  localparam [ 0:0] FMODE1_i      = 1'd1;
+  localparam [ 0:0] POWERDN1_i    = 1'd0;
+  localparam [ 0:0] SLEEP1_i      = 1'd0;
+  localparam [ 0:0] PROTECT1_i    = 1'd0;
+  localparam [11:0] UPAE1_i       = UPAE_DBITS;
+  localparam [11:0] UPAF1_i       = UPAF_DBITS;
+  
+  localparam [ 0:0] SYNC_FIFO2_i  = 1'd0;
+  localparam [ 0:0] FMODE2_i      = 1'd0;
+  localparam [ 0:0] POWERDN2_i    = 1'd0;
+  localparam [ 0:0] SLEEP2_i      = 1'd0;
+  localparam [ 0:0] PROTECT2_i    = 1'd0;
+  localparam [10:0] UPAE2_i       = 11'd10;
+  localparam [10:0] UPAF2_i       = 11'd10;
+
+  // Width mode function
+  function [2:0] mode;
+  input integer width;
+  case (width)
+  1: mode = 3'b101;
+  2: mode = 3'b110;
+  4: mode = 3'b100;
+  8,9: mode = 3'b001;
+  16, 18: mode = 3'b010;
+  32, 36: mode = 3'b011;
+  default: mode = 3'b000;
+  endcase
+  endfunction
+  
   wire [35:0] in_reg;
   wire [35:0] out_reg;
   wire [17:0] fifo_flags;
   
-  wire [35:0] RD_DATA_CMPL;
+  wire [35:0] RD_DATA_INT;
   wire [35:WR_DATA_WIDTH] WR_DATA_CMPL;
   
   assign Overrun_Error = fifo_flags[0];
@@ -15967,6 +4641,16 @@ module AFIFO_36K_BLK (
   assign Empty_Watermark = fifo_flags[5];
   assign Almost_Empty = fifo_flags[6];
   assign Empty = fifo_flags[7];
+  
+  localparam [ 2:0] RMODE_A1_i    = mode(WR_DATA_WIDTH);
+  localparam [ 2:0] WMODE_A1_i    = mode(WR_DATA_WIDTH);
+  localparam [ 2:0] RMODE_A2_i    = mode(WR_DATA_WIDTH);
+  localparam [ 2:0] WMODE_A2_i    = mode(WR_DATA_WIDTH);
+  
+  localparam [ 2:0] RMODE_B1_i    = mode(RD_DATA_WIDTH);
+  localparam [ 2:0] WMODE_B1_i    = mode(RD_DATA_WIDTH);
+  localparam [ 2:0] RMODE_B2_i    = mode(RD_DATA_WIDTH);
+  localparam [ 2:0] WMODE_B2_i    = mode(RD_DATA_WIDTH);
    
   generate
     if (WR_DATA_WIDTH == 36) begin
@@ -15984,793 +4668,69 @@ module AFIFO_36K_BLK (
   
   generate
     if (RD_DATA_WIDTH == 36) begin
-      assign RD_DATA_CMPL = out_reg;
+      assign RD_DATA_INT = out_reg;
     end else if (RD_DATA_WIDTH > 18 && RD_DATA_WIDTH < 36) begin
-      assign RD_DATA_CMPL  = {2'b00,out_reg[35:18],out_reg[15:0]};
+      assign RD_DATA_INT  = {2'b00,out_reg[35:18],out_reg[15:0]};
     end else if (RD_DATA_WIDTH == 9) begin
-      assign RD_DATA_CMPL = { 27'h0, out_reg[16], out_reg[7:0]};
+      assign RD_DATA_INT = { 27'h0, out_reg[16], out_reg[7:0]};
     end else begin
-      assign RD_DATA_CMPL = {18'h0, out_reg[17:0]};
+      assign RD_DATA_INT = {18'h0, out_reg[17:0]};
     end
   endgenerate
   
-  case (RD_DATA_WIDTH)
-	8, 9: begin
-		case (WR_DATA_WIDTH)
-			8, 9: begin
-				defparam U1.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_9, MODE_9, MODE_9, MODE_9, 1'd0,
-					UPAF_DBITS, UPAE_DBITS, 4'h1, MODE_9, MODE_9, MODE_9, MODE_9, 1'b0
-				};
-        
-            (* is_fifo = 1 *)
-            (* sync_fifo = 0 *)
-            (* rd_data_width = RD_DATA_WIDTH *) 
-            (* wr_data_width = WR_DATA_WIDTH *)
-            TDP36K U1 (
-              .RESET_ni(1'b1),
-              .WDATA_A1_i(in_reg[17:0]),
-              .WDATA_A2_i(in_reg[35:18]),
-              .RDATA_A1_o(fifo_flags),
-              .RDATA_A2_o(),
-              .ADDR_A1_i(14'h0),
-              .ADDR_A2_i(14'h0),
-              .CLK_A1_i(Push_Clk),
-              .CLK_A2_i(1'b0),
-              .REN_A1_i(1'b1),
-              .REN_A2_i(1'b0),
-              .WEN_A1_i(PUSH),
-              .WEN_A2_i(1'b0),
-              .BE_A1_i(2'b11),
-              .BE_A2_i(2'b11),
-          
-              .WDATA_B1_i(18'h0),
-              .WDATA_B2_i(18'h0),
-              .RDATA_B1_o(out_reg[17:0]),
-              .RDATA_B2_o(out_reg[35:18]),
-              .ADDR_B1_i(14'h0),
-              .ADDR_B2_i(14'h0),
-              .CLK_B1_i(Pop_Clk),
-              .CLK_B2_i(1'b0),
-              .REN_B1_i(POP),
-              .REN_B2_i(1'b0),
-              .WEN_B1_i(1'b0),
-              .WEN_B2_i(1'b0),
-              .BE_B1_i(2'b11),
-              .BE_B2_i(2'b11),
-          
-              .FLUSH1_i(Async_Flush),
-              .FLUSH2_i(1'b0)
-            );
+  assign DOUT[RD_DATA_WIDTH-1 : 0] = RD_DATA_INT[RD_DATA_WIDTH-1 : 0];
   
-			end
-			16, 18: begin
-				defparam U1.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_9, MODE_18, MODE_9, MODE_18, 1'd0,
-					UPAF_DBITS, UPAE_DBITS, 4'h1, MODE_9, MODE_18, MODE_9, MODE_18, 1'b0
-				};
-        
-            (* is_fifo = 1 *)
-            (* sync_fifo = 0 *)
-            (* rd_data_width = RD_DATA_WIDTH *) 
-            (* wr_data_width = WR_DATA_WIDTH *)
-            TDP36K U1 (
-              .RESET_ni(1'b1),
-              .WDATA_A1_i(in_reg[17:0]),
-              .WDATA_A2_i(in_reg[35:18]),
-              .RDATA_A1_o(fifo_flags),
-              .RDATA_A2_o(),
-              .ADDR_A1_i(14'h0),
-              .ADDR_A2_i(14'h0),
-              .CLK_A1_i(Push_Clk),
-              .CLK_A2_i(1'b0),
-              .REN_A1_i(1'b1),
-              .REN_A2_i(1'b0),
-              .WEN_A1_i(PUSH),
-              .WEN_A2_i(1'b0),
-              .BE_A1_i(2'b11),
-              .BE_A2_i(2'b11),
-          
-              .WDATA_B1_i(18'h0),
-              .WDATA_B2_i(18'h0),
-              .RDATA_B1_o(out_reg[17:0]),
-              .RDATA_B2_o(out_reg[35:18]),
-              .ADDR_B1_i(14'h0),
-              .ADDR_B2_i(14'h0),
-              .CLK_B1_i(Pop_Clk),
-              .CLK_B2_i(1'b0),
-              .REN_B1_i(POP),
-              .REN_B2_i(1'b0),
-              .WEN_B1_i(1'b0),
-              .WEN_B2_i(1'b0),
-              .BE_B1_i(2'b11),
-              .BE_B2_i(2'b11),
-          
-              .FLUSH1_i(Async_Flush),
-              .FLUSH2_i(1'b0)
-            );
-  
-			end
-			32, 36: begin
-				defparam U1.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_9, MODE_36, MODE_9, MODE_36, 1'd0,
-					UPAF_DBITS, UPAE_DBITS, 4'h1, MODE_9, MODE_36, MODE_9, MODE_36, 1'b0
-				};
-        
-            (* is_fifo = 1 *)
-            (* sync_fifo = 0 *)
-            (* rd_data_width = RD_DATA_WIDTH *) 
-            (* wr_data_width = WR_DATA_WIDTH *)
-            TDP36K U1 (
-              .RESET_ni(1'b1),
-              .WDATA_A1_i(in_reg[17:0]),
-              .WDATA_A2_i(in_reg[35:18]),
-              .RDATA_A1_o(fifo_flags),
-              .RDATA_A2_o(),
-              .ADDR_A1_i(14'h0),
-              .ADDR_A2_i(14'h0),
-              .CLK_A1_i(Push_Clk),
-              .CLK_A2_i(1'b0),
-              .REN_A1_i(1'b1),
-              .REN_A2_i(1'b0),
-              .WEN_A1_i(PUSH),
-              .WEN_A2_i(1'b0),
-              .BE_A1_i(2'b11),
-              .BE_A2_i(2'b11),
-          
-              .WDATA_B1_i(18'h0),
-              .WDATA_B2_i(18'h0),
-              .RDATA_B1_o(out_reg[17:0]),
-              .RDATA_B2_o(out_reg[35:18]),
-              .ADDR_B1_i(14'h0),
-              .ADDR_B2_i(14'h0),
-              .CLK_B1_i(Pop_Clk),
-              .CLK_B2_i(1'b0),
-              .REN_B1_i(POP),
-              .REN_B2_i(1'b0),
-              .WEN_B1_i(1'b0),
-              .WEN_B2_i(1'b0),
-              .BE_B1_i(2'b11),
-              .BE_B2_i(2'b11),
-          
-              .FLUSH1_i(Async_Flush),
-              .FLUSH2_i(1'b0)
-            );
-  
-			end
-			default: begin
-				defparam U1.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_9, MODE_9, MODE_9, MODE_9, 1'd0,
-					UPAF_DBITS, UPAE_DBITS, 4'h1, MODE_9, MODE_9, MODE_9, MODE_9, 1'b0
-				};
-        
-            (* is_fifo = 1 *)
-            (* sync_fifo = 0 *)
-            (* rd_data_width = RD_DATA_WIDTH *) 
-            (* wr_data_width = WR_DATA_WIDTH *)
-            TDP36K U1 (
-              .RESET_ni(1'b1),
-              .WDATA_A1_i(in_reg[17:0]),
-              .WDATA_A2_i(in_reg[35:18]),
-              .RDATA_A1_o(fifo_flags),
-              .RDATA_A2_o(),
-              .ADDR_A1_i(14'h0),
-              .ADDR_A2_i(14'h0),
-              .CLK_A1_i(Push_Clk),
-              .CLK_A2_i(1'b0),
-              .REN_A1_i(1'b1),
-              .REN_A2_i(1'b0),
-              .WEN_A1_i(PUSH),
-              .WEN_A2_i(1'b0),
-              .BE_A1_i(2'b11),
-              .BE_A2_i(2'b11),
-          
-              .WDATA_B1_i(18'h0),
-              .WDATA_B2_i(18'h0),
-              .RDATA_B1_o(out_reg[17:0]),
-              .RDATA_B2_o(out_reg[35:18]),
-              .ADDR_B1_i(14'h0),
-              .ADDR_B2_i(14'h0),
-              .CLK_B1_i(Pop_Clk),
-              .CLK_B2_i(1'b0),
-              .REN_B1_i(POP),
-              .REN_B2_i(1'b0),
-              .WEN_B1_i(1'b0),
-              .WEN_B2_i(1'b0),
-              .BE_B1_i(2'b11),
-              .BE_B2_i(2'b11),
-          
-              .FLUSH1_i(Async_Flush),
-              .FLUSH2_i(1'b0)
-            );
-  
-			end
-		endcase
-	end
-	16, 18: begin
-		case (WR_DATA_WIDTH)
-			8, 9: begin
-				defparam U1.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_18, MODE_9, MODE_18, MODE_9, 1'd0,
-					UPAF_DBITS, UPAE_DBITS, 4'h1, MODE_18, MODE_9, MODE_18, MODE_9, 1'b0
-				};
-        
-            (* is_fifo = 1 *)
-            (* sync_fifo = 0 *)
-            (* rd_data_width = RD_DATA_WIDTH *) 
-            (* wr_data_width = WR_DATA_WIDTH *)
-            TDP36K U1 (
-              .RESET_ni(1'b1),
-              .WDATA_A1_i(in_reg[17:0]),
-              .WDATA_A2_i(in_reg[35:18]),
-              .RDATA_A1_o(fifo_flags),
-              .RDATA_A2_o(),
-              .ADDR_A1_i(14'h0),
-              .ADDR_A2_i(14'h0),
-              .CLK_A1_i(Push_Clk),
-              .CLK_A2_i(1'b0),
-              .REN_A1_i(1'b1),
-              .REN_A2_i(1'b0),
-              .WEN_A1_i(PUSH),
-              .WEN_A2_i(1'b0),
-              .BE_A1_i(2'b11),
-              .BE_A2_i(2'b11),
-          
-              .WDATA_B1_i(18'h0),
-              .WDATA_B2_i(18'h0),
-              .RDATA_B1_o(out_reg[17:0]),
-              .RDATA_B2_o(out_reg[35:18]),
-              .ADDR_B1_i(14'h0),
-              .ADDR_B2_i(14'h0),
-              .CLK_B1_i(Pop_Clk),
-              .CLK_B2_i(1'b0),
-              .REN_B1_i(POP),
-              .REN_B2_i(1'b0),
-              .WEN_B1_i(1'b0),
-              .WEN_B2_i(1'b0),
-              .BE_B1_i(2'b11),
-              .BE_B2_i(2'b11),
-          
-              .FLUSH1_i(Async_Flush),
-              .FLUSH2_i(1'b0)
-            );
-  
-			end
-			16, 18: begin
-				defparam U1.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_18, MODE_18, MODE_18, MODE_18, 1'd0,
-					UPAF_DBITS, UPAE_DBITS, 4'h1, MODE_18, MODE_18, MODE_18, MODE_18, 1'b0
-				};
-        
-            (* is_fifo = 1 *)
-            (* sync_fifo = 0 *)
-            (* rd_data_width = RD_DATA_WIDTH *) 
-            (* wr_data_width = WR_DATA_WIDTH *)
-            TDP36K U1 (
-              .RESET_ni(1'b1),
-              .WDATA_A1_i(in_reg[17:0]),
-              .WDATA_A2_i(in_reg[35:18]),
-              .RDATA_A1_o(fifo_flags),
-              .RDATA_A2_o(),
-              .ADDR_A1_i(14'h0),
-              .ADDR_A2_i(14'h0),
-              .CLK_A1_i(Push_Clk),
-              .CLK_A2_i(1'b0),
-              .REN_A1_i(1'b1),
-              .REN_A2_i(1'b0),
-              .WEN_A1_i(PUSH),
-              .WEN_A2_i(1'b0),
-              .BE_A1_i(2'b11),
-              .BE_A2_i(2'b11),
-          
-              .WDATA_B1_i(18'h0),
-              .WDATA_B2_i(18'h0),
-              .RDATA_B1_o(out_reg[17:0]),
-              .RDATA_B2_o(out_reg[35:18]),
-              .ADDR_B1_i(14'h0),
-              .ADDR_B2_i(14'h0),
-              .CLK_B1_i(Pop_Clk),
-              .CLK_B2_i(1'b0),
-              .REN_B1_i(POP),
-              .REN_B2_i(1'b0),
-              .WEN_B1_i(1'b0),
-              .WEN_B2_i(1'b0),
-              .BE_B1_i(2'b11),
-              .BE_B2_i(2'b11),
-          
-              .FLUSH1_i(Async_Flush),
-              .FLUSH2_i(1'b0)
-            );
-  
-			end
-			32, 36: begin
-				defparam U1.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_18, MODE_36, MODE_18, MODE_36, 1'd0,
-					UPAF_DBITS, UPAE_DBITS, 4'h1, MODE_18, MODE_36, MODE_18, MODE_36, 1'b0
-				};
-        
-            (* is_fifo = 1 *)
-            (* sync_fifo = 0 *)
-            (* rd_data_width = RD_DATA_WIDTH *) 
-            (* wr_data_width = WR_DATA_WIDTH *)
-            TDP36K U1 (
-              .RESET_ni(1'b1),
-              .WDATA_A1_i(in_reg[17:0]),
-              .WDATA_A2_i(in_reg[35:18]),
-              .RDATA_A1_o(fifo_flags),
-              .RDATA_A2_o(),
-              .ADDR_A1_i(14'h0),
-              .ADDR_A2_i(14'h0),
-              .CLK_A1_i(Push_Clk),
-              .CLK_A2_i(1'b0),
-              .REN_A1_i(1'b1),
-              .REN_A2_i(1'b0),
-              .WEN_A1_i(PUSH),
-              .WEN_A2_i(1'b0),
-              .BE_A1_i(2'b11),
-              .BE_A2_i(2'b11),
-          
-              .WDATA_B1_i(18'h0),
-              .WDATA_B2_i(18'h0),
-              .RDATA_B1_o(out_reg[17:0]),
-              .RDATA_B2_o(out_reg[35:18]),
-              .ADDR_B1_i(14'h0),
-              .ADDR_B2_i(14'h0),
-              .CLK_B1_i(Pop_Clk),
-              .CLK_B2_i(1'b0),
-              .REN_B1_i(POP),
-              .REN_B2_i(1'b0),
-              .WEN_B1_i(1'b0),
-              .WEN_B2_i(1'b0),
-              .BE_B1_i(2'b11),
-              .BE_B2_i(2'b11),
-          
-              .FLUSH1_i(Async_Flush),
-              .FLUSH2_i(1'b0)
-            );
-  
-			end
-			default: begin
-				defparam U1.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_18, MODE_18, MODE_18, MODE_18, 1'd0,
-					UPAF_DBITS, UPAE_DBITS, 4'h1, MODE_18, MODE_18, MODE_18, MODE_18, 1'b0
-				};
-        
-            (* is_fifo = 1 *)
-            (* sync_fifo = 0 *)
-            (* rd_data_width = RD_DATA_WIDTH *) 
-            (* wr_data_width = WR_DATA_WIDTH *)
-            TDP36K U1 (
-              .RESET_ni(1'b1),
-              .WDATA_A1_i(in_reg[17:0]),
-              .WDATA_A2_i(in_reg[35:18]),
-              .RDATA_A1_o(fifo_flags),
-              .RDATA_A2_o(),
-              .ADDR_A1_i(14'h0),
-              .ADDR_A2_i(14'h0),
-              .CLK_A1_i(Push_Clk),
-              .CLK_A2_i(1'b0),
-              .REN_A1_i(1'b1),
-              .REN_A2_i(1'b0),
-              .WEN_A1_i(PUSH),
-              .WEN_A2_i(1'b0),
-              .BE_A1_i(2'b11),
-              .BE_A2_i(2'b11),
-          
-              .WDATA_B1_i(18'h0),
-              .WDATA_B2_i(18'h0),
-              .RDATA_B1_o(out_reg[17:0]),
-              .RDATA_B2_o(out_reg[35:18]),
-              .ADDR_B1_i(14'h0),
-              .ADDR_B2_i(14'h0),
-              .CLK_B1_i(Pop_Clk),
-              .CLK_B2_i(1'b0),
-              .REN_B1_i(POP),
-              .REN_B2_i(1'b0),
-              .WEN_B1_i(1'b0),
-              .WEN_B2_i(1'b0),
-              .BE_B1_i(2'b11),
-              .BE_B2_i(2'b11),
-          
-              .FLUSH1_i(Async_Flush),
-              .FLUSH2_i(1'b0)
-            );
-  
-			end
-		endcase
-	end
-	32, 36: begin
-		case (WR_DATA_WIDTH)
-			8, 9: begin
-				defparam U1.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_36, MODE_9, MODE_36, MODE_9, 1'd0,
-					UPAF_DBITS, UPAE_DBITS, 4'h1, MODE_36, MODE_9, MODE_36, MODE_9, 1'b0
-				};
-        
-            (* is_fifo = 1 *)
-            (* sync_fifo = 0 *)
-            (* rd_data_width = RD_DATA_WIDTH *) 
-            (* wr_data_width = WR_DATA_WIDTH *)
-            TDP36K U1 (
-              .RESET_ni(1'b1),
-              .WDATA_A1_i(in_reg[17:0]),
-              .WDATA_A2_i(in_reg[35:18]),
-              .RDATA_A1_o(fifo_flags),
-              .RDATA_A2_o(),
-              .ADDR_A1_i(14'h0),
-              .ADDR_A2_i(14'h0),
-              .CLK_A1_i(Push_Clk),
-              .CLK_A2_i(1'b0),
-              .REN_A1_i(1'b1),
-              .REN_A2_i(1'b0),
-              .WEN_A1_i(PUSH),
-              .WEN_A2_i(1'b0),
-              .BE_A1_i(2'b11),
-              .BE_A2_i(2'b11),
-          
-              .WDATA_B1_i(18'h0),
-              .WDATA_B2_i(18'h0),
-              .RDATA_B1_o(out_reg[17:0]),
-              .RDATA_B2_o(out_reg[35:18]),
-              .ADDR_B1_i(14'h0),
-              .ADDR_B2_i(14'h0),
-              .CLK_B1_i(Pop_Clk),
-              .CLK_B2_i(1'b0),
-              .REN_B1_i(POP),
-              .REN_B2_i(1'b0),
-              .WEN_B1_i(1'b0),
-              .WEN_B2_i(1'b0),
-              .BE_B1_i(2'b11),
-              .BE_B2_i(2'b11),
-          
-              .FLUSH1_i(Async_Flush),
-              .FLUSH2_i(1'b0)
-            );
-  
-			end
-			16, 18: begin
-				defparam U1.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_36, MODE_18, MODE_36, MODE_18, 1'd0,
-					UPAF_DBITS, UPAE_DBITS, 4'h1, MODE_36, MODE_18, MODE_36, MODE_18, 1'b0
-				};
-        
-            (* is_fifo = 1 *)
-            (* sync_fifo = 0 *)
-            (* rd_data_width = RD_DATA_WIDTH *) 
-            (* wr_data_width = WR_DATA_WIDTH *)
-            TDP36K U1 (
-              .RESET_ni(1'b1),
-              .WDATA_A1_i(in_reg[17:0]),
-              .WDATA_A2_i(in_reg[35:18]),
-              .RDATA_A1_o(fifo_flags),
-              .RDATA_A2_o(),
-              .ADDR_A1_i(14'h0),
-              .ADDR_A2_i(14'h0),
-              .CLK_A1_i(Push_Clk),
-              .CLK_A2_i(1'b0),
-              .REN_A1_i(1'b1),
-              .REN_A2_i(1'b0),
-              .WEN_A1_i(PUSH),
-              .WEN_A2_i(1'b0),
-              .BE_A1_i(2'b11),
-              .BE_A2_i(2'b11),
-          
-              .WDATA_B1_i(18'h0),
-              .WDATA_B2_i(18'h0),
-              .RDATA_B1_o(out_reg[17:0]),
-              .RDATA_B2_o(out_reg[35:18]),
-              .ADDR_B1_i(14'h0),
-              .ADDR_B2_i(14'h0),
-              .CLK_B1_i(Pop_Clk),
-              .CLK_B2_i(1'b0),
-              .REN_B1_i(POP),
-              .REN_B2_i(1'b0),
-              .WEN_B1_i(1'b0),
-              .WEN_B2_i(1'b0),
-              .BE_B1_i(2'b11),
-              .BE_B2_i(2'b11),
-          
-              .FLUSH1_i(Async_Flush),
-              .FLUSH2_i(1'b0)
-            );
-  
-			end
-			32, 36: begin
-				defparam U1.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_36, MODE_36, MODE_36, MODE_36, 1'd0,
-					UPAF_DBITS, UPAE_DBITS, 4'h1, MODE_36, MODE_36, MODE_36, MODE_36, 1'b0
-				};
-        
-            (* is_fifo = 1 *)
-            (* sync_fifo = 0 *)
-            (* rd_data_width = RD_DATA_WIDTH *) 
-            (* wr_data_width = WR_DATA_WIDTH *)
-            TDP36K U1 (
-              .RESET_ni(1'b1),
-              .WDATA_A1_i(in_reg[17:0]),
-              .WDATA_A2_i(in_reg[35:18]),
-              .RDATA_A1_o(fifo_flags),
-              .RDATA_A2_o(),
-              .ADDR_A1_i(14'h0),
-              .ADDR_A2_i(14'h0),
-              .CLK_A1_i(Push_Clk),
-              .CLK_A2_i(1'b0),
-              .REN_A1_i(1'b1),
-              .REN_A2_i(1'b0),
-              .WEN_A1_i(PUSH),
-              .WEN_A2_i(1'b0),
-              .BE_A1_i(2'b11),
-              .BE_A2_i(2'b11),
-          
-              .WDATA_B1_i(18'h0),
-              .WDATA_B2_i(18'h0),
-              .RDATA_B1_o(out_reg[17:0]),
-              .RDATA_B2_o(out_reg[35:18]),
-              .ADDR_B1_i(14'h0),
-              .ADDR_B2_i(14'h0),
-              .CLK_B1_i(Pop_Clk),
-              .CLK_B2_i(1'b0),
-              .REN_B1_i(POP),
-              .REN_B2_i(1'b0),
-              .WEN_B1_i(1'b0),
-              .WEN_B2_i(1'b0),
-              .BE_B1_i(2'b11),
-              .BE_B2_i(2'b11),
-          
-              .FLUSH1_i(Async_Flush),
-              .FLUSH2_i(1'b0)
-            );
-  
-			end
-			default: begin
-				defparam U1.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_36, MODE_36, MODE_36, MODE_36, 1'd0,
-					UPAF_DBITS, UPAE_DBITS, 4'h1, MODE_36, MODE_36, MODE_36, MODE_36, 1'b0
-				};
-        
-            (* is_fifo = 1 *)
-            (* sync_fifo = 0 *)
-            (* rd_data_width = RD_DATA_WIDTH *) 
-            (* wr_data_width = WR_DATA_WIDTH *)
-            TDP36K U1 (
-              .RESET_ni(1'b1),
-              .WDATA_A1_i(in_reg[17:0]),
-              .WDATA_A2_i(in_reg[35:18]),
-              .RDATA_A1_o(fifo_flags),
-              .RDATA_A2_o(),
-              .ADDR_A1_i(14'h0),
-              .ADDR_A2_i(14'h0),
-              .CLK_A1_i(Push_Clk),
-              .CLK_A2_i(1'b0),
-              .REN_A1_i(1'b1),
-              .REN_A2_i(1'b0),
-              .WEN_A1_i(PUSH),
-              .WEN_A2_i(1'b0),
-              .BE_A1_i(2'b11),
-              .BE_A2_i(2'b11),
-          
-              .WDATA_B1_i(18'h0),
-              .WDATA_B2_i(18'h0),
-              .RDATA_B1_o(out_reg[17:0]),
-              .RDATA_B2_o(out_reg[35:18]),
-              .ADDR_B1_i(14'h0),
-              .ADDR_B2_i(14'h0),
-              .CLK_B1_i(Pop_Clk),
-              .CLK_B2_i(1'b0),
-              .REN_B1_i(POP),
-              .REN_B2_i(1'b0),
-              .WEN_B1_i(1'b0),
-              .WEN_B2_i(1'b0),
-              .BE_B1_i(2'b11),
-              .BE_B2_i(2'b11),
-          
-              .FLUSH1_i(Async_Flush),
-              .FLUSH2_i(1'b0)
-            );
-  
-			end
-		endcase
-	end
-	default: begin
-		case (WR_DATA_WIDTH)
-			8, 9: begin
-				defparam U1.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_9, MODE_9, MODE_9, MODE_9, 1'd0,
-					UPAF_DBITS, UPAE_DBITS, 4'h1, MODE_9, MODE_9, MODE_9, MODE_9, 1'b0
-				};
-        
-            (* is_fifo = 1 *)
-            (* sync_fifo = 0 *)
-            (* rd_data_width = RD_DATA_WIDTH *) 
-            (* wr_data_width = WR_DATA_WIDTH *)
-            TDP36K U1 (
-              .RESET_ni(1'b1),
-              .WDATA_A1_i(in_reg[17:0]),
-              .WDATA_A2_i(in_reg[35:18]),
-              .RDATA_A1_o(fifo_flags),
-              .RDATA_A2_o(),
-              .ADDR_A1_i(14'h0),
-              .ADDR_A2_i(14'h0),
-              .CLK_A1_i(Push_Clk),
-              .CLK_A2_i(1'b0),
-              .REN_A1_i(1'b1),
-              .REN_A2_i(1'b0),
-              .WEN_A1_i(PUSH),
-              .WEN_A2_i(1'b0),
-              .BE_A1_i(2'b11),
-              .BE_A2_i(2'b11),
-          
-              .WDATA_B1_i(18'h0),
-              .WDATA_B2_i(18'h0),
-              .RDATA_B1_o(out_reg[17:0]),
-              .RDATA_B2_o(out_reg[35:18]),
-              .ADDR_B1_i(14'h0),
-              .ADDR_B2_i(14'h0),
-              .CLK_B1_i(Pop_Clk),
-              .CLK_B2_i(1'b0),
-              .REN_B1_i(POP),
-              .REN_B2_i(1'b0),
-              .WEN_B1_i(1'b0),
-              .WEN_B2_i(1'b0),
-              .BE_B1_i(2'b11),
-              .BE_B2_i(2'b11),
-          
-              .FLUSH1_i(Async_Flush),
-              .FLUSH2_i(1'b0)
-            );
-  
-			end
-			16, 18: begin
-				defparam U1.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_18, MODE_18, MODE_18, MODE_18, 1'd0,
-					UPAF_DBITS, UPAE_DBITS, 4'h1, MODE_18, MODE_18, MODE_18, MODE_18, 1'b0
-				};
-        
-            (* is_fifo = 1 *)
-            (* sync_fifo = 0 *)
-            (* rd_data_width = RD_DATA_WIDTH *) 
-            (* wr_data_width = WR_DATA_WIDTH *)
-            TDP36K U1 (
-              .RESET_ni(1'b1),
-              .WDATA_A1_i(in_reg[17:0]),
-              .WDATA_A2_i(in_reg[35:18]),
-              .RDATA_A1_o(fifo_flags),
-              .RDATA_A2_o(),
-              .ADDR_A1_i(14'h0),
-              .ADDR_A2_i(14'h0),
-              .CLK_A1_i(Push_Clk),
-              .CLK_A2_i(1'b0),
-              .REN_A1_i(1'b1),
-              .REN_A2_i(1'b0),
-              .WEN_A1_i(PUSH),
-              .WEN_A2_i(1'b0),
-              .BE_A1_i(2'b11),
-              .BE_A2_i(2'b11),
-          
-              .WDATA_B1_i(18'h0),
-              .WDATA_B2_i(18'h0),
-              .RDATA_B1_o(out_reg[17:0]),
-              .RDATA_B2_o(out_reg[35:18]),
-              .ADDR_B1_i(14'h0),
-              .ADDR_B2_i(14'h0),
-              .CLK_B1_i(Pop_Clk),
-              .CLK_B2_i(1'b0),
-              .REN_B1_i(POP),
-              .REN_B2_i(1'b0),
-              .WEN_B1_i(1'b0),
-              .WEN_B2_i(1'b0),
-              .BE_B1_i(2'b11),
-              .BE_B2_i(2'b11),
-          
-              .FLUSH1_i(Async_Flush),
-              .FLUSH2_i(1'b0)
-            );
-  
-			end
-			32, 36: begin
-				defparam U1.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_36, MODE_36, MODE_36, MODE_36, 1'd0,
-					UPAF_DBITS, UPAE_DBITS, 4'h1, MODE_36, MODE_36, MODE_36, MODE_36, 1'b0
-				};
-        
-            (* is_fifo = 1 *)
-            (* sync_fifo = 0 *)
-            (* rd_data_width = RD_DATA_WIDTH *) 
-            (* wr_data_width = WR_DATA_WIDTH *)
-            TDP36K U1 (
-              .RESET_ni(1'b1),
-              .WDATA_A1_i(in_reg[17:0]),
-              .WDATA_A2_i(in_reg[35:18]),
-              .RDATA_A1_o(fifo_flags),
-              .RDATA_A2_o(),
-              .ADDR_A1_i(14'h0),
-              .ADDR_A2_i(14'h0),
-              .CLK_A1_i(Push_Clk),
-              .CLK_A2_i(1'b0),
-              .REN_A1_i(1'b1),
-              .REN_A2_i(1'b0),
-              .WEN_A1_i(PUSH),
-              .WEN_A2_i(1'b0),
-              .BE_A1_i(2'b11),
-              .BE_A2_i(2'b11),
-          
-              .WDATA_B1_i(18'h0),
-              .WDATA_B2_i(18'h0),
-              .RDATA_B1_o(out_reg[17:0]),
-              .RDATA_B2_o(out_reg[35:18]),
-              .ADDR_B1_i(14'h0),
-              .ADDR_B2_i(14'h0),
-              .CLK_B1_i(Pop_Clk),
-              .CLK_B2_i(1'b0),
-              .REN_B1_i(POP),
-              .REN_B2_i(1'b0),
-              .WEN_B1_i(1'b0),
-              .WEN_B2_i(1'b0),
-              .BE_B1_i(2'b11),
-              .BE_B2_i(2'b11),
-          
-              .FLUSH1_i(Async_Flush),
-              .FLUSH2_i(1'b0)
-            );
-  
-			end
-			default: begin
-				defparam U1.MODE_BITS = { 1'b0,
-					11'd10, 11'd10, 4'd0, MODE_36, MODE_36, MODE_36, MODE_36, 1'd0,
-					UPAF_DBITS, UPAE_DBITS, 4'h1, MODE_36, MODE_36, MODE_36, MODE_36, 1'b0
-				};
-        
-            (* is_fifo = 1 *)
-            (* sync_fifo = 0 *)
-            (* rd_data_width = RD_DATA_WIDTH *) 
-            (* wr_data_width = WR_DATA_WIDTH *)
-            TDP36K U1 (
-              .RESET_ni(1'b1),
-              .WDATA_A1_i(in_reg[17:0]),
-              .WDATA_A2_i(in_reg[35:18]),
-              .RDATA_A1_o(fifo_flags),
-              .RDATA_A2_o(),
-              .ADDR_A1_i(14'h0),
-              .ADDR_A2_i(14'h0),
-              .CLK_A1_i(Push_Clk),
-              .CLK_A2_i(1'b0),
-              .REN_A1_i(1'b1),
-              .REN_A2_i(1'b0),
-              .WEN_A1_i(PUSH),
-              .WEN_A2_i(1'b0),
-              .BE_A1_i(2'b11),
-              .BE_A2_i(2'b11),
-          
-              .WDATA_B1_i(18'h0),
-              .WDATA_B2_i(18'h0),
-              .RDATA_B1_o(out_reg[17:0]),
-              .RDATA_B2_o(out_reg[35:18]),
-              .ADDR_B1_i(14'h0),
-              .ADDR_B2_i(14'h0),
-              .CLK_B1_i(Pop_Clk),
-              .CLK_B2_i(1'b0),
-              .REN_B1_i(POP),
-              .REN_B2_i(1'b0),
-              .WEN_B1_i(1'b0),
-              .WEN_B2_i(1'b0),
-              .BE_B1_i(2'b11),
-              .BE_B2_i(2'b11),
-          
-              .FLUSH1_i(Async_Flush),
-              .FLUSH2_i(1'b0)
-            );
-  
-			end
-		endcase
-	end
- endcase
+  defparam _TECHMAP_REPLACE_.MODE_BITS = { 1'b0,
+	UPAF2_i, UPAE2_i, PROTECT2_i, SLEEP2_i, POWERDN2_i, FMODE2_i, WMODE_B2_i, WMODE_A2_i, RMODE_B2_i, RMODE_A2_i, SYNC_FIFO2_i,
+	UPAF1_i, UPAE1_i, PROTECT1_i, SLEEP1_i, POWERDN1_i, FMODE1_i, WMODE_B1_i, WMODE_A1_i, RMODE_B1_i, RMODE_A1_i, SYNC_FIFO1_i
+	};
+ 
+  (* is_fifo = 1 *)
+  (* sync_fifo = 0 *)
+  (* is_inferred = 0 *)
+  (* is_split = 0 *)
+  (* port_a_dwidth = WR_DATA_WIDTH *)
+  (* port_b_dwidth = RD_DATA_WIDTH *)
+ 	TDP36K _TECHMAP_REPLACE_ (
+		.RESET_ni(1'b1),
+		.WDATA_A1_i(in_reg[17:0]),
+		.WDATA_A2_i(in_reg[35:18]),
+		.RDATA_A1_o(fifo_flags),
+		.RDATA_A2_o(),
+		.ADDR_A1_i(14'h0),
+		.ADDR_A2_i(14'h0),
+		.CLK_A1_i(Push_Clk),
+		.CLK_A2_i(1'b0),
+		.REN_A1_i(1'b1),
+		.REN_A2_i(1'b0),
+		.WEN_A1_i(PUSH),
+		.WEN_A2_i(1'b0),
+		.BE_A1_i(2'b11),
+		.BE_A2_i(2'b11),
 
-  assign DOUT[RD_DATA_WIDTH-1 : 0] = RD_DATA_CMPL[RD_DATA_WIDTH-1 : 0];
+		.WDATA_B1_i(18'h0),
+		.WDATA_B2_i(18'h0),
+		.RDATA_B1_o(out_reg[17:0]),
+		.RDATA_B2_o(out_reg[35:18]),
+		.ADDR_B1_i(14'h0),
+		.ADDR_B2_i(14'h0),
+		.CLK_B1_i(Pop_Clk),
+		.CLK_B2_i(1'b0),
+		.REN_B1_i(POP),
+		.REN_B2_i(1'b0),
+		.WEN_B1_i(1'b0),
+		.WEN_B2_i(1'b0),
+		.BE_B1_i(2'b11),
+		.BE_B2_i(2'b11),
 
-endmodule  
+		.FLUSH1_i(Async_Flush),
+		.FLUSH2_i(1'b0)
+	);
+
+endmodule 
 
 //===============================================================================
-module TDP36K_FIFO_ASYNC_WR_X9_RD_X9_nonsplit (
+module TDP36K_FIFO_ASYNC_A_X9_B_X9_nonsplit (
     RESET_ni,
     WEN_A1_i,   WEN_B1_i,
     REN_A1_i,   REN_B1_i,
@@ -16897,7 +4857,7 @@ module TDP36K_FIFO_ASYNC_WR_X9_RD_X9_nonsplit (
 
 endmodule
 
-module TDP36K_FIFO_ASYNC_WR_X9_RD_X18_nonsplit (
+module TDP36K_FIFO_ASYNC_A_X9_B_X18_nonsplit (
     RESET_ni,
     WEN_A1_i,   WEN_B1_i,
     REN_A1_i,   REN_B1_i,
@@ -17024,7 +4984,7 @@ module TDP36K_FIFO_ASYNC_WR_X9_RD_X18_nonsplit (
 
 endmodule
 
-module TDP36K_FIFO_ASYNC_WR_X9_RD_X36_nonsplit (
+module TDP36K_FIFO_ASYNC_A_X9_B_X36_nonsplit (
     RESET_ni,
     WEN_A1_i,   WEN_B1_i,
     REN_A1_i,   REN_B1_i,
@@ -17151,7 +5111,7 @@ module TDP36K_FIFO_ASYNC_WR_X9_RD_X36_nonsplit (
 
 endmodule
 
-module TDP36K_FIFO_ASYNC_WR_X18_RD_X9_nonsplit (
+module TDP36K_FIFO_ASYNC_A_X18_B_X9_nonsplit (
     RESET_ni,
     WEN_A1_i,   WEN_B1_i,
     REN_A1_i,   REN_B1_i,
@@ -17278,7 +5238,7 @@ module TDP36K_FIFO_ASYNC_WR_X18_RD_X9_nonsplit (
 
 endmodule
 
-module TDP36K_FIFO_ASYNC_WR_X18_RD_X18_nonsplit (
+module TDP36K_FIFO_ASYNC_A_X18_B_X18_nonsplit (
     RESET_ni,
     WEN_A1_i,   WEN_B1_i,
     REN_A1_i,   REN_B1_i,
@@ -17405,7 +5365,7 @@ module TDP36K_FIFO_ASYNC_WR_X18_RD_X18_nonsplit (
 
 endmodule
 
-module TDP36K_FIFO_ASYNC_WR_X18_RD_X36_nonsplit (
+module TDP36K_FIFO_ASYNC_A_X18_B_X36_nonsplit (
     RESET_ni,
     WEN_A1_i,   WEN_B1_i,
     REN_A1_i,   REN_B1_i,
@@ -17532,7 +5492,7 @@ module TDP36K_FIFO_ASYNC_WR_X18_RD_X36_nonsplit (
 
 endmodule
 
-module TDP36K_FIFO_ASYNC_WR_X36_RD_X9_nonsplit (
+module TDP36K_FIFO_ASYNC_A_X36_B_X9_nonsplit (
     RESET_ni,
     WEN_A1_i,   WEN_B1_i,
     REN_A1_i,   REN_B1_i,
@@ -17659,7 +5619,7 @@ module TDP36K_FIFO_ASYNC_WR_X36_RD_X9_nonsplit (
 
 endmodule
 
-module TDP36K_FIFO_ASYNC_WR_X36_RD_X18_nonsplit (
+module TDP36K_FIFO_ASYNC_A_X36_B_X18_nonsplit (
     RESET_ni,
     WEN_A1_i,   WEN_B1_i,
     REN_A1_i,   REN_B1_i,
@@ -17786,7 +5746,7 @@ module TDP36K_FIFO_ASYNC_WR_X36_RD_X18_nonsplit (
 
 endmodule
 
-module TDP36K_FIFO_ASYNC_WR_X36_RD_X36_nonsplit (
+module TDP36K_FIFO_ASYNC_A_X36_B_X36_nonsplit (
     RESET_ni,
     WEN_A1_i,   WEN_B1_i,
     REN_A1_i,   REN_B1_i,
@@ -17913,8 +5873,7 @@ module TDP36K_FIFO_ASYNC_WR_X36_RD_X36_nonsplit (
 
 endmodule
 
-
-module TDP36K_FIFO_ASYNC_WR_X9_RD_X9_split (
+module TDP36K_FIFO_ASYNC_A1_X18_B1_X18_A2_X18_B2_X18_split (
     RESET_ni,
     WEN_A1_i,   WEN_B1_i,
     REN_A1_i,   REN_B1_i,
@@ -18041,7 +6000,1912 @@ module TDP36K_FIFO_ASYNC_WR_X9_RD_X9_split (
 
 endmodule
 
-module TDP36K_FIFO_ASYNC_WR_X9_RD_X18_split (
+module TDP36K_FIFO_ASYNC_A1_X18_B1_X18_A2_X18_B2_X9_split (
+    RESET_ni,
+    WEN_A1_i,   WEN_B1_i,
+    REN_A1_i,   REN_B1_i,
+    CLK_A1_i,   CLK_B1_i,
+    BE_A1_i,    BE_B1_i,
+    ADDR_A1_i,  ADDR_B1_i,
+    WDATA_A1_i, WDATA_B1_i,
+    RDATA_A1_o, RDATA_B1_o,
+    FLUSH1_i,
+    WEN_A2_i,   WEN_B2_i,
+    REN_A2_i,   REN_B2_i,
+    CLK_A2_i,   CLK_B2_i,
+    BE_A2_i,    BE_B2_i,
+    ADDR_A2_i,  ADDR_B2_i,
+    WDATA_A2_i, WDATA_B2_i,
+    RDATA_A2_o, RDATA_B2_o,
+    FLUSH2_i
+);
+    parameter [80:0] MODE_BITS = 81'd0;
+
+    input wire  RESET_ni;
+    input wire  WEN_A1_i, WEN_B1_i;
+    input wire  REN_A1_i, REN_B1_i;
+    input wire  WEN_A2_i, WEN_B2_i;
+    input wire  REN_A2_i, REN_B2_i;
+
+    (* clkbuf_sink *)
+    input wire  CLK_A1_i;
+    (* clkbuf_sink *)
+    input wire  CLK_B1_i;
+    (* clkbuf_sink *)
+    input wire  CLK_A2_i;
+    (* clkbuf_sink *)
+    input wire  CLK_B2_i;
+
+    input wire  [ 1:0] BE_A1_i,    BE_B1_i;
+    input wire  [14:0] ADDR_A1_i,  ADDR_B1_i;
+    input wire  [17:0] WDATA_A1_i, WDATA_B1_i;
+    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
+
+    input wire  FLUSH1_i;
+
+    input wire  [ 1:0] BE_A2_i,    BE_B2_i;
+    input wire  [13:0] ADDR_A2_i,  ADDR_B2_i;
+    input wire  [17:0] WDATA_A2_i, WDATA_B2_i;
+    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
+
+    input wire  FLUSH2_i;
+
+    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
+        .RESET_ni   (RESET_ni),   
+        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
+        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
+        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
+        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
+        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
+        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
+        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
+        .FLUSH1_i   (FLUSH1_i),
+        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
+        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
+        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
+        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
+        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
+        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
+        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
+        .FLUSH2_i   (FLUSH2_i)
+    );
+   
+`ifdef SDF_SIM
+	specify
+    (FLUSH1_i => RDATA_A1_o[0]) = 0;
+    (FLUSH1_i => RDATA_A1_o[1]) = 0;
+    (FLUSH1_i => RDATA_A1_o[2]) = 0;
+    (FLUSH1_i => RDATA_A1_o[3]) = 0;
+    (FLUSH1_i => RDATA_A1_o[4]) = 0;
+    (FLUSH1_i => RDATA_A1_o[5]) = 0;
+    (FLUSH1_i => RDATA_A1_o[6]) = 0;
+    (FLUSH1_i => RDATA_A1_o[7]) = 0;
+    (FLUSH2_i => RDATA_A2_o[0]) = 0;
+    (FLUSH2_i => RDATA_A2_o[1]) = 0;
+    (FLUSH2_i => RDATA_A2_o[2]) = 0;
+    (FLUSH2_i => RDATA_A2_o[3]) = 0;
+    (FLUSH2_i => RDATA_A2_o[4]) = 0;
+    (FLUSH2_i => RDATA_A2_o[5]) = 0;
+    (FLUSH2_i => RDATA_A2_o[6]) = 0;
+    (FLUSH2_i => RDATA_A2_o[7]) = 0;    
+		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
+		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
+		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
+		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
+		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
+		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
+		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
+		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
+    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
+    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
+    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
+    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
+	endspecify
+`endif
+
+endmodule
+
+module TDP36K_FIFO_ASYNC_A1_X18_B1_X18_A2_X9_B2_X18_split (
+    RESET_ni,
+    WEN_A1_i,   WEN_B1_i,
+    REN_A1_i,   REN_B1_i,
+    CLK_A1_i,   CLK_B1_i,
+    BE_A1_i,    BE_B1_i,
+    ADDR_A1_i,  ADDR_B1_i,
+    WDATA_A1_i, WDATA_B1_i,
+    RDATA_A1_o, RDATA_B1_o,
+    FLUSH1_i,
+    WEN_A2_i,   WEN_B2_i,
+    REN_A2_i,   REN_B2_i,
+    CLK_A2_i,   CLK_B2_i,
+    BE_A2_i,    BE_B2_i,
+    ADDR_A2_i,  ADDR_B2_i,
+    WDATA_A2_i, WDATA_B2_i,
+    RDATA_A2_o, RDATA_B2_o,
+    FLUSH2_i
+);
+    parameter [80:0] MODE_BITS = 81'd0;
+
+    input wire  RESET_ni;
+    input wire  WEN_A1_i, WEN_B1_i;
+    input wire  REN_A1_i, REN_B1_i;
+    input wire  WEN_A2_i, WEN_B2_i;
+    input wire  REN_A2_i, REN_B2_i;
+
+    (* clkbuf_sink *)
+    input wire  CLK_A1_i;
+    (* clkbuf_sink *)
+    input wire  CLK_B1_i;
+    (* clkbuf_sink *)
+    input wire  CLK_A2_i;
+    (* clkbuf_sink *)
+    input wire  CLK_B2_i;
+
+    input wire  [ 1:0] BE_A1_i,    BE_B1_i;
+    input wire  [14:0] ADDR_A1_i,  ADDR_B1_i;
+    input wire  [17:0] WDATA_A1_i, WDATA_B1_i;
+    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
+
+    input wire  FLUSH1_i;
+
+    input wire  [ 1:0] BE_A2_i,    BE_B2_i;
+    input wire  [13:0] ADDR_A2_i,  ADDR_B2_i;
+    input wire  [17:0] WDATA_A2_i, WDATA_B2_i;
+    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
+
+    input wire  FLUSH2_i;
+
+    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
+        .RESET_ni   (RESET_ni),   
+        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
+        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
+        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
+        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
+        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
+        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
+        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
+        .FLUSH1_i   (FLUSH1_i),
+        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
+        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
+        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
+        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
+        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
+        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
+        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
+        .FLUSH2_i   (FLUSH2_i)
+    );
+   
+`ifdef SDF_SIM
+	specify
+    (FLUSH1_i => RDATA_A1_o[0]) = 0;
+    (FLUSH1_i => RDATA_A1_o[1]) = 0;
+    (FLUSH1_i => RDATA_A1_o[2]) = 0;
+    (FLUSH1_i => RDATA_A1_o[3]) = 0;
+    (FLUSH1_i => RDATA_A1_o[4]) = 0;
+    (FLUSH1_i => RDATA_A1_o[5]) = 0;
+    (FLUSH1_i => RDATA_A1_o[6]) = 0;
+    (FLUSH1_i => RDATA_A1_o[7]) = 0;
+    (FLUSH2_i => RDATA_A2_o[0]) = 0;
+    (FLUSH2_i => RDATA_A2_o[1]) = 0;
+    (FLUSH2_i => RDATA_A2_o[2]) = 0;
+    (FLUSH2_i => RDATA_A2_o[3]) = 0;
+    (FLUSH2_i => RDATA_A2_o[4]) = 0;
+    (FLUSH2_i => RDATA_A2_o[5]) = 0;
+    (FLUSH2_i => RDATA_A2_o[6]) = 0;
+    (FLUSH2_i => RDATA_A2_o[7]) = 0;    
+		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
+		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
+		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
+		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
+		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
+		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
+		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
+		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
+    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
+    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
+    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
+    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
+	endspecify
+`endif
+
+endmodule
+
+module TDP36K_FIFO_ASYNC_A1_X18_B1_X18_A2_X9_B2_X9_split (
+    RESET_ni,
+    WEN_A1_i,   WEN_B1_i,
+    REN_A1_i,   REN_B1_i,
+    CLK_A1_i,   CLK_B1_i,
+    BE_A1_i,    BE_B1_i,
+    ADDR_A1_i,  ADDR_B1_i,
+    WDATA_A1_i, WDATA_B1_i,
+    RDATA_A1_o, RDATA_B1_o,
+    FLUSH1_i,
+    WEN_A2_i,   WEN_B2_i,
+    REN_A2_i,   REN_B2_i,
+    CLK_A2_i,   CLK_B2_i,
+    BE_A2_i,    BE_B2_i,
+    ADDR_A2_i,  ADDR_B2_i,
+    WDATA_A2_i, WDATA_B2_i,
+    RDATA_A2_o, RDATA_B2_o,
+    FLUSH2_i
+);
+    parameter [80:0] MODE_BITS = 81'd0;
+
+    input wire  RESET_ni;
+    input wire  WEN_A1_i, WEN_B1_i;
+    input wire  REN_A1_i, REN_B1_i;
+    input wire  WEN_A2_i, WEN_B2_i;
+    input wire  REN_A2_i, REN_B2_i;
+
+    (* clkbuf_sink *)
+    input wire  CLK_A1_i;
+    (* clkbuf_sink *)
+    input wire  CLK_B1_i;
+    (* clkbuf_sink *)
+    input wire  CLK_A2_i;
+    (* clkbuf_sink *)
+    input wire  CLK_B2_i;
+
+    input wire  [ 1:0] BE_A1_i,    BE_B1_i;
+    input wire  [14:0] ADDR_A1_i,  ADDR_B1_i;
+    input wire  [17:0] WDATA_A1_i, WDATA_B1_i;
+    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
+
+    input wire  FLUSH1_i;
+
+    input wire  [ 1:0] BE_A2_i,    BE_B2_i;
+    input wire  [13:0] ADDR_A2_i,  ADDR_B2_i;
+    input wire  [17:0] WDATA_A2_i, WDATA_B2_i;
+    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
+
+    input wire  FLUSH2_i;
+
+    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
+        .RESET_ni   (RESET_ni),   
+        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
+        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
+        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
+        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
+        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
+        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
+        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
+        .FLUSH1_i   (FLUSH1_i),
+        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
+        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
+        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
+        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
+        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
+        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
+        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
+        .FLUSH2_i   (FLUSH2_i)
+    );
+   
+`ifdef SDF_SIM
+	specify
+    (FLUSH1_i => RDATA_A1_o[0]) = 0;
+    (FLUSH1_i => RDATA_A1_o[1]) = 0;
+    (FLUSH1_i => RDATA_A1_o[2]) = 0;
+    (FLUSH1_i => RDATA_A1_o[3]) = 0;
+    (FLUSH1_i => RDATA_A1_o[4]) = 0;
+    (FLUSH1_i => RDATA_A1_o[5]) = 0;
+    (FLUSH1_i => RDATA_A1_o[6]) = 0;
+    (FLUSH1_i => RDATA_A1_o[7]) = 0;
+    (FLUSH2_i => RDATA_A2_o[0]) = 0;
+    (FLUSH2_i => RDATA_A2_o[1]) = 0;
+    (FLUSH2_i => RDATA_A2_o[2]) = 0;
+    (FLUSH2_i => RDATA_A2_o[3]) = 0;
+    (FLUSH2_i => RDATA_A2_o[4]) = 0;
+    (FLUSH2_i => RDATA_A2_o[5]) = 0;
+    (FLUSH2_i => RDATA_A2_o[6]) = 0;
+    (FLUSH2_i => RDATA_A2_o[7]) = 0;    
+		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
+		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
+		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
+		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
+		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
+		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
+		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
+		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
+    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
+    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
+    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
+    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
+	endspecify
+`endif
+
+endmodule
+
+module TDP36K_FIFO_ASYNC_A1_X18_B1_X9_A2_X18_B2_X18_split (
+    RESET_ni,
+    WEN_A1_i,   WEN_B1_i,
+    REN_A1_i,   REN_B1_i,
+    CLK_A1_i,   CLK_B1_i,
+    BE_A1_i,    BE_B1_i,
+    ADDR_A1_i,  ADDR_B1_i,
+    WDATA_A1_i, WDATA_B1_i,
+    RDATA_A1_o, RDATA_B1_o,
+    FLUSH1_i,
+    WEN_A2_i,   WEN_B2_i,
+    REN_A2_i,   REN_B2_i,
+    CLK_A2_i,   CLK_B2_i,
+    BE_A2_i,    BE_B2_i,
+    ADDR_A2_i,  ADDR_B2_i,
+    WDATA_A2_i, WDATA_B2_i,
+    RDATA_A2_o, RDATA_B2_o,
+    FLUSH2_i
+);
+    parameter [80:0] MODE_BITS = 81'd0;
+
+    input wire  RESET_ni;
+    input wire  WEN_A1_i, WEN_B1_i;
+    input wire  REN_A1_i, REN_B1_i;
+    input wire  WEN_A2_i, WEN_B2_i;
+    input wire  REN_A2_i, REN_B2_i;
+
+    (* clkbuf_sink *)
+    input wire  CLK_A1_i;
+    (* clkbuf_sink *)
+    input wire  CLK_B1_i;
+    (* clkbuf_sink *)
+    input wire  CLK_A2_i;
+    (* clkbuf_sink *)
+    input wire  CLK_B2_i;
+
+    input wire  [ 1:0] BE_A1_i,    BE_B1_i;
+    input wire  [14:0] ADDR_A1_i,  ADDR_B1_i;
+    input wire  [17:0] WDATA_A1_i, WDATA_B1_i;
+    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
+
+    input wire  FLUSH1_i;
+
+    input wire  [ 1:0] BE_A2_i,    BE_B2_i;
+    input wire  [13:0] ADDR_A2_i,  ADDR_B2_i;
+    input wire  [17:0] WDATA_A2_i, WDATA_B2_i;
+    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
+
+    input wire  FLUSH2_i;
+
+    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
+        .RESET_ni   (RESET_ni),   
+        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
+        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
+        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
+        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
+        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
+        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
+        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
+        .FLUSH1_i   (FLUSH1_i),
+        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
+        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
+        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
+        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
+        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
+        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
+        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
+        .FLUSH2_i   (FLUSH2_i)
+    );
+   
+`ifdef SDF_SIM
+	specify
+    (FLUSH1_i => RDATA_A1_o[0]) = 0;
+    (FLUSH1_i => RDATA_A1_o[1]) = 0;
+    (FLUSH1_i => RDATA_A1_o[2]) = 0;
+    (FLUSH1_i => RDATA_A1_o[3]) = 0;
+    (FLUSH1_i => RDATA_A1_o[4]) = 0;
+    (FLUSH1_i => RDATA_A1_o[5]) = 0;
+    (FLUSH1_i => RDATA_A1_o[6]) = 0;
+    (FLUSH1_i => RDATA_A1_o[7]) = 0;
+    (FLUSH2_i => RDATA_A2_o[0]) = 0;
+    (FLUSH2_i => RDATA_A2_o[1]) = 0;
+    (FLUSH2_i => RDATA_A2_o[2]) = 0;
+    (FLUSH2_i => RDATA_A2_o[3]) = 0;
+    (FLUSH2_i => RDATA_A2_o[4]) = 0;
+    (FLUSH2_i => RDATA_A2_o[5]) = 0;
+    (FLUSH2_i => RDATA_A2_o[6]) = 0;
+    (FLUSH2_i => RDATA_A2_o[7]) = 0;    
+		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
+		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
+		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
+		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
+		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
+		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
+		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
+		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
+    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
+    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
+    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
+    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
+	endspecify
+`endif
+
+endmodule
+
+module TDP36K_FIFO_ASYNC_A1_X18_B1_X9_A2_X18_B2_X9_split (
+    RESET_ni,
+    WEN_A1_i,   WEN_B1_i,
+    REN_A1_i,   REN_B1_i,
+    CLK_A1_i,   CLK_B1_i,
+    BE_A1_i,    BE_B1_i,
+    ADDR_A1_i,  ADDR_B1_i,
+    WDATA_A1_i, WDATA_B1_i,
+    RDATA_A1_o, RDATA_B1_o,
+    FLUSH1_i,
+    WEN_A2_i,   WEN_B2_i,
+    REN_A2_i,   REN_B2_i,
+    CLK_A2_i,   CLK_B2_i,
+    BE_A2_i,    BE_B2_i,
+    ADDR_A2_i,  ADDR_B2_i,
+    WDATA_A2_i, WDATA_B2_i,
+    RDATA_A2_o, RDATA_B2_o,
+    FLUSH2_i
+);
+    parameter [80:0] MODE_BITS = 81'd0;
+
+    input wire  RESET_ni;
+    input wire  WEN_A1_i, WEN_B1_i;
+    input wire  REN_A1_i, REN_B1_i;
+    input wire  WEN_A2_i, WEN_B2_i;
+    input wire  REN_A2_i, REN_B2_i;
+
+    (* clkbuf_sink *)
+    input wire  CLK_A1_i;
+    (* clkbuf_sink *)
+    input wire  CLK_B1_i;
+    (* clkbuf_sink *)
+    input wire  CLK_A2_i;
+    (* clkbuf_sink *)
+    input wire  CLK_B2_i;
+
+    input wire  [ 1:0] BE_A1_i,    BE_B1_i;
+    input wire  [14:0] ADDR_A1_i,  ADDR_B1_i;
+    input wire  [17:0] WDATA_A1_i, WDATA_B1_i;
+    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
+
+    input wire  FLUSH1_i;
+
+    input wire  [ 1:0] BE_A2_i,    BE_B2_i;
+    input wire  [13:0] ADDR_A2_i,  ADDR_B2_i;
+    input wire  [17:0] WDATA_A2_i, WDATA_B2_i;
+    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
+
+    input wire  FLUSH2_i;
+
+    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
+        .RESET_ni   (RESET_ni),   
+        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
+        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
+        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
+        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
+        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
+        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
+        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
+        .FLUSH1_i   (FLUSH1_i),
+        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
+        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
+        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
+        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
+        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
+        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
+        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
+        .FLUSH2_i   (FLUSH2_i)
+    );
+   
+`ifdef SDF_SIM
+	specify
+    (FLUSH1_i => RDATA_A1_o[0]) = 0;
+    (FLUSH1_i => RDATA_A1_o[1]) = 0;
+    (FLUSH1_i => RDATA_A1_o[2]) = 0;
+    (FLUSH1_i => RDATA_A1_o[3]) = 0;
+    (FLUSH1_i => RDATA_A1_o[4]) = 0;
+    (FLUSH1_i => RDATA_A1_o[5]) = 0;
+    (FLUSH1_i => RDATA_A1_o[6]) = 0;
+    (FLUSH1_i => RDATA_A1_o[7]) = 0;
+    (FLUSH2_i => RDATA_A2_o[0]) = 0;
+    (FLUSH2_i => RDATA_A2_o[1]) = 0;
+    (FLUSH2_i => RDATA_A2_o[2]) = 0;
+    (FLUSH2_i => RDATA_A2_o[3]) = 0;
+    (FLUSH2_i => RDATA_A2_o[4]) = 0;
+    (FLUSH2_i => RDATA_A2_o[5]) = 0;
+    (FLUSH2_i => RDATA_A2_o[6]) = 0;
+    (FLUSH2_i => RDATA_A2_o[7]) = 0;    
+		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
+		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
+		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
+		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
+		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
+		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
+		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
+		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
+    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
+    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
+    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
+    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
+	endspecify
+`endif
+
+endmodule
+
+module TDP36K_FIFO_ASYNC_A1_X18_B1_X9_A2_X9_B2_X18_split (
+    RESET_ni,
+    WEN_A1_i,   WEN_B1_i,
+    REN_A1_i,   REN_B1_i,
+    CLK_A1_i,   CLK_B1_i,
+    BE_A1_i,    BE_B1_i,
+    ADDR_A1_i,  ADDR_B1_i,
+    WDATA_A1_i, WDATA_B1_i,
+    RDATA_A1_o, RDATA_B1_o,
+    FLUSH1_i,
+    WEN_A2_i,   WEN_B2_i,
+    REN_A2_i,   REN_B2_i,
+    CLK_A2_i,   CLK_B2_i,
+    BE_A2_i,    BE_B2_i,
+    ADDR_A2_i,  ADDR_B2_i,
+    WDATA_A2_i, WDATA_B2_i,
+    RDATA_A2_o, RDATA_B2_o,
+    FLUSH2_i
+);
+    parameter [80:0] MODE_BITS = 81'd0;
+
+    input wire  RESET_ni;
+    input wire  WEN_A1_i, WEN_B1_i;
+    input wire  REN_A1_i, REN_B1_i;
+    input wire  WEN_A2_i, WEN_B2_i;
+    input wire  REN_A2_i, REN_B2_i;
+
+    (* clkbuf_sink *)
+    input wire  CLK_A1_i;
+    (* clkbuf_sink *)
+    input wire  CLK_B1_i;
+    (* clkbuf_sink *)
+    input wire  CLK_A2_i;
+    (* clkbuf_sink *)
+    input wire  CLK_B2_i;
+
+    input wire  [ 1:0] BE_A1_i,    BE_B1_i;
+    input wire  [14:0] ADDR_A1_i,  ADDR_B1_i;
+    input wire  [17:0] WDATA_A1_i, WDATA_B1_i;
+    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
+
+    input wire  FLUSH1_i;
+
+    input wire  [ 1:0] BE_A2_i,    BE_B2_i;
+    input wire  [13:0] ADDR_A2_i,  ADDR_B2_i;
+    input wire  [17:0] WDATA_A2_i, WDATA_B2_i;
+    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
+
+    input wire  FLUSH2_i;
+
+    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
+        .RESET_ni   (RESET_ni),   
+        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
+        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
+        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
+        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
+        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
+        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
+        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
+        .FLUSH1_i   (FLUSH1_i),
+        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
+        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
+        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
+        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
+        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
+        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
+        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
+        .FLUSH2_i   (FLUSH2_i)
+    );
+   
+`ifdef SDF_SIM
+	specify
+    (FLUSH1_i => RDATA_A1_o[0]) = 0;
+    (FLUSH1_i => RDATA_A1_o[1]) = 0;
+    (FLUSH1_i => RDATA_A1_o[2]) = 0;
+    (FLUSH1_i => RDATA_A1_o[3]) = 0;
+    (FLUSH1_i => RDATA_A1_o[4]) = 0;
+    (FLUSH1_i => RDATA_A1_o[5]) = 0;
+    (FLUSH1_i => RDATA_A1_o[6]) = 0;
+    (FLUSH1_i => RDATA_A1_o[7]) = 0;
+    (FLUSH2_i => RDATA_A2_o[0]) = 0;
+    (FLUSH2_i => RDATA_A2_o[1]) = 0;
+    (FLUSH2_i => RDATA_A2_o[2]) = 0;
+    (FLUSH2_i => RDATA_A2_o[3]) = 0;
+    (FLUSH2_i => RDATA_A2_o[4]) = 0;
+    (FLUSH2_i => RDATA_A2_o[5]) = 0;
+    (FLUSH2_i => RDATA_A2_o[6]) = 0;
+    (FLUSH2_i => RDATA_A2_o[7]) = 0;    
+		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
+		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
+		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
+		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
+		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
+		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
+		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
+		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
+    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
+    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
+    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
+    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
+	endspecify
+`endif
+
+endmodule
+
+module TDP36K_FIFO_ASYNC_A1_X18_B1_X9_A2_X9_B2_X9_split (
+    RESET_ni,
+    WEN_A1_i,   WEN_B1_i,
+    REN_A1_i,   REN_B1_i,
+    CLK_A1_i,   CLK_B1_i,
+    BE_A1_i,    BE_B1_i,
+    ADDR_A1_i,  ADDR_B1_i,
+    WDATA_A1_i, WDATA_B1_i,
+    RDATA_A1_o, RDATA_B1_o,
+    FLUSH1_i,
+    WEN_A2_i,   WEN_B2_i,
+    REN_A2_i,   REN_B2_i,
+    CLK_A2_i,   CLK_B2_i,
+    BE_A2_i,    BE_B2_i,
+    ADDR_A2_i,  ADDR_B2_i,
+    WDATA_A2_i, WDATA_B2_i,
+    RDATA_A2_o, RDATA_B2_o,
+    FLUSH2_i
+);
+    parameter [80:0] MODE_BITS = 81'd0;
+
+    input wire  RESET_ni;
+    input wire  WEN_A1_i, WEN_B1_i;
+    input wire  REN_A1_i, REN_B1_i;
+    input wire  WEN_A2_i, WEN_B2_i;
+    input wire  REN_A2_i, REN_B2_i;
+
+    (* clkbuf_sink *)
+    input wire  CLK_A1_i;
+    (* clkbuf_sink *)
+    input wire  CLK_B1_i;
+    (* clkbuf_sink *)
+    input wire  CLK_A2_i;
+    (* clkbuf_sink *)
+    input wire  CLK_B2_i;
+
+    input wire  [ 1:0] BE_A1_i,    BE_B1_i;
+    input wire  [14:0] ADDR_A1_i,  ADDR_B1_i;
+    input wire  [17:0] WDATA_A1_i, WDATA_B1_i;
+    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
+
+    input wire  FLUSH1_i;
+
+    input wire  [ 1:0] BE_A2_i,    BE_B2_i;
+    input wire  [13:0] ADDR_A2_i,  ADDR_B2_i;
+    input wire  [17:0] WDATA_A2_i, WDATA_B2_i;
+    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
+
+    input wire  FLUSH2_i;
+
+    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
+        .RESET_ni   (RESET_ni),   
+        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
+        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
+        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
+        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
+        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
+        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
+        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
+        .FLUSH1_i   (FLUSH1_i),
+        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
+        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
+        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
+        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
+        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
+        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
+        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
+        .FLUSH2_i   (FLUSH2_i)
+    );
+   
+`ifdef SDF_SIM
+	specify
+    (FLUSH1_i => RDATA_A1_o[0]) = 0;
+    (FLUSH1_i => RDATA_A1_o[1]) = 0;
+    (FLUSH1_i => RDATA_A1_o[2]) = 0;
+    (FLUSH1_i => RDATA_A1_o[3]) = 0;
+    (FLUSH1_i => RDATA_A1_o[4]) = 0;
+    (FLUSH1_i => RDATA_A1_o[5]) = 0;
+    (FLUSH1_i => RDATA_A1_o[6]) = 0;
+    (FLUSH1_i => RDATA_A1_o[7]) = 0;
+    (FLUSH2_i => RDATA_A2_o[0]) = 0;
+    (FLUSH2_i => RDATA_A2_o[1]) = 0;
+    (FLUSH2_i => RDATA_A2_o[2]) = 0;
+    (FLUSH2_i => RDATA_A2_o[3]) = 0;
+    (FLUSH2_i => RDATA_A2_o[4]) = 0;
+    (FLUSH2_i => RDATA_A2_o[5]) = 0;
+    (FLUSH2_i => RDATA_A2_o[6]) = 0;
+    (FLUSH2_i => RDATA_A2_o[7]) = 0;    
+		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
+		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
+		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
+		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
+		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
+		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
+		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
+		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
+    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
+    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
+    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
+    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
+	endspecify
+`endif
+
+endmodule
+
+module TDP36K_FIFO_ASYNC_A1_X9_B1_X18_A2_X18_B2_X18_split (
+    RESET_ni,
+    WEN_A1_i,   WEN_B1_i,
+    REN_A1_i,   REN_B1_i,
+    CLK_A1_i,   CLK_B1_i,
+    BE_A1_i,    BE_B1_i,
+    ADDR_A1_i,  ADDR_B1_i,
+    WDATA_A1_i, WDATA_B1_i,
+    RDATA_A1_o, RDATA_B1_o,
+    FLUSH1_i,
+    WEN_A2_i,   WEN_B2_i,
+    REN_A2_i,   REN_B2_i,
+    CLK_A2_i,   CLK_B2_i,
+    BE_A2_i,    BE_B2_i,
+    ADDR_A2_i,  ADDR_B2_i,
+    WDATA_A2_i, WDATA_B2_i,
+    RDATA_A2_o, RDATA_B2_o,
+    FLUSH2_i
+);
+    parameter [80:0] MODE_BITS = 81'd0;
+
+    input wire  RESET_ni;
+    input wire  WEN_A1_i, WEN_B1_i;
+    input wire  REN_A1_i, REN_B1_i;
+    input wire  WEN_A2_i, WEN_B2_i;
+    input wire  REN_A2_i, REN_B2_i;
+
+    (* clkbuf_sink *)
+    input wire  CLK_A1_i;
+    (* clkbuf_sink *)
+    input wire  CLK_B1_i;
+    (* clkbuf_sink *)
+    input wire  CLK_A2_i;
+    (* clkbuf_sink *)
+    input wire  CLK_B2_i;
+
+    input wire  [ 1:0] BE_A1_i,    BE_B1_i;
+    input wire  [14:0] ADDR_A1_i,  ADDR_B1_i;
+    input wire  [17:0] WDATA_A1_i, WDATA_B1_i;
+    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
+
+    input wire  FLUSH1_i;
+
+    input wire  [ 1:0] BE_A2_i,    BE_B2_i;
+    input wire  [13:0] ADDR_A2_i,  ADDR_B2_i;
+    input wire  [17:0] WDATA_A2_i, WDATA_B2_i;
+    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
+
+    input wire  FLUSH2_i;
+
+    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
+        .RESET_ni   (RESET_ni),   
+        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
+        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
+        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
+        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
+        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
+        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
+        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
+        .FLUSH1_i   (FLUSH1_i),
+        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
+        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
+        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
+        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
+        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
+        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
+        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
+        .FLUSH2_i   (FLUSH2_i)
+    );
+   
+`ifdef SDF_SIM
+	specify
+    (FLUSH1_i => RDATA_A1_o[0]) = 0;
+    (FLUSH1_i => RDATA_A1_o[1]) = 0;
+    (FLUSH1_i => RDATA_A1_o[2]) = 0;
+    (FLUSH1_i => RDATA_A1_o[3]) = 0;
+    (FLUSH1_i => RDATA_A1_o[4]) = 0;
+    (FLUSH1_i => RDATA_A1_o[5]) = 0;
+    (FLUSH1_i => RDATA_A1_o[6]) = 0;
+    (FLUSH1_i => RDATA_A1_o[7]) = 0;
+    (FLUSH2_i => RDATA_A2_o[0]) = 0;
+    (FLUSH2_i => RDATA_A2_o[1]) = 0;
+    (FLUSH2_i => RDATA_A2_o[2]) = 0;
+    (FLUSH2_i => RDATA_A2_o[3]) = 0;
+    (FLUSH2_i => RDATA_A2_o[4]) = 0;
+    (FLUSH2_i => RDATA_A2_o[5]) = 0;
+    (FLUSH2_i => RDATA_A2_o[6]) = 0;
+    (FLUSH2_i => RDATA_A2_o[7]) = 0;    
+		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
+		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
+		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
+		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
+		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
+		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
+		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
+		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
+    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
+    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
+    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
+    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
+	endspecify
+`endif
+
+endmodule
+
+module TDP36K_FIFO_ASYNC_A1_X9_B1_X18_A2_X18_B2_X9_split (
+    RESET_ni,
+    WEN_A1_i,   WEN_B1_i,
+    REN_A1_i,   REN_B1_i,
+    CLK_A1_i,   CLK_B1_i,
+    BE_A1_i,    BE_B1_i,
+    ADDR_A1_i,  ADDR_B1_i,
+    WDATA_A1_i, WDATA_B1_i,
+    RDATA_A1_o, RDATA_B1_o,
+    FLUSH1_i,
+    WEN_A2_i,   WEN_B2_i,
+    REN_A2_i,   REN_B2_i,
+    CLK_A2_i,   CLK_B2_i,
+    BE_A2_i,    BE_B2_i,
+    ADDR_A2_i,  ADDR_B2_i,
+    WDATA_A2_i, WDATA_B2_i,
+    RDATA_A2_o, RDATA_B2_o,
+    FLUSH2_i
+);
+    parameter [80:0] MODE_BITS = 81'd0;
+
+    input wire  RESET_ni;
+    input wire  WEN_A1_i, WEN_B1_i;
+    input wire  REN_A1_i, REN_B1_i;
+    input wire  WEN_A2_i, WEN_B2_i;
+    input wire  REN_A2_i, REN_B2_i;
+
+    (* clkbuf_sink *)
+    input wire  CLK_A1_i;
+    (* clkbuf_sink *)
+    input wire  CLK_B1_i;
+    (* clkbuf_sink *)
+    input wire  CLK_A2_i;
+    (* clkbuf_sink *)
+    input wire  CLK_B2_i;
+
+    input wire  [ 1:0] BE_A1_i,    BE_B1_i;
+    input wire  [14:0] ADDR_A1_i,  ADDR_B1_i;
+    input wire  [17:0] WDATA_A1_i, WDATA_B1_i;
+    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
+
+    input wire  FLUSH1_i;
+
+    input wire  [ 1:0] BE_A2_i,    BE_B2_i;
+    input wire  [13:0] ADDR_A2_i,  ADDR_B2_i;
+    input wire  [17:0] WDATA_A2_i, WDATA_B2_i;
+    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
+
+    input wire  FLUSH2_i;
+
+    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
+        .RESET_ni   (RESET_ni),   
+        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
+        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
+        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
+        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
+        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
+        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
+        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
+        .FLUSH1_i   (FLUSH1_i),
+        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
+        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
+        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
+        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
+        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
+        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
+        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
+        .FLUSH2_i   (FLUSH2_i)
+    );
+   
+`ifdef SDF_SIM
+	specify
+    (FLUSH1_i => RDATA_A1_o[0]) = 0;
+    (FLUSH1_i => RDATA_A1_o[1]) = 0;
+    (FLUSH1_i => RDATA_A1_o[2]) = 0;
+    (FLUSH1_i => RDATA_A1_o[3]) = 0;
+    (FLUSH1_i => RDATA_A1_o[4]) = 0;
+    (FLUSH1_i => RDATA_A1_o[5]) = 0;
+    (FLUSH1_i => RDATA_A1_o[6]) = 0;
+    (FLUSH1_i => RDATA_A1_o[7]) = 0;
+    (FLUSH2_i => RDATA_A2_o[0]) = 0;
+    (FLUSH2_i => RDATA_A2_o[1]) = 0;
+    (FLUSH2_i => RDATA_A2_o[2]) = 0;
+    (FLUSH2_i => RDATA_A2_o[3]) = 0;
+    (FLUSH2_i => RDATA_A2_o[4]) = 0;
+    (FLUSH2_i => RDATA_A2_o[5]) = 0;
+    (FLUSH2_i => RDATA_A2_o[6]) = 0;
+    (FLUSH2_i => RDATA_A2_o[7]) = 0;    
+		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
+		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
+		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
+		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
+		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
+		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
+		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
+		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
+    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
+    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
+    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
+    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
+	endspecify
+`endif
+
+endmodule
+
+module TDP36K_FIFO_ASYNC_A1_X9_B1_X18_A2_X9_B2_X18_split (
+    RESET_ni,
+    WEN_A1_i,   WEN_B1_i,
+    REN_A1_i,   REN_B1_i,
+    CLK_A1_i,   CLK_B1_i,
+    BE_A1_i,    BE_B1_i,
+    ADDR_A1_i,  ADDR_B1_i,
+    WDATA_A1_i, WDATA_B1_i,
+    RDATA_A1_o, RDATA_B1_o,
+    FLUSH1_i,
+    WEN_A2_i,   WEN_B2_i,
+    REN_A2_i,   REN_B2_i,
+    CLK_A2_i,   CLK_B2_i,
+    BE_A2_i,    BE_B2_i,
+    ADDR_A2_i,  ADDR_B2_i,
+    WDATA_A2_i, WDATA_B2_i,
+    RDATA_A2_o, RDATA_B2_o,
+    FLUSH2_i
+);
+    parameter [80:0] MODE_BITS = 81'd0;
+
+    input wire  RESET_ni;
+    input wire  WEN_A1_i, WEN_B1_i;
+    input wire  REN_A1_i, REN_B1_i;
+    input wire  WEN_A2_i, WEN_B2_i;
+    input wire  REN_A2_i, REN_B2_i;
+
+    (* clkbuf_sink *)
+    input wire  CLK_A1_i;
+    (* clkbuf_sink *)
+    input wire  CLK_B1_i;
+    (* clkbuf_sink *)
+    input wire  CLK_A2_i;
+    (* clkbuf_sink *)
+    input wire  CLK_B2_i;
+
+    input wire  [ 1:0] BE_A1_i,    BE_B1_i;
+    input wire  [14:0] ADDR_A1_i,  ADDR_B1_i;
+    input wire  [17:0] WDATA_A1_i, WDATA_B1_i;
+    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
+
+    input wire  FLUSH1_i;
+
+    input wire  [ 1:0] BE_A2_i,    BE_B2_i;
+    input wire  [13:0] ADDR_A2_i,  ADDR_B2_i;
+    input wire  [17:0] WDATA_A2_i, WDATA_B2_i;
+    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
+
+    input wire  FLUSH2_i;
+
+    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
+        .RESET_ni   (RESET_ni),   
+        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
+        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
+        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
+        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
+        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
+        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
+        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
+        .FLUSH1_i   (FLUSH1_i),
+        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
+        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
+        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
+        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
+        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
+        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
+        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
+        .FLUSH2_i   (FLUSH2_i)
+    );
+   
+`ifdef SDF_SIM
+	specify
+    (FLUSH1_i => RDATA_A1_o[0]) = 0;
+    (FLUSH1_i => RDATA_A1_o[1]) = 0;
+    (FLUSH1_i => RDATA_A1_o[2]) = 0;
+    (FLUSH1_i => RDATA_A1_o[3]) = 0;
+    (FLUSH1_i => RDATA_A1_o[4]) = 0;
+    (FLUSH1_i => RDATA_A1_o[5]) = 0;
+    (FLUSH1_i => RDATA_A1_o[6]) = 0;
+    (FLUSH1_i => RDATA_A1_o[7]) = 0;
+    (FLUSH2_i => RDATA_A2_o[0]) = 0;
+    (FLUSH2_i => RDATA_A2_o[1]) = 0;
+    (FLUSH2_i => RDATA_A2_o[2]) = 0;
+    (FLUSH2_i => RDATA_A2_o[3]) = 0;
+    (FLUSH2_i => RDATA_A2_o[4]) = 0;
+    (FLUSH2_i => RDATA_A2_o[5]) = 0;
+    (FLUSH2_i => RDATA_A2_o[6]) = 0;
+    (FLUSH2_i => RDATA_A2_o[7]) = 0;    
+		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
+		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
+		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
+		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
+		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
+		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
+		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
+		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
+    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
+    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
+    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
+    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
+	endspecify
+`endif
+
+endmodule
+
+module TDP36K_FIFO_ASYNC_A1_X9_B1_X18_A2_X9_B2_X9_split (
+    RESET_ni,
+    WEN_A1_i,   WEN_B1_i,
+    REN_A1_i,   REN_B1_i,
+    CLK_A1_i,   CLK_B1_i,
+    BE_A1_i,    BE_B1_i,
+    ADDR_A1_i,  ADDR_B1_i,
+    WDATA_A1_i, WDATA_B1_i,
+    RDATA_A1_o, RDATA_B1_o,
+    FLUSH1_i,
+    WEN_A2_i,   WEN_B2_i,
+    REN_A2_i,   REN_B2_i,
+    CLK_A2_i,   CLK_B2_i,
+    BE_A2_i,    BE_B2_i,
+    ADDR_A2_i,  ADDR_B2_i,
+    WDATA_A2_i, WDATA_B2_i,
+    RDATA_A2_o, RDATA_B2_o,
+    FLUSH2_i
+);
+    parameter [80:0] MODE_BITS = 81'd0;
+
+    input wire  RESET_ni;
+    input wire  WEN_A1_i, WEN_B1_i;
+    input wire  REN_A1_i, REN_B1_i;
+    input wire  WEN_A2_i, WEN_B2_i;
+    input wire  REN_A2_i, REN_B2_i;
+
+    (* clkbuf_sink *)
+    input wire  CLK_A1_i;
+    (* clkbuf_sink *)
+    input wire  CLK_B1_i;
+    (* clkbuf_sink *)
+    input wire  CLK_A2_i;
+    (* clkbuf_sink *)
+    input wire  CLK_B2_i;
+
+    input wire  [ 1:0] BE_A1_i,    BE_B1_i;
+    input wire  [14:0] ADDR_A1_i,  ADDR_B1_i;
+    input wire  [17:0] WDATA_A1_i, WDATA_B1_i;
+    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
+
+    input wire  FLUSH1_i;
+
+    input wire  [ 1:0] BE_A2_i,    BE_B2_i;
+    input wire  [13:0] ADDR_A2_i,  ADDR_B2_i;
+    input wire  [17:0] WDATA_A2_i, WDATA_B2_i;
+    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
+
+    input wire  FLUSH2_i;
+
+    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
+        .RESET_ni   (RESET_ni),   
+        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
+        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
+        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
+        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
+        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
+        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
+        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
+        .FLUSH1_i   (FLUSH1_i),
+        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
+        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
+        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
+        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
+        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
+        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
+        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
+        .FLUSH2_i   (FLUSH2_i)
+    );
+   
+`ifdef SDF_SIM
+	specify
+    (FLUSH1_i => RDATA_A1_o[0]) = 0;
+    (FLUSH1_i => RDATA_A1_o[1]) = 0;
+    (FLUSH1_i => RDATA_A1_o[2]) = 0;
+    (FLUSH1_i => RDATA_A1_o[3]) = 0;
+    (FLUSH1_i => RDATA_A1_o[4]) = 0;
+    (FLUSH1_i => RDATA_A1_o[5]) = 0;
+    (FLUSH1_i => RDATA_A1_o[6]) = 0;
+    (FLUSH1_i => RDATA_A1_o[7]) = 0;
+    (FLUSH2_i => RDATA_A2_o[0]) = 0;
+    (FLUSH2_i => RDATA_A2_o[1]) = 0;
+    (FLUSH2_i => RDATA_A2_o[2]) = 0;
+    (FLUSH2_i => RDATA_A2_o[3]) = 0;
+    (FLUSH2_i => RDATA_A2_o[4]) = 0;
+    (FLUSH2_i => RDATA_A2_o[5]) = 0;
+    (FLUSH2_i => RDATA_A2_o[6]) = 0;
+    (FLUSH2_i => RDATA_A2_o[7]) = 0;    
+		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
+		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
+		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
+		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
+		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
+		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
+		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
+		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
+    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
+    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
+    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
+    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
+	endspecify
+`endif
+
+endmodule
+
+module TDP36K_FIFO_ASYNC_A1_X9_B1_X9_A2_X18_B2_X18_split (
+    RESET_ni,
+    WEN_A1_i,   WEN_B1_i,
+    REN_A1_i,   REN_B1_i,
+    CLK_A1_i,   CLK_B1_i,
+    BE_A1_i,    BE_B1_i,
+    ADDR_A1_i,  ADDR_B1_i,
+    WDATA_A1_i, WDATA_B1_i,
+    RDATA_A1_o, RDATA_B1_o,
+    FLUSH1_i,
+    WEN_A2_i,   WEN_B2_i,
+    REN_A2_i,   REN_B2_i,
+    CLK_A2_i,   CLK_B2_i,
+    BE_A2_i,    BE_B2_i,
+    ADDR_A2_i,  ADDR_B2_i,
+    WDATA_A2_i, WDATA_B2_i,
+    RDATA_A2_o, RDATA_B2_o,
+    FLUSH2_i
+);
+    parameter [80:0] MODE_BITS = 81'd0;
+
+    input wire  RESET_ni;
+    input wire  WEN_A1_i, WEN_B1_i;
+    input wire  REN_A1_i, REN_B1_i;
+    input wire  WEN_A2_i, WEN_B2_i;
+    input wire  REN_A2_i, REN_B2_i;
+
+    (* clkbuf_sink *)
+    input wire  CLK_A1_i;
+    (* clkbuf_sink *)
+    input wire  CLK_B1_i;
+    (* clkbuf_sink *)
+    input wire  CLK_A2_i;
+    (* clkbuf_sink *)
+    input wire  CLK_B2_i;
+
+    input wire  [ 1:0] BE_A1_i,    BE_B1_i;
+    input wire  [14:0] ADDR_A1_i,  ADDR_B1_i;
+    input wire  [17:0] WDATA_A1_i, WDATA_B1_i;
+    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
+
+    input wire  FLUSH1_i;
+
+    input wire  [ 1:0] BE_A2_i,    BE_B2_i;
+    input wire  [13:0] ADDR_A2_i,  ADDR_B2_i;
+    input wire  [17:0] WDATA_A2_i, WDATA_B2_i;
+    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
+
+    input wire  FLUSH2_i;
+
+    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
+        .RESET_ni   (RESET_ni),   
+        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
+        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
+        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
+        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
+        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
+        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
+        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
+        .FLUSH1_i   (FLUSH1_i),
+        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
+        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
+        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
+        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
+        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
+        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
+        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
+        .FLUSH2_i   (FLUSH2_i)
+    );
+   
+`ifdef SDF_SIM
+	specify
+    (FLUSH1_i => RDATA_A1_o[0]) = 0;
+    (FLUSH1_i => RDATA_A1_o[1]) = 0;
+    (FLUSH1_i => RDATA_A1_o[2]) = 0;
+    (FLUSH1_i => RDATA_A1_o[3]) = 0;
+    (FLUSH1_i => RDATA_A1_o[4]) = 0;
+    (FLUSH1_i => RDATA_A1_o[5]) = 0;
+    (FLUSH1_i => RDATA_A1_o[6]) = 0;
+    (FLUSH1_i => RDATA_A1_o[7]) = 0;
+    (FLUSH2_i => RDATA_A2_o[0]) = 0;
+    (FLUSH2_i => RDATA_A2_o[1]) = 0;
+    (FLUSH2_i => RDATA_A2_o[2]) = 0;
+    (FLUSH2_i => RDATA_A2_o[3]) = 0;
+    (FLUSH2_i => RDATA_A2_o[4]) = 0;
+    (FLUSH2_i => RDATA_A2_o[5]) = 0;
+    (FLUSH2_i => RDATA_A2_o[6]) = 0;
+    (FLUSH2_i => RDATA_A2_o[7]) = 0;    
+		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
+		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
+		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
+		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
+		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
+		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
+		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
+		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
+    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
+    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
+    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
+    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
+	endspecify
+`endif
+
+endmodule
+
+module TDP36K_FIFO_ASYNC_A1_X9_B1_X9_A2_X18_B2_X9_split (
+    RESET_ni,
+    WEN_A1_i,   WEN_B1_i,
+    REN_A1_i,   REN_B1_i,
+    CLK_A1_i,   CLK_B1_i,
+    BE_A1_i,    BE_B1_i,
+    ADDR_A1_i,  ADDR_B1_i,
+    WDATA_A1_i, WDATA_B1_i,
+    RDATA_A1_o, RDATA_B1_o,
+    FLUSH1_i,
+    WEN_A2_i,   WEN_B2_i,
+    REN_A2_i,   REN_B2_i,
+    CLK_A2_i,   CLK_B2_i,
+    BE_A2_i,    BE_B2_i,
+    ADDR_A2_i,  ADDR_B2_i,
+    WDATA_A2_i, WDATA_B2_i,
+    RDATA_A2_o, RDATA_B2_o,
+    FLUSH2_i
+);
+    parameter [80:0] MODE_BITS = 81'd0;
+
+    input wire  RESET_ni;
+    input wire  WEN_A1_i, WEN_B1_i;
+    input wire  REN_A1_i, REN_B1_i;
+    input wire  WEN_A2_i, WEN_B2_i;
+    input wire  REN_A2_i, REN_B2_i;
+
+    (* clkbuf_sink *)
+    input wire  CLK_A1_i;
+    (* clkbuf_sink *)
+    input wire  CLK_B1_i;
+    (* clkbuf_sink *)
+    input wire  CLK_A2_i;
+    (* clkbuf_sink *)
+    input wire  CLK_B2_i;
+
+    input wire  [ 1:0] BE_A1_i,    BE_B1_i;
+    input wire  [14:0] ADDR_A1_i,  ADDR_B1_i;
+    input wire  [17:0] WDATA_A1_i, WDATA_B1_i;
+    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
+
+    input wire  FLUSH1_i;
+
+    input wire  [ 1:0] BE_A2_i,    BE_B2_i;
+    input wire  [13:0] ADDR_A2_i,  ADDR_B2_i;
+    input wire  [17:0] WDATA_A2_i, WDATA_B2_i;
+    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
+
+    input wire  FLUSH2_i;
+
+    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
+        .RESET_ni   (RESET_ni),   
+        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
+        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
+        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
+        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
+        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
+        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
+        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
+        .FLUSH1_i   (FLUSH1_i),
+        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
+        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
+        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
+        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
+        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
+        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
+        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
+        .FLUSH2_i   (FLUSH2_i)
+    );
+   
+`ifdef SDF_SIM
+	specify
+    (FLUSH1_i => RDATA_A1_o[0]) = 0;
+    (FLUSH1_i => RDATA_A1_o[1]) = 0;
+    (FLUSH1_i => RDATA_A1_o[2]) = 0;
+    (FLUSH1_i => RDATA_A1_o[3]) = 0;
+    (FLUSH1_i => RDATA_A1_o[4]) = 0;
+    (FLUSH1_i => RDATA_A1_o[5]) = 0;
+    (FLUSH1_i => RDATA_A1_o[6]) = 0;
+    (FLUSH1_i => RDATA_A1_o[7]) = 0;
+    (FLUSH2_i => RDATA_A2_o[0]) = 0;
+    (FLUSH2_i => RDATA_A2_o[1]) = 0;
+    (FLUSH2_i => RDATA_A2_o[2]) = 0;
+    (FLUSH2_i => RDATA_A2_o[3]) = 0;
+    (FLUSH2_i => RDATA_A2_o[4]) = 0;
+    (FLUSH2_i => RDATA_A2_o[5]) = 0;
+    (FLUSH2_i => RDATA_A2_o[6]) = 0;
+    (FLUSH2_i => RDATA_A2_o[7]) = 0;    
+		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
+		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
+		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
+		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
+		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
+		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
+		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
+		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
+    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
+    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
+    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
+    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
+	endspecify
+`endif
+
+endmodule
+
+module TDP36K_FIFO_ASYNC_A1_X9_B1_X9_A2_X9_B2_X18_split (
+    RESET_ni,
+    WEN_A1_i,   WEN_B1_i,
+    REN_A1_i,   REN_B1_i,
+    CLK_A1_i,   CLK_B1_i,
+    BE_A1_i,    BE_B1_i,
+    ADDR_A1_i,  ADDR_B1_i,
+    WDATA_A1_i, WDATA_B1_i,
+    RDATA_A1_o, RDATA_B1_o,
+    FLUSH1_i,
+    WEN_A2_i,   WEN_B2_i,
+    REN_A2_i,   REN_B2_i,
+    CLK_A2_i,   CLK_B2_i,
+    BE_A2_i,    BE_B2_i,
+    ADDR_A2_i,  ADDR_B2_i,
+    WDATA_A2_i, WDATA_B2_i,
+    RDATA_A2_o, RDATA_B2_o,
+    FLUSH2_i
+);
+    parameter [80:0] MODE_BITS = 81'd0;
+
+    input wire  RESET_ni;
+    input wire  WEN_A1_i, WEN_B1_i;
+    input wire  REN_A1_i, REN_B1_i;
+    input wire  WEN_A2_i, WEN_B2_i;
+    input wire  REN_A2_i, REN_B2_i;
+
+    (* clkbuf_sink *)
+    input wire  CLK_A1_i;
+    (* clkbuf_sink *)
+    input wire  CLK_B1_i;
+    (* clkbuf_sink *)
+    input wire  CLK_A2_i;
+    (* clkbuf_sink *)
+    input wire  CLK_B2_i;
+
+    input wire  [ 1:0] BE_A1_i,    BE_B1_i;
+    input wire  [14:0] ADDR_A1_i,  ADDR_B1_i;
+    input wire  [17:0] WDATA_A1_i, WDATA_B1_i;
+    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
+
+    input wire  FLUSH1_i;
+
+    input wire  [ 1:0] BE_A2_i,    BE_B2_i;
+    input wire  [13:0] ADDR_A2_i,  ADDR_B2_i;
+    input wire  [17:0] WDATA_A2_i, WDATA_B2_i;
+    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
+
+    input wire  FLUSH2_i;
+
+    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
+        .RESET_ni   (RESET_ni),   
+        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
+        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
+        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
+        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
+        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
+        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
+        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
+        .FLUSH1_i   (FLUSH1_i),
+        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
+        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
+        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
+        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
+        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
+        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
+        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
+        .FLUSH2_i   (FLUSH2_i)
+    );
+   
+`ifdef SDF_SIM
+	specify
+    (FLUSH1_i => RDATA_A1_o[0]) = 0;
+    (FLUSH1_i => RDATA_A1_o[1]) = 0;
+    (FLUSH1_i => RDATA_A1_o[2]) = 0;
+    (FLUSH1_i => RDATA_A1_o[3]) = 0;
+    (FLUSH1_i => RDATA_A1_o[4]) = 0;
+    (FLUSH1_i => RDATA_A1_o[5]) = 0;
+    (FLUSH1_i => RDATA_A1_o[6]) = 0;
+    (FLUSH1_i => RDATA_A1_o[7]) = 0;
+    (FLUSH2_i => RDATA_A2_o[0]) = 0;
+    (FLUSH2_i => RDATA_A2_o[1]) = 0;
+    (FLUSH2_i => RDATA_A2_o[2]) = 0;
+    (FLUSH2_i => RDATA_A2_o[3]) = 0;
+    (FLUSH2_i => RDATA_A2_o[4]) = 0;
+    (FLUSH2_i => RDATA_A2_o[5]) = 0;
+    (FLUSH2_i => RDATA_A2_o[6]) = 0;
+    (FLUSH2_i => RDATA_A2_o[7]) = 0;    
+		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
+		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
+		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
+		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
+		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
+		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
+		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
+		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
+    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
+    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
+    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
+    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
+	endspecify
+`endif
+
+endmodule
+
+module TDP36K_FIFO_ASYNC_A1_X9_B1_X9_A2_X9_B2_X9_split (
+    RESET_ni,
+    WEN_A1_i,   WEN_B1_i,
+    REN_A1_i,   REN_B1_i,
+    CLK_A1_i,   CLK_B1_i,
+    BE_A1_i,    BE_B1_i,
+    ADDR_A1_i,  ADDR_B1_i,
+    WDATA_A1_i, WDATA_B1_i,
+    RDATA_A1_o, RDATA_B1_o,
+    FLUSH1_i,
+    WEN_A2_i,   WEN_B2_i,
+    REN_A2_i,   REN_B2_i,
+    CLK_A2_i,   CLK_B2_i,
+    BE_A2_i,    BE_B2_i,
+    ADDR_A2_i,  ADDR_B2_i,
+    WDATA_A2_i, WDATA_B2_i,
+    RDATA_A2_o, RDATA_B2_o,
+    FLUSH2_i
+);
+    parameter [80:0] MODE_BITS = 81'd0;
+
+    input wire  RESET_ni;
+    input wire  WEN_A1_i, WEN_B1_i;
+    input wire  REN_A1_i, REN_B1_i;
+    input wire  WEN_A2_i, WEN_B2_i;
+    input wire  REN_A2_i, REN_B2_i;
+
+    (* clkbuf_sink *)
+    input wire  CLK_A1_i;
+    (* clkbuf_sink *)
+    input wire  CLK_B1_i;
+    (* clkbuf_sink *)
+    input wire  CLK_A2_i;
+    (* clkbuf_sink *)
+    input wire  CLK_B2_i;
+
+    input wire  [ 1:0] BE_A1_i,    BE_B1_i;
+    input wire  [14:0] ADDR_A1_i,  ADDR_B1_i;
+    input wire  [17:0] WDATA_A1_i, WDATA_B1_i;
+    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
+
+    input wire  FLUSH1_i;
+
+    input wire  [ 1:0] BE_A2_i,    BE_B2_i;
+    input wire  [13:0] ADDR_A2_i,  ADDR_B2_i;
+    input wire  [17:0] WDATA_A2_i, WDATA_B2_i;
+    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
+
+    input wire  FLUSH2_i;
+
+    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
+        .RESET_ni   (RESET_ni),   
+        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
+        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
+        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
+        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
+        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
+        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
+        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
+        .FLUSH1_i   (FLUSH1_i),
+        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
+        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
+        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
+        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
+        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
+        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
+        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
+        .FLUSH2_i   (FLUSH2_i)
+    );
+   
+`ifdef SDF_SIM
+	specify
+    (FLUSH1_i => RDATA_A1_o[0]) = 0;
+    (FLUSH1_i => RDATA_A1_o[1]) = 0;
+    (FLUSH1_i => RDATA_A1_o[2]) = 0;
+    (FLUSH1_i => RDATA_A1_o[3]) = 0;
+    (FLUSH1_i => RDATA_A1_o[4]) = 0;
+    (FLUSH1_i => RDATA_A1_o[5]) = 0;
+    (FLUSH1_i => RDATA_A1_o[6]) = 0;
+    (FLUSH1_i => RDATA_A1_o[7]) = 0;
+    (FLUSH2_i => RDATA_A2_o[0]) = 0;
+    (FLUSH2_i => RDATA_A2_o[1]) = 0;
+    (FLUSH2_i => RDATA_A2_o[2]) = 0;
+    (FLUSH2_i => RDATA_A2_o[3]) = 0;
+    (FLUSH2_i => RDATA_A2_o[4]) = 0;
+    (FLUSH2_i => RDATA_A2_o[5]) = 0;
+    (FLUSH2_i => RDATA_A2_o[6]) = 0;
+    (FLUSH2_i => RDATA_A2_o[7]) = 0;    
+		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
+		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
+		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
+		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
+		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
+		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
+		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
+		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
+    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
+    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
+    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
+    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
+	endspecify
+`endif
+
+endmodule
+
+module TDP36K_FIFO_SYNC_A_X9_B_X9_nonsplit (
     RESET_ni,
     WEN_A1_i,   WEN_B1_i,
     REN_A1_i,   REN_B1_i,
@@ -18168,7 +8032,7 @@ module TDP36K_FIFO_ASYNC_WR_X9_RD_X18_split (
 
 endmodule
 
-module TDP36K_FIFO_ASYNC_WR_X18_RD_X9_split (
+module TDP36K_FIFO_SYNC_A_X9_B_X18_nonsplit (
     RESET_ni,
     WEN_A1_i,   WEN_B1_i,
     REN_A1_i,   REN_B1_i,
@@ -18295,7 +8159,7 @@ module TDP36K_FIFO_ASYNC_WR_X18_RD_X9_split (
 
 endmodule
 
-module TDP36K_FIFO_ASYNC_WR_X18_RD_X18_split (
+module TDP36K_FIFO_SYNC_A_X9_B_X36_nonsplit (
     RESET_ni,
     WEN_A1_i,   WEN_B1_i,
     REN_A1_i,   REN_B1_i,
@@ -18422,134 +8286,7 @@ module TDP36K_FIFO_ASYNC_WR_X18_RD_X18_split (
 
 endmodule
 
-module TDP36K_FIFO_SYNC_WR_X9_RD_X9_nonsplit (
-    RESET_ni,
-    WEN_A1_i,   WEN_B1_i,
-    REN_A1_i,   REN_B1_i,
-    CLK_A1_i,   CLK_B1_i,
-    BE_A1_i,    BE_B1_i,
-    ADDR_A1_i,  ADDR_B1_i,
-    WDATA_A1_i, WDATA_B1_i,
-    RDATA_A1_o, RDATA_B1_o,
-    FLUSH1_i,
-    WEN_A2_i,   WEN_B2_i,
-    REN_A2_i,   REN_B2_i,
-    CLK_A2_i,   CLK_B2_i,
-    BE_A2_i,    BE_B2_i,
-    ADDR_A2_i,  ADDR_B2_i,
-    WDATA_A2_i, WDATA_B2_i,
-    RDATA_A2_o, RDATA_B2_o,
-    FLUSH2_i
-);
-    parameter [80:0] MODE_BITS = 81'd0;
-
-    input wire  RESET_ni;
-    input wire  WEN_A1_i, WEN_B1_i;
-    input wire  REN_A1_i, REN_B1_i;
-    input wire  WEN_A2_i, WEN_B2_i;
-    input wire  REN_A2_i, REN_B2_i;
-
-    (* clkbuf_sink *)
-    input wire  CLK_A1_i;
-    (* clkbuf_sink *)
-    input wire  CLK_B1_i;
-    (* clkbuf_sink *)
-    input wire  CLK_A2_i;
-    (* clkbuf_sink *)
-    input wire  CLK_B2_i;
-
-    input wire  [ 1:0] BE_A1_i,    BE_B1_i;
-    input wire  [14:0] ADDR_A1_i,  ADDR_B1_i;
-    input wire  [17:0] WDATA_A1_i, WDATA_B1_i;
-    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
-
-    input wire  FLUSH1_i;
-
-    input wire  [ 1:0] BE_A2_i,    BE_B2_i;
-    input wire  [13:0] ADDR_A2_i,  ADDR_B2_i;
-    input wire  [17:0] WDATA_A2_i, WDATA_B2_i;
-    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
-
-    input wire  FLUSH2_i;
-
-    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
-        .RESET_ni   (RESET_ni),   
-        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
-        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
-        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
-        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
-        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
-        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
-        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
-        .FLUSH1_i   (FLUSH1_i),
-        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
-        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
-        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
-        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
-        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
-        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
-        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
-        .FLUSH2_i   (FLUSH2_i)
-    );
-    
-`ifdef SDF_SIM
-	specify
-    (FLUSH1_i => RDATA_A1_o[0]) = 0;
-    (FLUSH1_i => RDATA_A1_o[1]) = 0;
-    (FLUSH1_i => RDATA_A1_o[2]) = 0;
-    (FLUSH1_i => RDATA_A1_o[3]) = 0;
-    (FLUSH1_i => RDATA_A1_o[4]) = 0;
-    (FLUSH1_i => RDATA_A1_o[5]) = 0;
-    (FLUSH1_i => RDATA_A1_o[6]) = 0;
-    (FLUSH1_i => RDATA_A1_o[7]) = 0;
-    (FLUSH2_i => RDATA_A2_o[0]) = 0;
-    (FLUSH2_i => RDATA_A2_o[1]) = 0;
-    (FLUSH2_i => RDATA_A2_o[2]) = 0;
-    (FLUSH2_i => RDATA_A2_o[3]) = 0;
-    (FLUSH2_i => RDATA_A2_o[4]) = 0;
-    (FLUSH2_i => RDATA_A2_o[5]) = 0;
-    (FLUSH2_i => RDATA_A2_o[6]) = 0;
-    (FLUSH2_i => RDATA_A2_o[7]) = 0;    
-		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
-		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
-		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
-		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
-    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
-		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
-    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
-		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
-    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
-		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
-    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
-		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
-		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
-	endspecify
-`endif
-
-endmodule
-
-module TDP36K_FIFO_SYNC_WR_X9_RD_X18_nonsplit (
+module TDP36K_FIFO_SYNC_A_X18_B_X9_nonsplit (
     RESET_ni,
     WEN_A1_i,   WEN_B1_i,
     REN_A1_i,   REN_B1_i,
@@ -18676,7 +8413,7 @@ module TDP36K_FIFO_SYNC_WR_X9_RD_X18_nonsplit (
 
 endmodule
 
-module TDP36K_FIFO_SYNC_WR_X9_RD_X36_nonsplit (
+module TDP36K_FIFO_SYNC_A_X18_B_X18_nonsplit (
     RESET_ni,
     WEN_A1_i,   WEN_B1_i,
     REN_A1_i,   REN_B1_i,
@@ -18803,7 +8540,7 @@ module TDP36K_FIFO_SYNC_WR_X9_RD_X36_nonsplit (
 
 endmodule
 
-module TDP36K_FIFO_SYNC_WR_X18_RD_X9_nonsplit (
+module TDP36K_FIFO_SYNC_A_X18_B_X36_nonsplit (
     RESET_ni,
     WEN_A1_i,   WEN_B1_i,
     REN_A1_i,   REN_B1_i,
@@ -18930,7 +8667,7 @@ module TDP36K_FIFO_SYNC_WR_X18_RD_X9_nonsplit (
 
 endmodule
 
-module TDP36K_FIFO_SYNC_WR_X18_RD_X18_nonsplit (
+module TDP36K_FIFO_SYNC_A_X36_B_X9_nonsplit (
     RESET_ni,
     WEN_A1_i,   WEN_B1_i,
     REN_A1_i,   REN_B1_i,
@@ -19057,7 +8794,7 @@ module TDP36K_FIFO_SYNC_WR_X18_RD_X18_nonsplit (
 
 endmodule
 
-module TDP36K_FIFO_SYNC_WR_X18_RD_X36_nonsplit (
+module TDP36K_FIFO_SYNC_A_X36_B_X18_nonsplit (
     RESET_ni,
     WEN_A1_i,   WEN_B1_i,
     REN_A1_i,   REN_B1_i,
@@ -19184,7 +8921,7 @@ module TDP36K_FIFO_SYNC_WR_X18_RD_X36_nonsplit (
 
 endmodule
 
-module TDP36K_FIFO_SYNC_WR_X36_RD_X9_nonsplit (
+module TDP36K_FIFO_SYNC_A_X36_B_X36_nonsplit (
     RESET_ni,
     WEN_A1_i,   WEN_B1_i,
     REN_A1_i,   REN_B1_i,
@@ -19311,7 +9048,7 @@ module TDP36K_FIFO_SYNC_WR_X36_RD_X9_nonsplit (
 
 endmodule
 
-module TDP36K_FIFO_SYNC_WR_X36_RD_X18_nonsplit (
+module TDP36K_FIFO_SYNC_A1_X18_B1_X18_A2_X18_B2_X18_split (
     RESET_ni,
     WEN_A1_i,   WEN_B1_i,
     REN_A1_i,   REN_B1_i,
@@ -19380,7 +9117,7 @@ module TDP36K_FIFO_SYNC_WR_X36_RD_X18_nonsplit (
         .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
         .FLUSH2_i   (FLUSH2_i)
     );
-
+   
 `ifdef SDF_SIM
 	specify
     (FLUSH1_i => RDATA_A1_o[0]) = 0;
@@ -19438,7 +9175,7 @@ module TDP36K_FIFO_SYNC_WR_X36_RD_X18_nonsplit (
 
 endmodule
 
-module TDP36K_FIFO_SYNC_WR_X36_RD_X36_nonsplit (
+module TDP36K_FIFO_SYNC_A1_X18_B1_X18_A2_X18_B2_X9_split (
     RESET_ni,
     WEN_A1_i,   WEN_B1_i,
     REN_A1_i,   REN_B1_i,
@@ -19507,7 +9244,7 @@ module TDP36K_FIFO_SYNC_WR_X36_RD_X36_nonsplit (
         .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
         .FLUSH2_i   (FLUSH2_i)
     );
-
+   
 `ifdef SDF_SIM
 	specify
     (FLUSH1_i => RDATA_A1_o[0]) = 0;
@@ -19565,8 +9302,7 @@ module TDP36K_FIFO_SYNC_WR_X36_RD_X36_nonsplit (
 
 endmodule
 
-
-module TDP36K_FIFO_SYNC_WR_X9_RD_X9_split (
+module TDP36K_FIFO_SYNC_A1_X18_B1_X18_A2_X9_B2_X18_split (
     RESET_ni,
     WEN_A1_i,   WEN_B1_i,
     REN_A1_i,   REN_B1_i,
@@ -19635,7 +9371,7 @@ module TDP36K_FIFO_SYNC_WR_X9_RD_X9_split (
         .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
         .FLUSH2_i   (FLUSH2_i)
     );
-
+   
 `ifdef SDF_SIM
 	specify
     (FLUSH1_i => RDATA_A1_o[0]) = 0;
@@ -19693,7 +9429,7 @@ module TDP36K_FIFO_SYNC_WR_X9_RD_X9_split (
 
 endmodule
 
-module TDP36K_FIFO_SYNC_WR_X9_RD_X18_split (
+module TDP36K_FIFO_SYNC_A1_X18_B1_X18_A2_X9_B2_X9_split (
     RESET_ni,
     WEN_A1_i,   WEN_B1_i,
     REN_A1_i,   REN_B1_i,
@@ -19762,7 +9498,7 @@ module TDP36K_FIFO_SYNC_WR_X9_RD_X18_split (
         .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
         .FLUSH2_i   (FLUSH2_i)
     );
-
+   
 `ifdef SDF_SIM
 	specify
     (FLUSH1_i => RDATA_A1_o[0]) = 0;
@@ -19820,7 +9556,7 @@ module TDP36K_FIFO_SYNC_WR_X9_RD_X18_split (
 
 endmodule
 
-module TDP36K_FIFO_SYNC_WR_X18_RD_X9_split (
+module TDP36K_FIFO_SYNC_A1_X18_B1_X9_A2_X18_B2_X18_split (
     RESET_ni,
     WEN_A1_i,   WEN_B1_i,
     REN_A1_i,   REN_B1_i,
@@ -19889,7 +9625,7 @@ module TDP36K_FIFO_SYNC_WR_X18_RD_X9_split (
         .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
         .FLUSH2_i   (FLUSH2_i)
     );
-
+   
 `ifdef SDF_SIM
 	specify
     (FLUSH1_i => RDATA_A1_o[0]) = 0;
@@ -19947,7 +9683,7 @@ module TDP36K_FIFO_SYNC_WR_X18_RD_X9_split (
 
 endmodule
 
-module TDP36K_FIFO_SYNC_WR_X18_RD_X18_split (
+module TDP36K_FIFO_SYNC_A1_X18_B1_X9_A2_X18_B2_X9_split (
     RESET_ni,
     WEN_A1_i,   WEN_B1_i,
     REN_A1_i,   REN_B1_i,
@@ -20016,7 +9752,1277 @@ module TDP36K_FIFO_SYNC_WR_X18_RD_X18_split (
         .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
         .FLUSH2_i   (FLUSH2_i)
     );
+   
+`ifdef SDF_SIM
+	specify
+    (FLUSH1_i => RDATA_A1_o[0]) = 0;
+    (FLUSH1_i => RDATA_A1_o[1]) = 0;
+    (FLUSH1_i => RDATA_A1_o[2]) = 0;
+    (FLUSH1_i => RDATA_A1_o[3]) = 0;
+    (FLUSH1_i => RDATA_A1_o[4]) = 0;
+    (FLUSH1_i => RDATA_A1_o[5]) = 0;
+    (FLUSH1_i => RDATA_A1_o[6]) = 0;
+    (FLUSH1_i => RDATA_A1_o[7]) = 0;
+    (FLUSH2_i => RDATA_A2_o[0]) = 0;
+    (FLUSH2_i => RDATA_A2_o[1]) = 0;
+    (FLUSH2_i => RDATA_A2_o[2]) = 0;
+    (FLUSH2_i => RDATA_A2_o[3]) = 0;
+    (FLUSH2_i => RDATA_A2_o[4]) = 0;
+    (FLUSH2_i => RDATA_A2_o[5]) = 0;
+    (FLUSH2_i => RDATA_A2_o[6]) = 0;
+    (FLUSH2_i => RDATA_A2_o[7]) = 0;    
+		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
+		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
+		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
+		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
+		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
+		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
+		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
+		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
+    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
+    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
+    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
+    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
+	endspecify
+`endif
 
+endmodule
+
+module TDP36K_FIFO_SYNC_A1_X18_B1_X9_A2_X9_B2_X18_split (
+    RESET_ni,
+    WEN_A1_i,   WEN_B1_i,
+    REN_A1_i,   REN_B1_i,
+    CLK_A1_i,   CLK_B1_i,
+    BE_A1_i,    BE_B1_i,
+    ADDR_A1_i,  ADDR_B1_i,
+    WDATA_A1_i, WDATA_B1_i,
+    RDATA_A1_o, RDATA_B1_o,
+    FLUSH1_i,
+    WEN_A2_i,   WEN_B2_i,
+    REN_A2_i,   REN_B2_i,
+    CLK_A2_i,   CLK_B2_i,
+    BE_A2_i,    BE_B2_i,
+    ADDR_A2_i,  ADDR_B2_i,
+    WDATA_A2_i, WDATA_B2_i,
+    RDATA_A2_o, RDATA_B2_o,
+    FLUSH2_i
+);
+    parameter [80:0] MODE_BITS = 81'd0;
+
+    input wire  RESET_ni;
+    input wire  WEN_A1_i, WEN_B1_i;
+    input wire  REN_A1_i, REN_B1_i;
+    input wire  WEN_A2_i, WEN_B2_i;
+    input wire  REN_A2_i, REN_B2_i;
+
+    (* clkbuf_sink *)
+    input wire  CLK_A1_i;
+    (* clkbuf_sink *)
+    input wire  CLK_B1_i;
+    (* clkbuf_sink *)
+    input wire  CLK_A2_i;
+    (* clkbuf_sink *)
+    input wire  CLK_B2_i;
+
+    input wire  [ 1:0] BE_A1_i,    BE_B1_i;
+    input wire  [14:0] ADDR_A1_i,  ADDR_B1_i;
+    input wire  [17:0] WDATA_A1_i, WDATA_B1_i;
+    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
+
+    input wire  FLUSH1_i;
+
+    input wire  [ 1:0] BE_A2_i,    BE_B2_i;
+    input wire  [13:0] ADDR_A2_i,  ADDR_B2_i;
+    input wire  [17:0] WDATA_A2_i, WDATA_B2_i;
+    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
+
+    input wire  FLUSH2_i;
+
+    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
+        .RESET_ni   (RESET_ni),   
+        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
+        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
+        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
+        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
+        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
+        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
+        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
+        .FLUSH1_i   (FLUSH1_i),
+        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
+        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
+        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
+        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
+        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
+        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
+        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
+        .FLUSH2_i   (FLUSH2_i)
+    );
+   
+`ifdef SDF_SIM
+	specify
+    (FLUSH1_i => RDATA_A1_o[0]) = 0;
+    (FLUSH1_i => RDATA_A1_o[1]) = 0;
+    (FLUSH1_i => RDATA_A1_o[2]) = 0;
+    (FLUSH1_i => RDATA_A1_o[3]) = 0;
+    (FLUSH1_i => RDATA_A1_o[4]) = 0;
+    (FLUSH1_i => RDATA_A1_o[5]) = 0;
+    (FLUSH1_i => RDATA_A1_o[6]) = 0;
+    (FLUSH1_i => RDATA_A1_o[7]) = 0;
+    (FLUSH2_i => RDATA_A2_o[0]) = 0;
+    (FLUSH2_i => RDATA_A2_o[1]) = 0;
+    (FLUSH2_i => RDATA_A2_o[2]) = 0;
+    (FLUSH2_i => RDATA_A2_o[3]) = 0;
+    (FLUSH2_i => RDATA_A2_o[4]) = 0;
+    (FLUSH2_i => RDATA_A2_o[5]) = 0;
+    (FLUSH2_i => RDATA_A2_o[6]) = 0;
+    (FLUSH2_i => RDATA_A2_o[7]) = 0;    
+		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
+		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
+		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
+		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
+		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
+		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
+		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
+		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
+    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
+    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
+    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
+    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
+	endspecify
+`endif
+
+endmodule
+
+module TDP36K_FIFO_SYNC_A1_X18_B1_X9_A2_X9_B2_X9_split (
+    RESET_ni,
+    WEN_A1_i,   WEN_B1_i,
+    REN_A1_i,   REN_B1_i,
+    CLK_A1_i,   CLK_B1_i,
+    BE_A1_i,    BE_B1_i,
+    ADDR_A1_i,  ADDR_B1_i,
+    WDATA_A1_i, WDATA_B1_i,
+    RDATA_A1_o, RDATA_B1_o,
+    FLUSH1_i,
+    WEN_A2_i,   WEN_B2_i,
+    REN_A2_i,   REN_B2_i,
+    CLK_A2_i,   CLK_B2_i,
+    BE_A2_i,    BE_B2_i,
+    ADDR_A2_i,  ADDR_B2_i,
+    WDATA_A2_i, WDATA_B2_i,
+    RDATA_A2_o, RDATA_B2_o,
+    FLUSH2_i
+);
+    parameter [80:0] MODE_BITS = 81'd0;
+
+    input wire  RESET_ni;
+    input wire  WEN_A1_i, WEN_B1_i;
+    input wire  REN_A1_i, REN_B1_i;
+    input wire  WEN_A2_i, WEN_B2_i;
+    input wire  REN_A2_i, REN_B2_i;
+
+    (* clkbuf_sink *)
+    input wire  CLK_A1_i;
+    (* clkbuf_sink *)
+    input wire  CLK_B1_i;
+    (* clkbuf_sink *)
+    input wire  CLK_A2_i;
+    (* clkbuf_sink *)
+    input wire  CLK_B2_i;
+
+    input wire  [ 1:0] BE_A1_i,    BE_B1_i;
+    input wire  [14:0] ADDR_A1_i,  ADDR_B1_i;
+    input wire  [17:0] WDATA_A1_i, WDATA_B1_i;
+    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
+
+    input wire  FLUSH1_i;
+
+    input wire  [ 1:0] BE_A2_i,    BE_B2_i;
+    input wire  [13:0] ADDR_A2_i,  ADDR_B2_i;
+    input wire  [17:0] WDATA_A2_i, WDATA_B2_i;
+    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
+
+    input wire  FLUSH2_i;
+
+    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
+        .RESET_ni   (RESET_ni),   
+        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
+        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
+        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
+        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
+        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
+        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
+        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
+        .FLUSH1_i   (FLUSH1_i),
+        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
+        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
+        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
+        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
+        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
+        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
+        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
+        .FLUSH2_i   (FLUSH2_i)
+    );
+   
+`ifdef SDF_SIM
+	specify
+    (FLUSH1_i => RDATA_A1_o[0]) = 0;
+    (FLUSH1_i => RDATA_A1_o[1]) = 0;
+    (FLUSH1_i => RDATA_A1_o[2]) = 0;
+    (FLUSH1_i => RDATA_A1_o[3]) = 0;
+    (FLUSH1_i => RDATA_A1_o[4]) = 0;
+    (FLUSH1_i => RDATA_A1_o[5]) = 0;
+    (FLUSH1_i => RDATA_A1_o[6]) = 0;
+    (FLUSH1_i => RDATA_A1_o[7]) = 0;
+    (FLUSH2_i => RDATA_A2_o[0]) = 0;
+    (FLUSH2_i => RDATA_A2_o[1]) = 0;
+    (FLUSH2_i => RDATA_A2_o[2]) = 0;
+    (FLUSH2_i => RDATA_A2_o[3]) = 0;
+    (FLUSH2_i => RDATA_A2_o[4]) = 0;
+    (FLUSH2_i => RDATA_A2_o[5]) = 0;
+    (FLUSH2_i => RDATA_A2_o[6]) = 0;
+    (FLUSH2_i => RDATA_A2_o[7]) = 0;    
+		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
+		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
+		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
+		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
+		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
+		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
+		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
+		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
+    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
+    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
+    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
+    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
+	endspecify
+`endif
+
+endmodule
+
+module TDP36K_FIFO_SYNC_A1_X9_B1_X18_A2_X18_B2_X18_split (
+    RESET_ni,
+    WEN_A1_i,   WEN_B1_i,
+    REN_A1_i,   REN_B1_i,
+    CLK_A1_i,   CLK_B1_i,
+    BE_A1_i,    BE_B1_i,
+    ADDR_A1_i,  ADDR_B1_i,
+    WDATA_A1_i, WDATA_B1_i,
+    RDATA_A1_o, RDATA_B1_o,
+    FLUSH1_i,
+    WEN_A2_i,   WEN_B2_i,
+    REN_A2_i,   REN_B2_i,
+    CLK_A2_i,   CLK_B2_i,
+    BE_A2_i,    BE_B2_i,
+    ADDR_A2_i,  ADDR_B2_i,
+    WDATA_A2_i, WDATA_B2_i,
+    RDATA_A2_o, RDATA_B2_o,
+    FLUSH2_i
+);
+    parameter [80:0] MODE_BITS = 81'd0;
+
+    input wire  RESET_ni;
+    input wire  WEN_A1_i, WEN_B1_i;
+    input wire  REN_A1_i, REN_B1_i;
+    input wire  WEN_A2_i, WEN_B2_i;
+    input wire  REN_A2_i, REN_B2_i;
+
+    (* clkbuf_sink *)
+    input wire  CLK_A1_i;
+    (* clkbuf_sink *)
+    input wire  CLK_B1_i;
+    (* clkbuf_sink *)
+    input wire  CLK_A2_i;
+    (* clkbuf_sink *)
+    input wire  CLK_B2_i;
+
+    input wire  [ 1:0] BE_A1_i,    BE_B1_i;
+    input wire  [14:0] ADDR_A1_i,  ADDR_B1_i;
+    input wire  [17:0] WDATA_A1_i, WDATA_B1_i;
+    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
+
+    input wire  FLUSH1_i;
+
+    input wire  [ 1:0] BE_A2_i,    BE_B2_i;
+    input wire  [13:0] ADDR_A2_i,  ADDR_B2_i;
+    input wire  [17:0] WDATA_A2_i, WDATA_B2_i;
+    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
+
+    input wire  FLUSH2_i;
+
+    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
+        .RESET_ni   (RESET_ni),   
+        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
+        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
+        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
+        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
+        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
+        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
+        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
+        .FLUSH1_i   (FLUSH1_i),
+        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
+        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
+        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
+        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
+        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
+        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
+        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
+        .FLUSH2_i   (FLUSH2_i)
+    );
+   
+`ifdef SDF_SIM
+	specify
+    (FLUSH1_i => RDATA_A1_o[0]) = 0;
+    (FLUSH1_i => RDATA_A1_o[1]) = 0;
+    (FLUSH1_i => RDATA_A1_o[2]) = 0;
+    (FLUSH1_i => RDATA_A1_o[3]) = 0;
+    (FLUSH1_i => RDATA_A1_o[4]) = 0;
+    (FLUSH1_i => RDATA_A1_o[5]) = 0;
+    (FLUSH1_i => RDATA_A1_o[6]) = 0;
+    (FLUSH1_i => RDATA_A1_o[7]) = 0;
+    (FLUSH2_i => RDATA_A2_o[0]) = 0;
+    (FLUSH2_i => RDATA_A2_o[1]) = 0;
+    (FLUSH2_i => RDATA_A2_o[2]) = 0;
+    (FLUSH2_i => RDATA_A2_o[3]) = 0;
+    (FLUSH2_i => RDATA_A2_o[4]) = 0;
+    (FLUSH2_i => RDATA_A2_o[5]) = 0;
+    (FLUSH2_i => RDATA_A2_o[6]) = 0;
+    (FLUSH2_i => RDATA_A2_o[7]) = 0;    
+		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
+		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
+		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
+		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
+		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
+		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
+		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
+		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
+    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
+    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
+    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
+    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
+	endspecify
+`endif
+
+endmodule
+
+module TDP36K_FIFO_SYNC_A1_X9_B1_X18_A2_X18_B2_X9_split (
+    RESET_ni,
+    WEN_A1_i,   WEN_B1_i,
+    REN_A1_i,   REN_B1_i,
+    CLK_A1_i,   CLK_B1_i,
+    BE_A1_i,    BE_B1_i,
+    ADDR_A1_i,  ADDR_B1_i,
+    WDATA_A1_i, WDATA_B1_i,
+    RDATA_A1_o, RDATA_B1_o,
+    FLUSH1_i,
+    WEN_A2_i,   WEN_B2_i,
+    REN_A2_i,   REN_B2_i,
+    CLK_A2_i,   CLK_B2_i,
+    BE_A2_i,    BE_B2_i,
+    ADDR_A2_i,  ADDR_B2_i,
+    WDATA_A2_i, WDATA_B2_i,
+    RDATA_A2_o, RDATA_B2_o,
+    FLUSH2_i
+);
+    parameter [80:0] MODE_BITS = 81'd0;
+
+    input wire  RESET_ni;
+    input wire  WEN_A1_i, WEN_B1_i;
+    input wire  REN_A1_i, REN_B1_i;
+    input wire  WEN_A2_i, WEN_B2_i;
+    input wire  REN_A2_i, REN_B2_i;
+
+    (* clkbuf_sink *)
+    input wire  CLK_A1_i;
+    (* clkbuf_sink *)
+    input wire  CLK_B1_i;
+    (* clkbuf_sink *)
+    input wire  CLK_A2_i;
+    (* clkbuf_sink *)
+    input wire  CLK_B2_i;
+
+    input wire  [ 1:0] BE_A1_i,    BE_B1_i;
+    input wire  [14:0] ADDR_A1_i,  ADDR_B1_i;
+    input wire  [17:0] WDATA_A1_i, WDATA_B1_i;
+    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
+
+    input wire  FLUSH1_i;
+
+    input wire  [ 1:0] BE_A2_i,    BE_B2_i;
+    input wire  [13:0] ADDR_A2_i,  ADDR_B2_i;
+    input wire  [17:0] WDATA_A2_i, WDATA_B2_i;
+    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
+
+    input wire  FLUSH2_i;
+
+    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
+        .RESET_ni   (RESET_ni),   
+        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
+        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
+        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
+        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
+        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
+        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
+        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
+        .FLUSH1_i   (FLUSH1_i),
+        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
+        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
+        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
+        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
+        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
+        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
+        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
+        .FLUSH2_i   (FLUSH2_i)
+    );
+   
+`ifdef SDF_SIM
+	specify
+    (FLUSH1_i => RDATA_A1_o[0]) = 0;
+    (FLUSH1_i => RDATA_A1_o[1]) = 0;
+    (FLUSH1_i => RDATA_A1_o[2]) = 0;
+    (FLUSH1_i => RDATA_A1_o[3]) = 0;
+    (FLUSH1_i => RDATA_A1_o[4]) = 0;
+    (FLUSH1_i => RDATA_A1_o[5]) = 0;
+    (FLUSH1_i => RDATA_A1_o[6]) = 0;
+    (FLUSH1_i => RDATA_A1_o[7]) = 0;
+    (FLUSH2_i => RDATA_A2_o[0]) = 0;
+    (FLUSH2_i => RDATA_A2_o[1]) = 0;
+    (FLUSH2_i => RDATA_A2_o[2]) = 0;
+    (FLUSH2_i => RDATA_A2_o[3]) = 0;
+    (FLUSH2_i => RDATA_A2_o[4]) = 0;
+    (FLUSH2_i => RDATA_A2_o[5]) = 0;
+    (FLUSH2_i => RDATA_A2_o[6]) = 0;
+    (FLUSH2_i => RDATA_A2_o[7]) = 0;    
+		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
+		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
+		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
+		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
+		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
+		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
+		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
+		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
+    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
+    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
+    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
+    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
+	endspecify
+`endif
+
+endmodule
+
+module TDP36K_FIFO_SYNC_A1_X9_B1_X18_A2_X9_B2_X18_split (
+    RESET_ni,
+    WEN_A1_i,   WEN_B1_i,
+    REN_A1_i,   REN_B1_i,
+    CLK_A1_i,   CLK_B1_i,
+    BE_A1_i,    BE_B1_i,
+    ADDR_A1_i,  ADDR_B1_i,
+    WDATA_A1_i, WDATA_B1_i,
+    RDATA_A1_o, RDATA_B1_o,
+    FLUSH1_i,
+    WEN_A2_i,   WEN_B2_i,
+    REN_A2_i,   REN_B2_i,
+    CLK_A2_i,   CLK_B2_i,
+    BE_A2_i,    BE_B2_i,
+    ADDR_A2_i,  ADDR_B2_i,
+    WDATA_A2_i, WDATA_B2_i,
+    RDATA_A2_o, RDATA_B2_o,
+    FLUSH2_i
+);
+    parameter [80:0] MODE_BITS = 81'd0;
+
+    input wire  RESET_ni;
+    input wire  WEN_A1_i, WEN_B1_i;
+    input wire  REN_A1_i, REN_B1_i;
+    input wire  WEN_A2_i, WEN_B2_i;
+    input wire  REN_A2_i, REN_B2_i;
+
+    (* clkbuf_sink *)
+    input wire  CLK_A1_i;
+    (* clkbuf_sink *)
+    input wire  CLK_B1_i;
+    (* clkbuf_sink *)
+    input wire  CLK_A2_i;
+    (* clkbuf_sink *)
+    input wire  CLK_B2_i;
+
+    input wire  [ 1:0] BE_A1_i,    BE_B1_i;
+    input wire  [14:0] ADDR_A1_i,  ADDR_B1_i;
+    input wire  [17:0] WDATA_A1_i, WDATA_B1_i;
+    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
+
+    input wire  FLUSH1_i;
+
+    input wire  [ 1:0] BE_A2_i,    BE_B2_i;
+    input wire  [13:0] ADDR_A2_i,  ADDR_B2_i;
+    input wire  [17:0] WDATA_A2_i, WDATA_B2_i;
+    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
+
+    input wire  FLUSH2_i;
+
+    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
+        .RESET_ni   (RESET_ni),   
+        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
+        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
+        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
+        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
+        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
+        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
+        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
+        .FLUSH1_i   (FLUSH1_i),
+        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
+        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
+        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
+        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
+        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
+        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
+        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
+        .FLUSH2_i   (FLUSH2_i)
+    );
+   
+`ifdef SDF_SIM
+	specify
+    (FLUSH1_i => RDATA_A1_o[0]) = 0;
+    (FLUSH1_i => RDATA_A1_o[1]) = 0;
+    (FLUSH1_i => RDATA_A1_o[2]) = 0;
+    (FLUSH1_i => RDATA_A1_o[3]) = 0;
+    (FLUSH1_i => RDATA_A1_o[4]) = 0;
+    (FLUSH1_i => RDATA_A1_o[5]) = 0;
+    (FLUSH1_i => RDATA_A1_o[6]) = 0;
+    (FLUSH1_i => RDATA_A1_o[7]) = 0;
+    (FLUSH2_i => RDATA_A2_o[0]) = 0;
+    (FLUSH2_i => RDATA_A2_o[1]) = 0;
+    (FLUSH2_i => RDATA_A2_o[2]) = 0;
+    (FLUSH2_i => RDATA_A2_o[3]) = 0;
+    (FLUSH2_i => RDATA_A2_o[4]) = 0;
+    (FLUSH2_i => RDATA_A2_o[5]) = 0;
+    (FLUSH2_i => RDATA_A2_o[6]) = 0;
+    (FLUSH2_i => RDATA_A2_o[7]) = 0;    
+		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
+		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
+		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
+		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
+		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
+		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
+		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
+		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
+    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
+    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
+    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
+    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
+	endspecify
+`endif
+
+endmodule
+
+module TDP36K_FIFO_SYNC_A1_X9_B1_X18_A2_X9_B2_X9_split (
+    RESET_ni,
+    WEN_A1_i,   WEN_B1_i,
+    REN_A1_i,   REN_B1_i,
+    CLK_A1_i,   CLK_B1_i,
+    BE_A1_i,    BE_B1_i,
+    ADDR_A1_i,  ADDR_B1_i,
+    WDATA_A1_i, WDATA_B1_i,
+    RDATA_A1_o, RDATA_B1_o,
+    FLUSH1_i,
+    WEN_A2_i,   WEN_B2_i,
+    REN_A2_i,   REN_B2_i,
+    CLK_A2_i,   CLK_B2_i,
+    BE_A2_i,    BE_B2_i,
+    ADDR_A2_i,  ADDR_B2_i,
+    WDATA_A2_i, WDATA_B2_i,
+    RDATA_A2_o, RDATA_B2_o,
+    FLUSH2_i
+);
+    parameter [80:0] MODE_BITS = 81'd0;
+
+    input wire  RESET_ni;
+    input wire  WEN_A1_i, WEN_B1_i;
+    input wire  REN_A1_i, REN_B1_i;
+    input wire  WEN_A2_i, WEN_B2_i;
+    input wire  REN_A2_i, REN_B2_i;
+
+    (* clkbuf_sink *)
+    input wire  CLK_A1_i;
+    (* clkbuf_sink *)
+    input wire  CLK_B1_i;
+    (* clkbuf_sink *)
+    input wire  CLK_A2_i;
+    (* clkbuf_sink *)
+    input wire  CLK_B2_i;
+
+    input wire  [ 1:0] BE_A1_i,    BE_B1_i;
+    input wire  [14:0] ADDR_A1_i,  ADDR_B1_i;
+    input wire  [17:0] WDATA_A1_i, WDATA_B1_i;
+    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
+
+    input wire  FLUSH1_i;
+
+    input wire  [ 1:0] BE_A2_i,    BE_B2_i;
+    input wire  [13:0] ADDR_A2_i,  ADDR_B2_i;
+    input wire  [17:0] WDATA_A2_i, WDATA_B2_i;
+    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
+
+    input wire  FLUSH2_i;
+
+    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
+        .RESET_ni   (RESET_ni),   
+        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
+        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
+        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
+        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
+        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
+        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
+        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
+        .FLUSH1_i   (FLUSH1_i),
+        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
+        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
+        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
+        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
+        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
+        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
+        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
+        .FLUSH2_i   (FLUSH2_i)
+    );
+   
+`ifdef SDF_SIM
+	specify
+    (FLUSH1_i => RDATA_A1_o[0]) = 0;
+    (FLUSH1_i => RDATA_A1_o[1]) = 0;
+    (FLUSH1_i => RDATA_A1_o[2]) = 0;
+    (FLUSH1_i => RDATA_A1_o[3]) = 0;
+    (FLUSH1_i => RDATA_A1_o[4]) = 0;
+    (FLUSH1_i => RDATA_A1_o[5]) = 0;
+    (FLUSH1_i => RDATA_A1_o[6]) = 0;
+    (FLUSH1_i => RDATA_A1_o[7]) = 0;
+    (FLUSH2_i => RDATA_A2_o[0]) = 0;
+    (FLUSH2_i => RDATA_A2_o[1]) = 0;
+    (FLUSH2_i => RDATA_A2_o[2]) = 0;
+    (FLUSH2_i => RDATA_A2_o[3]) = 0;
+    (FLUSH2_i => RDATA_A2_o[4]) = 0;
+    (FLUSH2_i => RDATA_A2_o[5]) = 0;
+    (FLUSH2_i => RDATA_A2_o[6]) = 0;
+    (FLUSH2_i => RDATA_A2_o[7]) = 0;    
+		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
+		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
+		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
+		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
+		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
+		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
+		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
+		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
+    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
+    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
+    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
+    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
+	endspecify
+`endif
+
+endmodule
+
+module TDP36K_FIFO_SYNC_A1_X9_B1_X9_A2_X18_B2_X18_split (
+    RESET_ni,
+    WEN_A1_i,   WEN_B1_i,
+    REN_A1_i,   REN_B1_i,
+    CLK_A1_i,   CLK_B1_i,
+    BE_A1_i,    BE_B1_i,
+    ADDR_A1_i,  ADDR_B1_i,
+    WDATA_A1_i, WDATA_B1_i,
+    RDATA_A1_o, RDATA_B1_o,
+    FLUSH1_i,
+    WEN_A2_i,   WEN_B2_i,
+    REN_A2_i,   REN_B2_i,
+    CLK_A2_i,   CLK_B2_i,
+    BE_A2_i,    BE_B2_i,
+    ADDR_A2_i,  ADDR_B2_i,
+    WDATA_A2_i, WDATA_B2_i,
+    RDATA_A2_o, RDATA_B2_o,
+    FLUSH2_i
+);
+    parameter [80:0] MODE_BITS = 81'd0;
+
+    input wire  RESET_ni;
+    input wire  WEN_A1_i, WEN_B1_i;
+    input wire  REN_A1_i, REN_B1_i;
+    input wire  WEN_A2_i, WEN_B2_i;
+    input wire  REN_A2_i, REN_B2_i;
+
+    (* clkbuf_sink *)
+    input wire  CLK_A1_i;
+    (* clkbuf_sink *)
+    input wire  CLK_B1_i;
+    (* clkbuf_sink *)
+    input wire  CLK_A2_i;
+    (* clkbuf_sink *)
+    input wire  CLK_B2_i;
+
+    input wire  [ 1:0] BE_A1_i,    BE_B1_i;
+    input wire  [14:0] ADDR_A1_i,  ADDR_B1_i;
+    input wire  [17:0] WDATA_A1_i, WDATA_B1_i;
+    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
+
+    input wire  FLUSH1_i;
+
+    input wire  [ 1:0] BE_A2_i,    BE_B2_i;
+    input wire  [13:0] ADDR_A2_i,  ADDR_B2_i;
+    input wire  [17:0] WDATA_A2_i, WDATA_B2_i;
+    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
+
+    input wire  FLUSH2_i;
+
+    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
+        .RESET_ni   (RESET_ni),   
+        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
+        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
+        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
+        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
+        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
+        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
+        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
+        .FLUSH1_i   (FLUSH1_i),
+        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
+        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
+        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
+        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
+        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
+        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
+        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
+        .FLUSH2_i   (FLUSH2_i)
+    );
+   
+`ifdef SDF_SIM
+	specify
+    (FLUSH1_i => RDATA_A1_o[0]) = 0;
+    (FLUSH1_i => RDATA_A1_o[1]) = 0;
+    (FLUSH1_i => RDATA_A1_o[2]) = 0;
+    (FLUSH1_i => RDATA_A1_o[3]) = 0;
+    (FLUSH1_i => RDATA_A1_o[4]) = 0;
+    (FLUSH1_i => RDATA_A1_o[5]) = 0;
+    (FLUSH1_i => RDATA_A1_o[6]) = 0;
+    (FLUSH1_i => RDATA_A1_o[7]) = 0;
+    (FLUSH2_i => RDATA_A2_o[0]) = 0;
+    (FLUSH2_i => RDATA_A2_o[1]) = 0;
+    (FLUSH2_i => RDATA_A2_o[2]) = 0;
+    (FLUSH2_i => RDATA_A2_o[3]) = 0;
+    (FLUSH2_i => RDATA_A2_o[4]) = 0;
+    (FLUSH2_i => RDATA_A2_o[5]) = 0;
+    (FLUSH2_i => RDATA_A2_o[6]) = 0;
+    (FLUSH2_i => RDATA_A2_o[7]) = 0;    
+		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
+		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
+		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
+		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
+		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
+		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
+		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
+		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
+    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
+    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
+    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
+    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
+	endspecify
+`endif
+
+endmodule
+
+module TDP36K_FIFO_SYNC_A1_X9_B1_X9_A2_X18_B2_X9_split (
+    RESET_ni,
+    WEN_A1_i,   WEN_B1_i,
+    REN_A1_i,   REN_B1_i,
+    CLK_A1_i,   CLK_B1_i,
+    BE_A1_i,    BE_B1_i,
+    ADDR_A1_i,  ADDR_B1_i,
+    WDATA_A1_i, WDATA_B1_i,
+    RDATA_A1_o, RDATA_B1_o,
+    FLUSH1_i,
+    WEN_A2_i,   WEN_B2_i,
+    REN_A2_i,   REN_B2_i,
+    CLK_A2_i,   CLK_B2_i,
+    BE_A2_i,    BE_B2_i,
+    ADDR_A2_i,  ADDR_B2_i,
+    WDATA_A2_i, WDATA_B2_i,
+    RDATA_A2_o, RDATA_B2_o,
+    FLUSH2_i
+);
+    parameter [80:0] MODE_BITS = 81'd0;
+
+    input wire  RESET_ni;
+    input wire  WEN_A1_i, WEN_B1_i;
+    input wire  REN_A1_i, REN_B1_i;
+    input wire  WEN_A2_i, WEN_B2_i;
+    input wire  REN_A2_i, REN_B2_i;
+
+    (* clkbuf_sink *)
+    input wire  CLK_A1_i;
+    (* clkbuf_sink *)
+    input wire  CLK_B1_i;
+    (* clkbuf_sink *)
+    input wire  CLK_A2_i;
+    (* clkbuf_sink *)
+    input wire  CLK_B2_i;
+
+    input wire  [ 1:0] BE_A1_i,    BE_B1_i;
+    input wire  [14:0] ADDR_A1_i,  ADDR_B1_i;
+    input wire  [17:0] WDATA_A1_i, WDATA_B1_i;
+    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
+
+    input wire  FLUSH1_i;
+
+    input wire  [ 1:0] BE_A2_i,    BE_B2_i;
+    input wire  [13:0] ADDR_A2_i,  ADDR_B2_i;
+    input wire  [17:0] WDATA_A2_i, WDATA_B2_i;
+    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
+
+    input wire  FLUSH2_i;
+
+    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
+        .RESET_ni   (RESET_ni),   
+        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
+        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
+        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
+        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
+        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
+        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
+        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
+        .FLUSH1_i   (FLUSH1_i),
+        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
+        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
+        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
+        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
+        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
+        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
+        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
+        .FLUSH2_i   (FLUSH2_i)
+    );
+   
+`ifdef SDF_SIM
+	specify
+    (FLUSH1_i => RDATA_A1_o[0]) = 0;
+    (FLUSH1_i => RDATA_A1_o[1]) = 0;
+    (FLUSH1_i => RDATA_A1_o[2]) = 0;
+    (FLUSH1_i => RDATA_A1_o[3]) = 0;
+    (FLUSH1_i => RDATA_A1_o[4]) = 0;
+    (FLUSH1_i => RDATA_A1_o[5]) = 0;
+    (FLUSH1_i => RDATA_A1_o[6]) = 0;
+    (FLUSH1_i => RDATA_A1_o[7]) = 0;
+    (FLUSH2_i => RDATA_A2_o[0]) = 0;
+    (FLUSH2_i => RDATA_A2_o[1]) = 0;
+    (FLUSH2_i => RDATA_A2_o[2]) = 0;
+    (FLUSH2_i => RDATA_A2_o[3]) = 0;
+    (FLUSH2_i => RDATA_A2_o[4]) = 0;
+    (FLUSH2_i => RDATA_A2_o[5]) = 0;
+    (FLUSH2_i => RDATA_A2_o[6]) = 0;
+    (FLUSH2_i => RDATA_A2_o[7]) = 0;    
+		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
+		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
+		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
+		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
+		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
+		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
+		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
+		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
+    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
+    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
+    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
+    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
+	endspecify
+`endif
+
+endmodule
+
+module TDP36K_FIFO_SYNC_A1_X9_B1_X9_A2_X9_B2_X18_split (
+    RESET_ni,
+    WEN_A1_i,   WEN_B1_i,
+    REN_A1_i,   REN_B1_i,
+    CLK_A1_i,   CLK_B1_i,
+    BE_A1_i,    BE_B1_i,
+    ADDR_A1_i,  ADDR_B1_i,
+    WDATA_A1_i, WDATA_B1_i,
+    RDATA_A1_o, RDATA_B1_o,
+    FLUSH1_i,
+    WEN_A2_i,   WEN_B2_i,
+    REN_A2_i,   REN_B2_i,
+    CLK_A2_i,   CLK_B2_i,
+    BE_A2_i,    BE_B2_i,
+    ADDR_A2_i,  ADDR_B2_i,
+    WDATA_A2_i, WDATA_B2_i,
+    RDATA_A2_o, RDATA_B2_o,
+    FLUSH2_i
+);
+    parameter [80:0] MODE_BITS = 81'd0;
+
+    input wire  RESET_ni;
+    input wire  WEN_A1_i, WEN_B1_i;
+    input wire  REN_A1_i, REN_B1_i;
+    input wire  WEN_A2_i, WEN_B2_i;
+    input wire  REN_A2_i, REN_B2_i;
+
+    (* clkbuf_sink *)
+    input wire  CLK_A1_i;
+    (* clkbuf_sink *)
+    input wire  CLK_B1_i;
+    (* clkbuf_sink *)
+    input wire  CLK_A2_i;
+    (* clkbuf_sink *)
+    input wire  CLK_B2_i;
+
+    input wire  [ 1:0] BE_A1_i,    BE_B1_i;
+    input wire  [14:0] ADDR_A1_i,  ADDR_B1_i;
+    input wire  [17:0] WDATA_A1_i, WDATA_B1_i;
+    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
+
+    input wire  FLUSH1_i;
+
+    input wire  [ 1:0] BE_A2_i,    BE_B2_i;
+    input wire  [13:0] ADDR_A2_i,  ADDR_B2_i;
+    input wire  [17:0] WDATA_A2_i, WDATA_B2_i;
+    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
+
+    input wire  FLUSH2_i;
+
+    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
+        .RESET_ni   (RESET_ni),   
+        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
+        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
+        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
+        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
+        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
+        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
+        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
+        .FLUSH1_i   (FLUSH1_i),
+        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
+        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
+        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
+        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
+        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
+        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
+        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
+        .FLUSH2_i   (FLUSH2_i)
+    );
+   
+`ifdef SDF_SIM
+	specify
+    (FLUSH1_i => RDATA_A1_o[0]) = 0;
+    (FLUSH1_i => RDATA_A1_o[1]) = 0;
+    (FLUSH1_i => RDATA_A1_o[2]) = 0;
+    (FLUSH1_i => RDATA_A1_o[3]) = 0;
+    (FLUSH1_i => RDATA_A1_o[4]) = 0;
+    (FLUSH1_i => RDATA_A1_o[5]) = 0;
+    (FLUSH1_i => RDATA_A1_o[6]) = 0;
+    (FLUSH1_i => RDATA_A1_o[7]) = 0;
+    (FLUSH2_i => RDATA_A2_o[0]) = 0;
+    (FLUSH2_i => RDATA_A2_o[1]) = 0;
+    (FLUSH2_i => RDATA_A2_o[2]) = 0;
+    (FLUSH2_i => RDATA_A2_o[3]) = 0;
+    (FLUSH2_i => RDATA_A2_o[4]) = 0;
+    (FLUSH2_i => RDATA_A2_o[5]) = 0;
+    (FLUSH2_i => RDATA_A2_o[6]) = 0;
+    (FLUSH2_i => RDATA_A2_o[7]) = 0;    
+		(negedge RESET_ni => (RDATA_A1_o +: WDATA_A1_i)) = 0;
+		(negedge RESET_ni => (RDATA_B1_o +: WDATA_B1_i)) = 0;
+		(negedge RESET_ni => (RDATA_A2_o +: WDATA_A2_i)) = 0;
+		(negedge RESET_ni => (RDATA_B2_o +: WDATA_B2_i)) = 0;
+		(posedge CLK_A1_i => (RDATA_A1_o +: WDATA_A1_i)) = 0;
+		(posedge CLK_B1_i => (RDATA_B1_o +: WDATA_B1_i)) = 0;
+		(posedge CLK_A2_i => (RDATA_A2_o +: WDATA_A2_i)) = 0;
+		(posedge CLK_B2_i => (RDATA_B2_o +: WDATA_B2_i)) = 0;
+    $setuphold(posedge CLK_A1_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_A1_i, FLUSH1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, WEN_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, REN_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, BE_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, ADDR_A1_i, 0, 0);
+		$setuphold(posedge CLK_A1_i, WDATA_A1_i, 0, 0);
+    $setuphold(posedge CLK_B1_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_B1_i, WEN_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, REN_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, BE_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, ADDR_B1_i, 0, 0);
+		$setuphold(posedge CLK_B1_i, WDATA_B1_i, 0, 0);
+    $setuphold(posedge CLK_A2_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_A2_i, FLUSH2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, WEN_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, REN_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, BE_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, ADDR_A2_i, 0, 0);
+		$setuphold(posedge CLK_A2_i, WDATA_A2_i, 0, 0);
+    $setuphold(posedge CLK_B2_i, RESET_ni, 0, 0);
+		$setuphold(posedge CLK_B2_i, WEN_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, REN_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, BE_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, ADDR_B2_i, 0, 0);
+		$setuphold(posedge CLK_B2_i, WDATA_B2_i, 0, 0);
+	endspecify
+`endif
+
+endmodule
+
+module TDP36K_FIFO_SYNC_A1_X9_B1_X9_A2_X9_B2_X9_split (
+    RESET_ni,
+    WEN_A1_i,   WEN_B1_i,
+    REN_A1_i,   REN_B1_i,
+    CLK_A1_i,   CLK_B1_i,
+    BE_A1_i,    BE_B1_i,
+    ADDR_A1_i,  ADDR_B1_i,
+    WDATA_A1_i, WDATA_B1_i,
+    RDATA_A1_o, RDATA_B1_o,
+    FLUSH1_i,
+    WEN_A2_i,   WEN_B2_i,
+    REN_A2_i,   REN_B2_i,
+    CLK_A2_i,   CLK_B2_i,
+    BE_A2_i,    BE_B2_i,
+    ADDR_A2_i,  ADDR_B2_i,
+    WDATA_A2_i, WDATA_B2_i,
+    RDATA_A2_o, RDATA_B2_o,
+    FLUSH2_i
+);
+    parameter [80:0] MODE_BITS = 81'd0;
+
+    input wire  RESET_ni;
+    input wire  WEN_A1_i, WEN_B1_i;
+    input wire  REN_A1_i, REN_B1_i;
+    input wire  WEN_A2_i, WEN_B2_i;
+    input wire  REN_A2_i, REN_B2_i;
+
+    (* clkbuf_sink *)
+    input wire  CLK_A1_i;
+    (* clkbuf_sink *)
+    input wire  CLK_B1_i;
+    (* clkbuf_sink *)
+    input wire  CLK_A2_i;
+    (* clkbuf_sink *)
+    input wire  CLK_B2_i;
+
+    input wire  [ 1:0] BE_A1_i,    BE_B1_i;
+    input wire  [14:0] ADDR_A1_i,  ADDR_B1_i;
+    input wire  [17:0] WDATA_A1_i, WDATA_B1_i;
+    output wire [17:0] RDATA_A1_o, RDATA_B1_o;
+
+    input wire  FLUSH1_i;
+
+    input wire  [ 1:0] BE_A2_i,    BE_B2_i;
+    input wire  [13:0] ADDR_A2_i,  ADDR_B2_i;
+    input wire  [17:0] WDATA_A2_i, WDATA_B2_i;
+    output wire [17:0] RDATA_A2_o, RDATA_B2_o;
+
+    input wire  FLUSH2_i;
+
+    TDP36K #(.MODE_BITS(MODE_BITS)) bram (
+        .RESET_ni   (RESET_ni),   
+        .WEN_A1_i   (WEN_A1_i),   .WEN_B1_i   (WEN_B1_i),
+        .REN_A1_i   (REN_A1_i),   .REN_B1_i   (REN_B1_i),
+        .CLK_A1_i   (CLK_A1_i),   .CLK_B1_i   (CLK_B1_i),
+        .BE_A1_i    (BE_A1_i),    .BE_B1_i    (BE_B1_i),
+        .ADDR_A1_i  (ADDR_A1_i),  .ADDR_B1_i  (ADDR_B1_i),
+        .WDATA_A1_i (WDATA_A1_i), .WDATA_B1_i (WDATA_B1_i),
+        .RDATA_A1_o (RDATA_A1_o), .RDATA_B1_o (RDATA_B1_o),
+        .FLUSH1_i   (FLUSH1_i),
+        .WEN_A2_i   (WEN_A2_i),   .WEN_B2_i   (WEN_B2_i),
+        .REN_A2_i   (REN_A2_i),   .REN_B2_i   (REN_B2_i),
+        .CLK_A2_i   (CLK_A2_i),   .CLK_B2_i   (CLK_B2_i),
+        .BE_A2_i    (BE_A2_i),    .BE_B2_i    (BE_B2_i),
+        .ADDR_A2_i  (ADDR_A2_i),  .ADDR_B2_i  (ADDR_B2_i),
+        .WDATA_A2_i (WDATA_A2_i), .WDATA_B2_i (WDATA_B2_i),
+        .RDATA_A2_o (RDATA_A2_o), .RDATA_B2_o (RDATA_B2_o),
+        .FLUSH2_i   (FLUSH2_i)
+    );
+   
 `ifdef SDF_SIM
 	specify
     (FLUSH1_i => RDATA_A1_o[0]) = 0;
