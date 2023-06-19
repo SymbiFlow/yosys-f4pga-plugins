@@ -30,16 +30,15 @@ module spram_16x1024_8x2048 (
 	input wce;
 	input [9:0] wa;
 	input [15:0] wd;
-	reg [15:0] memory [0:1023];
+	(* no_rw_check = 1 *) reg [7:0] memory [0:2047];
 	always @(posedge clk) begin
 		if (rce)
-			rq <= memory[ra / 2][(ra % 2) * 8+:8];
-		if (wce)
-			memory[wa] <= wd;
+			rq <= memory[ra];
+		if (wce) begin
+			memory[{wa, 1'b0}] <= wd[7:0];
+			memory[{wa, 1'b1}] <= wd[15:8];
+		end
 	end
-	integer i;
-	initial for (i = 0; i < 1024; i = i + 1)
-		memory[i] = 0;
 endmodule
 
 module spram_16x2048_8x4096 (
@@ -58,16 +57,15 @@ module spram_16x2048_8x4096 (
 	input wce;
 	input [10:0] wa;
 	input [15:0] wd;
-	reg [15:0] memory [0:2047];
+	(* no_rw_check = 1 *) reg [7:0] memory [0:4095];
 	always @(posedge clk) begin
 		if (rce)
-			rq <= memory[ra / 2][(ra % 2) * 8+:8];
-		if (wce)
-			memory[wa] <= wd;
+			rq <= memory[ra];
+		if (wce) begin
+			memory[{wa, 1'b0}] <= wd[7:0];
+			memory[{wa, 1'b1}] <= wd[15:8];
+		end
 	end
-	integer i;
-	initial for (i = 0; i < 2048; i = i + 1)
-		memory[i] = 0;
 endmodule
 
 module spram_32x1024_16x2048 (
@@ -86,16 +84,15 @@ module spram_32x1024_16x2048 (
 	input wce;
 	input [9:0] wa;
 	input [31:0] wd;
-	reg [31:0] memory [0:1023];
+	(* no_rw_check = 1 *) reg [15:0] memory [0:2047];
 	always @(posedge clk) begin
 		if (rce)
-			rq <= memory[ra / 2][(ra % 2) * 16+:16];
-		if (wce)
-			memory[wa] <= wd;
+			rq <= memory[ra];
+		if (wce) begin
+			memory[{wa, 1'b0}] <= wd[15:0];
+			memory[{wa, 1'b1}] <= wd[31:16];
+		end
 	end
-	integer i;
-	initial for (i = 0; i < 1024; i = i + 1)
-		memory[i] = 0;
 endmodule
 
 module spram_32x1024_8x4096 (
@@ -114,14 +111,15 @@ module spram_32x1024_8x4096 (
 	input wce;
 	input [9:0] wa;
 	input [31:0] wd;
-	reg [31:0] memory [0:1023];
+	(* no_rw_check = 1 *) reg [7:0] memory [0:4095];
 	always @(posedge clk) begin
 		if (rce)
-			rq <= memory[ra / 4][(ra % 4) * 8+:8];
-		if (wce)
-			memory[wa] <= wd;
+			rq <= memory[ra];
+		if (wce) begin
+			memory[{wa, 2'b00}] <= wd[7:0];
+			memory[{wa, 2'b01}] <= wd[15:8];
+			memory[{wa, 2'b10}] <= wd[23:16];
+			memory[{wa, 2'b11}] <= wd[31:24];
+		end
 	end
-	integer i;
-	initial for (i = 0; i < 1024; i = i + 1)
-		memory[i] = 0;
 endmodule

@@ -13,7 +13,7 @@ opt_expr -undriven
 opt_clean
 stat
 write_verilog sim/af1024x18_1024x18_post_synth.v
-select -assert-count 1 t:TDP36K_FIFO_ASYNC_WR_X18_RD_X18_split
+select -assert-count 1 t:TDP36K_FIFO_ASYNC_A_X18_B_X18_nonsplit
 
 select -clear
 design -load bram18k_afifo
@@ -23,8 +23,8 @@ synth_quicklogic -family qlf_k6n10f -top af1024x16_1024x16 -bram_types
 opt_expr -undriven
 opt_clean
 stat
-write_verilog sim/af1024x16_1024x16_post_synth.v
-select -assert-count 1 t:TDP36K_FIFO_ASYNC_WR_X18_RD_X18_split
+write_verilog sim/af1024x16_1024x16_post_synth.v 
+select -assert-count 1 t:TDP36K_FIFO_ASYNC_A_X18_B_X18_nonsplit 
 
 select -clear
 design -load bram18k_afifo
@@ -35,7 +35,7 @@ opt_expr -undriven
 opt_clean
 stat
 write_verilog sim/af2048x9_2048x9_post_synth.v
-select -assert-count 1 t:TDP36K_FIFO_ASYNC_WR_X9_RD_X9_split
+select -assert-count 1 t:TDP36K_FIFO_ASYNC_A_X9_B_X9_nonsplit 
 
 select -clear
 design -load bram18k_afifo
@@ -46,4 +46,4 @@ opt_expr -undriven
 opt_clean
 stat
 write_verilog sim/af2048x8_2048x8_post_synth.v
-select -assert-count 1 t:TDP36K_FIFO_ASYNC_WR_X9_RD_X9_split
+select -assert-count 1 t:TDP36K_FIFO_ASYNC_A_X9_B_X9_nonsplit 

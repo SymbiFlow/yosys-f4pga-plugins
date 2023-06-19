@@ -1,0 +1,39 @@
+[tasks]
+bmc
+cover
+
+[options]
+bmc: mode bmc
+cover: mode cover
+depth 8
+multiclock on
+
+[engines]
+smtbmc bitwuzla
+
+[script]
+read_verilog -sv top.v
+prep -top top
+design -stash gold
+
+read_rtlil top.new.il
+read_verilog brams_sim.v TDP18K_FIFO.v ufifo_ctl.v sram1024x18_mem.v
+prep -top top
+design -stash gate
+
+
+verific -sv pre_post_miter.sv
+verific -import miter
+design -copy-from gold -as gold top
+design -import gate -as gate top
+prep -top miter
+
+[files]
+params.vh
+top.v
+top.new.il
+../../../../../qlf_k6n10f/brams_sim.v
+../../../../../qlf_k6n10f/TDP18K_FIFO.v
+../../../../../qlf_k6n10f/ufifo_ctl.v
+../../sram1024x18_mem.v
+pre_post_miter.sv

@@ -13,7 +13,7 @@ opt_expr -undriven
 opt_clean
 stat
 write_verilog sim/dpram_36x1024_post_synth.v
-select -assert-count 1 t:TDP36K_BRAM_WR_X36_RD_X36_nonsplit
+select -assert-count 1 t:TDP36K_BRAM_A_X36_B_X36_nonsplit 
 
 select -clear
 design -load bram36k_tdp
@@ -24,7 +24,7 @@ opt_expr -undriven
 opt_clean
 stat
 write_verilog sim/dpram_18x2048_post_synth.v
-select -assert-count 1 t:TDP36K_BRAM_WR_X18_RD_X18_nonsplit
+select -assert-count 1 t:TDP36K_BRAM_A_X18_B_X18_nonsplit 
 
 select -clear
 design -load bram36k_tdp
@@ -35,4 +35,4 @@ opt_expr -undriven
 opt_clean
 stat
 write_verilog sim/dpram_9x4096_post_synth.v
-select -assert-count 1 t:TDP36K_BRAM_WR_X9_RD_X9_nonsplit
+select -assert-count 1 t:TDP36K_BRAM_A_X9_B_X9_nonsplit 

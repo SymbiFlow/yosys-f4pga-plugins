@@ -59,45 +59,42 @@ input wire [WR_ADDR_WIDTH0-1 :0] WR_ADDR1_i;
 input wire [RD_ADDR_WIDTH0-1 :0] RD_ADDR1_i;
 input wire [WR_DATA_WIDTH0-1 :0] WDATA1_i;
 output wire [RD_DATA_WIDTH0-1 :0] RDATA1_o;
-
-
-RAM_18K_BLK #(
-              .WR_ADDR_WIDTH(WR_ADDR_WIDTH0),
-              .RD_ADDR_WIDTH(RD_ADDR_WIDTH0),
-              .WR_DATA_WIDTH(WR_DATA_WIDTH0),
-              .RD_DATA_WIDTH(RD_DATA_WIDTH0),
-              .BE_WIDTH(BE_WIDTH0)
-              ) spram_x18_inst1 (
-              
-              .WEN_i(WEN0_i),
-              .WR_BE_i(2'b11),
-              .REN_i(REN0_i),              
-              .WR_CLK_i(clock0),
-              .RD_CLK_i(clock0),
-              .WR_ADDR_i(WR_ADDR0_i),
-              .RD_ADDR_i(RD_ADDR0_i),
-              .WDATA_i(WDATA0_i),
-              .RDATA_o(RDATA0_o)
-              );
-              
-RAM_18K_BLK #(
-              .WR_ADDR_WIDTH(WR_ADDR_WIDTH1),
-              .RD_ADDR_WIDTH(RD_ADDR_WIDTH1),
-              .WR_DATA_WIDTH(WR_DATA_WIDTH1),
-              .RD_DATA_WIDTH(RD_DATA_WIDTH1),
-              .BE_WIDTH(BE_WIDTH1)
-              ) spram_x18_inst2 (
-              
-              .WEN_i(WEN1_i),
-              .WR_BE_i(2'b11),
-              .REN_i(REN1_i),              
-              .WR_CLK_i(clock1),
-              .RD_CLK_i(clock1),
-              .WR_ADDR_i(WR_ADDR1_i),
-              .RD_ADDR_i(RD_ADDR1_i),
-              .WDATA_i(WDATA1_i),
-              .RDATA_o(RDATA1_o)
-              );
+            		  
+ RAM_18K_X2_BLK  #(
+      .WR1_ADDR_WIDTH(WR_ADDR_WIDTH0), 
+      .RD1_ADDR_WIDTH(RD_ADDR_WIDTH0),
+      .WR1_DATA_WIDTH(WR_DATA_WIDTH0), 
+      .RD1_DATA_WIDTH(RD_DATA_WIDTH0),
+      .BE1_WIDTH(BE_WIDTH0),
+      .WR2_ADDR_WIDTH(WR_ADDR_WIDTH1), 
+      .RD2_ADDR_WIDTH(RD_ADDR_WIDTH1),
+      .WR2_DATA_WIDTH(WR_DATA_WIDTH1), 
+      .RD2_DATA_WIDTH(RD_DATA_WIDTH1),
+      .BE2_WIDTH(BE_WIDTH1)      
+       ) U1
+      (
+      .RESET_ni(1'b1),
+      
+      .WEN1_i(WEN0_i),
+      .REN1_i(REN0_i),
+      .WR1_CLK_i(clock0),
+      .RD1_CLK_i(clock0),
+      .WR1_BE_i(2'b11),
+      .WR1_ADDR_i(WR_ADDR0_i),
+      .RD1_ADDR_i(RD_ADDR0_i),
+      .WDATA1_i(WDATA0_i),
+      .RDATA1_o(RDATA0_o),
+      
+      .WEN2_i(WEN1_i),
+      .REN2_i(REN1_i),
+      .WR2_CLK_i(clock1),
+      .RD2_CLK_i(clock1),
+      .WR2_BE_i(2'b11),
+      .WR2_ADDR_i(WR_ADDR1_i),
+      .RD2_ADDR_i(RD_ADDR1_i),
+      .WDATA2_i(WDATA1_i),
+      .RDATA2_o(RDATA1_o)
+      );
               
 endmodule    
 
@@ -146,45 +143,42 @@ input wire [WR_ADDR_WIDTH1-1 :0] WR_ADDR1_i;
 input wire [RD_ADDR_WIDTH1-1 :0] RD_ADDR1_i;
 input wire [WR_DATA_WIDTH1-1 :0] WDATA1_i;
 output wire [RD_DATA_WIDTH1-1 :0] RDATA1_o;
-
-
-RAM_18K_BLK #(
-              .WR_ADDR_WIDTH(WR_ADDR_WIDTH0),
-              .RD_ADDR_WIDTH(RD_ADDR_WIDTH0),
-              .WR_DATA_WIDTH(WR_DATA_WIDTH0),
-              .RD_DATA_WIDTH(RD_DATA_WIDTH0),
-              .BE_WIDTH(BE_WIDTH0)
-              ) spram_x18_inst1 (
-              
-              .WEN_i(WEN0_i),
-              .WR_BE_i(2'b11),
-              .REN_i(REN0_i),              
-              .WR_CLK_i(clock0),
-              .RD_CLK_i(clock0),
-              .WR_ADDR_i(WR_ADDR0_i),
-              .RD_ADDR_i(RD_ADDR0_i),
-              .WDATA_i(WDATA0_i),
-              .RDATA_o(RDATA0_o)
-              );
-              
-RAM_18K_BLK #(
-              .WR_ADDR_WIDTH(WR_ADDR_WIDTH1),
-              .RD_ADDR_WIDTH(RD_ADDR_WIDTH1),
-              .WR_DATA_WIDTH(WR_DATA_WIDTH1),
-              .RD_DATA_WIDTH(RD_DATA_WIDTH1),
-              .BE_WIDTH(BE_WIDTH1)
-              ) spram_x18_inst2 (
-              
-              .WEN_i(WEN1_i),
-              .WR_BE_i(2'b11),
-              .REN_i(REN1_i),              
-              .WR_CLK_i(clock1),
-              .RD_CLK_i(clock1),
-              .WR_ADDR_i(WR_ADDR1_i),
-              .RD_ADDR_i(RD_ADDR1_i),
-              .WDATA_i(WDATA1_i),
-              .RDATA_o(RDATA1_o)
-              );
+			  
+ RAM_18K_X2_BLK  #(
+      .WR1_ADDR_WIDTH(WR_ADDR_WIDTH0), 
+      .RD1_ADDR_WIDTH(RD_ADDR_WIDTH0),
+      .WR1_DATA_WIDTH(WR_DATA_WIDTH0), 
+      .RD1_DATA_WIDTH(RD_DATA_WIDTH0),
+      .BE1_WIDTH(BE_WIDTH0),
+      .WR2_ADDR_WIDTH(WR_ADDR_WIDTH1), 
+      .RD2_ADDR_WIDTH(RD_ADDR_WIDTH1),
+      .WR2_DATA_WIDTH(WR_DATA_WIDTH1), 
+      .RD2_DATA_WIDTH(RD_DATA_WIDTH1),
+      .BE2_WIDTH(BE_WIDTH1)      
+       ) U1
+      (
+      .RESET_ni(1'b1),
+      
+      .WEN1_i(WEN0_i),
+      .REN1_i(REN0_i),
+      .WR1_CLK_i(clock0),
+      .RD1_CLK_i(clock0),
+      .WR1_BE_i(1'b1),
+      .WR1_ADDR_i(WR_ADDR0_i),
+      .RD1_ADDR_i(RD_ADDR0_i),
+      .WDATA1_i(WDATA0_i),
+      .RDATA1_o(RDATA0_o),
+      
+      .WEN2_i(WEN1_i),
+      .REN2_i(REN1_i),
+      .WR2_CLK_i(clock1),
+      .RD2_CLK_i(clock1),
+      .WR2_BE_i(1'b1),
+      .WR2_ADDR_i(WR_ADDR1_i),
+      .RD2_ADDR_i(RD_ADDR1_i),
+      .WDATA2_i(WDATA1_i),
+      .RDATA2_o(RDATA1_o)
+      );
               
 endmodule    
 
@@ -233,44 +227,41 @@ input wire [WR_ADDR_WIDTH1-1 :0] WR_ADDR1_i;
 input wire [RD_ADDR_WIDTH1-1 :0] RD_ADDR1_i;
 input wire [WR_DATA_WIDTH1-1 :0] WDATA1_i;
 output wire [RD_DATA_WIDTH1-1 :0] RDATA1_o;
-
-
-RAM_18K_BLK #(
-              .WR_ADDR_WIDTH(WR_ADDR_WIDTH0),
-              .RD_ADDR_WIDTH(RD_ADDR_WIDTH0),
-              .WR_DATA_WIDTH(WR_DATA_WIDTH0),
-              .RD_DATA_WIDTH(RD_DATA_WIDTH0),
-              .BE_WIDTH(BE_WIDTH0)
-              ) spram_x18_inst1 (
-              
-              .WEN_i(WEN0_i),
-              .WR_BE_i(1'b1),
-              .REN_i(REN0_i),              
-              .WR_CLK_i(clock0),
-              .RD_CLK_i(clock0),
-              .WR_ADDR_i(WR_ADDR0_i),
-              .RD_ADDR_i(RD_ADDR0_i),
-              .WDATA_i(WDATA0_i),
-              .RDATA_o(RDATA0_o)
-              );
-              
-RAM_18K_BLK #(
-              .WR_ADDR_WIDTH(WR_ADDR_WIDTH1),
-              .RD_ADDR_WIDTH(RD_ADDR_WIDTH1),
-              .WR_DATA_WIDTH(WR_DATA_WIDTH1),
-              .RD_DATA_WIDTH(RD_DATA_WIDTH1),
-              .BE_WIDTH(BE_WIDTH1)
-              ) spram_x18_inst2 (
-              
-              .WEN_i(WEN1_i),
-              .WR_BE_i(2'b11),
-              .REN_i(REN1_i),              
-              .WR_CLK_i(clock1),
-              .RD_CLK_i(clock1),
-              .WR_ADDR_i(WR_ADDR1_i),
-              .RD_ADDR_i(RD_ADDR1_i),
-              .WDATA_i(WDATA1_i),
-              .RDATA_o(RDATA1_o)
-              );
+			  
+ RAM_18K_X2_BLK  #(
+      .WR1_ADDR_WIDTH(WR_ADDR_WIDTH0), 
+      .RD1_ADDR_WIDTH(RD_ADDR_WIDTH0),
+      .WR1_DATA_WIDTH(WR_DATA_WIDTH0), 
+      .RD1_DATA_WIDTH(RD_DATA_WIDTH0),
+      .BE1_WIDTH(BE_WIDTH0),
+      .WR2_ADDR_WIDTH(WR_ADDR_WIDTH1), 
+      .RD2_ADDR_WIDTH(RD_ADDR_WIDTH1),
+      .WR2_DATA_WIDTH(WR_DATA_WIDTH1), 
+      .RD2_DATA_WIDTH(RD_DATA_WIDTH1),
+      .BE2_WIDTH(BE_WIDTH1)      
+       ) U1
+      (
+      .RESET_ni(1'b1),
+      
+      .WEN1_i(WEN0_i),
+      .REN1_i(REN0_i),
+      .WR1_CLK_i(clock0),
+      .RD1_CLK_i(clock0),
+      .WR1_BE_i(1'b1),
+      .WR1_ADDR_i(WR_ADDR0_i),
+      .RD1_ADDR_i(RD_ADDR0_i),
+      .WDATA1_i(WDATA0_i),
+      .RDATA1_o(RDATA0_o),
+      
+      .WEN2_i(WEN1_i),
+      .REN2_i(REN1_i),
+      .WR2_CLK_i(clock1),
+      .RD2_CLK_i(clock1),
+      .WR2_BE_i(2'b11),
+      .WR2_ADDR_i(WR_ADDR1_i),
+      .RD2_ADDR_i(RD_ADDR1_i),
+      .WDATA2_i(WDATA1_i),
+      .RDATA2_o(RDATA1_o)
+      );
               
 endmodule    

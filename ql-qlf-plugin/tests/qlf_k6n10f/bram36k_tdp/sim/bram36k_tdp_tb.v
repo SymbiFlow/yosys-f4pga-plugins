@@ -24,25 +24,23 @@ module TB;
 
 	reg clk_a;
 	reg rce_a;
-	reg [`ADDR_WIDTH-1:0] ra_a;
+	reg [`ADDR_WIDTH-1:0] addr_a;
 	wire [`DATA_WIDTH-1:0] rq_a;
 	reg wce_a;
-	reg [`ADDR_WIDTH-1:0] wa_a;
 	reg [`DATA_WIDTH-1:0] wd_a;
 
 	reg clk_b;
 	reg rce_b;
-	reg [`ADDR_WIDTH-1:0] ra_b;
+	reg [`ADDR_WIDTH-1:0] addr_b;
 	wire [`DATA_WIDTH-1:0] rq_b;
 	reg wce_b;
-	reg [`ADDR_WIDTH-1:0] wa_b;
 	reg [`DATA_WIDTH-1:0] wd_b;
 
 
 	initial clk_a = 0;
 	initial clk_b = 0;
-	initial ra_a = 0;
-	initial ra_b = 0;
+	initial addr_a = 0;
+	initial addr_b = 0;
 	initial rce_a = 0;
 	initial rce_b = 0;
 	initial forever #(PERIOD / 2.0) clk_a = ~clk_a;
@@ -95,7 +93,7 @@ module TB;
 		// Write data
 		for (a = 0; a < (1<<`ADDR_WIDTH) / 2; a = a + ADDR_INCR) begin
 			@(negedge clk_a) begin
-				wa_a = a;
+				addr_a = a;
 				wd_a = a | (a << 20) | 20'h55000;
 				wce_a = 1;
 			end
@@ -106,7 +104,7 @@ module TB;
 		// Read data
 		for (a = 0; a < (1<<`ADDR_WIDTH) / 2; a = a + ADDR_INCR) begin
 			@(negedge clk_a) begin
-				ra_a = a;
+				addr_a = a;
 				rce_a = 1;
 			end
 			@(posedge clk_a) begin
@@ -126,7 +124,7 @@ module TB;
 		// Write data
 		for (b = (1<<`ADDR_WIDTH) / 2; b < (1<<`ADDR_WIDTH); b = b + ADDR_INCR) begin
 			@(negedge clk_b) begin
-				wa_b = b;
+				addr_b = b;
 				wd_b = b | (b << 20) | 20'h55000;
 				wce_b = 1;
 			end
@@ -137,7 +135,7 @@ module TB;
 		// Read data
 		for (b = (1<<`ADDR_WIDTH) / 2; b < (1<<`ADDR_WIDTH); b = b + ADDR_INCR) begin
 			@(negedge clk_b) begin
-				ra_b = b;
+				addr_b = b;
 				rce_b = 1;
 			end
 			@(posedge clk_b) begin
@@ -163,18 +161,16 @@ module TB;
 			dpram_36x1024 #() bram (
 				.clock0(clk_a),
 				.REN1_i(rce_a),
-				.RD1_ADDR_i(ra_a),
+				.ADDR1_i(addr_a),
 				.RDATA1_o(rq_a),
 				.WEN1_i(wce_a),
-				.WR1_ADDR_i(wa_a),
 				.WDATA1_i(wd_a),
 				
 				.clock1(clk_b),
 				.REN2_i(rce_b),
-				.RD2_ADDR_i(ra_b),
+				.ADDR2_i(addr_b),
 				.RDATA2_o(rq_b),
 				.WEN2_i(wce_b),
-				.WR2_ADDR_i(wa_b),
 				.WDATA2_i(wd_b)
 			);
 		end
@@ -182,18 +178,16 @@ module TB;
 			dpram_18x2048 #() bram (
 				.clock0(clk_a),
 				.REN1_i(rce_a),
-				.RD1_ADDR_i(ra_a),
+				.ADDR1_i(addr_a),
 				.RDATA1_o(rq_a),
 				.WEN1_i(wce_a),
-				.WR1_ADDR_i(wa_a),
 				.WDATA1_i(wd_a),
 				
 				.clock1(clk_b),
 				.REN2_i(rce_b),
-				.RD2_ADDR_i(ra_b),
+				.ADDR2_i(addr_b),
 				.RDATA2_o(rq_b),
 				.WEN2_i(wce_b),
-				.WR2_ADDR_i(wa_b),
 				.WDATA2_i(wd_b)
 			);
 		end
@@ -201,18 +195,16 @@ module TB;
 			dpram_9x4096 #() bram (
 				.clock0(clk_a),
 				.REN1_i(rce_a),
-				.RD1_ADDR_i(ra_a),
+				.ADDR1_i(addr_a),
 				.RDATA1_o(rq_a),
 				.WEN1_i(wce_a),
-				.WR1_ADDR_i(wa_a),
 				.WDATA1_i(wd_a),
 				
 				.clock1(clk_b),
 				.REN2_i(rce_b),
-				.RD2_ADDR_i(ra_b),
+				.ADDR2_i(addr_b),
 				.RDATA2_o(rq_b),
 				.WEN2_i(wce_b),
-				.WR2_ADDR_i(wa_b),
 				.WDATA2_i(wd_b)
 			);
 		end

@@ -1,0 +1,8 @@
+equiv/
+equiv_bmc/
+equiv_cover/
+top.*.il
+top.new
+top.debug
+top.log
+top.*.v

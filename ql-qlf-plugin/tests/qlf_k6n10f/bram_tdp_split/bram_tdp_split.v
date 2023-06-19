@@ -43,27 +43,26 @@ parameter DWIDTH = 32)(
 
 	reg        [DWIDTH-1:0] memory[0:(1<<AWIDTH)-1];
 
-	always @(posedge clk_a) begin
-		if (rce_a)
-			rq_a <= memory[ra_a];
+	wire [AWIDTH-1:0] a_a = rce_a ? ra_a : wa_a;
+	wire [AWIDTH-1:0] a_b = rce_b ? ra_b : wa_b;
 
-		if (wce_a)
-			memory[wa_a] <= wd_a;
+	wire ce_a = rce_a || wce_a;
+	wire ce_b = rce_b || wce_b;
+
+	always @(posedge clk_a) begin
+		if (ce_a) begin
+			if (wce_a)
+				memory[a_a] <= wd_a;
+			rq_a <= memory[a_a];
+		end
 	end
 
 	always @(posedge clk_b) begin
-		if (rce_b)
-			rq_b <= memory[ra_b];
-
-		if (wce_b)
-			memory[wa_b] <= wd_b;
-	end
-
-	integer i;
-	initial
-	begin
-		for(i = 0; i < (1<<AWIDTH)-1; i = i + 1)
-			memory[i] = 0;
+		if (ce_b) begin
+			if (wce_b)
+				memory[a_b] <= wd_b;
+			rq_b <= memory[a_b];
+		end
 	end
 
 endmodule
