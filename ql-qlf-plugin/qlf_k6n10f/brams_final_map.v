@@ -87,6 +87,18 @@ default: mode = 3'b000;
 endcase
 endfunction
 
+function integer rwmode;
+input integer rwwidth;
+case (rwwidth)
+1: rwmode = 1;
+2: rwmode = 2;
+4: rwmode = 4;
+8,9: rwmode = 9;
+16, 18: rwmode = 18;
+default: rwmode = 18;
+endcase
+endfunction
+
 wire REN_A1_i;
 wire REN_A2_i;
 
@@ -155,6 +167,11 @@ localparam [ 2:0] RMODE_B1_i    = mode(RD1_DATA_WIDTH);
 localparam [ 2:0] WMODE_B1_i    = mode(RD1_DATA_WIDTH);
 localparam [ 2:0] RMODE_B2_i    = mode(RD2_DATA_WIDTH);
 localparam [ 2:0] WMODE_B2_i    = mode(RD2_DATA_WIDTH);
+
+localparam PORT_A1_WRWIDTH = rwmode(WR1_DATA_WIDTH);
+localparam PORT_B1_WRWIDTH = rwmode(RD1_DATA_WIDTH);
+localparam PORT_A2_WRWIDTH = rwmode(WR2_DATA_WIDTH);
+localparam PORT_B2_WRWIDTH = rwmode(RD2_DATA_WIDTH);
 
 generate
   if (WR1_ADDR_WIDTH == 14) begin
@@ -366,8 +383,8 @@ defparam _TECHMAP_REPLACE_.MODE_BITS = { 1'b1,
 (* is_inferred = 0 *)
 (* is_split = 0 *)
 (* is_fifo = 0 *)
-(* port_a_dwidth = WR1_DATA_WIDTH *)
-(* port_b_dwidth = RD1_DATA_WIDTH *)
+(* port_a_dwidth = PORT_A1_WRWIDTH *)
+(* port_b_dwidth = PORT_B1_WRWIDTH *)
 TDP36K _TECHMAP_REPLACE_ (
 	.RESET_ni(1'b1),
 
@@ -523,6 +540,18 @@ default: mode = 3'b000;
 endcase
 endfunction
 
+function integer rwmode;
+input integer rwwidth;
+case (rwwidth)
+1: rwmode = 1;
+2: rwmode = 2;
+4: rwmode = 4;
+8,9: rwmode = 9;
+16, 18: rwmode = 18;
+default: rwmode = 18;
+endcase
+endfunction
+
 wire REN_A1_i;
 wire REN_A2_i;
 
@@ -603,6 +632,11 @@ localparam [ 2:0] RMODE_B1_i    = mode(PORT_B1_DWIDTH);
 localparam [ 2:0] WMODE_B1_i    = mode(PORT_B1_DWIDTH);
 localparam [ 2:0] RMODE_B2_i    = mode(PORT_B2_DWIDTH);
 localparam [ 2:0] WMODE_B2_i    = mode(PORT_B2_DWIDTH);
+
+localparam PORT_A1_WRWIDTH = rwmode(PORT_A1_DWIDTH);
+localparam PORT_B1_WRWIDTH = rwmode(PORT_B1_DWIDTH);
+localparam PORT_A2_WRWIDTH = rwmode(PORT_A2_DWIDTH);
+localparam PORT_B2_WRWIDTH = rwmode(PORT_B2_DWIDTH);
 
 assign PORT_A1_CLK = PORT_A1_CLK_i;
 assign PORT_B1_CLK = PORT_B1_CLK_i;
@@ -886,8 +920,8 @@ defparam _TECHMAP_REPLACE_.MODE_BITS = { 1'b1,
 (* is_inferred = 0 *)
 (* is_split = 0 *)
 (* is_fifo = 0 *)
-(* port_a_dwidth = PORT_A1_DWIDTH *)
-(* port_b_dwidth = PORT_B1_DWIDTH *)
+(* port_a_dwidth = PORT_A1_WRWIDTH *)
+(* port_b_dwidth = PORT_B1_WRWIDTH *)
 TDP36K _TECHMAP_REPLACE_ (
 	.RESET_ni(1'b1),
 
@@ -1025,6 +1059,18 @@ module BRAM2x18_SFIFO (
   endcase
   endfunction
   
+  function integer rwmode;
+  input integer rwwidth;
+  case (rwwidth)
+  1: rwmode = 1;
+  2: rwmode = 2;
+  4: rwmode = 4;
+  8,9: rwmode = 9;
+  16, 18: rwmode = 18;
+  default: rwmode = 18;
+  endcase
+  endfunction
+  
   wire [17:0] in_reg1;
   wire [17:0] out_reg1;
   wire [17:0] fifo1_flags;
@@ -1067,6 +1113,11 @@ module BRAM2x18_SFIFO (
   localparam [ 2:0] WMODE_B1_i    = mode(RD1_DATA_WIDTH);
   localparam [ 2:0] RMODE_B2_i    = mode(RD2_DATA_WIDTH);
   localparam [ 2:0] WMODE_B2_i    = mode(RD2_DATA_WIDTH);
+  
+  localparam PORT_A1_WRWIDTH = rwmode(WR1_DATA_WIDTH);
+  localparam PORT_B1_WRWIDTH = rwmode(RD1_DATA_WIDTH);
+  localparam PORT_A2_WRWIDTH = rwmode(WR2_DATA_WIDTH);
+  localparam PORT_B2_WRWIDTH = rwmode(RD2_DATA_WIDTH);
   
   generate
     if (WR1_DATA_WIDTH == 18) begin
@@ -1115,8 +1166,8 @@ module BRAM2x18_SFIFO (
   (* sync_fifo = 1 *) 
   (* is_split = 0 *)
   (* is_inferred = 0 *)
-  (* port_a_dwidth = WR1_DATA_WIDTH *)
-  (* port_b_dwidth = RD1_DATA_WIDTH *)
+  (* port_a_dwidth = PORT_A1_WRWIDTH *)
+  (* port_b_dwidth = PORT_B1_WRWIDTH *)
  	TDP36K _TECHMAP_REPLACE_ (
 		.RESET_ni(1'b1),
 		.WDATA_A1_i(in_reg1[17:0]),
@@ -1253,6 +1304,18 @@ module BRAM2x18_AFIFO (
   endcase
   endfunction
   
+  function integer rwmode;
+  input integer rwwidth;
+  case (rwwidth)
+  1: rwmode = 1;
+  2: rwmode = 2;
+  4: rwmode = 4;
+  8,9: rwmode = 9;
+  16, 18: rwmode = 18;
+  default: rwmode = 18;
+  endcase
+  endfunction
+  
   wire [17:0] in_reg1;
   wire [17:0] out_reg1;
   wire [17:0] fifo1_flags;
@@ -1291,6 +1354,11 @@ module BRAM2x18_AFIFO (
   localparam [ 2:0] WMODE_B1_i    = mode(RD1_DATA_WIDTH);
   localparam [ 2:0] RMODE_B2_i    = mode(RD2_DATA_WIDTH);
   localparam [ 2:0] WMODE_B2_i    = mode(RD2_DATA_WIDTH);
+  
+  localparam PORT_A1_WRWIDTH = rwmode(WR1_DATA_WIDTH);
+  localparam PORT_B1_WRWIDTH = rwmode(RD1_DATA_WIDTH);
+  localparam PORT_A2_WRWIDTH = rwmode(WR2_DATA_WIDTH);
+  localparam PORT_B2_WRWIDTH = rwmode(RD2_DATA_WIDTH);
   
   generate
     if (WR1_DATA_WIDTH == 18) begin
@@ -1339,8 +1407,8 @@ module BRAM2x18_AFIFO (
   (* sync_fifo = 0 *) 
   (* is_split = 0 *)
   (* is_inferred = 0 *)
-  (* port_a_dwidth = WR1_DATA_WIDTH *)
-  (* port_b_dwidth = RD1_DATA_WIDTH *)
+  (* port_a_dwidth = PORT_A1_WRWIDTH *)
+  (* port_b_dwidth = PORT_B1_WRWIDTH *)
  	TDP36K _TECHMAP_REPLACE_ (
 		.RESET_ni(1'b1),
 		.WDATA_A1_i(in_reg1[17:0]),
