@@ -20,10 +20,10 @@
 
 (* lib_whitebox *)
 module frac_lut6(
-    input [0:5] in,
-    output [0:3] lut4_out,
-    output [0:1] lut5_out,
-    output lut6_out
+    input wire [0:5] in,
+    output wire [0:3] lut4_out,
+    output wire [0:1] lut5_out,
+    output wire lut6_out
 );
     parameter [0:63] LUT = 0;
     // Effective LUT input
@@ -90,7 +90,7 @@ endmodule
 
 
 (* abc9_lut=1 *)
-module LUT1(output O, input I0);
+module LUT1(output wire O, input wire I0);
   parameter [1:0] INIT = 0;
   assign O = I0 ? INIT[1] : INIT[0];
   specify
@@ -99,7 +99,7 @@ module LUT1(output O, input I0);
 endmodule
 
 (* abc9_lut=2 *)
-module LUT2(output O, input I0, I1);
+module LUT2(output wire O, input wire I0, I1);
   parameter [3:0] INIT = 0;
   wire [ 1: 0] s1 = I1 ? INIT[ 3: 2] : INIT[ 1: 0];
   assign O = I0 ? s1[1] : s1[0];
@@ -110,7 +110,7 @@ module LUT2(output O, input I0, I1);
 endmodule
 
 (* abc9_lut=3 *)
-module LUT3(output O, input I0, I1, I2);
+module LUT3(output wire O, input wire I0, I1, I2);
   parameter [7:0] INIT = 0;
   wire [ 3: 0] s2 = I2 ? INIT[ 7: 4] : INIT[ 3: 0];
   wire [ 1: 0] s1 = I1 ?   s2[ 3: 2] :   s2[ 1: 0];
@@ -123,7 +123,7 @@ module LUT3(output O, input I0, I1, I2);
 endmodule
 
 (* abc9_lut=3 *)
-module LUT4(output O, input I0, I1, I2, I3);
+module LUT4(output wire O, input wire I0, I1, I2, I3);
   parameter [15:0] INIT = 0;
   wire [ 7: 0] s3 = I3 ? INIT[15: 8] : INIT[ 7: 0];
   wire [ 3: 0] s2 = I2 ?   s3[ 7: 4] :   s3[ 3: 0];
@@ -138,7 +138,7 @@ module LUT4(output O, input I0, I1, I2, I3);
 endmodule
 
 (* abc9_lut=3 *)
-module LUT5(output O, input I0, I1, I2, I3, I4);
+module LUT5(output wire O, input wire I0, I1, I2, I3, I4);
   parameter [31:0] INIT = 0;
   wire [15: 0] s4 = I4 ? INIT[31:16] : INIT[15: 0];
   wire [ 7: 0] s3 = I3 ?   s4[15: 8] :   s4[ 7: 0];
@@ -155,7 +155,7 @@ module LUT5(output O, input I0, I1, I2, I3, I4);
 endmodule
 
 (* abc9_lut=5 *)
-module LUT6(output O, input I0, I1, I2, I3, I4, I5);
+module LUT6(output wire O, input wire I0, I1, I2, I3, I4, I5);
   parameter [63:0] INIT = 0;
   wire [31: 0] s5 = I5 ? INIT[63:32] : INIT[31: 0];
   wire [15: 0] s4 = I4 ?   s5[31:16] :   s5[15: 0];
