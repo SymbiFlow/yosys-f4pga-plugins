@@ -9,7 +9,7 @@ ram block $__QLF_TDP36K {
 		abits 14;
 		widths 1 2 4 9 18 per_port;
 	}
-	cost 257;
+	cost 65;
 	port srsw "A" "B" {
 		width tied;
 		clock posedge;
