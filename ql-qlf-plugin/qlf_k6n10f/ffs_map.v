@@ -14,7 +14,6 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
-// DFF, asynchronous set/reset, enable
 module \$_DFFSRE_PNNP_ (C, S, R, E, D, Q);
     input  C;
     input  S;
@@ -130,4 +129,3 @@ module \$__SHREG_DFF_P_ (D, Q, C);
    endgenerate
 
 endmodule
-

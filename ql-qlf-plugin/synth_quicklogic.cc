@@ -97,6 +97,14 @@ struct SynthQuickLogicPass : public ScriptPass {
         log("        By default infer synchronous S/R flip-flops for architectures that\n");
         log("        support them. Specifying this switch turns it off.\n");
         log("\n");
+        log("    -no_setff\n");
+        log("        By default infer flip-flops with Async Reset & Async Set for architectures that\n");
+        log("        support them. Specifying this switch infer flip-flops with Async Reset only.\n");
+        log("\n");
+        log("    -no_tdpram\n");
+        log("        By default infer TDP BRAM for architectures that support them.\n");
+        log("        Specifying this switch infer SDP BRAM only.\n");
+        log("\n");
         log("    -noopt\n");
         log("        By default all optimizations are turned on. \n");
         log("        Specifying this switch turns off all optimizations and only maps the design.\n");
@@ -116,6 +124,8 @@ struct SynthQuickLogicPass : public ScriptPass {
     bool abc9;
     bool noffmap;
     bool nosdff;
+	bool nosetff;
+	bool notdpram;
     bool noOpt;
 
     void clear_flags() override
@@ -134,6 +144,8 @@ struct SynthQuickLogicPass : public ScriptPass {
         noffmap = false;
         nodsp = false;
         nosdff = false;
+		nosetff = false;
+		notdpram = false;
         noOpt = false;
         use_dsp_cfg_params = "";
         lib_path = "+/quicklogic/";
@@ -212,6 +224,14 @@ struct SynthQuickLogicPass : public ScriptPass {
             }
             if (args[argidx] == "-nosdff") {
                 nosdff = true;
+                continue;
+            }
+            if (args[argidx] == "-no_setff") {
+                nosetff = true;
+                continue;
+            }
+            if (args[argidx] == "-no_tdpram") {
+                notdpram = true;
                 continue;
             }
             if (args[argidx] == "-no_opt") {
@@ -406,10 +426,15 @@ struct SynthQuickLogicPass : public ScriptPass {
             }
         }
 
-        if (check_label("map_bram", "(skip if -no_bram)") && (help_mode || family == "qlf_k6n10" || family == "qlf_k6n10f" || family == "pp3") && inferBram) {
+        if (check_label("map_bram", "(skip if -no_bram)") && (help_mode || family == "qlf_k6n10" || family == "qlf_k6n10f" || family == "pp3") && inferBram) { 
             if (help_mode || family == "qlf_k6n10f") {
-                run("memory_libmap -lib " + lib_path + family + "/libmap_brams.txt", "(for qlf_k6n10f)");
-                run("ql_bram_merge", "(for qlf_k6n10f)");
+				if (notdpram) {
+					run("memory_libmap -lib " + lib_path + family + "/libmap_brams_sdp.txt", "(for qlf_k6n10f)");
+					run("ql_sdpbram_merge", "(for qlf_k6n10f)");
+				} else {
+					run("memory_libmap -lib " + lib_path + family + "/libmap_brams_tdp.txt", "(for qlf_k6n10f)");
+					run("ql_tdpbram_merge", "(for qlf_k6n10f)");
+				}
                 run("techmap -map " + lib_path + family + "/libmap_brams_map.v", "(for qlf_k6n10f)");
             }
             if (help_mode || family == "qlf_k6n10" || family == "pp3") {
@@ -546,15 +571,14 @@ struct SynthQuickLogicPass : public ScriptPass {
             } else if (family == "qlf_k6n10") {
                 run("dfflegalize -cell $_DFF_P_ 0 -cell $_DFF_PP?_ 0 -cell $_DFFE_PP?P_ 0 -cell $_DFFSR_PPP_ 0 -cell $_DFFSRE_PPPP_ 0 -cell "
                     "$_DLATCHSR_PPP_ 0");
-                //    In case we add clock inversion in the future.
-                //    run("dfflegalize -cell $_DFF_?_ 0 -cell $_DFF_?P?_ 0 -cell $_DFFE_?P?P_ 0 -cell $_DFFSR_?PP_ 0 -cell $_DFFSRE_?PPP_ 0 -cell
-                //    $_DLATCH_SRPPP_ 0");
             } else if (family == "qlf_k6n10f") {
                 run("shregmap -minlen 8 -maxlen 20");
-                // FIXME: dfflegalize seems to leave $_DLATCH_[NP]_ even if it
-                // is not allowed. So we allow them and map them later to
-                // $_DLATCHSR_[NP]NN_.
-                std::string legalizeArgs = " -cell $_DFFSRE_?NNP_ 0 -cell $_DLATCHSR_?NN_ 0 -cell $_DLATCH_?_ 0";
+				std::string legalizeArgs;
+				if (nosetff) {
+					legalizeArgs = " -cell $_DFFE_?N?P_ 0";
+				} else {
+					legalizeArgs = " -cell $_DFFSRE_?NNP_ 0 -cell $_DLATCHSR_?NN_ 0 -cell $_DLATCH_?_ 0";
+				}
                 if (!nosdff) {
                     legalizeArgs += " -cell $_SDFFE_?N?P_ 0";
                 }
@@ -563,7 +587,12 @@ struct SynthQuickLogicPass : public ScriptPass {
                 run("dfflegalize -cell $_DFFSRE_PPPP_ 0 -cell $_DLATCH_?_ x");
                 run("techmap -map " + lib_path + family + "/cells_map.v");
             }
-            std::string techMapArgs = " -map +/techmap.v -map " + lib_path + family + "/ffs_map.v";
+            std::string techMapArgs;
+            if (nosetff) {
+				techMapArgs = " -map +/techmap.v -map " + lib_path + family + "/ffs_map_noaset.v";
+			} else {
+				techMapArgs = " -map +/techmap.v -map " + lib_path + family + "/ffs_map.v";
+			}
             if (help_mode || !noffmap) {
                 run("techmap " + techMapArgs, "(unless -no_ff_map)");
             }
