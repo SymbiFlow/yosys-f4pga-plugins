@@ -185,6 +185,115 @@ module dffn(
 endmodule
 
 (* abc9_flop, lib_whitebox *)
+module dffre(
+    output reg Q,
+    input wire D,
+    (* clkbuf_sink *)
+    input wire C,
+    input wire E,
+    input wire R
+);
+    initial Q <= 1'b0;
+
+    always @(posedge C or negedge R)
+      if (!R)
+        Q <= 1'b0;
+      else if (E)
+        Q <= D;
+
+    specify
+      (posedge C => (Q +: D)) = 280;
+      (R => Q) = 0;
+      $setuphold(posedge C, D, 56, 0);
+      $setuphold(posedge C, E, 32, 0);
+      $setuphold(posedge C, R, 0, 0);
+      $recrem(posedge R, posedge C, 0, 0);
+    endspecify
+
+endmodule
+
+
+(* abc9_flop, lib_whitebox *)
+module dffnre(
+    output reg Q,
+    input wire D,
+    (* clkbuf_sink *)
+    input wire C,
+    input wire E,
+    input wire R
+);
+    initial Q <= 1'b0;
+
+    always @(negedge C or negedge R)
+      if (!R)
+        Q <= 1'b0;
+      else if (E)
+        Q <= D;
+		
+    specify
+      (negedge C => (Q +: D)) = 280;
+      (R => Q) = 0;
+      $setuphold(negedge C, D, 56, 0);
+      $setuphold(negedge C, E, 32, 0);
+      $setuphold(negedge C, R, 0, 0);
+      $recrem(posedge R, negedge C, 0, 0);
+    endspecify
+
+endmodule
+
+(* abc9_flop, lib_whitebox *)
+module sdffre(
+    output reg Q,
+    input wire D,
+    (* clkbuf_sink *)
+    input wire C,
+    input wire E,
+    input wire R
+);
+    initial Q <= 1'b0;
+
+    always @(posedge C)
+      if (!R)
+        Q <= 1'b0;
+      else if (E)
+        Q <= D;
+		
+    specify
+        (posedge C => (Q +: D)) = 280;
+        $setuphold(posedge C, D, 56, 0);
+        $setuphold(posedge C, R, 32, 0);
+        $setuphold(posedge C, E, 0, 0);
+    endspecify
+
+endmodule
+
+(* abc9_flop, lib_whitebox *)
+module sdffnre(
+    output reg Q,
+    input wire D,
+    (* clkbuf_sink *)
+    input wire C,
+    input wire E,
+    input wire R
+);
+    initial Q <= 1'b0;
+
+    always @(negedge C)
+      if (!R)
+        Q <= 1'b0;
+      else if (E)
+        Q <= D;
+		
+    specify
+        (negedge C => (Q +: D)) = 280;
+        $setuphold(negedge C, D, 56, 0);
+        $setuphold(negedge C, R, 32, 0);
+        $setuphold(negedge C, E, 0, 0);
+    endspecify
+
+endmodule
+
+(* abc9_flop, lib_whitebox *)
 module dffsre(
     output reg Q,
     input wire D,
@@ -373,4 +482,3 @@ module latchnsre (
     endspecify 
 
 endmodule
-
