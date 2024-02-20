@@ -40,6 +40,10 @@ module \$__QL_MUL20X18 (input [19:0] A, input [17:0] B, output [37:0] Y);
             .b_i                (b),
             .acc_fir_i          (6'd0),
             .z_o                (z),
+			.dly_b_o            (),
+			
+			.clock_i            (1'b0),
+			.reset_i            (1'b0),
 
             .feedback_i         (3'd0),
             .load_acc_i         (1'b0),
@@ -106,6 +110,10 @@ module \$__QL_MUL10X9 (input [9:0] A, input [8:0] B, output [18:0] Y);
             .b_i                (b),
             .acc_fir_i          (6'd0),
             .z_o                (z),
+			.dly_b_o            (),
+			
+			.clock_i            (1'b0),
+			.reset_i            (1'b0),
 
             .feedback_i         (3'd0),
             .load_acc_i         (1'b0),
