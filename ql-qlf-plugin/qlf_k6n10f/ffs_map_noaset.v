@@ -32,11 +32,14 @@ module \$_DFFE_PN1P_ (C, R, E, D, Q);
     input  D;
     output Q;
 	
+	reg  D_int;
 	reg  Q_int;
 	
-    dffre _TECHMAP_REPLACE_ (.Q(Q_int), .D(D), .C(C), .E(E), .R(R));
+	assign D_int = ~D;
 	
-	assign Q = (R)? Q_int: ~Q_int;	
+    dffre _TECHMAP_REPLACE_ (.Q(Q_int), .D(D_int), .C(C), .E(E), .R(R));
+	
+	assign Q = ~Q_int;	
 	
 endmodule
 
@@ -56,9 +59,12 @@ module \$_DFFE_NN1P_ (C, R, E, D, Q);
     input  D;
     output Q;
 	
+	reg  D_int;
 	reg  Q_int;
 	
-    dffnre _TECHMAP_REPLACE_ (.Q(Q_int), .D(D), .C(C), .E(E), .R(R));
+	assign D_int = ~D;
+	
+    dffnre _TECHMAP_REPLACE_ (.Q(Q_int), .D(D_int), .C(C), .E(E), .R(R));
 	
 	assign Q = ~Q_int;	
 	
@@ -81,11 +87,14 @@ module \$_SDFFE_PN1P_ (D, C, R, E, Q);
     input  E;
     output Q;
 	
+	reg  D_int;
 	reg  Q_int;
 	
-    sdffre _TECHMAP_REPLACE_ (.Q(Q_int), .D(D), .C(C), .E(E), .R(R));
+	assign D_int = ~D;
 	
-	assign Q = (R)? Q_int: ~Q_int;
+    sdffre _TECHMAP_REPLACE_ (.Q(Q_int), .D(D_int), .C(C), .E(E), .R(R));
+	
+	assign Q = ~Q_int;
 endmodule
 
 module \$_SDFFE_NN0P_ (D, C, R, E, Q);
@@ -104,11 +113,14 @@ module \$_SDFFE_NN1P_ (D, C, R, E, Q);
     input  E;
     output Q;
 	
+	reg  D_int;
 	reg  Q_int;
 	
-    sdffnre _TECHMAP_REPLACE_ (.Q(Q_int), .D(D), .C(C), .E(E), .R(R));
+	assign D_int = ~D;
 	
-	assign Q = (R)? Q_int: ~Q_int;	
+    sdffnre _TECHMAP_REPLACE_ (.Q(Q_int), .D(D_int), .C(C), .E(E), .R(R));
+	
+	assign Q = ~Q_int;	
 endmodule
 
 module \$__SHREG_DFF_P_ (D, Q, C);
