@@ -185,6 +185,15 @@ module lut6(
 
     assign out = li[5] ? s5[0] : s5[1];
 
+  specify
+    (in[0] => out) = 251;
+    (in[1] => out) = 212;
+    (in[2] => out) = 166;
+    (in[3] => out) = 123;
+    (in[4] => out) = 77;
+    (in[5] => out) = 43;
+  endspecify
+
 endmodule
 
 (* abc9_flop, lib_whitebox *)
