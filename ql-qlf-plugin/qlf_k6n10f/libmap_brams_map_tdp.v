@@ -1,7 +1,9 @@
 module \$__QLF_TDP36K (PORT_A_CLK, PORT_A_ADDR, PORT_A_WR_DATA, PORT_A_WR_EN, PORT_A_WR_BE, PORT_A_CLK_EN, PORT_A_RD_DATA,
 					   PORT_B_CLK, PORT_B_ADDR, PORT_B_WR_DATA, PORT_B_WR_EN, PORT_B_WR_BE, PORT_B_CLK_EN, PORT_B_RD_DATA);  
 
-parameter INIT = 0;
+//parameter INIT = 0;
+
+parameter [1024*36-1:0] INIT = 36864'b0;
 
 parameter OPTION_SPLIT = 0;
 
@@ -57,6 +59,17 @@ case (width)
 32, 36: mode = 3'b011;
 default: mode = 3'b000;
 endcase
+endfunction
+function [36863:0] pack_init;
+	integer i;
+	reg [35:0] ri;
+	for (i = 0; i < (OPTION_SPLIT ? 512 : 1024); i = i + 1) begin
+		ri = INIT[i*36 +: 36];
+		pack_init[i*36 +: 36] = {ri[35], ri[26], ri[34:27], ri[25:18],
+								 ri[17], ri[8], ri[16:9], ri[7:0]};
+	end
+	if (OPTION_SPLIT)
+		pack_init[36863:18432] = 18432'b0;
 endfunction
 
 wire REN_A1_i;
@@ -150,9 +163,12 @@ defparam _TECHMAP_REPLACE_.MODE_BITS = { 1'b0,
 
 (* is_inferred = 1 *)
 (* is_split = 0 *)
+(* was_split_candidate = OPTION_SPLIT *)
 (* port_a_width = PORT_A_WIDTH *)
 (* port_b_width = PORT_B_WIDTH *)
-TDP36K _TECHMAP_REPLACE_ (
+TDP36K #(
+	.RAM_INIT(pack_init()),
+) _TECHMAP_REPLACE_ (
 	.RESET_ni(1'b1),
 
 	.CLK_A1_i(PORT_A_CLK),
@@ -272,6 +288,15 @@ case (width)
 16, 18: mode = 3'b010;
 default: mode = 3'b000;
 endcase
+endfunction
+
+function [36863:0] pack_init;
+	integer i;
+	reg [35:0] ri;
+	for (i = 0; i < 1024; i = i + 1) begin
+		ri = {INIT2[i*18 +: 18], INIT1[i*18 +: 18]};
+		pack_init[i*36 +: 36] = {ri[35], ri[26], ri[34:27], ri[25:18], ri[17], ri[8], ri[16:9], ri[7:0]};
+	end
 endfunction
 
 wire REN_A1_i;
@@ -402,7 +427,9 @@ defparam _TECHMAP_REPLACE_.MODE_BITS = {1'b1,
 (* port_a2_width = PORT_A2_WIDTH *)
 (* port_b1_width = PORT_B1_WIDTH *)
 (* port_b2_width = PORT_B2_WIDTH *)
-TDP36K _TECHMAP_REPLACE_ (
+TDP36K #(
+	.RAM_INIT(pack_init()),
+) _TECHMAP_REPLACE_ (
 	.RESET_ni(1'b1),
 	.WDATA_A1_i(WDATA_A1_i),
 	.WDATA_A2_i(WDATA_A2_i),

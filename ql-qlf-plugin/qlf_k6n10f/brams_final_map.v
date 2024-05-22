@@ -34,6 +34,9 @@ parameter WR2_DATA_WIDTH = 18;
 parameter RD2_DATA_WIDTH = 18;
 parameter BE2_WIDTH = 2;
 
+parameter [1024*18-1:0] INIT1 = 18432'b0;
+parameter [1024*18-1:0] INIT2 = 18432'b0;
+
 input wire RESET_ni;
 
 input wire WEN1_i;
@@ -76,27 +79,37 @@ localparam [10:0] UPAF2_i       = 11'd10;
 // Width mode function
 function [2:0] mode;
 input integer width;
-case (width)
-1: mode = 3'b101;
-2: mode = 3'b110;
-4: mode = 3'b100;
-8,9: mode = 3'b001;
-16, 18: mode = 3'b010;
-32, 36: mode = 3'b011;
-default: mode = 3'b000;
-endcase
+	case (width)
+		1: mode = 3'b101;
+		2: mode = 3'b110;
+		4: mode = 3'b100;
+		8,9: mode = 3'b001;
+		16, 18: mode = 3'b010;
+		32, 36: mode = 3'b011;
+		default: mode = 3'b000;
+	endcase
 endfunction
 
 function integer rwmode;
 input integer rwwidth;
-case (rwwidth)
-1: rwmode = 1;
-2: rwmode = 2;
-4: rwmode = 4;
-8,9: rwmode = 9;
-16, 18: rwmode = 18;
-default: rwmode = 18;
-endcase
+	case (rwwidth)
+		1: rwmode = 1;
+		2: rwmode = 2;
+		4: rwmode = 4;
+		8,9: rwmode = 9;
+		16, 18: rwmode = 18;
+		default: rwmode = 18;
+	endcase
+endfunction
+
+function [36863:0] pack_init;
+input enable;
+	integer i;
+	reg [35:0] ri;
+	for (i = 0; i < 1024; i = i + 1) begin
+		ri = (enable)? {INIT2[i*18 +: 18], INIT1[i*18 +: 18]} : 36'h0;
+		pack_init[i*36 +: 36] = {ri[35], ri[26], ri[34:27], ri[25:18], ri[17], ri[8], ri[16:9], ri[7:0]};
+	end
 endfunction
 
 wire REN_A1_i;
@@ -385,7 +398,9 @@ defparam _TECHMAP_REPLACE_.MODE_BITS = { 1'b1,
 (* is_fifo = 0 *)
 (* port_a_dwidth = PORT_A1_WRWIDTH *)
 (* port_b_dwidth = PORT_B1_WRWIDTH *)
-TDP36K _TECHMAP_REPLACE_ (
+TDP36K #(
+	.RAM_INIT(pack_init(1))
+        ) _TECHMAP_REPLACE_ (
 	.RESET_ni(1'b1),
 
 	.CLK_A1_i(WR1_CLK_i),
@@ -476,6 +491,9 @@ parameter PORT_B2_AWIDTH = 10;
 parameter PORT_B2_DWIDTH = 18;
 parameter PORT_B2_WR_BE_WIDTH = 2;
 
+parameter [1024*18-1:0] INIT1 = 18432'b0;
+parameter [1024*18-1:0] INIT2 = 18432'b0;
+
 input PORT_A1_CLK_i;
 input [PORT_A1_AWIDTH-1:0] PORT_A1_ADDR_i;
 input [PORT_A1_DWIDTH-1:0] PORT_A1_WR_DATA_i;
@@ -529,27 +547,37 @@ localparam [10:0] UPAF2_i       = 11'd10;
 // Width mode function
 function [2:0] mode;
 input integer width;
-case (width)
-1: mode = 3'b101;
-2: mode = 3'b110;
-4: mode = 3'b100;
-8,9: mode = 3'b001;
-16, 18: mode = 3'b010;
-32, 36: mode = 3'b011;
-default: mode = 3'b000;
-endcase
+	case (width)
+		1: mode = 3'b101;
+		2: mode = 3'b110;
+		4: mode = 3'b100;
+		8,9: mode = 3'b001;
+		16, 18: mode = 3'b010;
+		32, 36: mode = 3'b011;
+		default: mode = 3'b000;
+	endcase
 endfunction
 
 function integer rwmode;
 input integer rwwidth;
-case (rwwidth)
-1: rwmode = 1;
-2: rwmode = 2;
-4: rwmode = 4;
-8,9: rwmode = 9;
-16, 18: rwmode = 18;
-default: rwmode = 18;
-endcase
+	case (rwwidth)
+		1: rwmode = 1;
+		2: rwmode = 2;
+		4: rwmode = 4;
+		8,9: rwmode = 9;
+		16, 18: rwmode = 18;
+		default: rwmode = 18;
+	endcase
+endfunction
+
+function [36863:0] pack_init;
+input enable;
+	integer i;
+	reg [35:0] ri;
+	for (i = 0; i < 1024; i = i + 1) begin
+		ri = (enable)? {INIT2[i*18 +: 18], INIT1[i*18 +: 18]} : 36'h0;
+		pack_init[i*36 +: 36] = {ri[35], ri[26], ri[34:27], ri[25:18], ri[17], ri[8], ri[16:9], ri[7:0]};
+	end
 endfunction
 
 wire REN_A1_i;
@@ -922,7 +950,9 @@ defparam _TECHMAP_REPLACE_.MODE_BITS = { 1'b1,
 (* is_fifo = 0 *)
 (* port_a_dwidth = PORT_A1_WRWIDTH *)
 (* port_b_dwidth = PORT_B1_WRWIDTH *)
-TDP36K _TECHMAP_REPLACE_ (
+TDP36K #(
+	.RAM_INIT(pack_init(1))
+		) _TECHMAP_REPLACE_ (
 	.RESET_ni(1'b1),
 
 	.CLK_A1_i(PORT_A1_CLK),
@@ -1048,27 +1078,27 @@ module BRAM2x18_SFIFO (
   // Width mode function
   function [2:0] mode;
   input integer width;
-  case (width)
-  1: mode = 3'b101;
-  2: mode = 3'b110;
-  4: mode = 3'b100;
-  8,9: mode = 3'b001;
-  16, 18: mode = 3'b010;
-  32, 36: mode = 3'b011;
-  default: mode = 3'b000;
-  endcase
+	case (width)
+		1: mode = 3'b101;
+		2: mode = 3'b110;
+		4: mode = 3'b100;
+		8,9: mode = 3'b001;
+		16, 18: mode = 3'b010;
+		32, 36: mode = 3'b011;
+		default: mode = 3'b000;
+	endcase
   endfunction
   
   function integer rwmode;
   input integer rwwidth;
-  case (rwwidth)
-  1: rwmode = 1;
-  2: rwmode = 2;
-  4: rwmode = 4;
-  8,9: rwmode = 9;
-  16, 18: rwmode = 18;
-  default: rwmode = 18;
-  endcase
+	case (rwwidth)
+		1: rwmode = 1;
+		2: rwmode = 2;
+		4: rwmode = 4;
+		8,9: rwmode = 9;
+		16, 18: rwmode = 18;
+		default: rwmode = 18;
+	endcase
   endfunction
   
   wire [17:0] in_reg1;
@@ -1293,27 +1323,27 @@ module BRAM2x18_AFIFO (
   // Width mode function
   function [2:0] mode;
   input integer width;
-  case (width)
-  1: mode = 3'b101;
-  2: mode = 3'b110;
-  4: mode = 3'b100;
-  8,9: mode = 3'b001;
-  16, 18: mode = 3'b010;
-  32, 36: mode = 3'b011;
-  default: mode = 3'b000;
-  endcase
+	case (width)
+		1: mode = 3'b101;
+		2: mode = 3'b110;
+		4: mode = 3'b100;
+		8,9: mode = 3'b001;
+		16, 18: mode = 3'b010;
+		32, 36: mode = 3'b011;
+		default: mode = 3'b000;
+	endcase
   endfunction
   
   function integer rwmode;
   input integer rwwidth;
-  case (rwwidth)
-  1: rwmode = 1;
-  2: rwmode = 2;
-  4: rwmode = 4;
-  8,9: rwmode = 9;
-  16, 18: rwmode = 18;
-  default: rwmode = 18;
-  endcase
+	case (rwwidth)
+		1: rwmode = 1;
+		2: rwmode = 2;
+		4: rwmode = 4;
+		8,9: rwmode = 9;
+		16, 18: rwmode = 18;
+		default: rwmode = 18;
+	endcase
   endfunction
   
   wire [17:0] in_reg1;
