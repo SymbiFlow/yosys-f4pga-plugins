@@ -16,7 +16,7 @@ parameter WR_DATA_WIDTH = 36;
 parameter RD_DATA_WIDTH = 36;
 parameter BE_WIDTH = 4;
 
-parameter INIT = 0;
+parameter [1024*36-1:0] INIT = 36864'b0;
 
 input wire WEN_i;
 input wire REN_i;
@@ -48,28 +48,39 @@ localparam [10:0] UPAF2_i       = 11'd10;
 // Width mode function
 function [2:0] mode;
 input integer width;
-case (width)
-1: mode = 3'b101;
-2: mode = 3'b110;
-4: mode = 3'b100;
-8,9: mode = 3'b001;
-16, 18: mode = 3'b010;
-32, 36: mode = 3'b011;
-default: mode = 3'b000;
-endcase
+	case (width)
+		1: mode = 3'b101;
+		2: mode = 3'b110;
+		4: mode = 3'b100;
+		8,9: mode = 3'b001;
+		16, 18: mode = 3'b010;
+		32, 36: mode = 3'b011;
+		default: mode = 3'b000;
+	endcase
 endfunction
 
 function integer rwmode;
 input integer rwwidth;
-case (rwwidth)
-1: rwmode = 1;
-2: rwmode = 2;
-4: rwmode = 4;
-8,9: rwmode = 9;
-16, 18: rwmode = 18;
-32, 36: rwmode = 36;
-default: rwmode = 36;
-endcase
+	case (rwwidth)
+		1: rwmode = 1;
+		2: rwmode = 2;
+		4: rwmode = 4;
+		8,9: rwmode = 9;
+		16, 18: rwmode = 18;
+		32, 36: rwmode = 36;
+		default: rwmode = 36;
+	endcase
+endfunction
+
+function [36863:0] pack_init;
+input enable;
+	integer i;
+	reg [35:0] ri;
+	for (i = 0; i <  1024; i = i + 1) begin
+		ri = (enable)? INIT[i*36 +: 36] : 36'h0;
+		pack_init[i*36 +: 36] = {ri[35], ri[26], ri[34:27], ri[25:18],
+								 ri[17], ri[8], ri[16:9], ri[7:0]};
+	end
 endfunction
 
 wire REN_A1_i;
@@ -268,7 +279,9 @@ defparam _TECHMAP_REPLACE_.MODE_BITS = { 1'b0,
 (* is_fifo = 0 *)
 (* port_a_dwidth = PORT_A_WRWIDTH *)
 (* port_b_dwidth = PORT_B_WRWIDTH *)
-TDP36K _TECHMAP_REPLACE_ (
+TDP36K #(.RAM_INIT(pack_init(1))
+		) 
+_TECHMAP_REPLACE_ (
 	.RESET_ni(1'b1),
 
 	.CLK_A1_i(PORT_A_CLK),
@@ -327,6 +340,8 @@ parameter WR_DATA_WIDTH = 18;
 parameter RD_DATA_WIDTH = 18;
 parameter BE_WIDTH = 2;
 
+parameter [1024*18-1:0] INIT = 18432'b0;
+
 input wire WEN_i;
 input wire REN_i;
 input wire WR_CLK_i;
@@ -341,11 +356,13 @@ output wire [RD_DATA_WIDTH-1 :0] RDATA_o;
   (* is_split = 0 *)
   (* is_fifo = 0 *)
   BRAM2x18_SP  #(
+      .INIT1(INIT),
       .WR1_ADDR_WIDTH(WR_ADDR_WIDTH), 
       .RD1_ADDR_WIDTH(RD_ADDR_WIDTH),
       .WR1_DATA_WIDTH(WR_DATA_WIDTH), 
       .RD1_DATA_WIDTH(RD_DATA_WIDTH),
       .BE1_WIDTH(BE_WIDTH),
+	  .INIT2(),
       .WR2_ADDR_WIDTH(), 
       .RD2_ADDR_WIDTH(),
       .WR2_DATA_WIDTH(), 
@@ -414,6 +431,9 @@ parameter WR2_DATA_WIDTH = 18;
 parameter RD2_DATA_WIDTH = 18;
 parameter BE2_WIDTH = 2;
 
+parameter [1024*18-1:0] INIT1 = 18432'b0;
+parameter [1024*18-1:0] INIT2 = 18432'b0;
+
 input wire RESET_ni;
 
 input wire WEN1_i;
@@ -456,27 +476,37 @@ localparam [10:0] UPAF2_i       = 11'd10;
 // Width mode function
 function [2:0] mode;
 input integer width;
-case (width)
-1: mode = 3'b101;
-2: mode = 3'b110;
-4: mode = 3'b100;
-8,9: mode = 3'b001;
-16, 18: mode = 3'b010;
-32, 36: mode = 3'b011;
-default: mode = 3'b000;
-endcase
+	case (width)
+		1: mode = 3'b101;
+		2: mode = 3'b110;
+		4: mode = 3'b100;
+		8,9: mode = 3'b001;
+		16, 18: mode = 3'b010;
+		32, 36: mode = 3'b011;
+		default: mode = 3'b000;
+	endcase
 endfunction
 
 function integer rwmode;
 input integer rwwidth;
-case (rwwidth)
-1: rwmode = 1;
-2: rwmode = 2;
-4: rwmode = 4;
-8,9: rwmode = 9;
-16, 18: rwmode = 18;
-default: rwmode = 18;
-endcase
+	case (rwwidth)
+		1: rwmode = 1;
+		2: rwmode = 2;
+		4: rwmode = 4;
+		8,9: rwmode = 9;
+		16, 18: rwmode = 18;
+		default: rwmode = 18;
+	endcase
+endfunction
+
+function [36863:0] pack_init;
+input enable;
+	integer i;
+	reg [35:0] ri;
+	for (i = 0; i < 1024; i = i + 1) begin
+		ri = (enable)? {INIT2[i*18 +: 18], INIT1[i*18 +: 18]} : 36'h0;
+		pack_init[i*36 +: 36] = {ri[35], ri[26], ri[34:27], ri[25:18], ri[17], ri[8], ri[16:9], ri[7:0]};
+	end
 endfunction
 
 wire REN_A1_i;
@@ -767,7 +797,9 @@ defparam _TECHMAP_REPLACE_.MODE_BITS = { 1'b1,
 (* port_a2_dwidth = PORT_A2_WRWIDTH *)
 (* port_b1_dwidth = PORT_B1_WRWIDTH *)
 (* port_b2_dwidth = PORT_B2_WRWIDTH *)
-TDP36K _TECHMAP_REPLACE_ (
+TDP36K #(
+	.RAM_INIT(pack_init(1))
+        ) _TECHMAP_REPLACE_ (
 	.RESET_ni(1'b1),
 
 	.CLK_A1_i(WR1_CLK_i),
@@ -834,6 +866,9 @@ parameter PORT_B_AWIDTH = 10;
 parameter PORT_B_DWIDTH = 36;
 parameter PORT_B_WR_BE_WIDTH = 4;
 
+parameter [1024*36-1:0] INIT = 36864'b0;
+parameter OPTION_SPLIT = 0;
+
 input PORT_A_CLK_i;
 input [PORT_A_AWIDTH-1:0] PORT_A_ADDR_i;
 input [PORT_A_DWIDTH-1:0] PORT_A_WR_DATA_i;
@@ -871,28 +906,39 @@ localparam [10:0] UPAF2_i       = 11'd10;
 // Width mode function
 function [2:0] mode;
 input integer width;
-case (width)
-1: mode = 3'b101;
-2: mode = 3'b110;
-4: mode = 3'b100;
-8,9: mode = 3'b001;
-16, 18: mode = 3'b010;
-32, 36: mode = 3'b011;
-default: mode = 3'b000;
-endcase
+	case (width)
+		1: mode = 3'b101;
+		2: mode = 3'b110;
+		4: mode = 3'b100;
+		8,9: mode = 3'b001;
+		16, 18: mode = 3'b010;
+		32, 36: mode = 3'b011;
+		default: mode = 3'b000;
+	endcase
 endfunction
 
 function integer rwmode;
 input integer rwwidth;
-case (rwwidth)
-1: rwmode = 1;
-2: rwmode = 2;
-4: rwmode = 4;
-8,9: rwmode = 9;
-16, 18: rwmode = 18;
-32, 36: rwmode = 36;
-default: rwmode = 36;
-endcase
+	case (rwwidth)
+		1: rwmode = 1;
+		2: rwmode = 2;
+		4: rwmode = 4;
+		8,9: rwmode = 9;
+		16, 18: rwmode = 18;
+		32, 36: rwmode = 36;
+		default: rwmode = 36;
+	endcase
+endfunction
+
+function [36863:0] pack_init;
+input enable; 
+	integer i;
+	reg [35:0] ri;
+	for (i = 0; i < 1024; i = i + 1) begin
+		ri = (enable)? INIT[i*36 +: 36] : 36'h0;
+		pack_init[i*36 +: 36] = {ri[35], ri[26], ri[34:27], ri[25:18],
+								 ri[17], ri[8], ri[16:9], ri[7:0]};
+	end
 endfunction
 
 wire REN_A1_i;
@@ -1131,7 +1177,9 @@ defparam _TECHMAP_REPLACE_.MODE_BITS = { 1'b0,
 (* is_fifo = 0 *)
 (* port_a_dwidth = PORT_A_WRWIDTH *)
 (* port_b_dwidth = PORT_B_WRWIDTH *)
-TDP36K _TECHMAP_REPLACE_ (
+TDP36K #(
+	.RAM_INIT(pack_init(1))
+		) _TECHMAP_REPLACE_ (
 	.RESET_ni(1'b1),
 
 	.CLK_A1_i(PORT_A_CLK),
@@ -1198,6 +1246,8 @@ parameter PORT_B_AWIDTH = 10;
 parameter PORT_B_DWIDTH = 36;
 parameter PORT_B_WR_BE_WIDTH = 4;
 
+parameter [1024*18-1:0] INIT = 18432'b0;
+
 input PORT_A_CLK_i;
 input [PORT_A_AWIDTH-1:0] PORT_A_ADDR_i;
 input [PORT_A_DWIDTH-1:0] PORT_A_WR_DATA_i;
@@ -1219,12 +1269,14 @@ output [PORT_B_DWIDTH-1:0] PORT_B_RD_DATA_o;
 (* is_split = 0 *)
 (* is_fifo = 0 *)
 BRAM2x18_dP #(
+    .INIT1(INIT),
 	.PORT_A1_AWIDTH(PORT_A_AWIDTH),
 	.PORT_A1_DWIDTH(PORT_A_DWIDTH),
 	.PORT_A1_WR_BE_WIDTH(PORT_A_WR_BE_WIDTH),
 	.PORT_B1_AWIDTH(PORT_B_AWIDTH),
 	.PORT_B1_DWIDTH(PORT_B_DWIDTH),
 	.PORT_B1_WR_BE_WIDTH(PORT_B_WR_BE_WIDTH),
+	.INIT2(),
 	.PORT_A2_AWIDTH(),
 	.PORT_A2_DWIDTH(),
 	.PORT_A2_WR_BE_WIDTH(),
@@ -1318,6 +1370,8 @@ parameter PORT_B2_AWIDTH = 10;
 parameter PORT_B2_DWIDTH = 18;
 parameter PORT_B2_WR_BE_WIDTH = 2;
 
+parameter [1024*18-1:0] INIT1 = 18432'b0;
+parameter [1024*18-1:0] INIT2 = 18432'b0;
 
 input PORT_A1_CLK_i;
 input [PORT_A1_AWIDTH-1:0] PORT_A1_ADDR_i;
@@ -1372,27 +1426,37 @@ localparam [10:0] UPAF2_i       = 11'd10;
 // Width mode function
 function [2:0] mode;
 input integer width;
-case (width)
-1: mode = 3'b101;
-2: mode = 3'b110;
-4: mode = 3'b100;
-8,9: mode = 3'b001;
-16, 18: mode = 3'b010;
-32, 36: mode = 3'b011;
-default: mode = 3'b000;
-endcase
+	case (width)
+		1: mode = 3'b101;
+		2: mode = 3'b110;
+		4: mode = 3'b100;
+		8,9: mode = 3'b001;
+		16, 18: mode = 3'b010;
+		32, 36: mode = 3'b011;
+		default: mode = 3'b000;
+	endcase
 endfunction
 
 function integer rwmode;
 input integer rwwidth;
-case (rwwidth)
-1: rwmode = 1;
-2: rwmode = 2;
-4: rwmode = 4;
-8,9: rwmode = 9;
-16, 18: rwmode = 18;
-default: rwmode = 18;
-endcase
+	case (rwwidth)
+		1: rwmode = 1;
+		2: rwmode = 2;
+		4: rwmode = 4;
+		8,9: rwmode = 9;
+		16, 18: rwmode = 18;
+		default: rwmode = 18;
+	endcase
+endfunction
+
+function [36863:0] pack_init;
+input enable;
+	integer i;
+	reg [35:0] ri;
+	for (i = 0; i < 1024; i = i + 1) begin
+		ri = (enable)? {INIT2[i*18 +: 18], INIT1[i*18 +: 18]} : 36'h0;
+		pack_init[i*36 +: 36] = {ri[35], ri[26], ri[34:27], ri[25:18], ri[17], ri[8], ri[16:9], ri[7:0]};
+	end
 endfunction
 
 wire REN_A1_i;
@@ -1767,7 +1831,9 @@ defparam _TECHMAP_REPLACE_.MODE_BITS = { 1'b1,
 (* port_a2_dwidth = PORT_A2_WRWIDTH *)
 (* port_b1_dwidth = PORT_B1_WRWIDTH *)
 (* port_b2_dwidth = PORT_B2_WRWIDTH *)
-TDP36K _TECHMAP_REPLACE_ (
+TDP36K #(
+	.RAM_INIT(pack_init(1))
+		) _TECHMAP_REPLACE_ (
 	.RESET_ni(1'b1),
 
 	.CLK_A1_i(PORT_A1_CLK),

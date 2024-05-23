@@ -51,6 +51,7 @@ module TDP18K_FIFO (
 	parameter PROTECT_i = 1'b0;
 	parameter UPAF_i = 11'b0;
 	parameter UPAE_i = 11'b0;
+	parameter [18*1024-1:0] INIT_i = 18431'b0;
 
 	input wire [2:0] RMODE_A_i;
 	input wire [2:0] RMODE_B_i;
@@ -143,7 +144,9 @@ module TDP18K_FIFO (
 	assign cen_b_n = ~cen_b;
 	assign ram_wen_b_n = ~ram_wen_b;
 
-	sram1024x18 uram(
+	sram1024x18 #(
+		.init(INIT_i)
+	) uram(
 		.clk_a(smux_clk_a),
 		.cen_a(cen_a_n),
 		.wen_a(ram_wen_a_n),

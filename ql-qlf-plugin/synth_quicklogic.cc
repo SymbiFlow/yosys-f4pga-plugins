@@ -431,11 +431,12 @@ struct SynthQuickLogicPass : public ScriptPass {
 				if (notdpram) {
 					run("memory_libmap -lib " + lib_path + family + "/libmap_brams_sdp.txt", "(for qlf_k6n10f)");
 					run("ql_sdpbram_merge", "(for qlf_k6n10f)");
+					run("techmap -map " + lib_path + family + "/libmap_brams_map_sdp.v", "(for qlf_k6n10f)");
 				} else {
 					run("memory_libmap -lib " + lib_path + family + "/libmap_brams_tdp.txt", "(for qlf_k6n10f)");
 					run("ql_tdpbram_merge", "(for qlf_k6n10f)");
-				}
-                run("techmap -map " + lib_path + family + "/libmap_brams_map.v", "(for qlf_k6n10f)");
+					run("techmap -map " + lib_path + family + "/libmap_brams_map_tdp.v", "(for qlf_k6n10f)");
+				}            
             }
             if (help_mode || family == "qlf_k6n10" || family == "pp3") {
                 run("memory_bram -rules " + lib_path + family + "/brams.txt", "(for pp3, qlf_k6n10)");
