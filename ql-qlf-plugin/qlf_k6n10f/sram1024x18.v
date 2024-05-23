@@ -43,7 +43,7 @@ module sram1024x18 (
 	always @(posedge clk_a) begin
 		if (!cen_a) begin
 	 		if (!wen_a)
-				for (i = 0; i < 18; i++) begin
+				for (i = 0; i < 18; i = i + 1) begin
 					if (!wmsk_a[i]) 
 						ram[addr_a][i] <= wdata_a[i];
 				end
@@ -54,7 +54,7 @@ module sram1024x18 (
 	always @(posedge clk_b) begin
 		if (!cen_b) begin
 	 		if (!wen_b)
-				for (i = 0; i < 18; i++) begin
+				for (i = 0; i < 18; i = i + 1) begin
 					if (!wmsk_b[i]) 
 						ram[addr_b][i] <= wdata_b[i];
 				end
