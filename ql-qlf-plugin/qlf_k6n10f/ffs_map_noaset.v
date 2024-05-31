@@ -137,7 +137,7 @@ module \$__SHREG_DFF_P_ (D, Q, C);
 
         // First in chain
         generate if (i == 0) begin
-                 dffre #() shreg_beg (
+                 sh_dffre #() shreg_beg (
                     .Q(q[i]),
                     .D(D),
                     .C(C),
@@ -147,7 +147,7 @@ module \$__SHREG_DFF_P_ (D, Q, C);
         end endgenerate
         // Middle in chain
         generate if (i > 0 && i != DEPTH-1) begin
-                 dffre #() shreg_mid (
+                 sh_dffre #() shreg_mid (
                     .Q(q[i]),
                     .D(q[i-1]),
                     .C(C),
@@ -157,7 +157,7 @@ module \$__SHREG_DFF_P_ (D, Q, C);
         end endgenerate
         // Last in chain
         generate if (i == DEPTH-1) begin
-                 dffre #() shreg_end (
+                 sh_dffre #() shreg_end (
                     .Q(Q),
                     .D(q[i-1]),
                     .C(C),
@@ -184,7 +184,7 @@ module \$__SHREG_DFF_N_ (D, Q, C);
 
         // First in chain
         generate if (i == 0) begin
-                 dffnre #() shreg_beg (
+                 sh_dffnre #() shreg_beg (
                     .Q(q[i]),
                     .D(D),
                     .C(C),
@@ -194,7 +194,7 @@ module \$__SHREG_DFF_N_ (D, Q, C);
         end endgenerate
         // Middle in chain
         generate if (i > 0 && i != DEPTH-1) begin
-                 dffnre #() shreg_mid (
+                 sh_dffnre #() shreg_mid (
                     .Q(q[i]),
                     .D(q[i-1]),
                     .C(C),
@@ -204,7 +204,7 @@ module \$__SHREG_DFF_N_ (D, Q, C);
         end endgenerate
         // Last in chain
         generate if (i == DEPTH-1) begin
-                 dffnre #() shreg_end (
+                 sh_dffnre #() shreg_end (
                     .Q(Q),
                     .D(q[i-1]),
                     .C(C),
