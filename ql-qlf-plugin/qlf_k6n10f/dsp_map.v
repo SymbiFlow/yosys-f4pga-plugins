@@ -101,6 +101,7 @@ module \$__QL_MUL10X9 (input [9:0] A, input [8:0] B, output [18:0] Y);
 
     generate if (`USE_DSP_CFG_PARAMS == 0) begin
         (* is_inferred=1 *)
+        (* keep *)
         dsp_t1_10x9x32_cfg_ports _TECHMAP_REPLACE_ (
             .a_i                (a),
             .b_i                (b),
