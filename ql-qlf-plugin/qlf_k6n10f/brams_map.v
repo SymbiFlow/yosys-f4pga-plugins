@@ -293,11 +293,11 @@ _TECHMAP_REPLACE_ (
 	.RDATA_A1_o(RDATA_A1_o),
 
 	.CLK_A2_i(PORT_A_CLK),
-	.ADDR_A2_i(PORT_A_ADDR[13:0]),
-	.WEN_A2_i(WEN_A1_i),
+	.ADDR_A2_i(14'h0),
+	.WEN_A2_i(1'b0),
 	.BE_A2_i(BE_A2_i),
 	.WDATA_A2_i(WDATA_A2_i),
-	.REN_A2_i(REN_A1_i),
+	.REN_A2_i(1'b0),
 	.RDATA_A2_o(RDATA_A2_o),
 
 	.CLK_B1_i(PORT_B_CLK),
@@ -309,11 +309,11 @@ _TECHMAP_REPLACE_ (
 	.RDATA_B1_o(RDATA_B1_o),
 
 	.CLK_B2_i(PORT_B_CLK),
-	.ADDR_B2_i(PORT_B_ADDR[13:0]),
-	.WEN_B2_i(WEN_B1_i),
+	.ADDR_B2_i(14'h0),
+	.WEN_B2_i(1'b0),
 	.BE_B2_i(BE_B2_i),
 	.WDATA_B2_i(WDATA_B2_i),
-	.REN_B2_i(REN_B1_i),
+	.REN_B2_i(1'b0),
 	.RDATA_B2_o(RDATA_B2_o),
 
 	.FLUSH1_i(1'b0),
@@ -1191,11 +1191,11 @@ TDP36K #(
 	.RDATA_A1_o(RDATA_A1_o),
 
 	.CLK_A2_i(PORT_A_CLK),
-	.ADDR_A2_i(PORT_A_ADDR[13:0]),
-	.WEN_A2_i(WEN_A1_i),
+	.ADDR_A2_i(14'h0),
+	.WEN_A2_i(1'b0),
 	.BE_A2_i(BE_A2_i),
 	.WDATA_A2_i(WDATA_A2_i),
-	.REN_A2_i(REN_A1_i),
+	.REN_A2_i(1'b0),
 	.RDATA_A2_o(RDATA_A2_o),
 
 	.CLK_B1_i(PORT_B_CLK),
@@ -1207,11 +1207,11 @@ TDP36K #(
 	.RDATA_B1_o(RDATA_B1_o),
 
 	.CLK_B2_i(PORT_B_CLK),
-	.ADDR_B2_i(PORT_B_ADDR[13:0]),
-	.WEN_B2_i(WEN_B1_i),
+	.ADDR_B2_i(14'h0),
+	.WEN_B2_i(1'b0),
 	.BE_B2_i(BE_B2_i),
 	.WDATA_B2_i(WDATA_B2_i),
-	.REN_B2_i(REN_B1_i),
+	.REN_B2_i(1'b0),
 	.RDATA_B2_o(RDATA_B2_o),
 
 	.FLUSH1_i(1'b0),

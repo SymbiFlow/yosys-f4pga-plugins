@@ -1797,11 +1797,11 @@ _TECHMAP_REPLACE_ (
 	.RDATA_A1_o(RDATA_A1_o),
 
 	.CLK_A2_i(PORT_A_CLK),
-	.ADDR_A2_i(PORT_A_ADDR[13:0]),
-	.WEN_A2_i(WEN_A1_i),
+	.ADDR_A2_i(14'h0),
+	.WEN_A2_i(1'b0),
 	.BE_A2_i(BE_A2_i),
 	.WDATA_A2_i(WDATA_A2_i),
-	.REN_A2_i(REN_A1_i),
+	.REN_A2_i(1'b0),
 	.RDATA_A2_o(RDATA_A2_o),
 
 	.CLK_B1_i(PORT_B_CLK),
@@ -1813,11 +1813,11 @@ _TECHMAP_REPLACE_ (
 	.RDATA_B1_o(RDATA_B1_o),
 
 	.CLK_B2_i(PORT_B_CLK),
-	.ADDR_B2_i(PORT_B_ADDR[13:0]),
-	.WEN_B2_i(WEN_B1_i),
+	.ADDR_B2_i(14'h0),
+	.WEN_B2_i(1'b0),
 	.BE_B2_i(BE_B2_i),
 	.WDATA_B2_i(WDATA_B2_i),
-	.REN_B2_i(REN_B1_i),
+	.REN_B2_i(1'b0),
 	.RDATA_B2_o(RDATA_B2_o),
 
 	.FLUSH1_i(1'b0),
@@ -3061,21 +3061,22 @@ parameter PORT_B_WR_BE_WIDTH = 4;
 parameter [1024*36-1:0] INIT = 36864'b0;
 parameter OPTION_SPLIT = 0;
 
-input wire PORT_A_CLK_i;
-input wire [PORT_A_AWIDTH-1:0] PORT_A_ADDR_i;
-input wire [PORT_A_DWIDTH-1:0] PORT_A_WR_DATA_i;
-input wire PORT_A_WEN_i;
-input wire [PORT_A_WR_BE_WIDTH-1:0] PORT_A_WR_BE_i;
-input wire PORT_A_REN_i;
-output wire [PORT_A_DWIDTH-1:0] PORT_A_RD_DATA_o;
+input PORT_A_CLK_i;
+input [PORT_A_AWIDTH-1:0] PORT_A_ADDR_i;
+input [PORT_A_DWIDTH-1:0] PORT_A_WR_DATA_i;
+input PORT_A_WEN_i;
+input [PORT_A_WR_BE_WIDTH-1:0] PORT_A_WR_BE_i;
+input PORT_A_REN_i;
+output [PORT_A_DWIDTH-1:0] PORT_A_RD_DATA_o;
 
-input wire PORT_B_CLK_i;
-input wire [PORT_B_AWIDTH-1:0] PORT_B_ADDR_i;
-input wire [PORT_B_DWIDTH-1:0] PORT_B_WR_DATA_i;
-input wire PORT_B_WEN_i;
-input wire [PORT_B_WR_BE_WIDTH-1:0] PORT_B_WR_BE_i;
-input wire PORT_B_REN_i;
-output wire [PORT_B_DWIDTH-1:0] PORT_B_RD_DATA_o;
+input PORT_B_CLK_i;
+input [PORT_B_AWIDTH-1:0] PORT_B_ADDR_i;
+input [PORT_B_DWIDTH-1:0] PORT_B_WR_DATA_i;
+input PORT_B_WEN_i;
+input [PORT_B_WR_BE_WIDTH-1:0] PORT_B_WR_BE_i;
+input PORT_B_REN_i;
+output [PORT_B_DWIDTH-1:0] PORT_B_RD_DATA_o;
+
 
 // Fixed mode settings
 localparam [ 0:0] SYNC_FIFO1_i  = 1'd0;
@@ -3382,11 +3383,11 @@ TDP36K #(
 	.RDATA_A1_o(RDATA_A1_o),
 
 	.CLK_A2_i(PORT_A_CLK),
-	.ADDR_A2_i(PORT_A_ADDR[13:0]),
-	.WEN_A2_i(WEN_A1_i),
+	.ADDR_A2_i(14'h0),
+	.WEN_A2_i(1'b0),
 	.BE_A2_i(BE_A2_i),
 	.WDATA_A2_i(WDATA_A2_i),
-	.REN_A2_i(REN_A1_i),
+	.REN_A2_i(1'b0),
 	.RDATA_A2_o(RDATA_A2_o),
 
 	.CLK_B1_i(PORT_B_CLK),
@@ -3398,11 +3399,11 @@ TDP36K #(
 	.RDATA_B1_o(RDATA_B1_o),
 
 	.CLK_B2_i(PORT_B_CLK),
-	.ADDR_B2_i(PORT_B_ADDR[13:0]),
-	.WEN_B2_i(WEN_B1_i),
+	.ADDR_B2_i(14'h0),
+	.WEN_B2_i(1'b0),
 	.BE_B2_i(BE_B2_i),
 	.WDATA_B2_i(WDATA_B2_i),
-	.REN_B2_i(REN_B1_i),
+	.REN_B2_i(1'b0),
 	.RDATA_B2_o(RDATA_B2_o),
 
 	.FLUSH1_i(1'b0),

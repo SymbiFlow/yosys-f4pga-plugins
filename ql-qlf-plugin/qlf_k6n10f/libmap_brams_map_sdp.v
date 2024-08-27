@@ -1,8 +1,6 @@
 module \$__QLF_SDP36K (PORT_W_CLK, PORT_W_ADDR, PORT_W_WR_EN, PORT_W_WR_DATA, PORT_W_WR_BE, 
 					   PORT_R_CLK, PORT_R_ADDR, PORT_R_RD_EN, PORT_R_RD_DATA);  
 
-//parameter INIT = 0;
-
 parameter [1024*36-1:0] INIT = 36864'b0;
 parameter OPTION_SPLIT = 0;
 
@@ -143,7 +141,7 @@ defparam _TECHMAP_REPLACE_.MODE_BITS = { 1'b0,
 (* was_split_candidate = OPTION_SPLIT *)
 (* port_a_width = PORT_W_WIDTH *)
 (* port_b_width = PORT_R_WIDTH *)
-TDP36K #(
+SDP36K #(
 	.RAM_INIT(pack_init()),
 ) _TECHMAP_REPLACE_ (
 	.RESET_ni(1'b1),
@@ -153,31 +151,23 @@ TDP36K #(
 	.WEN_A1_i(WEN_A1_i),
 	.BE_A1_i(BE_A1_i),
 	.WDATA_A1_i(WDATA_A1_i),
-	.REN_A1_i(1'b0),
 	.RDATA_A1_o(),
 
 	.CLK_A2_i(PORT_W_CLK),
-	.ADDR_A2_i(PORT_W_ADDR[13:0]),
-	.WEN_A2_i(WEN_A1_i),
+	.ADDR_A2_i(14'h0),
+	.WEN_A2_i(1'b0),
 	.BE_A2_i(BE_A2_i),
 	.WDATA_A2_i(WDATA_A2_i),
-	.REN_A2_i(1'b0),
 	.RDATA_A2_o(),
 
 	.CLK_B1_i(PORT_R_CLK),
 	.ADDR_B1_i(PORT_R_ADDR),
-	.WEN_B1_i(1'b0),
-	.BE_B1_i(2'b00),
-	.WDATA_B1_i(18'h0),
 	.REN_B1_i(REN_B1_i),
 	.RDATA_B1_o(RDATA_B1_o),
 
 	.CLK_B2_i(PORT_R_CLK),
-	.ADDR_B2_i(PORT_R_ADDR[13:0]),
-	.WEN_B2_i(1'b0),
-	.BE_B2_i(2'b00),
-	.WDATA_B2_i(18'h0),
-	.REN_B2_i(REN_B1_i),
+	.ADDR_B2_i(14'h0),
+	.REN_B2_i(1'b0),
 	.RDATA_B2_o(RDATA_B2_o),
 
 	.FLUSH1_i(1'b0),
@@ -364,7 +354,7 @@ defparam _TECHMAP_REPLACE_.MODE_BITS = {1'b1,
 (* port_a2_width = PORT_A2_WIDTH *)
 (* port_b1_width = PORT_B1_WIDTH *)
 (* port_b2_width = PORT_B2_WIDTH *)
-TDP36K #(
+SDP36K #(
 	.RAM_INIT(pack_init()),
 ) _TECHMAP_REPLACE_ (
 	.RESET_ni(1'b1),
@@ -376,15 +366,11 @@ TDP36K #(
 	.ADDR_A2_i(ADDR_A2_i),
 	.CLK_A1_i(PORT_A1_CLK),
 	.CLK_A2_i(PORT_A2_CLK),
-	.REN_A1_i(1'b0),
-	.REN_A2_i(1'b0),
 	.WEN_A1_i(WEN_A1_i),
 	.WEN_A2_i(WEN_A2_i),
 	.BE_A1_i(BE_A1_i),
 	.BE_A2_i(BE_A2_i),
 
-	.WDATA_B1_i(18'h0),
-	.WDATA_B2_i(18'h0),
 	.RDATA_B1_o(RDATA_B1_o),
 	.RDATA_B2_o(RDATA_B2_o),
 	.ADDR_B1_i(ADDR_B1_i),
@@ -393,10 +379,6 @@ TDP36K #(
 	.CLK_B2_i(PORT_B2_CLK),
 	.REN_B1_i(REN_B1_i),
 	.REN_B2_i(REN_B2_i),
-	.WEN_B1_i(1'b0),
-	.WEN_B2_i(1'b0),
-	.BE_B1_i(2'b00),
-	.BE_B2_i(2'b00),
 
 	.FLUSH1_i(1'b0),
 	.FLUSH2_i(1'b0)

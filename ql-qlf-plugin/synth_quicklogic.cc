@@ -452,76 +452,149 @@ struct SynthQuickLogicPass : public ScriptPass {
            
             // Perform a series of 'chtype' passess
             if (help_mode) {
-                run("chtype -set TDP36K_<mode> t:TDP36K a:<mode>", "(if -bram_types)");
+				if (notdpram) {
+					run("chtype -set SDP36K_<mode> t:SDP36K a:<mode>", "(if -bram_types)");
+				} else {
+					run("chtype -set TDP36K_<mode> t:TDP36K a:<mode>", "(if -bram_types)");
+				}
             }
             if (bramTypes) {
-
-                for (int a_dwidth : {1, 2, 4, 9, 18, 36}) {
-                    for (int b_dwidth : {1, 2, 4, 9, 18, 36}) {
-                        auto cmd = stringf("chtype -set TDP36K_BRAM_A_X%d_B_X%d_nonsplit t:TDP36K a:is_inferred=0 %%i a:is_fifo=0 %%i "
-                                           "a:port_a_dwidth=%d %%i a:port_b_dwidth=%d %%i",
-                                           a_dwidth, b_dwidth, a_dwidth, b_dwidth);
-                        run(cmd);
-
-                        auto cmd1 =
-                          stringf("chtype -set TDP36K_FIFO_ASYNC_A_X%d_B_X%d_nonsplit t:TDP36K a:is_inferred=0 %%i a:is_fifo=1 %%i a:sync_fifo=0 %%i "
-                                  "a:port_a_dwidth=%d %%i a:port_b_dwidth=%d %%i",
-                                  a_dwidth, b_dwidth, a_dwidth, b_dwidth);
-                        run(cmd1);
-
-                        auto cmd2 =
-                          stringf("chtype -set TDP36K_FIFO_SYNC_A_X%d_B_X%d_nonsplit t:TDP36K a:is_inferred=0 %%i a:is_fifo=1 %%i a:sync_fifo=1 %%i "
-                                  "a:port_a_dwidth=%d %%i a:port_b_dwidth=%d %%i",
-                                  a_dwidth, b_dwidth, a_dwidth, b_dwidth);
-                        run(cmd2);
-                    }
-                }
-
-                for (int a1_dwidth : {1, 2, 4, 9, 18}) {
-                    for (int b1_dwidth: {1, 2, 4, 9, 18}) {
-                        for (int a2_dwidth : {1, 2, 4, 9, 18}) {
-                            for (int b2_dwidth: {1, 2, 4, 9, 18}) {
-                                auto cmd = stringf("chtype -set TDP36K_BRAM_A1_X%d_B1_X%d_A2_X%d_B2_X%d_split t:TDP36K a:is_inferred=0 %%i a:is_split=1 %%i a:is_fifo=0 %%i a:port_a1_dwidth=%d %%i a:port_b1_dwidth=%d %%i a:port_a2_dwidth=%d %%i a:port_b2_dwidth=%d %%i",
-                                                    a1_dwidth, b1_dwidth, a2_dwidth, b2_dwidth, a1_dwidth, b1_dwidth, a2_dwidth, b2_dwidth);
-                                run(cmd);
-
-                                auto cmd1 = stringf("chtype -set TDP36K_FIFO_ASYNC_A1_X%d_B1_X%d_A2_X%d_B2_X%d_split t:TDP36K a:is_inferred=0 %%i "
-                                                    "a:is_split=1 %%i a:is_fifo=1 %%i a:sync_fifo=0 %%i "
-                                                    "a:port_a1_dwidth=%d %%i a:port_b1_dwidth=%d %%i a:port_a2_dwidth=%d %%i a:port_b2_dwidth=%d %%i",
-                                                    a1_dwidth, b1_dwidth, a2_dwidth, b2_dwidth, a1_dwidth, b1_dwidth, a2_dwidth, b2_dwidth);
-                                run(cmd1);
-
-                                auto cmd2 = stringf("chtype -set TDP36K_FIFO_SYNC_A1_X%d_B1_X%d_A2_X%d_B2_X%d_split t:TDP36K a:is_inferred=0 %%i "
-                                                    "a:is_split=1 %%i a:is_fifo=1 %%i a:sync_fifo=1 %%i "
-                                                    "a:port_a1_dwidth=%d %%i a:port_b1_dwidth=%d %%i a:port_a2_dwidth=%d %%i a:port_b2_dwidth=%d %%i",
-                                                    a1_dwidth, b1_dwidth, a2_dwidth, b2_dwidth, a1_dwidth, b1_dwidth, a2_dwidth, b2_dwidth);
-                                run(cmd2);
-                            }
-                        }
-                    }
-                }
-
-                for (int a_width : {1, 2, 4, 9, 18, 36}) {
-                    for (int b_width: {1, 2, 4, 9, 18, 36}) {
-                        auto cmd = stringf(
-                          "chtype -set TDP36K_BRAM_A_X%d_B_X%d_nonsplit t:TDP36K a:is_inferred=1 %%i a:port_a_width=%d %%i a:port_b_width=%d %%i",
-                          a_width, b_width, a_width, b_width);
-                        run(cmd);
-                    }
-                }
-
-                for (int a1_width : {1, 2, 4, 9, 18}) {
-                    for (int b1_width: {1, 2, 4, 9, 18}) {
-                        for (int a2_width : {1, 2, 4, 9, 18}) {
-                            for (int b2_width: {1, 2, 4, 9, 18}) {
-                                auto cmd = stringf(
-                                "chtype -set TDP36K_BRAM_A1_X%d_B1_X%d_A2_X%d_B2_X%d_split t:TDP36K a:is_inferred=1 %%i a:port_a1_width=%d %%i a:port_b1_width=%d %%i a:port_a2_width=%d %%i a:port_b2_width=%d %%i",
-                                a1_width, b1_width, a2_width, b2_width, a1_width, b1_width, a2_width, b2_width);
-                                run(cmd);
-                            }
-                        }
-                    }
-                }
+				if (notdpram) {				
+					for (int a_dwidth : {1, 2, 4, 9, 18, 36}) {
+						for (int b_dwidth : {1, 2, 4, 9, 18, 36}) {
+							auto cmd = stringf("chtype -set SDP36K_BRAM_A_X%d_B_X%d_nonsplit t:SDP36K a:is_inferred=0 %%i a:is_fifo=0 %%i "
+											"a:port_a_dwidth=%d %%i a:port_b_dwidth=%d %%i",
+											a_dwidth, b_dwidth, a_dwidth, b_dwidth);
+							run(cmd);
+	
+							auto cmd1 =
+							stringf("chtype -set SDP36K_FIFO_ASYNC_A_X%d_B_X%d_nonsplit t:SDP36K a:is_inferred=0 %%i a:is_fifo=1 %%i a:sync_fifo=0 %%i "
+									"a:port_a_dwidth=%d %%i a:port_b_dwidth=%d %%i",
+									a_dwidth, b_dwidth, a_dwidth, b_dwidth);
+							run(cmd1);
+	
+							auto cmd2 =
+							stringf("chtype -set SDP36K_FIFO_SYNC_A_X%d_B_X%d_nonsplit t:SDP36K a:is_inferred=0 %%i a:is_fifo=1 %%i a:sync_fifo=1 %%i "
+									"a:port_a_dwidth=%d %%i a:port_b_dwidth=%d %%i",
+									a_dwidth, b_dwidth, a_dwidth, b_dwidth);
+							run(cmd2);
+						}
+					}
+	
+					for (int a1_dwidth : {1, 2, 4, 9, 18}) {
+						for (int b1_dwidth: {1, 2, 4, 9, 18}) {
+							for (int a2_dwidth : {1, 2, 4, 9, 18}) {
+								for (int b2_dwidth: {1, 2, 4, 9, 18}) {
+									auto cmd = stringf("chtype -set SDP36K_BRAM_A1_X%d_B1_X%d_A2_X%d_B2_X%d_split t:SDP36K a:is_inferred=0 %%i a:is_split=1 %%i a:is_fifo=0 %%i a:port_a1_dwidth=%d %%i a:port_b1_dwidth=%d %%i a:port_a2_dwidth=%d %%i a:port_b2_dwidth=%d %%i",
+														a1_dwidth, b1_dwidth, a2_dwidth, b2_dwidth, a1_dwidth, b1_dwidth, a2_dwidth, b2_dwidth);
+									run(cmd);
+	
+									auto cmd1 = stringf("chtype -set SDP36K_FIFO_ASYNC_A1_X%d_B1_X%d_A2_X%d_B2_X%d_split t:SDP36K a:is_inferred=0 %%i "
+														"a:is_split=1 %%i a:is_fifo=1 %%i a:sync_fifo=0 %%i "
+														"a:port_a1_dwidth=%d %%i a:port_b1_dwidth=%d %%i a:port_a2_dwidth=%d %%i a:port_b2_dwidth=%d %%i",
+														a1_dwidth, b1_dwidth, a2_dwidth, b2_dwidth, a1_dwidth, b1_dwidth, a2_dwidth, b2_dwidth);
+									run(cmd1);
+	
+									auto cmd2 = stringf("chtype -set SDP36K_FIFO_SYNC_A1_X%d_B1_X%d_A2_X%d_B2_X%d_split t:SDP36K a:is_inferred=0 %%i "
+														"a:is_split=1 %%i a:is_fifo=1 %%i a:sync_fifo=1 %%i "
+														"a:port_a1_dwidth=%d %%i a:port_b1_dwidth=%d %%i a:port_a2_dwidth=%d %%i a:port_b2_dwidth=%d %%i",
+														a1_dwidth, b1_dwidth, a2_dwidth, b2_dwidth, a1_dwidth, b1_dwidth, a2_dwidth, b2_dwidth);
+									run(cmd2);
+								}
+							}
+						}
+					}
+	
+					for (int a_width : {1, 2, 4, 9, 18, 36}) {
+						for (int b_width: {1, 2, 4, 9, 18, 36}) {
+							auto cmd = stringf(
+							"chtype -set SDP36K_BRAM_A_X%d_B_X%d_nonsplit t:SDP36K a:is_inferred=1 %%i a:port_a_width=%d %%i a:port_b_width=%d %%i",
+							a_width, b_width, a_width, b_width);
+							run(cmd);
+						}
+					}
+	
+					for (int a1_width : {1, 2, 4, 9, 18}) {
+						for (int b1_width: {1, 2, 4, 9, 18}) {
+							for (int a2_width : {1, 2, 4, 9, 18}) {
+								for (int b2_width: {1, 2, 4, 9, 18}) {
+									auto cmd = stringf(
+									"chtype -set SDP36K_BRAM_A1_X%d_B1_X%d_A2_X%d_B2_X%d_split t:SDP36K a:is_inferred=1 %%i a:port_a1_width=%d %%i a:port_b1_width=%d %%i a:port_a2_width=%d %%i a:port_b2_width=%d %%i",
+									a1_width, b1_width, a2_width, b2_width, a1_width, b1_width, a2_width, b2_width);
+									run(cmd);
+								}
+							}
+						}
+					}
+					
+				} else {
+					for (int a_dwidth : {1, 2, 4, 9, 18, 36}) {
+						for (int b_dwidth : {1, 2, 4, 9, 18, 36}) {
+							auto cmd = stringf("chtype -set TDP36K_BRAM_A_X%d_B_X%d_nonsplit t:TDP36K a:is_inferred=0 %%i a:is_fifo=0 %%i "
+											"a:port_a_dwidth=%d %%i a:port_b_dwidth=%d %%i",
+											a_dwidth, b_dwidth, a_dwidth, b_dwidth);
+							run(cmd);
+	
+							auto cmd1 =
+							stringf("chtype -set TDP36K_FIFO_ASYNC_A_X%d_B_X%d_nonsplit t:TDP36K a:is_inferred=0 %%i a:is_fifo=1 %%i a:sync_fifo=0 %%i "
+									"a:port_a_dwidth=%d %%i a:port_b_dwidth=%d %%i",
+									a_dwidth, b_dwidth, a_dwidth, b_dwidth);
+							run(cmd1);
+	
+							auto cmd2 =
+							stringf("chtype -set TDP36K_FIFO_SYNC_A_X%d_B_X%d_nonsplit t:TDP36K a:is_inferred=0 %%i a:is_fifo=1 %%i a:sync_fifo=1 %%i "
+									"a:port_a_dwidth=%d %%i a:port_b_dwidth=%d %%i",
+									a_dwidth, b_dwidth, a_dwidth, b_dwidth);
+							run(cmd2);
+						}
+					}
+	
+					for (int a1_dwidth : {1, 2, 4, 9, 18}) {
+						for (int b1_dwidth: {1, 2, 4, 9, 18}) {
+							for (int a2_dwidth : {1, 2, 4, 9, 18}) {
+								for (int b2_dwidth: {1, 2, 4, 9, 18}) {
+									auto cmd = stringf("chtype -set TDP36K_BRAM_A1_X%d_B1_X%d_A2_X%d_B2_X%d_split t:TDP36K a:is_inferred=0 %%i a:is_split=1 %%i a:is_fifo=0 %%i a:port_a1_dwidth=%d %%i a:port_b1_dwidth=%d %%i a:port_a2_dwidth=%d %%i a:port_b2_dwidth=%d %%i",
+														a1_dwidth, b1_dwidth, a2_dwidth, b2_dwidth, a1_dwidth, b1_dwidth, a2_dwidth, b2_dwidth);
+									run(cmd);
+	
+									auto cmd1 = stringf("chtype -set TDP36K_FIFO_ASYNC_A1_X%d_B1_X%d_A2_X%d_B2_X%d_split t:TDP36K a:is_inferred=0 %%i "
+														"a:is_split=1 %%i a:is_fifo=1 %%i a:sync_fifo=0 %%i "
+														"a:port_a1_dwidth=%d %%i a:port_b1_dwidth=%d %%i a:port_a2_dwidth=%d %%i a:port_b2_dwidth=%d %%i",
+														a1_dwidth, b1_dwidth, a2_dwidth, b2_dwidth, a1_dwidth, b1_dwidth, a2_dwidth, b2_dwidth);
+									run(cmd1);
+	
+									auto cmd2 = stringf("chtype -set TDP36K_FIFO_SYNC_A1_X%d_B1_X%d_A2_X%d_B2_X%d_split t:TDP36K a:is_inferred=0 %%i "
+														"a:is_split=1 %%i a:is_fifo=1 %%i a:sync_fifo=1 %%i "
+														"a:port_a1_dwidth=%d %%i a:port_b1_dwidth=%d %%i a:port_a2_dwidth=%d %%i a:port_b2_dwidth=%d %%i",
+														a1_dwidth, b1_dwidth, a2_dwidth, b2_dwidth, a1_dwidth, b1_dwidth, a2_dwidth, b2_dwidth);
+									run(cmd2);
+								}
+							}
+						}
+					}
+	
+					for (int a_width : {1, 2, 4, 9, 18, 36}) {
+						for (int b_width: {1, 2, 4, 9, 18, 36}) {
+							auto cmd = stringf(
+							"chtype -set TDP36K_BRAM_A_X%d_B_X%d_nonsplit t:TDP36K a:is_inferred=1 %%i a:port_a_width=%d %%i a:port_b_width=%d %%i",
+							a_width, b_width, a_width, b_width);
+							run(cmd);
+						}
+					}
+	
+					for (int a1_width : {1, 2, 4, 9, 18}) {
+						for (int b1_width: {1, 2, 4, 9, 18}) {
+							for (int a2_width : {1, 2, 4, 9, 18}) {
+								for (int b2_width: {1, 2, 4, 9, 18}) {
+									auto cmd = stringf(
+									"chtype -set TDP36K_BRAM_A1_X%d_B1_X%d_A2_X%d_B2_X%d_split t:TDP36K a:is_inferred=1 %%i a:port_a1_width=%d %%i a:port_b1_width=%d %%i a:port_a2_width=%d %%i a:port_b2_width=%d %%i",
+									a1_width, b1_width, a2_width, b2_width, a1_width, b1_width, a2_width, b2_width);
+									run(cmd);
+								}
+							}
+						}
+					}
+				}
             }
         }
 
