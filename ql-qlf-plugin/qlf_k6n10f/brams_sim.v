@@ -3061,21 +3061,21 @@ parameter PORT_B_WR_BE_WIDTH = 4;
 parameter [1024*36-1:0] INIT = 36864'b0;
 parameter OPTION_SPLIT = 0;
 
-input PORT_A_CLK_i;
-input [PORT_A_AWIDTH-1:0] PORT_A_ADDR_i;
-input [PORT_A_DWIDTH-1:0] PORT_A_WR_DATA_i;
-input PORT_A_WEN_i;
-input [PORT_A_WR_BE_WIDTH-1:0] PORT_A_WR_BE_i;
-input PORT_A_REN_i;
-output [PORT_A_DWIDTH-1:0] PORT_A_RD_DATA_o;
+input wire PORT_A_CLK_i;
+input wire [PORT_A_AWIDTH-1:0] PORT_A_ADDR_i;
+input wire [PORT_A_DWIDTH-1:0] PORT_A_WR_DATA_i;
+input wire PORT_A_WEN_i;
+input wire [PORT_A_WR_BE_WIDTH-1:0] PORT_A_WR_BE_i;
+input wire PORT_A_REN_i;
+output wire [PORT_A_DWIDTH-1:0] PORT_A_RD_DATA_o;
 
-input PORT_B_CLK_i;
-input [PORT_B_AWIDTH-1:0] PORT_B_ADDR_i;
-input [PORT_B_DWIDTH-1:0] PORT_B_WR_DATA_i;
-input PORT_B_WEN_i;
-input [PORT_B_WR_BE_WIDTH-1:0] PORT_B_WR_BE_i;
-input PORT_B_REN_i;
-output [PORT_B_DWIDTH-1:0] PORT_B_RD_DATA_o;
+input wire PORT_B_CLK_i;
+input wire [PORT_B_AWIDTH-1:0] PORT_B_ADDR_i;
+input wire [PORT_B_DWIDTH-1:0] PORT_B_WR_DATA_i;
+input wire PORT_B_WEN_i;
+input wire [PORT_B_WR_BE_WIDTH-1:0] PORT_B_WR_BE_i;
+input wire PORT_B_REN_i;
+output wire [PORT_B_DWIDTH-1:0] PORT_B_RD_DATA_o;
 
 
 // Fixed mode settings
