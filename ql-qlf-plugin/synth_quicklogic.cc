@@ -351,78 +351,76 @@ struct SynthQuickLogicPass : public ScriptPass {
         }
 
         if (check_label("map_dsp"), "(skip if -no_dsp)") {
-            if(!synplify){ 
-                if (help_mode || family == "qlf_k6n10") {
-                    if (help_mode || !nodsp) {
-                        run("memory_dff", "                      (for qlf_k6n10)");
-                        if (!noOpt) {
-                            run("wreduce t:$mul", "                  (for qlf_k6n10)");
-                        }
-                        run("techmap -map +/mul2dsp.v -map " + lib_path + family +
-                            "/dsp_map.v -D DSP_A_MAXWIDTH=16 -D DSP_B_MAXWIDTH=16 "
-                            "-D DSP_A_MINWIDTH=2 -D DSP_B_MINWIDTH=2 -D DSP_Y_MINWIDTH=11 "
-                            "-D DSP_NAME=$__MUL16X16",
-                            "    (for qlf_k6n10)");
-                        run("select a:mul2dsp", "                (for qlf_k6n10)");
-                        run("setattr -unset mul2dsp", "          (for qlf_k6n10)");
-                        if (!noOpt) {
-                            run("opt_expr -fine", "                  (for qlf_k6n10)");
-                            run("wreduce", "                         (for qlf_k6n10)");
-                        }
-                        run("select -clear", "                   (for qlf_k6n10)");
-                        run("ql_dsp", "                          (for qlf_k6n10)");
-                        run("chtype -set $mul t:$__soft_mul", "  (for qlf_k6n10)");
+            if (help_mode || family == "qlf_k6n10") {
+                if (help_mode || !nodsp) {
+                    run("memory_dff", "                      (for qlf_k6n10)");
+                    if (!noOpt) {
+                        run("wreduce t:$mul", "                  (for qlf_k6n10)");
                     }
+                    run("techmap -map +/mul2dsp.v -map " + lib_path + family +
+                        "/dsp_map.v -D DSP_A_MAXWIDTH=16 -D DSP_B_MAXWIDTH=16 "
+                        "-D DSP_A_MINWIDTH=2 -D DSP_B_MINWIDTH=2 -D DSP_Y_MINWIDTH=11 "
+                        "-D DSP_NAME=$__MUL16X16",
+                        "    (for qlf_k6n10)");
+                    run("select a:mul2dsp", "                (for qlf_k6n10)");
+                    run("setattr -unset mul2dsp", "          (for qlf_k6n10)");
+                    if (!noOpt) {
+                        run("opt_expr -fine", "                  (for qlf_k6n10)");
+                        run("wreduce", "                         (for qlf_k6n10)");
+                    }
+                    run("select -clear", "                   (for qlf_k6n10)");
+                    run("ql_dsp", "                          (for qlf_k6n10)");
+                    run("chtype -set $mul t:$__soft_mul", "  (for qlf_k6n10)");
                 }
-                if (help_mode || family == "qlf_k6n10f") {
+            }
+            if (help_mode || family == "qlf_k6n10f") {
 
-                    struct DspParams {
-                        size_t a_maxwidth;
-                        size_t b_maxwidth;
-                        size_t a_minwidth;
-                        size_t b_minwidth;
-                        std::string type;
-                    };
+                struct DspParams {
+                    size_t a_maxwidth;
+                    size_t b_maxwidth;
+                    size_t a_minwidth;
+                    size_t b_minwidth;
+                    std::string type;
+                };
 
-                    const std::vector<DspParams> dsp_rules = {
-                    {20, 18, 11, 10, "$__QL_MUL20X18"},
-                    {10, 9, 4, 4, "$__QL_MUL10X9"},
-                    };
+                const std::vector<DspParams> dsp_rules = {
+                {20, 18, 11, 10, "$__QL_MUL20X18"},
+                {10, 9, 4, 4, "$__QL_MUL10X9"},
+                };
 
-                    if (help_mode) {
-                        run("wreduce t:$mul", "                  (for qlf_k6n10f)");
-                        run("ql_dsp_macc" + use_dsp_cfg_params, "(for qlf_k6n10f)");
-                        run("techmap -map +/mul2dsp.v [...]", "  (for qlf_k6n10f)");
-                        run("chtype -set $mul t:$__soft_mul", "  (for qlf_k6n10f)");
-                        run("techmap -map " + lib_path + family + "/dsp_map.v", "(for qlf_k6n10f)");
-                        if (use_dsp_cfg_params.empty())
-                            run("techmap -map " + lib_path + family + "/dsp_map.v -D USE_DSP_CFG_PARAMS=0", "(for qlf_k6n10f)");
-                        else
-                            run("techmap -map " + lib_path + family + "/dsp_map.v -D USE_DSP_CFG_PARAMS=1", "(for qlf_k6n10f)");
-                        run("ql_dsp_simd", "                     (for qlf_k6n10f)");
-                        run("techmap -map " + lib_path + family + "/dsp_final_map.v", "(for qlf_k6n10f)");
-                        run("ql_dsp_io_regs", "                  (for qlf_k6n10f)");
-                    } else if (!nodsp) {
+                if (help_mode) {
+                    run("wreduce t:$mul", "                  (for qlf_k6n10f)");
+                    run("ql_dsp_macc" + use_dsp_cfg_params, "(for qlf_k6n10f)");
+                    run("techmap -map +/mul2dsp.v [...]", "  (for qlf_k6n10f)");
+                    run("chtype -set $mul t:$__soft_mul", "  (for qlf_k6n10f)");
+                    run("techmap -map " + lib_path + family + "/dsp_map.v", "(for qlf_k6n10f)");
+                    if (use_dsp_cfg_params.empty())
+                        run("techmap -map " + lib_path + family + "/dsp_map.v -D USE_DSP_CFG_PARAMS=0", "(for qlf_k6n10f)");
+                    else
+                        run("techmap -map " + lib_path + family + "/dsp_map.v -D USE_DSP_CFG_PARAMS=1", "(for qlf_k6n10f)");
+                    run("ql_dsp_simd", "                     (for qlf_k6n10f)");
+                    run("techmap -map " + lib_path + family + "/dsp_final_map.v", "(for qlf_k6n10f)");
+                    run("ql_dsp_io_regs", "                  (for qlf_k6n10f)");
+                } else if (!nodsp) {
 
-                        run("wreduce t:$mul");
-                        run("ql_dsp_macc" + use_dsp_cfg_params);
+                    run("wreduce t:$mul");
+                    run("ql_dsp_macc" + use_dsp_cfg_params);
 
-                        for (const auto &rule : dsp_rules) {
-                            run(stringf("techmap -map +/mul2dsp.v "
-                                        "-D DSP_A_MAXWIDTH=%zu -D DSP_B_MAXWIDTH=%zu "
-                                        "-D DSP_A_MINWIDTH=%zu -D DSP_B_MINWIDTH=%zu "
-                                        "-D DSP_NAME=%s",
-                                        rule.a_maxwidth, rule.b_maxwidth, rule.a_minwidth, rule.b_minwidth, rule.type.c_str()));
-                            run("chtype -set $mul t:$__soft_mul");
-                        }
-                        if (use_dsp_cfg_params.empty())
-                            run("techmap -map " + lib_path + family + "/dsp_map.v -D USE_DSP_CFG_PARAMS=0");
-                        else
-                            run("techmap -map " + lib_path + family + "/dsp_map.v -D USE_DSP_CFG_PARAMS=1");
-                        run("ql_dsp_simd");
-                        run("techmap -map " + lib_path + family + "/dsp_final_map.v");
-                        run("ql_dsp_io_regs");
+                    for (const auto &rule : dsp_rules) {
+                        run(stringf("techmap -map +/mul2dsp.v "
+                                    "-D DSP_A_MAXWIDTH=%zu -D DSP_B_MAXWIDTH=%zu "
+                                    "-D DSP_A_MINWIDTH=%zu -D DSP_B_MINWIDTH=%zu "
+                                    "-D DSP_NAME=%s",
+                                    rule.a_maxwidth, rule.b_maxwidth, rule.a_minwidth, rule.b_minwidth, rule.type.c_str()));
+                        run("chtype -set $mul t:$__soft_mul");
                     }
+                    if (use_dsp_cfg_params.empty())
+                        run("techmap -map " + lib_path + family + "/dsp_map.v -D USE_DSP_CFG_PARAMS=0");
+                    else
+                        run("techmap -map " + lib_path + family + "/dsp_map.v -D USE_DSP_CFG_PARAMS=1");
+                    run("ql_dsp_simd");
+                    run("techmap -map " + lib_path + family + "/dsp_final_map.v");
+                    run("ql_dsp_io_regs");
                 }
             }
         }
