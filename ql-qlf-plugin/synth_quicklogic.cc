@@ -127,8 +127,8 @@ struct SynthQuickLogicPass : public ScriptPass {
     bool abc9;
     bool noffmap;
     bool nosdff;
-	bool nosetff;
-	bool notdpram;
+    bool nosetff;
+    bool notdpram;
     bool noOpt;
     bool synplify;
 
@@ -148,8 +148,8 @@ struct SynthQuickLogicPass : public ScriptPass {
         noffmap = false;
         nodsp = false;
         nosdff = false;
-		nosetff = false;
-		notdpram = false;
+        nosetff = false;
+        notdpram = false;
         noOpt = false;
         synplify = false;
         use_dsp_cfg_params = "";
@@ -259,9 +259,9 @@ struct SynthQuickLogicPass : public ScriptPass {
         if (family != "pp3" && family != "qlf_k4n8" && family != "qlf_k6n10" && family != "qlf_k6n10f")
             log_cmd_error("Invalid family specified: '%s'\n", family.c_str());
 
-        //if (family != "pp3") {
-        //    abc9 = false;
-        //}
+        // if (family != "pp3") {
+        //     abc9 = false;
+        // }
 
         if (family == "qlf_k4n8") {
             nosdff = true;
@@ -301,10 +301,9 @@ struct SynthQuickLogicPass : public ScriptPass {
             if (family == "qlf_k6n10f") {
                 readVelArgs += family_path + "/dsp_sim.v";
                 readVelArgs += family_path + "/brams_sim.v";
-                if(synplify)
-                    {
-                        readVelArgs += family_path + "/synplify_map.v";
-                    }
+                if (synplify) {
+                    readVelArgs += family_path + "/synplify_map.v";
+                }
                 if (bramTypes)
                     readVelArgs += family_path + "/bram_types_sim.v";
             }
@@ -316,9 +315,8 @@ struct SynthQuickLogicPass : public ScriptPass {
             run(stringf("hierarchy -check %s", help_mode ? "-top <top>" : top_opt.c_str()));
         }
 
-        
         if (check_label("prepare")) {
-            if(!synplify){
+            if (!synplify) {
                 run("proc");
                 run("flatten");
                 if (help_mode || family == "pp3") {
@@ -358,9 +356,9 @@ struct SynthQuickLogicPass : public ScriptPass {
                         run("wreduce t:$mul", "                  (for qlf_k6n10)");
                     }
                     run("techmap -map +/mul2dsp.v -map " + lib_path + family +
-                        "/dsp_map.v -D DSP_A_MAXWIDTH=16 -D DSP_B_MAXWIDTH=16 "
-                        "-D DSP_A_MINWIDTH=2 -D DSP_B_MINWIDTH=2 -D DSP_Y_MINWIDTH=11 "
-                        "-D DSP_NAME=$__MUL16X16",
+                          "/dsp_map.v -D DSP_A_MAXWIDTH=16 -D DSP_B_MAXWIDTH=16 "
+                          "-D DSP_A_MINWIDTH=2 -D DSP_B_MINWIDTH=2 -D DSP_Y_MINWIDTH=11 "
+                          "-D DSP_NAME=$__MUL16X16",
                         "    (for qlf_k6n10)");
                     run("select a:mul2dsp", "                (for qlf_k6n10)");
                     run("setattr -unset mul2dsp", "          (for qlf_k6n10)");
@@ -384,8 +382,8 @@ struct SynthQuickLogicPass : public ScriptPass {
                 };
 
                 const std::vector<DspParams> dsp_rules = {
-                {20, 18, 11, 10, "$__QL_MUL20X18"},
-                {10, 9, 4, 4, "$__QL_MUL10X9"},
+                  {20, 18, 11, 10, "$__QL_MUL20X18"},
+                  {10, 9, 4, 4, "$__QL_MUL10X9"},
                 };
 
                 if (help_mode) {
@@ -426,7 +424,7 @@ struct SynthQuickLogicPass : public ScriptPass {
         }
 
         if (check_label("coarse")) {
-            if(!synplify){
+            if (!synplify) {
                 run("techmap -map +/cmp2lut.v -D LUT_WIDTH=4");
                 if (!noOpt) {
                     run("opt_expr");
@@ -444,17 +442,18 @@ struct SynthQuickLogicPass : public ScriptPass {
             }
         }
 
-        if (check_label("map_bram", "(skip if -no_bram)") && (help_mode || family == "qlf_k6n10" || family == "qlf_k6n10f" || family == "pp3") && inferBram) { 
+        if (check_label("map_bram", "(skip if -no_bram)") && (help_mode || family == "qlf_k6n10" || family == "qlf_k6n10f" || family == "pp3") &&
+            inferBram) {
             if (help_mode || family == "qlf_k6n10f") {
-				if (notdpram) {
-					run("memory_libmap -lib " + lib_path + family + "/libmap_brams_sdp.txt", "(for qlf_k6n10f)");
-					run("ql_sdpbram_merge", "(for qlf_k6n10f)");
-					run("techmap -map " + lib_path + family + "/libmap_brams_map_sdp.v", "(for qlf_k6n10f)");
-				} else {
-					run("memory_libmap -lib " + lib_path + family + "/libmap_brams_tdp.txt", "(for qlf_k6n10f)");
-					run("ql_tdpbram_merge", "(for qlf_k6n10f)");
-					run("techmap -map " + lib_path + family + "/libmap_brams_map_tdp.v", "(for qlf_k6n10f)");
-				}            
+                if (notdpram) {
+                    run("memory_libmap -lib " + lib_path + family + "/libmap_brams_sdp.txt", "(for qlf_k6n10f)");
+                    run("ql_sdpbram_merge", "(for qlf_k6n10f)");
+                    run("techmap -map " + lib_path + family + "/libmap_brams_map_sdp.v", "(for qlf_k6n10f)");
+                } else {
+                    run("memory_libmap -lib " + lib_path + family + "/libmap_brams_tdp.txt", "(for qlf_k6n10f)");
+                    run("ql_tdpbram_merge", "(for qlf_k6n10f)");
+                    run("techmap -map " + lib_path + family + "/libmap_brams_map_tdp.v", "(for qlf_k6n10f)");
+                }
             }
             if (help_mode || family == "qlf_k6n10" || family == "pp3") {
                 run("memory_bram -rules " + lib_path + family + "/brams.txt", "(for pp3, qlf_k6n10)");
@@ -467,157 +466,164 @@ struct SynthQuickLogicPass : public ScriptPass {
                 run("techmap -map " + lib_path + family + "/brams_final_map.v");
             }
 
-           
             // Perform a series of 'chtype' passess
             if (help_mode) {
-				if (notdpram) {
-					run("chtype -set SDP36K_<mode> t:SDP36K a:<mode>", "(if -bram_types)");
-				} else {
-					run("chtype -set TDP36K_<mode> t:TDP36K a:<mode>", "(if -bram_types)");
-				}
+                if (notdpram) {
+                    run("chtype -set SDP36K_<mode> t:SDP36K a:<mode>", "(if -bram_types)");
+                } else {
+                    run("chtype -set TDP36K_<mode> t:TDP36K a:<mode>", "(if -bram_types)");
+                }
             }
             if (bramTypes) {
-				if (notdpram) {				
-					for (int a_dwidth : {1, 2, 4, 9, 18, 36}) {
-						for (int b_dwidth : {1, 2, 4, 9, 18, 36}) {
-							auto cmd = stringf("chtype -set SDP36K_BRAM_A_X%d_B_X%d_nonsplit t:SDP36K a:is_inferred=0 %%i a:is_fifo=0 %%i "
-											"a:port_a_dwidth=%d %%i a:port_b_dwidth=%d %%i",
-											a_dwidth, b_dwidth, a_dwidth, b_dwidth);
-							run(cmd);
-	
-							auto cmd1 =
-							stringf("chtype -set SDP36K_FIFO_ASYNC_A_X%d_B_X%d_nonsplit t:SDP36K a:is_inferred=0 %%i a:is_fifo=1 %%i a:sync_fifo=0 %%i "
-									"a:port_a_dwidth=%d %%i a:port_b_dwidth=%d %%i",
-									a_dwidth, b_dwidth, a_dwidth, b_dwidth);
-							run(cmd1);
-	
-							auto cmd2 =
-							stringf("chtype -set SDP36K_FIFO_SYNC_A_X%d_B_X%d_nonsplit t:SDP36K a:is_inferred=0 %%i a:is_fifo=1 %%i a:sync_fifo=1 %%i "
-									"a:port_a_dwidth=%d %%i a:port_b_dwidth=%d %%i",
-									a_dwidth, b_dwidth, a_dwidth, b_dwidth);
-							run(cmd2);
-						}
-					}
-	
-					for (int a1_dwidth : {1, 2, 4, 9, 18}) {
-						for (int b1_dwidth: {1, 2, 4, 9, 18}) {
-							for (int a2_dwidth : {1, 2, 4, 9, 18}) {
-								for (int b2_dwidth: {1, 2, 4, 9, 18}) {
-									auto cmd = stringf("chtype -set SDP36K_BRAM_A1_X%d_B1_X%d_A2_X%d_B2_X%d_split t:SDP36K a:is_inferred=0 %%i a:is_split=1 %%i a:is_fifo=0 %%i a:port_a1_dwidth=%d %%i a:port_b1_dwidth=%d %%i a:port_a2_dwidth=%d %%i a:port_b2_dwidth=%d %%i",
-														a1_dwidth, b1_dwidth, a2_dwidth, b2_dwidth, a1_dwidth, b1_dwidth, a2_dwidth, b2_dwidth);
-									run(cmd);
-	
-									auto cmd1 = stringf("chtype -set SDP36K_FIFO_ASYNC_A1_X%d_B1_X%d_A2_X%d_B2_X%d_split t:SDP36K a:is_inferred=0 %%i "
-														"a:is_split=1 %%i a:is_fifo=1 %%i a:sync_fifo=0 %%i "
-														"a:port_a1_dwidth=%d %%i a:port_b1_dwidth=%d %%i a:port_a2_dwidth=%d %%i a:port_b2_dwidth=%d %%i",
-														a1_dwidth, b1_dwidth, a2_dwidth, b2_dwidth, a1_dwidth, b1_dwidth, a2_dwidth, b2_dwidth);
-									run(cmd1);
-	
-									auto cmd2 = stringf("chtype -set SDP36K_FIFO_SYNC_A1_X%d_B1_X%d_A2_X%d_B2_X%d_split t:SDP36K a:is_inferred=0 %%i "
-														"a:is_split=1 %%i a:is_fifo=1 %%i a:sync_fifo=1 %%i "
-														"a:port_a1_dwidth=%d %%i a:port_b1_dwidth=%d %%i a:port_a2_dwidth=%d %%i a:port_b2_dwidth=%d %%i",
-														a1_dwidth, b1_dwidth, a2_dwidth, b2_dwidth, a1_dwidth, b1_dwidth, a2_dwidth, b2_dwidth);
-									run(cmd2);
-								}
-							}
-						}
-					}
-	
-					for (int a_width : {1, 2, 4, 9, 18, 36}) {
-						for (int b_width: {1, 2, 4, 9, 18, 36}) {
-							auto cmd = stringf(
-							"chtype -set SDP36K_BRAM_A_X%d_B_X%d_nonsplit t:SDP36K a:is_inferred=1 %%i a:port_a_width=%d %%i a:port_b_width=%d %%i",
-							a_width, b_width, a_width, b_width);
-							run(cmd);
-						}
-					}
-	
-					for (int a1_width : {1, 2, 4, 9, 18}) {
-						for (int b1_width: {1, 2, 4, 9, 18}) {
-							for (int a2_width : {1, 2, 4, 9, 18}) {
-								for (int b2_width: {1, 2, 4, 9, 18}) {
-									auto cmd = stringf(
-									"chtype -set SDP36K_BRAM_A1_X%d_B1_X%d_A2_X%d_B2_X%d_split t:SDP36K a:is_inferred=1 %%i a:port_a1_width=%d %%i a:port_b1_width=%d %%i a:port_a2_width=%d %%i a:port_b2_width=%d %%i",
-									a1_width, b1_width, a2_width, b2_width, a1_width, b1_width, a2_width, b2_width);
-									run(cmd);
-								}
-							}
-						}
-					}
-					
-				} else {
-					for (int a_dwidth : {1, 2, 4, 9, 18, 36}) {
-						for (int b_dwidth : {1, 2, 4, 9, 18, 36}) {
-							auto cmd = stringf("chtype -set TDP36K_BRAM_A_X%d_B_X%d_nonsplit t:TDP36K a:is_inferred=0 %%i a:is_fifo=0 %%i "
-											"a:port_a_dwidth=%d %%i a:port_b_dwidth=%d %%i",
-											a_dwidth, b_dwidth, a_dwidth, b_dwidth);
-							run(cmd);
-	
-							auto cmd1 =
-							stringf("chtype -set TDP36K_FIFO_ASYNC_A_X%d_B_X%d_nonsplit t:TDP36K a:is_inferred=0 %%i a:is_fifo=1 %%i a:sync_fifo=0 %%i "
-									"a:port_a_dwidth=%d %%i a:port_b_dwidth=%d %%i",
-									a_dwidth, b_dwidth, a_dwidth, b_dwidth);
-							run(cmd1);
-	
-							auto cmd2 =
-							stringf("chtype -set TDP36K_FIFO_SYNC_A_X%d_B_X%d_nonsplit t:TDP36K a:is_inferred=0 %%i a:is_fifo=1 %%i a:sync_fifo=1 %%i "
-									"a:port_a_dwidth=%d %%i a:port_b_dwidth=%d %%i",
-									a_dwidth, b_dwidth, a_dwidth, b_dwidth);
-							run(cmd2);
-						}
-					}
-	
-					for (int a1_dwidth : {1, 2, 4, 9, 18}) {
-						for (int b1_dwidth: {1, 2, 4, 9, 18}) {
-							for (int a2_dwidth : {1, 2, 4, 9, 18}) {
-								for (int b2_dwidth: {1, 2, 4, 9, 18}) {
-									auto cmd = stringf("chtype -set TDP36K_BRAM_A1_X%d_B1_X%d_A2_X%d_B2_X%d_split t:TDP36K a:is_inferred=0 %%i a:is_split=1 %%i a:is_fifo=0 %%i a:port_a1_dwidth=%d %%i a:port_b1_dwidth=%d %%i a:port_a2_dwidth=%d %%i a:port_b2_dwidth=%d %%i",
-														a1_dwidth, b1_dwidth, a2_dwidth, b2_dwidth, a1_dwidth, b1_dwidth, a2_dwidth, b2_dwidth);
-									run(cmd);
-	
-									auto cmd1 = stringf("chtype -set TDP36K_FIFO_ASYNC_A1_X%d_B1_X%d_A2_X%d_B2_X%d_split t:TDP36K a:is_inferred=0 %%i "
-														"a:is_split=1 %%i a:is_fifo=1 %%i a:sync_fifo=0 %%i "
-														"a:port_a1_dwidth=%d %%i a:port_b1_dwidth=%d %%i a:port_a2_dwidth=%d %%i a:port_b2_dwidth=%d %%i",
-														a1_dwidth, b1_dwidth, a2_dwidth, b2_dwidth, a1_dwidth, b1_dwidth, a2_dwidth, b2_dwidth);
-									run(cmd1);
-	
-									auto cmd2 = stringf("chtype -set TDP36K_FIFO_SYNC_A1_X%d_B1_X%d_A2_X%d_B2_X%d_split t:TDP36K a:is_inferred=0 %%i "
-														"a:is_split=1 %%i a:is_fifo=1 %%i a:sync_fifo=1 %%i "
-														"a:port_a1_dwidth=%d %%i a:port_b1_dwidth=%d %%i a:port_a2_dwidth=%d %%i a:port_b2_dwidth=%d %%i",
-														a1_dwidth, b1_dwidth, a2_dwidth, b2_dwidth, a1_dwidth, b1_dwidth, a2_dwidth, b2_dwidth);
-									run(cmd2);
-								}
-							}
-						}
-					}
-	
-					for (int a_width : {1, 2, 4, 9, 18, 36}) {
-						for (int b_width: {1, 2, 4, 9, 18, 36}) {
-							auto cmd = stringf(
-							"chtype -set TDP36K_BRAM_A_X%d_B_X%d_nonsplit t:TDP36K a:is_inferred=1 %%i a:port_a_width=%d %%i a:port_b_width=%d %%i",
-							a_width, b_width, a_width, b_width);
-							run(cmd);
-						}
-					}
-	
-					for (int a1_width : {1, 2, 4, 9, 18}) {
-						for (int b1_width: {1, 2, 4, 9, 18}) {
-							for (int a2_width : {1, 2, 4, 9, 18}) {
-								for (int b2_width: {1, 2, 4, 9, 18}) {
-									auto cmd = stringf(
-									"chtype -set TDP36K_BRAM_A1_X%d_B1_X%d_A2_X%d_B2_X%d_split t:TDP36K a:is_inferred=1 %%i a:port_a1_width=%d %%i a:port_b1_width=%d %%i a:port_a2_width=%d %%i a:port_b2_width=%d %%i",
-									a1_width, b1_width, a2_width, b2_width, a1_width, b1_width, a2_width, b2_width);
-									run(cmd);
-								}
-							}
-						}
-					}
-				}
+                if (notdpram) {
+                    for (int a_dwidth : {1, 2, 4, 9, 18, 36}) {
+                        for (int b_dwidth : {1, 2, 4, 9, 18, 36}) {
+                            auto cmd = stringf("chtype -set SDP36K_BRAM_A_X%d_B_X%d_nonsplit t:SDP36K a:is_inferred=0 %%i a:is_fifo=0 %%i "
+                                               "a:port_a_dwidth=%d %%i a:port_b_dwidth=%d %%i",
+                                               a_dwidth, b_dwidth, a_dwidth, b_dwidth);
+                            run(cmd);
+
+                            auto cmd1 = stringf(
+                              "chtype -set SDP36K_FIFO_ASYNC_A_X%d_B_X%d_nonsplit t:SDP36K a:is_inferred=0 %%i a:is_fifo=1 %%i a:sync_fifo=0 %%i "
+                              "a:port_a_dwidth=%d %%i a:port_b_dwidth=%d %%i",
+                              a_dwidth, b_dwidth, a_dwidth, b_dwidth);
+                            run(cmd1);
+
+                            auto cmd2 = stringf(
+                              "chtype -set SDP36K_FIFO_SYNC_A_X%d_B_X%d_nonsplit t:SDP36K a:is_inferred=0 %%i a:is_fifo=1 %%i a:sync_fifo=1 %%i "
+                              "a:port_a_dwidth=%d %%i a:port_b_dwidth=%d %%i",
+                              a_dwidth, b_dwidth, a_dwidth, b_dwidth);
+                            run(cmd2);
+                        }
+                    }
+
+                    for (int a1_dwidth : {1, 2, 4, 9, 18}) {
+                        for (int b1_dwidth : {1, 2, 4, 9, 18}) {
+                            for (int a2_dwidth : {1, 2, 4, 9, 18}) {
+                                for (int b2_dwidth : {1, 2, 4, 9, 18}) {
+                                    auto cmd = stringf("chtype -set SDP36K_BRAM_A1_X%d_B1_X%d_A2_X%d_B2_X%d_split t:SDP36K a:is_inferred=0 %%i "
+                                                       "a:is_split=1 %%i a:is_fifo=0 %%i a:port_a1_dwidth=%d %%i a:port_b1_dwidth=%d %%i "
+                                                       "a:port_a2_dwidth=%d %%i a:port_b2_dwidth=%d %%i",
+                                                       a1_dwidth, b1_dwidth, a2_dwidth, b2_dwidth, a1_dwidth, b1_dwidth, a2_dwidth, b2_dwidth);
+                                    run(cmd);
+
+                                    auto cmd1 =
+                                      stringf("chtype -set SDP36K_FIFO_ASYNC_A1_X%d_B1_X%d_A2_X%d_B2_X%d_split t:SDP36K a:is_inferred=0 %%i "
+                                              "a:is_split=1 %%i a:is_fifo=1 %%i a:sync_fifo=0 %%i "
+                                              "a:port_a1_dwidth=%d %%i a:port_b1_dwidth=%d %%i a:port_a2_dwidth=%d %%i a:port_b2_dwidth=%d %%i",
+                                              a1_dwidth, b1_dwidth, a2_dwidth, b2_dwidth, a1_dwidth, b1_dwidth, a2_dwidth, b2_dwidth);
+                                    run(cmd1);
+
+                                    auto cmd2 =
+                                      stringf("chtype -set SDP36K_FIFO_SYNC_A1_X%d_B1_X%d_A2_X%d_B2_X%d_split t:SDP36K a:is_inferred=0 %%i "
+                                              "a:is_split=1 %%i a:is_fifo=1 %%i a:sync_fifo=1 %%i "
+                                              "a:port_a1_dwidth=%d %%i a:port_b1_dwidth=%d %%i a:port_a2_dwidth=%d %%i a:port_b2_dwidth=%d %%i",
+                                              a1_dwidth, b1_dwidth, a2_dwidth, b2_dwidth, a1_dwidth, b1_dwidth, a2_dwidth, b2_dwidth);
+                                    run(cmd2);
+                                }
+                            }
+                        }
+                    }
+
+                    for (int a_width : {1, 2, 4, 9, 18, 36}) {
+                        for (int b_width : {1, 2, 4, 9, 18, 36}) {
+                            auto cmd = stringf(
+                              "chtype -set SDP36K_BRAM_A_X%d_B_X%d_nonsplit t:SDP36K a:is_inferred=1 %%i a:port_a_width=%d %%i a:port_b_width=%d %%i",
+                              a_width, b_width, a_width, b_width);
+                            run(cmd);
+                        }
+                    }
+
+                    for (int a1_width : {1, 2, 4, 9, 18}) {
+                        for (int b1_width : {1, 2, 4, 9, 18}) {
+                            for (int a2_width : {1, 2, 4, 9, 18}) {
+                                for (int b2_width : {1, 2, 4, 9, 18}) {
+                                    auto cmd = stringf("chtype -set SDP36K_BRAM_A1_X%d_B1_X%d_A2_X%d_B2_X%d_split t:SDP36K a:is_inferred=1 %%i "
+                                                       "a:port_a1_width=%d %%i a:port_b1_width=%d %%i a:port_a2_width=%d %%i a:port_b2_width=%d %%i",
+                                                       a1_width, b1_width, a2_width, b2_width, a1_width, b1_width, a2_width, b2_width);
+                                    run(cmd);
+                                }
+                            }
+                        }
+                    }
+
+                } else {
+                    for (int a_dwidth : {1, 2, 4, 9, 18, 36}) {
+                        for (int b_dwidth : {1, 2, 4, 9, 18, 36}) {
+                            auto cmd = stringf("chtype -set TDP36K_BRAM_A_X%d_B_X%d_nonsplit t:TDP36K a:is_inferred=0 %%i a:is_fifo=0 %%i "
+                                               "a:port_a_dwidth=%d %%i a:port_b_dwidth=%d %%i",
+                                               a_dwidth, b_dwidth, a_dwidth, b_dwidth);
+                            run(cmd);
+
+                            auto cmd1 = stringf(
+                              "chtype -set TDP36K_FIFO_ASYNC_A_X%d_B_X%d_nonsplit t:TDP36K a:is_inferred=0 %%i a:is_fifo=1 %%i a:sync_fifo=0 %%i "
+                              "a:port_a_dwidth=%d %%i a:port_b_dwidth=%d %%i",
+                              a_dwidth, b_dwidth, a_dwidth, b_dwidth);
+                            run(cmd1);
+
+                            auto cmd2 = stringf(
+                              "chtype -set TDP36K_FIFO_SYNC_A_X%d_B_X%d_nonsplit t:TDP36K a:is_inferred=0 %%i a:is_fifo=1 %%i a:sync_fifo=1 %%i "
+                              "a:port_a_dwidth=%d %%i a:port_b_dwidth=%d %%i",
+                              a_dwidth, b_dwidth, a_dwidth, b_dwidth);
+                            run(cmd2);
+                        }
+                    }
+
+                    for (int a1_dwidth : {1, 2, 4, 9, 18}) {
+                        for (int b1_dwidth : {1, 2, 4, 9, 18}) {
+                            for (int a2_dwidth : {1, 2, 4, 9, 18}) {
+                                for (int b2_dwidth : {1, 2, 4, 9, 18}) {
+                                    auto cmd = stringf("chtype -set TDP36K_BRAM_A1_X%d_B1_X%d_A2_X%d_B2_X%d_split t:TDP36K a:is_inferred=0 %%i "
+                                                       "a:is_split=1 %%i a:is_fifo=0 %%i a:port_a1_dwidth=%d %%i a:port_b1_dwidth=%d %%i "
+                                                       "a:port_a2_dwidth=%d %%i a:port_b2_dwidth=%d %%i",
+                                                       a1_dwidth, b1_dwidth, a2_dwidth, b2_dwidth, a1_dwidth, b1_dwidth, a2_dwidth, b2_dwidth);
+                                    run(cmd);
+
+                                    auto cmd1 =
+                                      stringf("chtype -set TDP36K_FIFO_ASYNC_A1_X%d_B1_X%d_A2_X%d_B2_X%d_split t:TDP36K a:is_inferred=0 %%i "
+                                              "a:is_split=1 %%i a:is_fifo=1 %%i a:sync_fifo=0 %%i "
+                                              "a:port_a1_dwidth=%d %%i a:port_b1_dwidth=%d %%i a:port_a2_dwidth=%d %%i a:port_b2_dwidth=%d %%i",
+                                              a1_dwidth, b1_dwidth, a2_dwidth, b2_dwidth, a1_dwidth, b1_dwidth, a2_dwidth, b2_dwidth);
+                                    run(cmd1);
+
+                                    auto cmd2 =
+                                      stringf("chtype -set TDP36K_FIFO_SYNC_A1_X%d_B1_X%d_A2_X%d_B2_X%d_split t:TDP36K a:is_inferred=0 %%i "
+                                              "a:is_split=1 %%i a:is_fifo=1 %%i a:sync_fifo=1 %%i "
+                                              "a:port_a1_dwidth=%d %%i a:port_b1_dwidth=%d %%i a:port_a2_dwidth=%d %%i a:port_b2_dwidth=%d %%i",
+                                              a1_dwidth, b1_dwidth, a2_dwidth, b2_dwidth, a1_dwidth, b1_dwidth, a2_dwidth, b2_dwidth);
+                                    run(cmd2);
+                                }
+                            }
+                        }
+                    }
+
+                    for (int a_width : {1, 2, 4, 9, 18, 36}) {
+                        for (int b_width : {1, 2, 4, 9, 18, 36}) {
+                            auto cmd = stringf(
+                              "chtype -set TDP36K_BRAM_A_X%d_B_X%d_nonsplit t:TDP36K a:is_inferred=1 %%i a:port_a_width=%d %%i a:port_b_width=%d %%i",
+                              a_width, b_width, a_width, b_width);
+                            run(cmd);
+                        }
+                    }
+
+                    for (int a1_width : {1, 2, 4, 9, 18}) {
+                        for (int b1_width : {1, 2, 4, 9, 18}) {
+                            for (int a2_width : {1, 2, 4, 9, 18}) {
+                                for (int b2_width : {1, 2, 4, 9, 18}) {
+                                    auto cmd = stringf("chtype -set TDP36K_BRAM_A1_X%d_B1_X%d_A2_X%d_B2_X%d_split t:TDP36K a:is_inferred=1 %%i "
+                                                       "a:port_a1_width=%d %%i a:port_b1_width=%d %%i a:port_a2_width=%d %%i a:port_b2_width=%d %%i",
+                                                       a1_width, b1_width, a2_width, b2_width, a1_width, b1_width, a2_width, b2_width);
+                                    run(cmd);
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
 
         if (check_label("map_ffram")) {
-            if(!synplify){
+            if (!synplify) {
                 if (!noOpt) {
                     run("opt -fast -mux_undef -undriven -fine" + noDFFArgs);
                 }
@@ -631,9 +637,9 @@ struct SynthQuickLogicPass : public ScriptPass {
         }
 
         if (check_label("map_gates")) {
-            if(!synplify){
+            if (!synplify) {
                 if (help_mode || (inferAdder && (family == "qlf_k4n8" || family == "qlf_k6n10" || family == "qlf_k6n10f"))) {
-                    run("techmap -map +/techmap.v -map " + lib_path + family + "/arith_map.v","(unless -no_adder)");
+                    run("techmap -map +/techmap.v -map " + lib_path + family + "/arith_map.v", "(unless -no_adder)");
                 } else {
                     run("techmap");
                 }
@@ -653,7 +659,7 @@ struct SynthQuickLogicPass : public ScriptPass {
         }
 
         if (check_label("map_ffs")) {
-            if(!synplify){
+            if (!synplify) {
                 if (!noOpt) {
                     run("opt_expr");
                 }
@@ -705,15 +711,15 @@ struct SynthQuickLogicPass : public ScriptPass {
         }
 
         if (check_label("map_luts")) {
-            if(!synplify){
+            if (!synplify) {
                 if (help_mode || abcOpt) {
                     if (help_mode || family == "qlf_k6n10" || family == "qlf_k6n10f") {
                         if (abc9) {
                             run("read_verilog -lib -specify -icells +/quicklogic/pp3/abc9_model.v");
-                            //run("techmap -map +/quicklogic/pp3/abc9_map.v");
-                            //run("abc9 -maxlut 6 -dff");
+                            // run("techmap -map +/quicklogic/pp3/abc9_map.v");
+                            // run("abc9 -maxlut 6 -dff");
                             run("abc9 -maxlut 6");
-                            //run("techmap -map +/quicklogic/pp3/abc9_unmap.v");
+                            // run("techmap -map +/quicklogic/pp3/abc9_unmap.v");
                         } else {
                             run("abc -lut 6 ", "(for qlf_k6n10, qlf_k6n10f)");
                         }
@@ -728,17 +734,17 @@ struct SynthQuickLogicPass : public ScriptPass {
                             run("techmap -map " + lib_path + family + "/abc9_map.v", "   (for pp3)");
                             run("abc9 -maxlut 4 -dff", "                             (for pp3)");
                             run("techmap -map " + lib_path + family + "/abc9_unmap.v", " (for pp3)");
-                        } 
+                        }
                         if (help_mode || !abc9) {
                             std::string lutDefs = "" + lib_path + family + "/lutdefs.txt";
                             rewrite_filename(lutDefs);
 
-                            std::string abcArgs = help_mode ? "<script>" :
-                                                "+read_lut," + lutDefs +
-                                                ";"
-                                                "strash;ifraig;scorr;dc2;dretime;strash;dch,-f;if;mfs2;" // Common Yosys ABC script
-                                                "sweep;eliminate;if;mfs;lutpack;"                        // Optimization script
-                                                "dress";                                                 // "dress" to preserve names
+                            std::string abcArgs = help_mode ? "<script>"
+                                                            : "+read_lut," + lutDefs +
+                                                                ";"
+                                                                "strash;ifraig;scorr;dc2;dretime;strash;dch,-f;if;mfs2;" // Common Yosys ABC script
+                                                                "sweep;eliminate;if;mfs;lutpack;"                        // Optimization script
+                                                                "dress";                                                 // "dress" to preserve names
 
                             run("abc -script " + abcArgs, "                            (for pp3 if -no_abc9)");
                         }
@@ -752,7 +758,7 @@ struct SynthQuickLogicPass : public ScriptPass {
         }
 
         if (check_label("map_cells", "(for pp3, qlf_k6n10)") && (help_mode || family == "qlf_k6n10" || family == "pp3")) {
-            if(!synplify){
+            if (!synplify) {
                 std::string techMapArgs;
                 techMapArgs = "-map " + lib_path + family + "/lut_map.v";
                 run("techmap " + techMapArgs);
@@ -761,7 +767,7 @@ struct SynthQuickLogicPass : public ScriptPass {
         }
 
         if (check_label("check")) {
-            if(!synplify){
+            if (!synplify) {
                 run("autoname");
                 run("hierarchy -check");
                 run("stat");
@@ -770,14 +776,14 @@ struct SynthQuickLogicPass : public ScriptPass {
         }
 
         if (check_label("iomap", "(for pp3)") && (family == "pp3" || help_mode)) {
-            if(!synplify){
+            if (!synplify) {
                 run("clkbufmap -inpad ckpad Q:P");
                 run("iopadmap -bits -outpad outpad A:P -inpad inpad Q:P -tinoutpad bipad EN:Q:A:P A:top");
             }
         }
 
         if (check_label("finalize")) {
-            if(!synplify){
+            if (!synplify) {
                 if (help_mode || family == "pp3") {
                     run("setundef -zero -params -undriven", "(for pp3)");
                 }
@@ -792,29 +798,28 @@ struct SynthQuickLogicPass : public ScriptPass {
             }
         }
 
-        if (check_label("map_synplify", "(if -synplify)")){
+        if (check_label("map_synplify", "(if -synplify)")) {
             std::string family_path = " " + lib_path + family;
             if (family == "qlf_k6n10f") {
-                if(synplify){
+                if (synplify) {
                     run("techmap -autoproc -map" + family_path + "/synplify_map.v");
                     run("stat");
                     run("clean");
                 }
-                    
-            }if (check_label("blif", "(if -blif)")) {
-            if (help_mode || !blif_file.empty()) {
-                run(stringf("write_blif -param %s", help_mode ? "<file-name>" : blif_file.c_str()));
+            }
+            if (check_label("blif", "(if -blif)")) {
+                if (help_mode || !blif_file.empty()) {
+                    run(stringf("write_blif -param %s", help_mode ? "<file-name>" : blif_file.c_str()));
+                }
             }
         }
-        }
-
-        
 
         if (check_label("edif", "(if -edif)") && (help_mode || !edif_file.empty())) {
             run("splitnets -ports -format ()");
             run("quicklogic_eqn");
 
-            run(stringf("write_ql_edif -nogndvcc -attrprop -pvector par %s %s", this->currmodule.c_str(), help_mode ? "<file-name>" : edif_file.c_str()));
+            run(stringf("write_ql_edif -nogndvcc -attrprop -pvector par %s %s", this->currmodule.c_str(),
+                        help_mode ? "<file-name>" : edif_file.c_str()));
         }
 
         if (check_label("verilog", "(if -verilog)")) {
@@ -822,7 +827,6 @@ struct SynthQuickLogicPass : public ScriptPass {
                 run("write_verilog -noattr -nohex " + (help_mode ? "<file-name>" : verilog_file));
             }
         }
-
     }
 
 } SynthQuicklogicPass;
