@@ -18,6 +18,7 @@
 #include "kernel/log.h"
 #include "kernel/register.h"
 #include "kernel/rtlil.h"
+#include <tcl.h>
 
 USING_YOSYS_NAMESPACE
 
