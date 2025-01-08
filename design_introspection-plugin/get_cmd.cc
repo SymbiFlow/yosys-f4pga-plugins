@@ -1,4 +1,5 @@
 #include "get_cmd.h"
+#include <tcl.h>
 
 USING_YOSYS_NAMESPACE
 
